@@ -1,5 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
-import { User } from '../models/User';
+import { NewUser, User } from '../models/User';
 import * as SecureStore from 'expo-secure-store';
 import API, { setAuthToken } from './api';
 
@@ -18,11 +18,8 @@ export const login = async (
   email: string,
   password: string
 ): Promise<{ user: User; token: string }> => {
-  const res = await API.post<LoginResponse>('/auth/login', { email, password });
-  console.log('Response: ', res);
-  console.log('Full login response:', res.data);
+  const res = await API.post<LoginResponse>('/api/v1/auth/login', { email, password });
   const { user, token } = res.data;
-  console.log('Received token:', token);
 
   if (!token || typeof token !== 'string') {
     console.error('Invalid token format');
@@ -41,8 +38,8 @@ export const login = async (
   return { user, token };
 };
 
-export const signup = async (userToCreate: User) => {
-  const res = await API.post('/auth/signup', userToCreate);
+export const signup = async (userToCreate: NewUser): Promise<{user: User, token: string}> => {
+  const res = await API.post('/api/v1/auth/sign-up', userToCreate);
   const { user, token } = res.data;
 
   const decodedToken = jwtDecode<{ exp: number }>(token);

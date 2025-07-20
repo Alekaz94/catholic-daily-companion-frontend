@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { AuthStackParamList } from '../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
-import { User } from '../models/User';
+import { NewUser } from '../models/User';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -13,7 +13,7 @@ type SignupNavigationProp = NativeStackNavigationProp<
 >;
 
 const SignUpScreen = () => {
-  const { signup } = useAuth();
+  const { signup, user } = useAuth();
   const navigation = useNavigation<SignupNavigationProp>();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -38,21 +38,25 @@ const SignUpScreen = () => {
     }
 
     try {
-      const newUser: User = {
+      const newUser: NewUser = {
         firstName,
         lastName,
         email,
         password,
-        role: 'User',
       };
       await signup(newUser);
       alert('Signup successfull!');
-      navigation.navigate('Home');
     } catch (err: any) {
       console.error('Error:', err.response?.data || err.message);
       alert(err.response?.data || 'Something went wrong!');
     }
   };
+
+  useEffect(() => {
+    if(user) {
+      navigation.navigate('Home');
+    }
+  }, [user])
 
   return (
     <View style={styles.container}>

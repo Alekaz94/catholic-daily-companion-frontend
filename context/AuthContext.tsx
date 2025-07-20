@@ -5,7 +5,7 @@ import {
   signup as signUpService,
   loadUserFromStorage,
 } from '../services/AuthService';
-import { User } from '../models/User';
+import { NewUser, User } from '../models/User';
 
 interface AuthContextType {
   user: User | null;
@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(user);
   };
 
-  const signup = async (userToCreate: User) => {
+  const signup = async (userToCreate: NewUser) => {
     const { user, token } = await signUpService(userToCreate);
     setUser(user);
   };
