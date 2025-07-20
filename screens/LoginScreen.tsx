@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthStackParamList } from '../navigation/types';
+
+type LoginNavigationProp = NativeStackNavigationProp<
+  AuthStackParamList,
+  'Login'
+>;
 
 const LoginScreen = () => {
   const { login } = useAuth();
+  const navigation = useNavigation<LoginNavigationProp>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
       await login(email, password);
+      console.log('Logging in with user: ', email, password);
       alert('Login successfull!');
-    } catch (err) {
-      alert('Invalid credentials!');
+    } catch (err: any) {
+      console.error('Error:', err.response?.data || err.message);
+      alert(err.response?.data || 'Something went wrong!');
     }
   };
 
@@ -22,19 +33,27 @@ const LoginScreen = () => {
       <Text style={styles.title}>Catholic Daily Companion</Text>
       <TextInput
         placeholder="Email"
-        value="email"
-        onChangeText={setEmail}
+        value={email}
+        onChangeText={(value) => setEmail(value)}
         autoCapitalize="none"
         style={styles.input}
       />
       <TextInput
         placeholder="Password"
-        value="password"
-        onChangeText={setPassword}
+        value={password}
+        onChangeText={(value) => setPassword(value)}
         secureTextEntry
         style={styles.input}
       />
-      <Button title="Log In" onPress={handleLogin} />
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Signup')}
+      >
+        <Text style={styles.buttonText}>Create an account</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -50,5 +69,18 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
+  },
+  button: {
+    backgroundColor: '#6200ee',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

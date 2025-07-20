@@ -1,80 +1,56 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import * as SecureStore from 'expo-secure-store';
-import API, { setAuthToken } from '../services/api';
-import { jwtDecode } from 'jwt-decode';
+import {
+  login as loginService,
+  logout as logoutService,
+  signup as signUpService,
+  loadUserFromStorage,
+} from '../services/AuthService';
+import { User } from '../models/User';
 
-interface AuthContextProps {
-  user: string | null;
+interface AuthContextType {
+  user: User | null;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  signup: (user: User) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
-type JwtPayload = {
-  sub: string;
-  exp: number;
-  iat: number;
-};
-
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadToken = async () => {
-      try {
-        const token = await SecureStore.getItemAsync('token');
-        if (token) {
-          const decodedToken = jwtDecode<JwtPayload>(token);
-
-          if (decodedToken.exp * 1000 < Date.now()) {
-            await SecureStore.deleteItemAsync('token');
-            setAuthToken(null);
-            setUser(null);
-            return;
-          }
-
-          setAuthToken(token);
-          setUser(decodedToken.sub);
-        }
-      } catch (err) {
-        console.error('Invalid token: ', err);
-        await SecureStore.deleteItemAsync('token');
-        setAuthToken(null);
-        setUser(null);
-        return;
-      }
-    };
-    loadToken();
-  }, []);
+  const [user, setUser] = useState<User | null>(null);
 
   const login = async (email: string, password: string) => {
-    const res = await API.post('auth/login', { email, password });
-    const { token } = res.data;
-    const decodedToken = jwtDecode<JwtPayload>(token);
-
-    if (decodedToken.exp * 1000 < Date.now()) {
-      await SecureStore.deleteItemAsync('token');
-      setAuthToken(null);
-      setUser(null);
-      return;
+    const result = await loginService(email, password);
+    if (!result) {
+      throw new Error('Login failed: no response from login service');
     }
-
-    await SecureStore.setItemAsync('token', token);
-    setAuthToken(token);
-    setUser(decodedToken.sub);
+    const { user, token } = result;
+    setUser(user);
   };
 
   const logout = async () => {
-    await SecureStore.deleteItemAsync('token');
-    setAuthToken(null);
+    await logoutService();
     setUser(null);
   };
 
+  const bootstrapUser = async () => {
+    const user = await loadUserFromStorage();
+    setUser(user);
+  };
+
+  const signup = async (userToCreate: User) => {
+    const { user, token } = await signUpService(userToCreate);
+    setUser(user);
+  };
+
+  useEffect(() => {
+    bootstrapUser();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, signup, logout }}>
       {children}
     </AuthContext.Provider>
   );
