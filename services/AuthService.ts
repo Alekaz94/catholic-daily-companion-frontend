@@ -2,17 +2,7 @@ import { jwtDecode } from 'jwt-decode';
 import { NewUser, User } from '../models/User';
 import * as SecureStore from 'expo-secure-store';
 import API, { setAuthToken } from './api';
-
-export interface LoginResponse {
-  token: string;
-  user: User;
-}
-
-export interface JwtPayload {
-  sub: string;
-  exp: number;
-  iat: number;
-}
+import { LoginResponse } from '../models/Login';
 
 export const login = async (
   email: string,
@@ -38,7 +28,7 @@ export const login = async (
   return { user, token };
 };
 
-export const signup = async (userToCreate: NewUser): Promise<{user: User, token: string}> => {
+export const signup = async (userToCreate: NewUser): Promise<{user: User; token: string}> => {
   const res = await API.post('/api/v1/auth/sign-up', userToCreate);
   const { user, token } = res.data;
 
@@ -78,5 +68,3 @@ export const loadUserFromStorage = async () => {
   setAuthToken(token);
   return JSON.parse(userString);
 };
-
-export const signUp = async () => {};

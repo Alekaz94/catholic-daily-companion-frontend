@@ -3,7 +3,11 @@ import { useAuth } from '../context/AuthContext';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
+import JournalEntryListScreen from "../screens/JournalEntryListScreen"
 import { AuthStackParamList } from '../navigation/types';
+import SaintScreen from '../screens/SaintScreen';
+import DailyReadingScreen from '../screens/DailyReadingScreen';
+import JournalEntryCreateScreen from '../screens/JournalEntryCreateScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -15,6 +19,10 @@ const AppNavigator = () => {
       {user ? (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Saint" component={SaintScreen} />
+          <Stack.Screen name="Reading" component={DailyReadingScreen} />
+          <Stack.Screen name="Journal" component={JournalEntryListScreen} />
+          <Stack.Screen name="CreateJournalEntry" component={JournalEntryCreateScreen} />
         </>
       ) : (
         <>
