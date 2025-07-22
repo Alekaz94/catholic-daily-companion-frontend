@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { JournalEntry } from "../models/JournalEntry";
-import { deleteEntry, getAllEntries } from "../services/JournalEntryService";
+import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry";
+import { deleteEntry, getAllEntries, updateEntry } from "../services/JournalEntryService";
 import { FlatList, TouchableOpacity, View, Text, StyleSheet, Button } from "react-native";
 import EntryDetailModal from "../components/EntryDetailModal";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import JournalEntryUpdateModal from "../components/JournalEntryUpdateModal";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -16,6 +17,8 @@ const JournalEntryListScreen = () => {
     const [entries, setEntries] = useState<JournalEntry[]>([]);
     const [selectedEntry, setSelectedEntry] = useState<JournalEntry | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const [editModalVisible, setEditModalVisible] = useState(false);
+    const [entryToEdit, setEntryToEdit] = useState<JournalEntry | null>(null);
     const navigation = useNavigation<JournalEntryListNavigationProp>();
 
     const fetchEntries = async () => {
@@ -25,6 +28,11 @@ const JournalEntryListScreen = () => {
 
     const handleDelete = async (id: string) => {
         await deleteEntry(id);
+        fetchEntries();
+    }
+
+    const handleUpdate = async (id: string, entryToUpdate: UpdateJournalEntry) => {
+        await updateEntry(id, entryToUpdate);
         fetchEntries();
     }
 
@@ -45,27 +53,31 @@ const JournalEntryListScreen = () => {
                 data={entries} 
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                    <TouchableOpacity onPress={() => {
-                        setSelectedEntry(item);
-                        setModalVisible(true);
-                    }}>
-                        <View style={styles.flatlistContainer}>
-                            <View style={{flexDirection: "row"}}>
-                                <View style={styles.journalCardUpdateAndDelete}>
-                                    <Text style={styles.entryTitle}>{item.title}</Text>
-                                    <TouchableOpacity onPress={() => {"Navigate to update screen"}}>
-                                    <Text style={styles.text}>Update</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => handleDelete(item.id)}>
-                                        <Text style={styles.text}>Delete</Text>
-                                    </TouchableOpacity>
-                                    <Text>{item.date}</Text>
-                                </View>
-                            </View>
+                    <View style={styles.flatlistContainer}>
+                        <TouchableOpacity onPress={() => {
+                            setSelectedEntry(item);
+                            setModalVisible(true);
+                        }}>
+                            <Text style={styles.entryTitle}>{item.title}</Text>
                             <Text numberOfLines={1}>{item.content}</Text>
+                            <Text style={styles.entryDate}>{item.date}</Text>
+                        </TouchableOpacity>
+                        
+                        <View style={styles.actionButtons}>
+                            <TouchableOpacity onPress={() => {
+                                setEntryToEdit(item);
+                                setEditModalVisible(true);
+                                }}
+                            >
+                                <Text style={styles.editText}>Edit</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                                <Text style={styles.deleteText}>Delete</Text>
+                            </TouchableOpacity>  
                         </View>
-                    </TouchableOpacity>
-                    )}
+                    </View>                
+                )}
             />
 
             <EntryDetailModal 
@@ -73,37 +85,50 @@ const JournalEntryListScreen = () => {
                 entry={selectedEntry}
                 onClose={() => setModalVisible(false)} 
             />
+
+            <JournalEntryUpdateModal 
+                visible={editModalVisible}
+                entry={entryToEdit}
+                onClose={() => setEditModalVisible(false)}
+                onUpdate={handleUpdate}
+            />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { 
-        flex: 1, 
-        padding: 20, 
-        backgroundColor: "#fff" 
+    container: {
+        flex: 1
+    },
+    entryContainer: { 
+        paddingVertical: 10
     },
     entryTitle: {
-        fontSize: 14,
-        marginRight: 5,
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    entryDate: {
+        fontSize: 10,
+        color: "gray",
+        marginTop: 4
+    },
+    actionButtons: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 8
+    },
+    editText: {
+        color: "blue",
+        marginRight: 16
+    },
+    deleteText: {
+        color: "red"
     },
     flatlistContainer: { 
         padding: 6, 
         borderBottomWidth: 1,
         borderBottomColor: 
         "#ccc" 
-    },
-    journalCardUpdateAndDelete: { 
-        flexDirection: "row", 
-        justifyContent: "space-evenly",
-        padding: 5,
-        backgroundColor: "lightblue",
-        marginBottom: 4, 
-        marginLeft: 2
-    },
-    text: { 
-        marginRight: 8, 
-        color: "#007BFF"
     },
 })
 

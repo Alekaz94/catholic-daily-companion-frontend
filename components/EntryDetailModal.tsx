@@ -18,7 +18,7 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
             <View style={styles.modalView}>
                 <Text style={styles.modalTitle}>{entry.title}</Text>
                 <Text style={styles.modalDate}>{entry.date}</Text>
-                <Text>{entry.content}</Text>
+                <Text style={styles.modalContent}>{entry.content}</Text>
 
                 <Button title="Close" onPress={onClose} />
             </View>
@@ -27,9 +27,22 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
 }
 
 const styles = StyleSheet.create({
-    modalView: {flex: 1, padding: 20},
-    modalTitle: {fontSize: 20, fontWeight: "bold"},
-    modalDate: {marginVertical: 10, fontSize: 10}
+    modalView: {
+        flex: 1, 
+        padding: 20
+    },
+    modalTitle: {
+        fontSize: 20, 
+        fontWeight: "bold"
+    },
+    modalDate: {
+        marginVertical: 10, 
+        fontSize: 10
+    },
+    modalContent: {
+        marginBottom: 16,
+        padding: 10
+    }
 })
 
 export default EntryDetailModal;
