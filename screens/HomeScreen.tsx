@@ -16,6 +16,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Button title="My journal" onPress={() => navigation.navigate("Journal")}/>
+      <Button title="Saints" onPress={() => navigation.navigate("Saint")}/>
       <LogoutButton />
       <Text>Welcome to Catholic Daily Companion</Text>
     </SafeAreaView>

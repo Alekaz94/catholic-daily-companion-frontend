@@ -100,9 +100,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    entryContainer: { 
-        paddingVertical: 10
-    },
     entryTitle: {
         fontSize: 16,
         fontWeight: "bold",
