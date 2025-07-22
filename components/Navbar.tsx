@@ -4,9 +4,13 @@ import NavButton from "./NavButton";
 import { Ionicons } from '@expo/vector-icons';
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { AuthStackParamList } from "../navigation/types";
+
+type NavbarNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
 const Navbar = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavbarNavigationProp>();
 
     return (
         <View style={styles.container}>
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
         backgroundColor: "#6200ee",
-        paddingTop: 40,
+        paddingTop: 10,
         paddingBottom: 10,
         paddingHorizontal: 10,    
     },

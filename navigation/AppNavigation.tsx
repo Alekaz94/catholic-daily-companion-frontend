@@ -8,6 +8,7 @@ import { AuthStackParamList } from '../navigation/types';
 import SaintScreen from '../screens/SaintScreen';
 import DailyReadingScreen from '../screens/DailyReadingScreen';
 import JournalEntryCreateScreen from '../screens/JournalEntryCreateScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -23,6 +24,7 @@ const AppNavigator = () => {
           <Stack.Screen name="Reading" component={DailyReadingScreen} />
           <Stack.Screen name="Journal" component={JournalEntryListScreen} />
           <Stack.Screen name="CreateJournalEntry" component={JournalEntryCreateScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
         </>
       ) : (
         <>
