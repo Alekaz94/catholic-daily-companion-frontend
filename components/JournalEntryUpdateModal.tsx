@@ -96,7 +96,11 @@ const styles = StyleSheet.create({
         borderRadius: 6
     },
     multiline: {
-        height: 100,
+        borderWidth: 1,
+        padding: 10,
+        marginBottom: 12,
+        borderRadius: 6,
+        height: 200,
         textAlignVertical: "top"
     }
 })

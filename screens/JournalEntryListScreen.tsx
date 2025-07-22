@@ -7,6 +7,7 @@ import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import JournalEntryUpdateModal from "../components/JournalEntryUpdateModal";
+import { Ionicons } from '@expo/vector-icons';
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -69,11 +70,11 @@ const JournalEntryListScreen = () => {
                                 setEditModalVisible(true);
                                 }}
                             >
-                                <Text style={styles.editText}>Edit</Text>
+                                <Ionicons name="pencil-outline" size={20} />
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={() => handleDelete(item.id)}>
-                                <Text style={styles.deleteText}>Delete</Text>
+                                <Ionicons name="trash-outline" size={20} color="red" />
                             </TouchableOpacity>  
                         </View>
                     </View>                
@@ -117,9 +118,6 @@ const styles = StyleSheet.create({
     editText: {
         color: "blue",
         marginRight: 16
-    },
-    deleteText: {
-        color: "red"
     },
     flatlistContainer: { 
         padding: 6, 

@@ -18,16 +18,14 @@ const LogoutButton = () => {
 
 const styles = StyleSheet.create({
     Button: {
-        backgroundColor: '#6200ee',
         paddingVertical: 12,
-        paddingHorizontal: 20,
         borderRadius: 8,
         marginTop: 10,
         alignItems: 'center',
       },
       ButtonText: {
         color: '#fff',
-        fontSize: 16,
+        fontSize: 10,
         fontWeight: 'bold',
       },
 })
