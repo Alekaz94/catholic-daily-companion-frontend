@@ -10,7 +10,7 @@ import { NewUser, User } from '../models/User';
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
-  signup: (user: User) => Promise<void>;
+  signup: (user: NewUser) => Promise<void>;
   logout: () => Promise<void>;
 }
 
