@@ -13,6 +13,11 @@ export const getSpecificSaint = async (id: string): Promise<Saint> => {
     return res.data;
 }
 
+export const getSaintOfTheDay = async (): Promise<Saint> => {
+    const res = await API.get<Saint>(`${endpoint}/today`);
+    return res.data;
+}
+
 export const createSaint = async (saint: NewSaint): Promise<Saint> => {
     const res = await API.post<Saint>(endpoint, saint);
     return res.data;
