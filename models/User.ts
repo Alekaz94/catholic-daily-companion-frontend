@@ -15,5 +15,6 @@ export interface NewUser {
 }
 
 export interface UserPasswordChange {
-  password: string;
+  currentPassword: string;
+  newPassword: string;
 }

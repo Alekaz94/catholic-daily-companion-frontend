@@ -40,13 +40,13 @@ const ProfileScreen = () => {
         }
 
         try {
-            await changePassword(user.id, { password: newPassword });
+            await changePassword(user.id, { currentPassword, newPassword});
             Alert.alert("Password updated successfully!");
             setCurrentPassword("");
             setNewPassword("");
         } catch (err: any) {
             console.error('Error:', err.response?.data || err.message);
-            Alert.alert(err.response?.data || 'Something went wrong!');
+            Alert.alert(err.response?.data || 'Did you type in your current password correct?');
         }
     }
 
