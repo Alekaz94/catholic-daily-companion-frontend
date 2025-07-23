@@ -5,6 +5,10 @@ import { DailyReading } from "../models/DailyReading";
 import { getAllDailyReadings } from "../services/DailyReadingService";
 import { FlatList, TouchableOpacity, View, Text, StyleSheet} from "react-native";
 import DailyReadingDetailModal from "../components/DailyReadingDetailModal";
+import Navbar from "../components/Navbar";
+import NavbarReading from "../components/NavbarReading";
+import { Typography } from "../styles/Typography";
+import { Layout } from "../styles/Layout";
 
 type DailyReadingNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -26,29 +30,32 @@ const DailyReadingScreen = () => {
     }, [])
 
     return (
-        <View style={styles.container}>
-        <Text style={styles.title}>Readings</Text>
-        <FlatList
-            data={readings}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-                <View style={styles.flatlistContainer}>
-                    <TouchableOpacity onPress={() => {
-                        setSelectedReading(item);
-                        setModalVisible(true);
-                    }}>
-                        <Text style={styles.readingDate}>Reading from {item.createdAt}</Text>
-                    </TouchableOpacity>
-                </View>
-            )}
-        />
+        <View style={{flex: 1}}>
+            <NavbarReading />
+            <View style={Layout.container}>
+            <Text style={[Typography.title, {alignSelf: "center"}]}>Readings</Text>
+           <FlatList
+                data={readings}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => (
+                    <View style={styles.flatlistContainer}>
+                        <TouchableOpacity onPress={() => {
+                            setSelectedReading(item);
+                            setModalVisible(true);
+                        }}>
+                          <Text style={styles.readingDate}>Reading from {item.createdAt}</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+            />
 
-        <DailyReadingDetailModal 
-            visible={modalVisible}
-            reading={selectedReading}
-            onClose={() => setModalVisible(false)}
-        />
-    </View>
+            <DailyReadingDetailModal 
+                visible={modalVisible}
+                reading={selectedReading}
+                onClose={() => setModalVisible(false)}
+            />
+            </View>
+        </View>
     );
 }
 

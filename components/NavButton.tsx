@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Layout } from "../styles/Layout";
 
 type Props = {
     title: string;
@@ -12,26 +13,11 @@ const NavButton: React.FC<Props> = ({ title, screen }: { title: string; screen: 
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
 
     return (
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(screen)}>
-            <Text style={styles.buttonText}>{title}</Text>
+        <TouchableOpacity style={Layout.navbarButton} onPress={() => navigation.navigate(screen)}>
+            <Text style={Layout.navbarButtonText}>{title}</Text>
         </TouchableOpacity>
     );
   };
-
-  const styles = StyleSheet.create({
-    button: {
-        paddingVertical: 12,
-        paddingHorizontal: 10,
-        borderRadius: 8,
-        marginTop: 10,
-        alignItems: 'center',
-      },
-      buttonText: {
-        color: '#fff',
-        fontSize: 10,
-        fontWeight: 'bold',
-      },
-})
 
   export default NavButton;
   

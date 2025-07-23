@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal, View, Text, Button, StyleSheet } from "react-native";
 import { JournalEntry } from "../models/JournalEntry";
+import { Typography } from '../styles/Typography';
+import { Layout } from '../styles/Layout';
 
 interface Props {
     visible: boolean;
@@ -15,10 +17,10 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
 
     return (
         <Modal visible={visible} animationType='slide'>
-            <View style={styles.modalView}>
-                <Text style={styles.modalTitle}>{entry.title}</Text>
-                <Text style={styles.modalDate}>{entry.date}</Text>
-                <Text style={styles.modalContent}>{entry.content}</Text>
+            <View style={Layout.container}>
+                <Text style={Typography.title}>{entry.title}</Text>
+                <Text style={Typography.small}>{entry.date}</Text>
+                <Text style={[Typography.body, {marginTop: 20, marginBottom: 20}]}>{entry.content}</Text>
 
                 <Button title="Close" onPress={onClose} />
             </View>

@@ -5,6 +5,10 @@ import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from '../context/AuthContext';
 import { changePassword } from '../services/UserService';
+import { Colors } from '../styles/colors';
+import { Layout } from '../styles/Layout';
+import { Typography } from '../styles/Typography';
+import Navbar from '../components/Navbar';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -17,6 +21,15 @@ const ProfileScreen = () => {
     const [newPassword, setNewPassword] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
     const navigation = useNavigation<ProfileNavigationProp>();
+
+    const isFormValid = () => {
+      return (
+        currentPassword && 
+        newPassword &&
+        currentPassword !== newPassword &&
+        newPassword.length >= 8
+      )
+    }
 
     const handlePasswordChange = async () => {
         if (!user?.id) {
@@ -51,81 +64,42 @@ const ProfileScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
-        <Text style={styles.title}>My Profile</Text>
-        <Text style={styles.label}>Email:</Text>
-        <Text style={styles.value}>{user?.email ?? 'Unknown'}</Text>
+        <View style={{flex: 1}}>
+            <Navbar />
+            <View style={Layout.container}>
 
-        <Text style={styles.label}>Change Password</Text>
-        <Text style={styles.label}>Current Password:</Text>
+            <Text style={Typography.title}>My Profile</Text>
+            <Text style={Typography.label}>Email:</Text>
+            <Text style={Typography.body}>{user?.email ?? 'Unknown'}</Text>
+            <Text style={{ margin: 10 }}></Text>
+            <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold"}]}>Change Password</Text>
+            <Text style={Typography.label}>Current Password:</Text>
         <TextInput
             secureTextEntry
-            style={styles.input}
+            style={Layout.input}
             placeholder="Current Password"
             value={currentPassword}
             onChangeText={(value) => setCurrentPassword(value)}
         />
 
-        <Text style={styles.label}>New Password:</Text>
+        <Text style={Typography.label}>New Password:</Text>
         <TextInput
             secureTextEntry
-            style={styles.input}
+            style={Layout.input}
             placeholder="New Password"
             value={newPassword}
             onChangeText={(value) => setNewPassword(value)}
         />
 
-        <TouchableOpacity style={styles.button} onPress={handlePasswordChange}>
-            <Text style={styles.buttonText}>Update Password</Text>
+        <TouchableOpacity style={[Layout.button, !isFormValid && {backgroundColor: "gray"}]} 
+          onPress={handlePasswordChange}
+          disabled={!isFormValid()}
+        >
+            <Text style={Layout.buttonText}>Update Password</Text>
         </TouchableOpacity>
+        </View>
     </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 24,
-      backgroundColor: '#fff',
-    },
-    title: {
-      fontSize: 26,
-      fontWeight: 'bold',
-      marginBottom: 24,
-      alignSelf: 'center',
-    },
-    label: {
-      fontSize: 16,
-      fontWeight: '600',
-      marginTop: 12,
-      marginBottom: 4,
-    },
-    value: {
-      fontSize: 16,
-      color: '#333',
-      marginBottom: 12,
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: '#ccc',
-      borderRadius: 8,
-      padding: 10,
-      fontSize: 16,
-      backgroundColor: '#f9f9f9',
-      marginBottom: 12,
-    },
-    button: {
-      backgroundColor: '#6200ee',
-      paddingVertical: 14,
-      borderRadius: 8,
-      alignItems: 'center',
-      marginTop: 16,
-    },
-    buttonText: {
-      color: '#fff',
-      fontSize: 16,
-      fontWeight: 'bold',
-    },
-  });
 
 export default ProfileScreen;

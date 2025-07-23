@@ -1,6 +1,8 @@
 import React from "react";
 import { Modal, View, Text, StyleSheet, Button } from "react-native";
 import { DailyReading } from "../models/DailyReading";
+import { Layout } from "../styles/Layout";
+import { Typography } from "../styles/Typography";
 
 interface Props {
     visible: boolean;
@@ -15,13 +17,17 @@ const DailyReadingDetailModal: React.FC<Props> = ({visible, reading, onClose}) =
 
     return (
         <Modal visible={visible} animationType='slide'>
-            <View style={styles.modalView}>
-                <Text style={styles.modalTitle}>Today's readings</Text>
-                <Text style={styles.modalDate}>{reading.createdAt}</Text>
-                <Text style={styles.modalReadings}>First reading: {reading.firstReading}</Text>
-                <Text style={styles.modalReadings}>Second reading: {reading.secondReading}</Text>
-                <Text style={styles.modalReadings}>Psalm: {reading.psalm}</Text>
-                <Text style={styles.modalReadings}>Gospel reading: {reading.gospel}</Text>
+            <View style={Layout.container}>
+                <Text style={Typography.title}>Today's readings</Text>
+                <Text style={Typography.small}>{reading.createdAt}</Text>
+                <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center"}]}>First reading </Text>
+                <Text style={Typography.body}>{reading.firstReading}</Text>
+                <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center"}]}>Second reading </Text>
+                <Text style={Typography.body}>{reading.secondReading}</Text>
+                <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center"}]}>Psalm </Text>
+                <Text style={Typography.body}>{reading.psalm}</Text>
+                <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center"}]}>Gospel reading </Text>
+                <Text style={[Typography.body, {marginBottom: 20}]}>{reading.gospel}</Text>
             
                 <Button title="Close" onPress={onClose} />
             </View>

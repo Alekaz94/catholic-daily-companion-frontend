@@ -6,6 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { NewUser } from '../models/User';
+import { Layout } from '../styles/Layout';
+import { Typography } from '../styles/Typography';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -59,70 +61,45 @@ const SignUpScreen = () => {
   }, [user])
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Catholic Daily Companion</Text>
+    <View style={[Layout.container, {justifyContent: "center", alignContent: "center"}]}>
+      <Text style={Typography.title}>Catholic Daily Companion</Text>
       <TextInput
         placeholder="Firstname"
         value={firstName}
         onChangeText={(value) => setFirstName(value)}
-        style={styles.input}
+        style={Layout.input}
       />
       <TextInput
         placeholder="Lastname"
         value={lastName}
         onChangeText={(value) => setLastName(value)}
-        style={styles.input}
+        style={Layout.input}
       />
       <TextInput
         placeholder="Email"
         value={email}
         onChangeText={(value) => setEmail(value)}
         autoCapitalize="none"
-        style={styles.input}
+        style={Layout.input}
       />
       <TextInput
         placeholder="Password"
         value={password}
         onChangeText={(value) => setPassword(value)}
         secureTextEntry
-        style={styles.input}
+        style={Layout.input}
       />
-      <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-        <Text style={styles.buttonText}>Sign up</Text>
+      <TouchableOpacity style={Layout.button} onPress={handleSignUp}>
+        <Text style={Layout.buttonText}>Sign up</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.button}
+        style={Layout.button}
         onPress={() => navigation.navigate('Login')}
       >
-        <Text style={styles.buttonText}>Already have an account?</Text>
+        <Text style={Layout.buttonText}>Already have an account?</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 export default SignUpScreen;
-
-const styles = StyleSheet.create({
-  container: { padding: 20, flex: 1, justifyContent: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
-  button: {
-    backgroundColor: '#6200ee',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});

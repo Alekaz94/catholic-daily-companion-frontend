@@ -10,6 +10,8 @@ import { getSaintOfTheDay } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
 import defaultSaintImage from '../assets/images/default_saint.png';
 import Navbar from '../components/Navbar';
+import { Typography } from '../styles/Typography';
+import { Layout } from '../styles/Layout';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -46,34 +48,33 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Navbar />
-      <Text style={styles.title}>Welcome to Catholic Daily Companion</Text>
-      <View style={styles.view}>
-        <Text style={styles.title}>Today is the feast day of:</Text>
-        {!saint ? <Text style={styles.NoSaintOrReadingFoundText}>No Saint's feast day today.</Text>
+      <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
+      <View style={[Layout.container, {marginBottom: -20}]}>
+        <Text style={[Typography.label, {fontSize: 20}]}>Today is the feast day of {saint?.name}</Text>
+        {!saint ? <Text style={[Typography.label, {fontSize: 20}]}>No Saint's feast day today.</Text>
           :
-          <TouchableOpacity onPress={() => {
+          <TouchableOpacity style={Layout.card} onPress={() => {
             setModalVisible(true);
           }}>
-            <Text style={styles.saintName}>{saint?.name}</Text>
-            <Image style={styles.saintImage} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
+            <Image style={Layout.image} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
           </TouchableOpacity> 
         }
       </View>
 
-      <View style={styles.view}>
-        <Text style={styles.title}>Today's readings</Text>
+      <View style={Layout.container}>
+        <Text style={[Typography.label, {fontSize: 20}]}>Today's readings</Text>
         {!reading ? (
-          <Text style={styles.NoSaintOrReadingFoundText}>No reading found for today!</Text>
+          <Text style={Typography.small}>No reading found for today!</Text>
         ) : (
           <>
-            <Text style={styles.readingTitle}>First reading </Text>
-            <Text style={styles.readings}>{reading?.firstReading}</Text>
-            <Text style={styles.readingTitle}>Second reading </Text>
-            <Text style={styles.readings}>{reading?.secondReading}</Text>
-            <Text style={styles.readingTitle}>Psalm </Text>
-            <Text style={styles.readings}>{reading?.psalm}</Text>
-            <Text style={styles.readingTitle}>Gospel reading </Text>
-            <Text style={styles.readings}>{reading?.gospel}</Text> 
+            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5}]}>First reading </Text>
+            <Text style={Typography.body}>{reading?.firstReading}</Text>
+            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5}]}>Second reading </Text>
+            <Text style={Typography.body}>{reading?.secondReading}</Text>
+            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5}]}>Psalm </Text>
+            <Text style={Typography.body}>{reading?.psalm}</Text>
+            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5}]}>Gospel reading </Text>
+            <Text style={Typography.body}>{reading?.gospel}</Text> 
           </>
         )}     
       </View>
@@ -86,51 +87,5 @@ const HomeScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  view: {
-    flex: 1, 
-    flexDirection: "column",
-    alignContent: "center",
-    margin: 5
-  },
-  saintImage: { 
-    width: 150, 
-    height: 150, 
-    borderRadius: 50, 
-    alignSelf: "center"
-  },
-  title: {
-    fontSize: 16, 
-    fontWeight: "bold",
-    alignSelf: "center",
-    margin: 2
-  },
-  NoSaintOrReadingFoundText: {
-    fontSize: 12,
-    alignSelf: "center"
-  },
-  saintName: {
-    fontSize: 12,
-    alignSelf: "center"
-  },
-  readingTitle: {
-    fontSize: 12,
-    alignSelf: "center",
-    fontWeight: "600"
-  },
-  text: {
-  fontSize: 16
-  },
-  date: {
-    marginVertical: 10, 
-    fontSize: 10
-  },
-  readings: {
-    fontSize: 14,
-    marginBottom: 16,
-    padding: 2
-  }
-})
 
 export default HomeScreen;

@@ -2,6 +2,8 @@ import React from "react";
 import { Modal, View, StyleSheet, Button, Text, Image } from "react-native";
 import { Saint } from "../models/Saint";
 import defaultSaintImage from '../assets/images/default_saint.png';
+import { Typography } from "../styles/Typography";
+import { Layout } from "../styles/Layout";
 
 interface Props {
     visible: boolean;
@@ -41,49 +43,18 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
 
     return (
         <Modal visible={visible} animationType='slide'>
-            <View style={styles.modalView}>
-            <Image style={styles.modalImage} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
-            <Text style={styles.modalTitle}>{saint.name}</Text>
-            <Text style={styles.modalText}>Patron of {saint.patronage}</Text>
-            <Text style={styles.modalDate}>ca {saint.birthYear} - ca {saint.deathYear}</Text>
-            <Text style={styles.modalDate}>Feast Day: {formatFeastDay(saint.feastDay)}</Text>
-            <Text style={styles.modalDate}>Canonized: {saint.canonizationYear}</Text>
-            <Text style={styles.modalContent}>{saint.biography}</Text>
+            <View style={Layout.container}>
+            <Image style={[Layout.image, {height: 300}]} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
+            <Text style={[Typography.title, {marginTop: 10}]}>{saint.name}</Text>
+            <Text style={[Typography.small, {marginTop: -20}]}>ca {saint.birthYear} - ca {saint.deathYear}    (Feast day: {formatFeastDay(saint.feastDay)})</Text>
+            <Text style={Typography.body}>Patron saint of {saint.patronage}</Text>
+            <Text style={Typography.body}>Canonized: {saint.canonizationYear}</Text>
+            <Text style={[Typography.body, {marginTop: 15, marginBottom: 20}]}>{saint.biography}</Text>
             
             <Button title="Close" onPress={onClose} />
             </View>
         </Modal>
     );
 }
-
-const styles = StyleSheet.create({
-    modalView: {
-        flex: 1, 
-        padding: 20
-    },
-    modalTitle: {
-        fontSize: 20, 
-        fontWeight: "bold"
-    },
-    modalText: {
-        fontSize: 10,
-        fontWeight: "light",
-        color: "gray"
-    },
-    modalDate: {
-        marginVertical: 10, 
-        fontSize: 10
-    },
-    modalContent: {
-        marginBottom: 16,
-        padding: 10
-    },
-    modalImage: { 
-        width: 100, 
-        height: 100, 
-        borderRadius: 50 
-    },
-
-})
 
 export default SaintDetailModal;

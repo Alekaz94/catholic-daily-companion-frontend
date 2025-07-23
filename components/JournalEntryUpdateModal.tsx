@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry"
 import { Modal, TextInput, View, Text, Button, StyleSheet } from "react-native";
+import { Layout } from "../styles/Layout";
+import { Typography } from "../styles/Typography";
 
 interface Props {
     visible: boolean,
@@ -58,17 +60,17 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
 
     return (
         <Modal visible={visible} animationType="slide">
-            <View style={styles.container}>
-                <Text style={styles.title}>Edit Entry</Text>
+            <View style={Layout.container}>
+                <Text style={Typography.title}>Edit Entry</Text>
                     <TextInput 
                         placeholder="Enter title..."
-                        style={styles.input}
+                        style={Layout.input}
                         value={title}
                         onChangeText={(value) => setTitle(value)}
                     />
                     <TextInput 
                         placeholder="Write your journal entry..."
-                        style={styles.multiline}
+                        style={[Layout.input, {height: 200, textAlignVertical: "top"}]}
                         value={content}
                         onChangeText={(value) => setContent(value)}
                     /> 

@@ -5,6 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Alert, View, TextInput, Text, Button, StyleSheet } from "react-native";
 import { createEntry } from "../services/JournalEntryService";
+import { Layout } from "../styles/Layout";
+import { Typography } from "../styles/Typography";
+import Navbar from "../components/Navbar";
 
 type JournalEntryCreateNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -33,48 +36,29 @@ const JournalEntryCreateScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Create Journal Entry</Text>
+        <View style={{flex: 1}}>
+            <Navbar />
+            <View style={Layout.container}>
+
+            <Text style={Typography.title}>Create Journal Entry</Text>
             <TextInput 
-                style={styles.input}
+                style={Layout.input}
                 placeholder="Title" 
                 value={title} 
                 onChangeText={(value)  => setTitle(value)} 
             /> 
             <TextInput
-                style={[styles.input, styles.textArea]}
+                style={Layout.input}
                 placeholder="Journal content"
                 value={content}
                 onChangeText={(value) => setContent(value)}
             />
 
             <Button title="Create" onPress={handleCreate} />
+            <Button title="Cancel" color={"gray"} onPress={() => {navigation.navigate("Journal")}} />
+        </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: "#fff"
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 16
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 6,
-        padding: 12,
-        marginBottom: 16
-    },
-    textArea: {
-        height: 120,
-        textAlignVertical: "top"
-    }
-})
 
 export default JournalEntryCreateScreen;

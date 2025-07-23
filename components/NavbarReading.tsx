@@ -10,7 +10,7 @@ import { Layout } from "../styles/Layout";
 
 type NavbarNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
-const Navbar = () => {
+const NavbarReading = () => {
     const navigation = useNavigation<NavbarNavigationProp>();
 
     return (
@@ -22,11 +22,11 @@ const Navbar = () => {
                 onPress={() => navigation.navigate("Profile")}
             />
             <NavButton title={"Saints"} screen={"Saint"} />
-            <NavButton title={"Mass readings"} screen={"Reading"} />
+            <NavButton title={"Home"} screen={"Home"} />
             <NavButton title={"My journal"} screen={"Journal"} />
             <LogoutButton />
         </View>
     );
 }
 
-export default Navbar;
+export default NavbarReading;

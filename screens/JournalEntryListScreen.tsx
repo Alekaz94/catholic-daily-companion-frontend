@@ -8,6 +8,10 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import JournalEntryUpdateModal from "../components/JournalEntryUpdateModal";
 import { Ionicons } from '@expo/vector-icons';
+import { Typography } from "../styles/Typography";
+import { Layout } from "../styles/Layout";
+import Navbar from "../components/Navbar";
+import NavbarJournal from "../components/NavbarJournal";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -45,7 +49,10 @@ const JournalEntryListScreen = () => {
     }, [navigation])
 
     return (
-        <View style={styles.container}>
+        <View style={{flex: 1}}>
+            <NavbarJournal />
+            <View style={Layout.container}>
+            <Text style={[Typography.title, {alignSelf: "center"}]}>My journal</Text>
             <Button title="New Journal Entry" onPress={() => {
                 navigation.navigate("CreateJournalEntry");
             }} />
@@ -54,17 +61,17 @@ const JournalEntryListScreen = () => {
                 data={entries} 
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                    <View style={styles.flatlistContainer}>
+                    <View style={[Layout.card, {marginTop: 10}]}>
                         <TouchableOpacity onPress={() => {
                             setSelectedEntry(item);
                             setModalVisible(true);
                         }}>
-                            <Text style={styles.entryTitle}>{item.title}</Text>
-                            <Text numberOfLines={1}>{item.content}</Text>
-                            <Text style={styles.entryDate}>{item.date}</Text>
+                            <Text style={Typography.label}>{item.title}</Text>
+                            <Text style={Typography.body}>{item.content}</Text>
+                            <Text style={Typography.small}>{item.date}</Text>
                         </TouchableOpacity>
                         
-                        <View style={styles.actionButtons}>
+                        <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 5}}>
                             <TouchableOpacity onPress={() => {
                                 setEntryToEdit(item);
                                 setEditModalVisible(true);
@@ -93,38 +100,9 @@ const JournalEntryListScreen = () => {
                 onClose={() => setEditModalVisible(false)}
                 onUpdate={handleUpdate}
             />
+            </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    entryTitle: {
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    entryDate: {
-        fontSize: 10,
-        color: "gray",
-        marginTop: 4
-    },
-    actionButtons: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginTop: 8
-    },
-    editText: {
-        color: "blue",
-        marginRight: 16
-    },
-    flatlistContainer: { 
-        padding: 6, 
-        borderBottomWidth: 1,
-        borderBottomColor: 
-        "#ccc" 
-    },
-})
 
 export default JournalEntryListScreen;

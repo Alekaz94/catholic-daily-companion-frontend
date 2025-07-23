@@ -6,6 +6,11 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
 import defaultSaintImage from '../assets/images/default_saint.png';
+import { Colors } from "../styles/colors";
+import { Layout } from "../styles/Layout";
+import { Typography } from "../styles/Typography";
+import Navbar from "../components/Navbar";
+import NavbarSaint from "../components/NavbarSaint";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -27,21 +32,23 @@ const SaintScreen = () => {
     }, [])
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Saints of the Catholic Church</Text>
+        <View style={{flex: 1}}>
+            <NavbarSaint />
+            <View style={Layout.container}>
+            <Text style={[Typography.title, {alignSelf: "center"}]}>Saints of the Catholic Church</Text>
             <FlatList
                 data={saints}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                    <View style={styles.flatlistContainer}>
+                    <View style={Layout.card}>
                         <TouchableOpacity onPress={() => {
                             setSelectedSaint(item);
                             setModalVisible(true);
                         }}>
-                            <Image style={styles.saintImage} source={item.imageUrl ? { uri: item.imageUrl } : defaultSaintImage} />
-                            <Text style={styles.saintName}>{item.name}</Text>
-                            <Text style={styles.saintDate}>ca {item.birthYear} - ca {item.deathYear}</Text>
-                            <Text numberOfLines={1}>{item.biography}</Text>
+                            <Image style={Layout.image} source={item.imageUrl ? { uri: item.imageUrl } : defaultSaintImage} />
+                            <Text style={Typography.label}>{item.name}</Text>
+                            <Text style={Typography.small}>ca {item.birthYear} - ca {item.deathYear}</Text>
+                            <Text style={Typography.body}>Patron of {item.patronage}</Text>
                         </TouchableOpacity>
                     </View>
                 )}
@@ -52,39 +59,9 @@ const SaintScreen = () => {
                 saint={selectedSaint}
                 onClose={() => setModalVisible(false)}
             />
+            </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: "bold",
-        margin: 10
-    },
-    saintName: {
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    saintDate: {
-        fontSize: 10,
-        color: "gray",
-        marginTop: 4
-    },
-    flatlistContainer: { 
-        padding: 6, 
-        borderBottomWidth: 1,
-        borderBottomColor: 
-        "#ccc" 
-    },
-    saintImage: { 
-        width: 100, 
-        height: 100, 
-        borderRadius: 50 
-    },
-})
 
 export default SaintScreen;

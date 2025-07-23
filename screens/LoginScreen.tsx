@@ -5,6 +5,8 @@ import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/types';
+import { Layout } from '../styles/Layout';
+import { Typography } from '../styles/Typography';
 
 type LoginNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -28,30 +30,30 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Catholic Daily Companion</Text>
+    <View style={[Layout.container, {justifyContent: "center"}]}>
+      <Text style={Typography.title}>Catholic Daily Companion</Text>
       <TextInput
         placeholder="Email"
         value={email}
         onChangeText={(value) => setEmail(value)}
         autoCapitalize="none"
-        style={styles.input}
+        style={Layout.input}
       />
       <TextInput
         placeholder="Password"
         value={password}
         onChangeText={(value) => setPassword(value)}
         secureTextEntry
-        style={styles.input}
+        style={Layout.input}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+      <TouchableOpacity style={Layout.button} onPress={handleLogin}>
+        <Text style={Layout.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.button}
+        style={Layout.button}
         onPress={() => navigation.navigate('Signup')}
       >
-        <Text style={styles.buttonText}>Create an account</Text>
+        <Text style={Layout.buttonText}>Create an account</Text>
       </TouchableOpacity>
     </View>
   );
