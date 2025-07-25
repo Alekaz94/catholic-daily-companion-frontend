@@ -55,33 +55,14 @@ const LoginScreen = () => {
       >
         <Text style={Layout.buttonText}>Create an account</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={Layout.button}
+        onPress={() => navigation.navigate("Landing")}
+      >
+        <Text style={Layout.buttonText}>Back</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 export default LoginScreen;
-
-const styles = StyleSheet.create({
-  container: { padding: 20, flex: 1, justifyContent: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
-  button: {
-    backgroundColor: '#6200ee',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginTop: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});

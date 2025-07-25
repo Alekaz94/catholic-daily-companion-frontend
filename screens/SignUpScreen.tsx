@@ -98,6 +98,13 @@ const SignUpScreen = () => {
       >
         <Text style={Layout.buttonText}>Already have an account?</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={Layout.button}
+        onPress={() => navigation.navigate("Landing")}
+      >
+        <Text style={Layout.buttonText}>Back</Text>
+      </TouchableOpacity>
     </View>
   );
 };
