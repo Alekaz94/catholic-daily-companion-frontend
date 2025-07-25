@@ -3,7 +3,7 @@ import { AuthStackParamList } from "../navigation/types";
 import { NewJournalEntry } from "../models/JournalEntry";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { Alert, View, TextInput, Text, Button, StyleSheet } from "react-native";
+import { Alert, View, TextInput, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import { createEntry } from "../services/JournalEntryService";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
@@ -48,14 +48,22 @@ const JournalEntryCreateScreen = () => {
                 onChangeText={(value)  => setTitle(value)} 
             /> 
             <TextInput
-                style={Layout.input}
+                style={[Layout.input, {width: "100%", height: 200, textAlignVertical: "top"}]}
                 placeholder="Journal content"
                 value={content}
                 onChangeText={(value) => setContent(value)}
+                multiline={true}
             />
 
-            <Button title="Create" onPress={handleCreate} />
-            <Button title="Cancel" color={"gray"} onPress={() => {navigation.navigate("Journal")}} />
+            <TouchableOpacity style={[Layout.button, {marginBottom: 5}]} onPress={handleCreate} 
+            >
+                <Text style={Layout.buttonText}>Create</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={[Layout.button, {backgroundColor: "gray"}]} onPress={() => {navigation.navigate("Journal")}} 
+            >
+                <Text style={Layout.buttonText}>Cancel</Text>
+            </TouchableOpacity>
         </View>
         </View>
     );
