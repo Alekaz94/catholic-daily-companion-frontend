@@ -33,7 +33,7 @@ function formatFeastDay(feastDayString: string | null) {
     }
 
     const date = new Date(2000, month - 1, day);
-    return date.toLocaleDateString(undefined, {month: "long", day: "numeric"})
+    return date.toLocaleDateString("en-US", {month: "long", day: "numeric"})
 }
 
 const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
