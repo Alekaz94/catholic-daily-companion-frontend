@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Saint } from "../models/Saint";
-import { getAllSaints, getSpecificSaint, createSaint } from "../services/SaintService";
+import { getAllSaints, getSpecificSaint, createSaint, searchSaints } from "../services/SaintService";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
 import defaultSaintImage from '../assets/images/default_saint.png';
-import { Colors } from "../styles/colors";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
-import Navbar from "../components/Navbar";
 import NavbarSaint from "../components/NavbarSaint";
+import { TextInput } from "react-native-gesture-handler";
+import { LinearGradient } from "expo-linear-gradient";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -18,29 +18,93 @@ type SaintNavigationProp = NativeStackNavigationProp<
 >
 
 const SaintScreen = () => {
-    const [saints, setSaints] = useState<Saint[] | null>([]);
+    const [saints, setSaints] = useState<Saint[]>([]);
     const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
 
     const fetchSaints = async () => {
-        const data = await getAllSaints();
-        setSaints(data);
+        if(isLoading || !hasMore) {
+            return;
+        }
+
+        setIsLoading(true);
+
+        try {
+            const res = isSearching 
+                ? await searchSaints(searchQuery, page, 5)
+                : await getAllSaints(page, 5)
+
+            setSaints(prev => [
+            ...prev,
+            ...res.content.filter((s: Saint) => !prev.some(p => p.id === s.id)),
+            ]);
+
+            setHasMore(!res.last);
+        } catch (error) {
+            console.error("Error loading saints:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleSearch = async () => {
+        if (searchQuery.trim() === "") return;
+        setIsSearching(true);
+    };
+
+    const clearSearch = async () => {
+        setSearchQuery("");
+        setIsSearching(false);
     }
 
     useEffect(() => {
+        setSaints([]);
+        setPage(0);
+        setHasMore(true);
+    }, [isSearching]);
+
+    useEffect(() => {
         fetchSaints();
-    }, [])
+    }, [page, isSearching]);
+
+    useEffect(() => {
+    if (searchQuery.trim() === "") {
+        setIsSearching(false);
+        setPage(0);
+        setSaints([]);
+    }
+}, [searchQuery]);
 
     return (
         <View style={{flex: 1}}>
             <NavbarSaint />
             <View style={Layout.container}>
             <Text style={[Typography.title, {alignSelf: "center"}]}>Saints of the Catholic Church</Text>
+            <TextInput 
+                style={Layout.input} 
+                placeholder="Search saint by name..." 
+                value={searchQuery} 
+                onChangeText={(text) => {setSearchQuery(text)}}
+                onSubmitEditing={handleSearch} 
+            />
+            <TouchableOpacity style={{marginBottom: 20, marginTop: -10}} onPress={clearSearch}>
+                <Text style={Typography.link}>Clear search</Text>
+            </TouchableOpacity>
             <FlatList
                 data={saints}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                    <View style={Layout.card}>
+                    <LinearGradient 
+                        colors={['rgba(255, 215, 0, 0.8)', "#ADD8E6"]}
+                        start={{x: 0, y: 0.5}}
+                        end={{x: 1, y: 0.5}}
+                        style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15}]}
+                    >
                         <TouchableOpacity onPress={() => {
                             setSelectedSaint(item);
                             setModalVisible(true);
@@ -50,8 +114,11 @@ const SaintScreen = () => {
                             <Text style={Typography.small}>ca {item.birthYear} - ca {item.deathYear}</Text>
                             <Text style={Typography.body}>Patron of {item.patronage}</Text>
                         </TouchableOpacity>
-                    </View>
+                    </LinearGradient>
                 )}
+                onEndReached={fetchSaints}
+                onEndReachedThreshold={0.5}
+                ListFooterComponent={isLoading ? <Text>Loading...</Text> : null}
             />
 
             <SaintDetailModal 
