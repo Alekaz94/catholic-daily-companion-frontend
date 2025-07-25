@@ -7,4 +7,5 @@ export type AuthStackParamList = {
   Saint: undefined;
   Reading: undefined;
   Profile: undefined;
+  Landing: undefined;
 };

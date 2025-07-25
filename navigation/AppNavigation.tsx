@@ -9,6 +9,7 @@ import SaintScreen from '../screens/SaintScreen';
 import DailyReadingScreen from '../screens/DailyReadingScreen';
 import JournalEntryCreateScreen from '../screens/JournalEntryCreateScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import LandingScreen from "../screens/LandingScreen";
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -28,6 +29,7 @@ const AppNavigator = () => {
         </>
       ) : (
         <>
+          <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={SignUpScreen} />
         </>

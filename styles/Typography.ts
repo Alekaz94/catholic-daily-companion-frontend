@@ -1,10 +1,12 @@
 import { TextStyle } from "react-native";
+import { Colors } from "./colors";
 
 interface TypographyStyles {
     title: TextStyle;
     label: TextStyle;
     body: TextStyle;
-    small: TextStyle
+    small: TextStyle;
+    link: TextStyle;
 }
 
 export const Typography: TypographyStyles = {
@@ -17,7 +19,7 @@ export const Typography: TypographyStyles = {
     label: {
       fontSize: 14,
       fontWeight: '500',
-      color: '#444',
+      color: "black",
       marginBottom: 4,
     },
     body: {
@@ -28,4 +30,10 @@ export const Typography: TypographyStyles = {
       fontSize: 12,
       color: '#666',
     },
+    link: {
+      color: Colors.primary,
+      textDecorationLine: 'underline',
+      fontSize: 16,
+      fontWeight: '500',
+    }
   };

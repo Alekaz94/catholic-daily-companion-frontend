@@ -17,7 +17,6 @@ export const Layout: LayoutStyles = {
     container: {
       flex: 1,
       padding: 20,
-      backgroundColor: Colors.background,
     },
     navbarContainer: {
         flexDirection: "row",
@@ -66,7 +65,7 @@ export const Layout: LayoutStyles = {
     },
     navbarButtonText: {
         color: '#fff',
-        fontSize: 10,
+        fontSize: 12,
         fontWeight: 'bold',
     },
     image: {
