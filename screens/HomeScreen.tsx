@@ -12,6 +12,7 @@ import defaultSaintImage from '../assets/images/default_saint.png';
 import Navbar from '../components/Navbar';
 import { Typography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
+import { LinearGradient } from 'expo-linear-gradient';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -51,20 +52,44 @@ const HomeScreen = () => {
       <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
       <View style={[Layout.container, {marginBottom: -20}]}>
         <Text style={[Typography.label, {fontSize: 20}]}>Today is the feast day of {saint?.name}</Text>
-        {!saint ? <Text style={[Typography.label, {fontSize: 20}]}>No Saint's feast day today.</Text>
-          :
-          <TouchableOpacity style={Layout.card} onPress={() => {
-            setModalVisible(true);
-          }}>
-            <Image style={Layout.image} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
-          </TouchableOpacity> 
+        {!saint 
+          ? <LinearGradient 
+            colors={["#FFD700", "#ADD8E6", "#FFD700"]}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 0.5}}
+            style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15}]}
+          >
+            <Text style={[Typography.label, {fontSize: 16}]}>No Saint's feast day today.</Text>
+          </LinearGradient>
+          : <LinearGradient 
+              colors={[
+                'rgba(255, 215, 0, 0.8)',
+                "#ADD8E6"
+              ]}
+              start={{x: 0, y: 0.5}}
+              end={{x: 1, y: 0.5}}
+              style={[Layout.card, {borderRadius: 12, padding: 15}]}>
+            <TouchableOpacity 
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
+                <Image style={Layout.image} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
+                <Text style={[Typography.body, {color: "black"}]} numberOfLines={1} >{saint.biography}</Text>
+            </TouchableOpacity> 
+          </LinearGradient>
         }
       </View>
-
       <View style={Layout.container}>
+      <LinearGradient 
+            colors={['rgba(255, 215, 0, 0.8)', "#ADD8E6"]}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 0.5}}
+            style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15}]}
+          >
         <Text style={[Typography.label, {fontSize: 20}]}>Today's readings</Text>
         {!reading ? (
-          <Text style={Typography.small}>No reading found for today!</Text>
+          <Text style={[Typography.label, {fontSize: 16}]}>No reading found for today!</Text>
         ) : (
           <>
             <Text style={[Typography.label, {marginBottom: 5, marginTop: 5}]}>First reading </Text>
@@ -77,8 +102,9 @@ const HomeScreen = () => {
             <Text style={Typography.body}>{reading?.gospel}</Text> 
           </>
         )}     
+      </LinearGradient>
       </View>
-
+      
       <SaintDetailModal 
         visible={modalVisible}
         saint={saint}

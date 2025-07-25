@@ -12,6 +12,7 @@ import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import Navbar from "../components/Navbar";
 import NavbarJournal from "../components/NavbarJournal";
+import { LinearGradient } from "expo-linear-gradient";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -52,22 +53,27 @@ const JournalEntryListScreen = () => {
         <View style={{flex: 1}}>
             <NavbarJournal />
             <View style={Layout.container}>
-            <Text style={[Typography.title, {alignSelf: "center"}]}>My journal</Text>
-            <Button title="New Journal Entry" onPress={() => {
-                navigation.navigate("CreateJournalEntry");
-            }} />
+            <Text style={[Typography.title, {alignSelf: "center"}]}>Daily reflections</Text>
+            <TouchableOpacity style={Layout.button} onPress={() => navigation.navigate("CreateJournalEntry")}>
+                <Text style={Layout.buttonText}>New Journal Entry</Text>
+            </TouchableOpacity>
 
             <FlatList 
                 data={entries} 
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                    <View style={[Layout.card, {marginTop: 10}]}>
+                    <LinearGradient 
+                        colors={['rgba(255, 215, 0, 0.8)', "#ADD8E6"]}
+                        start={{x: 0, y: 0.5}}
+                        end={{x: 1, y: 0.5}}
+                        style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15}]}
+                    >                        
                         <TouchableOpacity onPress={() => {
                             setSelectedEntry(item);
                             setModalVisible(true);
                         }}>
                             <Text style={Typography.label}>{item.title}</Text>
-                            <Text style={Typography.body}>{item.content}</Text>
+                            <Text style={Typography.body} numberOfLines={2}>{item.content}</Text>
                             <Text style={Typography.small}>{item.date}</Text>
                         </TouchableOpacity>
                         
@@ -84,7 +90,7 @@ const JournalEntryListScreen = () => {
                                 <Ionicons name="trash-outline" size={20} color="red" />
                             </TouchableOpacity>  
                         </View>
-                    </View>                
+                    </LinearGradient>                
                 )}
             />
 
