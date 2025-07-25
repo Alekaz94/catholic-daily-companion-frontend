@@ -97,6 +97,11 @@ const ProfileScreen = () => {
         >
             <Text style={Layout.buttonText}>Update Password</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style={Layout.button} onPress={() => navigation.navigate("Home")} 
+        >
+            <Text style={Layout.buttonText}>Homescreen</Text>
+        </TouchableOpacity>
         </View>
     </View>
     );
