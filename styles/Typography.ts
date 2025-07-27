@@ -24,11 +24,11 @@ export const Typography: TypographyStyles = {
     },
     body: {
       fontSize: 14,
-      color: '#333',
+      color: 'white',
     },
     small: {
       fontSize: 12,
-      color: '#666',
+      color: 'white',
     },
     link: {
       color: Colors.primary,

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry"
-import { Modal, TextInput, View, Text, Button, StyleSheet } from "react-native";
+import { Modal, TextInput, View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
+import { AppTheme } from "../styles/colors";
 
 interface Props {
     visible: boolean,
@@ -60,8 +61,8 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
 
     return (
         <Modal visible={visible} animationType="slide">
-            <View style={Layout.container}>
-                <Text style={Typography.title}>Edit Entry</Text>
+            <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
+                <Text style={[Typography.title, {color: AppTheme.journal.text}]}>Edit Entry</Text>
                     <TextInput 
                         placeholder="Enter title..."
                         style={Layout.input}
@@ -74,8 +75,13 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
                         value={content}
                         onChangeText={(value) => setContent(value)}
                     /> 
-                    <Button title="Save changes" onPress={onHandleSubmit} /> 
-                    <Button title="Cancel" color="gray" onPress={onClose} />
+
+                <TouchableOpacity onPress={onHandleSubmit} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#B794F4"}]}>
+                    <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.journal.text}]}>Save changes</Text>
+                </TouchableOpacity> 
+                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "gray"}]}>
+                    <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.journal.text}]}>Close</Text>
+                </TouchableOpacity> 
             </View>
         </Modal>
     );

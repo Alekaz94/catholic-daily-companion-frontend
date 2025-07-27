@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import NavbarReading from "../components/NavbarReading";
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
+import { AppTheme } from "../styles/colors";
 
 type DailyReadingNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -32,8 +33,8 @@ const DailyReadingScreen = () => {
     return (
         <View style={{flex: 1}}>
             <NavbarReading />
-            <View style={Layout.container}>
-            <Text style={[Typography.title, {alignSelf: "center"}]}>Readings</Text>
+            <View style={[Layout.container, {backgroundColor: AppTheme.reading.background}]}>
+            <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.reading.text}]}>Readings</Text>
            <FlatList
                 data={readings}
                 keyExtractor={item => item.id}
@@ -43,7 +44,7 @@ const DailyReadingScreen = () => {
                             setSelectedReading(item);
                             setModalVisible(true);
                         }}>
-                          <Text style={styles.readingDate}>Reading from {item.createdAt}</Text>
+                          <Text style={[styles.readingDate, {color: AppTheme.reading.text}]}>Reading from {item.createdAt}</Text>
                         </TouchableOpacity>
                     </View>
                 )}

@@ -1,9 +1,11 @@
 import React from "react";
-import { Modal, View, StyleSheet, Button, Text, Image } from "react-native";
+import { Modal, View, StyleSheet, Button, Text, Image, TouchableOpacity } from "react-native";
 import { Saint } from "../models/Saint";
 import defaultSaintImage from '../assets/images/default_saint.png';
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
+import { AppTheme, Colors } from "../styles/colors";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface Props {
     visible: boolean;
@@ -43,16 +45,18 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
 
     return (
         <Modal visible={visible} animationType='slide'>
-            <View style={Layout.container}>
+            <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>          
             <Image style={[Layout.image, {height: 300}]} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
-            <Text style={[Typography.title, {marginTop: 10}]}>{saint.name}</Text>
-            <Text style={[Typography.small, {marginTop: -20}]}>ca {saint.birthYear} - ca {saint.deathYear}    (Feast day: {formatFeastDay(saint.feastDay)})</Text>
-            <Text style={Typography.body}>Patron saint of {saint.patronage}</Text>
-            <Text style={Typography.body}>Canonized: {saint.canonizationYear}</Text>
-            <Text style={[Typography.body, {marginTop: 15, marginBottom: 20}]}>{saint.biography}</Text>
+            <Text style={[Typography.title, {marginTop: 10, color: AppTheme.saint.text}]}>{saint.name}</Text>
+            <Text style={[Typography.small, {marginTop: -20, color: AppTheme.saint.text}]}>ca {saint.birthYear} - ca {saint.deathYear}    (Feast day: {formatFeastDay(saint.feastDay)})</Text>
+            <Text style={[Typography.body, { color: AppTheme.saint.text}]}>Patron saint of {saint.patronage}</Text>
+            <Text style={[Typography.body, {color: AppTheme.saint.text}]}>Canonized: {saint.canonizationYear}</Text>
+            <Text style={[Typography.body, {marginTop: 15, marginBottom: 20, color: AppTheme.saint.text}]}>{saint.biography}</Text>
             
-            <Button title="Close" onPress={onClose} />
-            </View>
+            <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar}]}>
+                <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.saint.text}]}>Close</Text>
+            </TouchableOpacity> 
+            </View> 
         </Modal>
     );
 }

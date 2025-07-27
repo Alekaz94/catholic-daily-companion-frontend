@@ -18,10 +18,10 @@ const NavbarSaint = () => {
             <Ionicons 
                 name="person-circle-outline"
                 size={26}
-                color="white"
+                color="#1A1A1A"
                 onPress={() => navigation.navigate("Profile")}
             />
-            <NavButton title={"Home"} screen={"Home"} />
+            <NavButton title={"Home"} screen={"Home"}/>
             <NavButton title={"Mass readings"} screen={"Reading"} />
             <NavButton title={"My journal"} screen={"Journal"} />
             <LogoutButton />

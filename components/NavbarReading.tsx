@@ -18,7 +18,7 @@ const NavbarReading = () => {
             <Ionicons 
                 name="person-circle-outline"
                 size={26}
-                color="white"
+                color="#1A1A1A"
                 onPress={() => navigation.navigate("Profile")}
             />
             <NavButton title={"Saints"} screen={"Saint"} />

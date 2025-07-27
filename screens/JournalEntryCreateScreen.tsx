@@ -8,6 +8,7 @@ import { createEntry } from "../services/JournalEntryService";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
+import { AppTheme } from "../styles/colors";
 
 type JournalEntryCreateNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -38,9 +39,9 @@ const JournalEntryCreateScreen = () => {
     return (
         <View style={{flex: 1}}>
             <Navbar />
-            <View style={Layout.container}>
+            <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
 
-            <Text style={Typography.title}>Create Journal Entry</Text>
+            <Text style={[Typography.title, {color: AppTheme.journal.text}]}>Create Journal Entry</Text>
             <TextInput 
                 style={Layout.input}
                 placeholder="Title" 

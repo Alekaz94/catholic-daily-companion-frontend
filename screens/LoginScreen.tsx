@@ -7,6 +7,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/types';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
+import { AppTheme, Colors } from '../styles/colors';
+import { LinearGradient } from 'expo-linear-gradient';
 
 type LoginNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -30,7 +32,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={[Layout.container, {justifyContent: "center"}]}>
+    <View style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: AppTheme.auth.background }]}>     
       <Text style={Typography.title}>Catholic Daily Companion</Text>
       <TextInput
         placeholder="Email"
@@ -46,17 +48,17 @@ const LoginScreen = () => {
         secureTextEntry
         style={Layout.input}
       />
-      <TouchableOpacity style={Layout.button} onPress={handleLogin}>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: Colors.success}]} onPress={handleLogin}>
         <Text style={Layout.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={Layout.button}
+        style={[Layout.button, {backgroundColor: AppTheme.auth.primary}]}
         onPress={() => navigation.navigate('Signup')}
       >
         <Text style={Layout.buttonText}>Create an account</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={Layout.button}
+        style={[Layout.button, {backgroundColor: AppTheme.auth.primary}]}
         onPress={() => navigation.navigate("Landing")}
       >
         <Text style={Layout.buttonText}>Back</Text>

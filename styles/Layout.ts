@@ -22,11 +22,10 @@ export const Layout: LayoutStyles = {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-around",
-        backgroundColor: Colors.primary,
+        backgroundColor: "#D4AF37",
         padding: 20
     },
     card: {
-      backgroundColor: Colors.surface,
       borderRadius: 8,
       padding: 10,
       shadowColor: '#000',
@@ -52,21 +51,22 @@ export const Layout: LayoutStyles = {
       marginTop: 10,
     },
     buttonText: {
-        color: '#fff',
+        color: "white",
         fontSize: 16,
         fontWeight: 'bold',
     },
     navbarButton: {
-        backgroundColor: Colors.primary,
+        backgroundColor: "#D4AF37",
         paddingVertical: 12,
         borderRadius: 8,
         alignItems: 'center' as const,
         marginTop: 10,
     },
     navbarButtonText: {
-        color: '#fff',
-        fontSize: 12,
+        color: "#1A1A1A",
+        fontSize: 14,
         fontWeight: 'bold',
+        borderBottomWidth: 1
     },
     image: {
         width: '100%',
