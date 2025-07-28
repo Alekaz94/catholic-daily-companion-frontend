@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry"
-import { Modal, TextInput, View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { Modal, TextInput, View, Text, TouchableOpacity } from "react-native";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import { AppTheme } from "../styles/colors";
@@ -76,41 +76,19 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
                         onChangeText={(value) => setContent(value)}
                     /> 
 
-                <TouchableOpacity onPress={onHandleSubmit} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#B794F4"}]}>
-                    <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.journal.text}]}>Save changes</Text>
-                </TouchableOpacity> 
-                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "gray"}]}>
-                    <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.journal.text}]}>Close</Text>
-                </TouchableOpacity> 
+                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: "#B794F4"}]} onPress={onHandleSubmit} >
+                <Text style={[Layout.buttonText, {color: AppTheme.journal.text}]}>Save changes</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={onClose} 
+            >
+                <Text style={Layout.buttonText}>Cancel</Text>
+            </TouchableOpacity>
+            </View>
             </View>
         </Modal>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: "bold",
-        marginBottom: 16
-    },
-    input: {
-        borderWidth: 1,
-        padding: 10,
-        marginBottom: 12,
-        borderRadius: 6
-    },
-    multiline: {
-        borderWidth: 1,
-        padding: 10,
-        marginBottom: 12,
-        borderRadius: 6,
-        height: 200,
-        textAlignVertical: "top"
-    }
-})
 
 export default JournalEntryUpdateModal;

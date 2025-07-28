@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, SafeAreaView, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { Text, View, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -48,17 +48,15 @@ const LandingScreen = () => {
   }, [])
 
   return (
-      <View
-        style={{ flex: 1, backgroundColor: "#F0F9FF"}}
-      >         
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F9FF"}}>         
       <NavbarLanding />
-      <Text style={[Typography.title, {alignSelf: "center", color: "black", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
-      <View style={[Layout.container, {marginBottom: -20}]}>
+      <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
+      <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
         <Text style={[Typography.label, {fontSize: 20}]}>Today is the feast day of {saint?.name}</Text>
         {!saint 
-          ? <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15}]}>
-            <Text style={[Typography.label, {fontSize: 16, color: "white"}]}>No Saint's feast day today.</Text>
-          </View>
+          ? <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0"}]}>
+              <Text style={[Typography.label, {fontSize: 16, color: "black"}]}>No Saint's feast day today.</Text>
+            </View>
           : <LinearGradient 
               colors={['#FFD700', '#FAF3E0']}
               start={{x: 0, y: 0.5}}
@@ -70,7 +68,7 @@ const LandingScreen = () => {
               }}
             >
                 <Image style={Layout.image} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
-                <Text style={[Typography.body, {color: AppTheme.saint.text}]} numberOfLines={1} >{saint.biography}</Text>
+                <Text style={[Typography.body, {color: "black"}]} numberOfLines={1} >{saint.biography}</Text>
             </TouchableOpacity> 
           </LinearGradient>
         }
@@ -94,13 +92,13 @@ const LandingScreen = () => {
         )}     
       </View>
       </View>
-
+      
       <SaintDetailModal 
         visible={modalVisible}
         saint={saint}
         onClose={() => setModalVisible(false)}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

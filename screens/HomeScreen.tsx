@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, SafeAreaView, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Text, SafeAreaView, View, TouchableOpacity, Image } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -48,14 +48,14 @@ const HomeScreen = () => {
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F9FF"}}>
       <Navbar />
       <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
       <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
         <Text style={[Typography.label, {fontSize: 20}]}>Today is the feast day of {saint?.name}</Text>
         {!saint 
-          ? <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15}]}>
-              <Text style={[Typography.label, {fontSize: 16, color: "white"}]}>No Saint's feast day today.</Text>
+          ? <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0"}]}>
+              <Text style={[Typography.label, {fontSize: 16, color: "black"}]}>No Saint's feast day today.</Text>
             </View>
           : <LinearGradient 
               colors={['#FFD700', '#FAF3E0']}

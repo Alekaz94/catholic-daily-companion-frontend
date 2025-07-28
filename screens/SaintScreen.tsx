@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Saint } from "../models/Saint";
-import { getAllSaints, getSpecificSaint, createSaint, searchSaints } from "../services/SaintService";
+import { getAllSaints, searchSaints } from "../services/SaintService";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { View, FlatList, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
+import { View, FlatList, TouchableOpacity, Text, Image, SafeAreaView } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
 import defaultSaintImage from '../assets/images/default_saint.png';
 import { Layout } from "../styles/Layout";
@@ -82,7 +82,7 @@ const SaintScreen = () => {
 }, [searchQuery]);
 
     return (
-        <View style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
             <NavbarSaint />
             <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.saint.text}]}>Saints of the Catholic Church</Text>
@@ -128,7 +128,7 @@ const SaintScreen = () => {
                 onClose={() => setModalVisible(false)}
             />
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

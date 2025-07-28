@@ -3,7 +3,7 @@ import { AuthStackParamList } from "../navigation/types";
 import { NewJournalEntry } from "../models/JournalEntry";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { Alert, View, TextInput, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, View, TextInput, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { createEntry } from "../services/JournalEntryService";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
@@ -37,7 +37,7 @@ const JournalEntryCreateScreen = () => {
     }
 
     return (
-        <View style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
 
@@ -55,18 +55,19 @@ const JournalEntryCreateScreen = () => {
                 onChangeText={(value) => setContent(value)}
                 multiline={true}
             />
-
-            <TouchableOpacity style={[Layout.button, {marginBottom: 5}]} onPress={handleCreate} 
+            <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+            <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: "#B794F4"}]} onPress={handleCreate} 
             >
-                <Text style={Layout.buttonText}>Create</Text>
+                <Text style={[Layout.buttonText, {color: AppTheme.journal.text}]}>Create</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity style={[Layout.button, {backgroundColor: "gray"}]} onPress={() => {navigation.navigate("Journal")}} 
+            <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={() => {navigation.navigate("Journal")}} 
             >
                 <Text style={Layout.buttonText}>Cancel</Text>
             </TouchableOpacity>
+            </View>
         </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

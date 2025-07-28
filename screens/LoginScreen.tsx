@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -8,7 +8,6 @@ import { AuthStackParamList } from '../navigation/types';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
 import { AppTheme, Colors } from '../styles/colors';
-import { LinearGradient } from 'expo-linear-gradient';
 
 type LoginNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -32,7 +31,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: AppTheme.auth.background }]}>     
+    <SafeAreaView style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: AppTheme.auth.background }]}>     
       <Text style={Typography.title}>Catholic Daily Companion</Text>
       <TextInput
         placeholder="Email"
@@ -63,7 +62,7 @@ const LoginScreen = () => {
       >
         <Text style={Layout.buttonText}>Back</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

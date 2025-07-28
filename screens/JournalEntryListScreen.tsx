@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry";
 import { deleteEntry, getAllEntries, updateEntry } from "../services/JournalEntryService";
-import { FlatList, TouchableOpacity, View, Text, StyleSheet, Button, Modal } from "react-native";
+import { FlatList, TouchableOpacity, View, Text, Modal, SafeAreaView } from "react-native";
 import EntryDetailModal from "../components/EntryDetailModal";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -53,7 +53,7 @@ const JournalEntryListScreen = () => {
 
     return (
         <>
-        <View style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
             <NavbarJournal />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.journal.text}]}>Daily reflections</Text>
@@ -125,7 +125,7 @@ const JournalEntryListScreen = () => {
                     onUpdate={handleUpdate}
                 />
                 </View>
-            </View>
+            </SafeAreaView>
 
             <Modal
                 animationType="fade"

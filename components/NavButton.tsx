@@ -7,14 +7,16 @@ import { Layout } from "../styles/Layout";
 type Props = {
     title: string;
     screen: keyof AuthStackParamList;
+    style?: object;
+    textStyle?: object;
 }
 
-const NavButton: React.FC<Props> = ({ title, screen }: { title: string; screen: keyof AuthStackParamList }) => {
+const NavButton: React.FC<Props> = ({ title, screen, style, textStyle }) => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
 
     return (
-        <TouchableOpacity style={Layout.navbarButton} onPress={() => navigation.navigate(screen)}>
-            <Text style={Layout.navbarButtonText}>{title}</Text>
+        <TouchableOpacity style={[Layout.navbarButton, style]} onPress={() => navigation.navigate(screen)}>
+            <Text style={[Layout.navbarButtonText, textStyle]}>{title}</Text>
         </TouchableOpacity>
     );
   };

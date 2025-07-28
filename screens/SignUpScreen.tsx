@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { AuthStackParamList } from '../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -9,7 +9,6 @@ import { NewUser } from '../models/User';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
 import { AppTheme, Colors } from '../styles/colors';
-import { LinearGradient } from 'expo-linear-gradient';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -63,7 +62,7 @@ const SignUpScreen = () => {
   }, [user])
 
   return (
-      <View style={[Layout.container,{ justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>        
+      <SafeAreaView style={[Layout.container,{ justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>        
       <Text style={Typography.title}>Catholic Daily Companion</Text>
       <TextInput
         placeholder="Firstname"
@@ -107,7 +106,7 @@ const SignUpScreen = () => {
       >
         <Text style={Layout.buttonText}>Back</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity, SafeAreaView } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from '../context/AuthContext';
 import { changePassword } from '../services/UserService';
-import { Colors } from '../styles/colors';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
 import Navbar from '../components/Navbar';
+import LogoutButton from '../components/LogoutButton';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -64,7 +64,7 @@ const ProfileScreen = () => {
     }
 
     return (
-        <View style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
             <Navbar />
             <View style={Layout.container}>
 
@@ -98,12 +98,14 @@ const ProfileScreen = () => {
             <Text style={Layout.buttonText}>Update Password</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={Layout.button} onPress={() => navigation.navigate("Home")} 
+        <TouchableOpacity style={[Layout.button, {marginTop: 50}]} onPress={() => navigation.navigate("Home")} 
         >
             <Text style={Layout.buttonText}>Homescreen</Text>
         </TouchableOpacity>
+
+        <LogoutButton />
         </View>
-    </View>
+    </SafeAreaView>
     );
 }
 

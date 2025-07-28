@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { DailyReading } from "../models/DailyReading";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
@@ -37,24 +37,5 @@ const DailyReadingDetailModal: React.FC<Props> = ({visible, reading, onClose}) =
         </Modal>
     );
 }
-
-const styles = StyleSheet.create({
-    modalView: {
-        flex: 1, 
-        padding: 20
-    },
-    modalTitle: {
-        fontSize: 20, 
-        fontWeight: "bold"
-    },
-    modalDate: {
-        marginVertical: 10, 
-        fontSize: 10
-    },
-    modalReadings: {
-        marginBottom: 16,
-        padding: 10
-    }
-})
 
 export default DailyReadingDetailModal;

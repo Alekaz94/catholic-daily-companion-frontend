@@ -5,7 +5,6 @@ import defaultSaintImage from '../assets/images/default_saint.png';
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme, Colors } from "../styles/colors";
-import { LinearGradient } from "expo-linear-gradient";
 
 interface Props {
     visible: boolean;

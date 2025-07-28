@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { JournalEntry } from "../models/JournalEntry";
 import { Typography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
@@ -30,24 +30,5 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
         </Modal>
     );
 }
-
-const styles = StyleSheet.create({
-    modalView: {
-        flex: 1, 
-        padding: 20
-    },
-    modalTitle: {
-        fontSize: 20, 
-        fontWeight: "bold"
-    },
-    modalDate: {
-        marginVertical: 10, 
-        fontSize: 10
-    },
-    modalContent: {
-        marginBottom: 16,
-        padding: 10
-    }
-})
 
 export default EntryDetailModal;

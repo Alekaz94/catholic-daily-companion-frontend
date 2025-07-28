@@ -1,5 +1,4 @@
 import { View } from "react-native";
-import LogoutButton from "./LogoutButton";
 import NavButton from "./NavButton";
 import { Ionicons } from '@expo/vector-icons';
 import React from "react";
@@ -14,17 +13,16 @@ const NavbarReading = () => {
     const navigation = useNavigation<NavbarNavigationProp>();
 
     return (
-        <View style={Layout.navbarContainer}>
+        <View style={[Layout.navbarContainer, {backgroundColor: "#ADD8E6"}]}>
             <Ionicons 
                 name="person-circle-outline"
                 size={26}
                 color="#1A1A1A"
                 onPress={() => navigation.navigate("Profile")}
             />
-            <NavButton title={"Saints"} screen={"Saint"} />
-            <NavButton title={"Home"} screen={"Home"} />
-            <NavButton title={"My journal"} screen={"Journal"} />
-            <LogoutButton />
+            <NavButton style={{backgroundColor: "#ADD8E6"}} title={"Saints"} screen={"Saint"} />
+            <NavButton style={{backgroundColor: "#ADD8E6"}} title={"Home"} screen={"Home"} />
+            <NavButton style={{backgroundColor: "#ADD8E6"}} title={"My journal"} screen={"Journal"} />
         </View>
     );
 }

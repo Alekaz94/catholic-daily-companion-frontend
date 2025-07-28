@@ -3,9 +3,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { DailyReading } from "../models/DailyReading";
 import { getAllDailyReadings } from "../services/DailyReadingService";
-import { FlatList, TouchableOpacity, View, Text, StyleSheet} from "react-native";
+import { FlatList, TouchableOpacity, View, Text, SafeAreaView} from "react-native";
 import DailyReadingDetailModal from "../components/DailyReadingDetailModal";
-import Navbar from "../components/Navbar";
 import NavbarReading from "../components/NavbarReading";
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
@@ -31,7 +30,7 @@ const DailyReadingScreen = () => {
     }, [])
 
     return (
-        <View style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
             <NavbarReading />
             <View style={[Layout.container, {backgroundColor: AppTheme.reading.background}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.reading.text}]}>Readings</Text>
@@ -39,12 +38,12 @@ const DailyReadingScreen = () => {
                 data={readings}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                    <View style={styles.flatlistContainer}>
+                    <View style={Layout.card}>
                         <TouchableOpacity onPress={() => {
                             setSelectedReading(item);
                             setModalVisible(true);
                         }}>
-                          <Text style={[styles.readingDate, {color: AppTheme.reading.text}]}>Reading from {item.createdAt}</Text>
+                          <Text style={[Typography.small, {color: AppTheme.reading.text}]}>Reading from {item.createdAt}</Text>
                         </TouchableOpacity>
                     </View>
                 )}
@@ -56,29 +55,8 @@ const DailyReadingScreen = () => {
                 onClose={() => setModalVisible(false)}
             />
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: "bold",
-        margin: 10
-    },
-    readingDate: {
-        fontSize: 14,
-        marginTop: 4
-    },
-    flatlistContainer: { 
-        padding: 6, 
-        borderBottomWidth: 1,
-        borderBottomColor: 
-        "#ccc" 
-    },
-})
 
 export default DailyReadingScreen;

@@ -19,10 +19,10 @@ const LogoutButton = () => {
 
     return (
         <>
-        <TouchableOpacity style={Layout.navbarButton} onPress={() => {
+        <TouchableOpacity style={[Layout.navbarButton, {backgroundColor: Colors.primary}]} onPress={() => {
             setIsVisible(true)
         }}>
-            <Text style={Layout.navbarButtonText}> Logout</Text>
+            <Text style={[Layout.buttonText, {color: "white"}]}> Logout</Text>
         </TouchableOpacity>
     
 

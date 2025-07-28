@@ -23,7 +23,16 @@ export const Layout: LayoutStyles = {
         alignItems: "center",
         justifyContent: "space-around",
         backgroundColor: "#D4AF37",
-        padding: 20
+        height: 70,
+        paddingHorizontal: 10,
+        paddingTop: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#E5E7EB',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
     },
     card: {
       borderRadius: 8,
@@ -66,7 +75,6 @@ export const Layout: LayoutStyles = {
         color: "#1A1A1A",
         fontSize: 14,
         fontWeight: 'bold',
-        borderBottomWidth: 1
     },
     image: {
         width: '100%',

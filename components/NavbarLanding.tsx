@@ -1,7 +1,5 @@
 import { View } from "react-native";
-import LogoutButton from "./LogoutButton";
 import NavButton from "./NavButton";
-import { Ionicons } from '@expo/vector-icons';
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -14,9 +12,9 @@ const NavbarLanding = () => {
     const navigation = useNavigation<NavbarNavigationProp>();
 
     return (
-        <View style={Layout.navbarContainer}>
-            <NavButton title={"Login"} screen={"Login"} />
-            <NavButton title={"Sign up"} screen={"Signup"} />
+        <View style={[Layout.navbarContainer, {backgroundColor: "#FAF3E0"}]}>
+            <NavButton style={{backgroundColor: "#FAF3E0"}} title={"Login"} screen={"Login"} />
+            <NavButton style={{backgroundColor: "#FAF3E0"}} title={"Sign up"} screen={"Signup"} />
         </View>
     );
 }
