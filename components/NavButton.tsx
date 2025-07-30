@@ -3,6 +3,7 @@ import { TouchableOpacity, Text } from "react-native";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Layout } from "../styles/Layout";
+import React from "react";
 
 type Props = {
     title: string;

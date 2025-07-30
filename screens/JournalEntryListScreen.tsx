@@ -10,7 +10,7 @@ import JournalEntryUpdateModal from "../components/JournalEntryUpdateModal";
 import { Ionicons } from '@expo/vector-icons';
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
-import NavbarJournal from "../components/NavbarJournal";
+import Navbar from "../components/Navbar";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppTheme, Colors } from "../styles/colors";
 
@@ -54,7 +54,7 @@ const JournalEntryListScreen = () => {
     return (
         <>
         <SafeAreaView style={{flex: 1}}>
-            <NavbarJournal />
+            <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.journal.text}]}>Daily reflections</Text>
                 <TouchableOpacity style={Layout.button} onPress={() => navigation.navigate("CreateJournalEntry")}>

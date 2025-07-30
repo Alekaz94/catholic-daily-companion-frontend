@@ -1,5 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
-import { NewUser, User } from '../models/User';
+import { NewUser, User } from "../models/User";
 import * as SecureStore from 'expo-secure-store';
 import API, { setAuthToken } from './api';
 import { LoginResponse } from '../models/Login';

@@ -9,6 +9,7 @@ import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
 import { AppTheme } from "../styles/colors";
+import React from "react";
 
 type JournalEntryCreateNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,

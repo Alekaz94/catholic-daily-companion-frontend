@@ -4,6 +4,7 @@ import { Layout } from "../styles/Layout";
 import { useState } from "react";
 import { Colors } from "../styles/colors";
 import { Typography } from "../styles/Typography";
+import React from "react";
 
 const LogoutButton = () => {
     const {logout} = useAuth();

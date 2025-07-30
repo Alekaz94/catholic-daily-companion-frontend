@@ -5,7 +5,7 @@ import { DailyReading } from "../models/DailyReading";
 import { getAllDailyReadings } from "../services/DailyReadingService";
 import { FlatList, TouchableOpacity, View, Text, SafeAreaView} from "react-native";
 import DailyReadingDetailModal from "../components/DailyReadingDetailModal";
-import NavbarReading from "../components/NavbarReading";
+import Navbar from "../components/Navbar";
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
@@ -31,7 +31,7 @@ const DailyReadingScreen = () => {
 
     return (
         <SafeAreaView style={{flex: 1}}>
-            <NavbarReading />
+            <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.reading.background}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.reading.text}]}>Readings</Text>
            <FlatList

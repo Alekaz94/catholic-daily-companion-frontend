@@ -8,7 +8,7 @@ import SaintDetailModal from "../components/SaintDetailModal";
 import defaultSaintImage from '../assets/images/default_saint.png';
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
-import NavbarSaint from "../components/NavbarSaint";
+import Navbar from "../components/Navbar";
 import { TextInput } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppTheme } from "../styles/colors";
@@ -83,7 +83,7 @@ const SaintScreen = () => {
 
     return (
         <SafeAreaView style={{flex: 1}}>
-            <NavbarSaint />
+            <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.saint.text}]}>Saints of the Catholic Church</Text>
             <TextInput 

@@ -4,6 +4,7 @@ import { Modal, TextInput, View, Text, TouchableOpacity } from "react-native";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import { AppTheme } from "../styles/colors";
+import React from "react";
 
 interface Props {
     visible: boolean,

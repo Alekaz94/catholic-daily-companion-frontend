@@ -2,18 +2,51 @@ import { View } from "react-native";
 import NavButton from "./NavButton";
 import { Ionicons } from '@expo/vector-icons';
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { Layout } from "../styles/Layout";
 
 type NavbarNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
+const screenStyles: Record<string, { backgroundColor: string; buttons: { title: string; screen: keyof AuthStackParamList }[] }> = {
+    Home: {
+      backgroundColor: "#FAF3E0",
+      buttons: [
+        { title: "Home", screen: "Home" },
+        { title: "Saints", screen: "Saint" },
+        { title: "Mass readings", screen: "Reading" },
+        { title: "My journal", screen: "Journal" },
+      ],
+    },
+    Journal: {
+      backgroundColor: "#B794F4",
+      buttons: [
+        { title: "Home", screen: "Home" },
+        { title: "Saints", screen: "Saint" },
+        { title: "Mass readings", screen: "Reading" },
+        { title: "My journal", screen: "Journal" },
+      ],
+    },
+    Reading: {
+      backgroundColor: "#ADD8E6",
+      buttons: [
+        { title: "Home", screen: "Home" },
+        { title: "Saints", screen: "Saint" },
+        { title: "Mass readings", screen: "Reading" },
+        { title: "My journal", screen: "Journal" },
+      ],
+    },
+  };
+
 const Navbar = () => {
     const navigation = useNavigation<NavbarNavigationProp>();
+    const route = useRoute<RouteProp<Record<string, object | undefined>, string>>();
+    const currentScreen = route.name;
+    const config = screenStyles[currentScreen] || screenStyles["Home"];
 
     return (
-        <View style={[Layout.navbarContainer, {backgroundColor: "#FAF3E0"}]}>
+        <View style={[Layout.navbarContainer, {backgroundColor: config.backgroundColor}]}>
             <Ionicons 
                 name="person-circle-outline"
                 size={26}
@@ -21,9 +54,14 @@ const Navbar = () => {
                 style={{marginTop: 7}}
                 onPress={() => navigation.navigate("Profile")}
             />
-            <NavButton style={{backgroundColor: "#FAF3E0"}} title={"Saints"} screen={"Saint"} />
-            <NavButton style={{backgroundColor: "#FAF3E0"}} title={"Mass readings"} screen={"Reading"} />
-            <NavButton style={{backgroundColor: "#FAF3E0"}} title={"My journal"} screen={"Journal"} />
+            {config.buttons.map((btn) => (
+                <NavButton 
+                    key={btn.screen}
+                    style={{ backgroundColor: config.backgroundColor }}
+                    title={btn.title}
+                    screen={btn.screen}
+                />
+            ))}
         </View>
     );
 }

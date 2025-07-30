@@ -9,6 +9,7 @@ import { NewUser } from '../models/User';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
 import { AppTheme, Colors } from '../styles/colors';
+import React from 'react';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
