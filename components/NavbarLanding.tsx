@@ -13,8 +13,8 @@ const NavbarLanding = () => {
 
     return (
         <View style={[Layout.navbarContainer, {backgroundColor: "#FAF3E0"}]}>
-            <NavButton style={{backgroundColor: "#FAF3E0"}} title={"Login"} screen={"Login"} />
-            <NavButton style={{backgroundColor: "#FAF3E0"}} title={"Sign up"} screen={"Signup"} />
+            <NavButton testID="navbutton-Login" style={{backgroundColor: "#FAF3E0"}} title={"Login"} screen={"Login"} />
+            <NavButton testID="navbutton-Signup" style={{backgroundColor: "#FAF3E0"}} title={"Sign up"} screen={"Signup"} />
         </View>
     );
 }

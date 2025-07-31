@@ -46,8 +46,12 @@ const Navbar = () => {
     const config = screenStyles[currentScreen] || screenStyles["Home"];
 
     return (
-        <View style={[Layout.navbarContainer, {backgroundColor: config.backgroundColor}]}>
+        <View
+          testID="navbar-container"
+          style={[Layout.navbarContainer, {backgroundColor: config.backgroundColor}]}
+         >
             <Ionicons 
+                testID="profile-icon"
                 name="person-circle-outline"
                 size={26}
                 color="#1A1A1A"

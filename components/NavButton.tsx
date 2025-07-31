@@ -10,13 +10,14 @@ type Props = {
     screen: keyof AuthStackParamList;
     style?: object;
     textStyle?: object;
+    testID?: string;
 }
 
-const NavButton: React.FC<Props> = ({ title, screen, style, textStyle }) => {
+const NavButton: React.FC<Props> = ({ title, screen, style, textStyle, testID }) => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
 
     return (
-        <TouchableOpacity style={[Layout.navbarButton, style]} onPress={() => navigation.navigate(screen)}>
+        <TouchableOpacity testID={testID} style={[Layout.navbarButton, style]} onPress={() => navigation.navigate(screen)}>
             <Text style={[Layout.navbarButtonText, textStyle]}>{title}</Text>
         </TouchableOpacity>
     );
