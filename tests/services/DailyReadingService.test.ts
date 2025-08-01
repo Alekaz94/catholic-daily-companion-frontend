@@ -1,26 +1,29 @@
 import {
-    getAllDailyReadings,
-    getReadingById,
-    getTodaysReading,
-    createDailyReading,
-  } from "../../services/dailyReadingService"; // adjust path as needed
-  import API from "../../services/api";
-  import { DailyReading, NewDailyReading } from "../../models/DailyReading";
+  getAllDailyReadings,
+  getReadingById,
+  getTodaysReading,
+  createDailyReading,
+} from "../../services/DailyReadingService";
+import API from "../../services/api";
+import { DailyReading, NewDailyReading } from "../../models/DailyReading";
   
-  jest.mock("../../services/api");
+jest.mock("../../services/api");
   
-  const mockReading: DailyReading = {
-    id: "1",
-    date: "2025-08-01",
-    title: "Daily Bread",
-    content: "This is today's reading.",
-  };
+const mockReading: DailyReading = {
+  id: "1",
+  createdAt: "2025-08-01",
+  firstReading: "Genesis 1:1-10",
+  secondReading: "Romans 8:1-11",
+  psalm: "Psalm 23",
+  gospel: "John 1:1-18",
+};
   
-  const mockNewReading: NewDailyReading = {
-    date: "2025-08-02",
-    title: "Tomorrow's Word",
-    content: "A fresh start for the day.",
-  };
+const mockNewReading: NewDailyReading = {
+  firstReading: "Exodus 2:1-10",
+  secondReading: "Hebrews 11:1-3",
+  psalm: "Psalm 91",
+  gospel: "Matthew 5:1-12",
+};
 
   describe("getAllDailyReadings", () => {
     it("returns a list of daily readings", async () => {

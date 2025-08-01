@@ -18,5 +18,5 @@ export interface NewSaint {
     biography: string;
     patronage: string;
     canonizationYear: number;
-    imageUrl: string;
+    imageUrl: string | null;
 }

@@ -1,4 +1,4 @@
-import { changePassword } from "../../services/userService"; // Adjust if filename differs
+import { changePassword } from "../../services/UserService"; // Adjust if filename differs
 import API from "../../services/api";
 import { User } from "../../models/User";
 

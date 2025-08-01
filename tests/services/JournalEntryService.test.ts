@@ -14,7 +14,8 @@ const mockEntry: JournalEntry = {
     id: "entry1",
     title: "Prayer Reflection",
     content: "God is love",
-    date: "2025-08-01"
+    date: "2025-08-01",
+    updatedAt: "2025-08-02"
 };
 
 describe("journalEntryService", () => {
