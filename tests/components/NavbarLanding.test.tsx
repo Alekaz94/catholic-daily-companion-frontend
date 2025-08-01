@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native"
-import NavbarLanding from "../../components/NavbarLanding";
+import NavbarLanding from "../../src/components/NavbarLanding";
 import { act, fireEvent, render } from "@testing-library/react-native";
 
 type MockNavButtonProps = {

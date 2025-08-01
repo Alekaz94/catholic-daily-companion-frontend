@@ -1,14 +1,14 @@
 import React from "react";
 import { render, waitFor, act } from "@testing-library/react-native";
-import { AuthProvider, useAuth } from "../../context/AuthContext";
+import { AuthProvider, useAuth } from "../../src/context/AuthContext";
 import {
   login as loginService,
   logout as logoutService,
   signup as signUpService,
   loadUserFromStorage,
-} from "../../services/AuthService";
+} from "../../src/services/AuthService";
 import { Text } from 'react-native';
-import { NewUser, User } from "../../models/User";
+import { NewUser, User } from "../../src/models/User";
 
 jest.mock("../../services/AuthService")
 

@@ -4,9 +4,9 @@ import {
     getSpecificSaint,
     getSaintOfTheDay,
     createSaint
-} from "../../services/SaintService";
-import API from "../../services/api";
-import { Saint, NewSaint } from "../../models/Saint";
+} from "../../src/services/SaintService";
+import API from "../../src/services/api";
+import { Saint, NewSaint } from "../../src/models/Saint";
 
 jest.mock("../../services/api");
 

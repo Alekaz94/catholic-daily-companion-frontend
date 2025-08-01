@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent, waitFor, act } from "@testing-library/react-native";
-import LogoutButton from "../../components/LogoutButton";
-import { useAuth } from "../../context/AuthContext";
+import LogoutButton from "../../src/components/LogoutButton";
+import { useAuth } from "../../src/context/AuthContext";
 
 jest.mock("../../context/AuthContext", () => ({
     useAuth: jest.fn(),

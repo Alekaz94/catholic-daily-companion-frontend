@@ -3,9 +3,9 @@ import {
   getReadingById,
   getTodaysReading,
   createDailyReading,
-} from "../../services/DailyReadingService";
-import API from "../../services/api";
-import { DailyReading, NewDailyReading } from "../../models/DailyReading";
+} from "../../src/services/DailyReadingService";
+import API from "../../src/services/api";
+import { DailyReading, NewDailyReading } from "../../src/models/DailyReading";
   
 jest.mock("../../services/api");
   

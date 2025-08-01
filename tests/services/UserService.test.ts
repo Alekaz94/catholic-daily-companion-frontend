@@ -1,6 +1,6 @@
-import { changePassword } from "../../services/UserService";
-import API from "../../services/api";
-import { User } from "../../models/User";
+import { changePassword } from "../../src/services/UserService";
+import API from "../../src/services/api";
+import { User } from "../../src/models/User";
 
 jest.mock("../../services/api");
 

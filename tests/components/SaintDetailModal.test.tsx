@@ -1,7 +1,7 @@
 import React from "react";
 import { act, fireEvent, render } from "@testing-library/react-native";
-import { Saint } from "../../models/Saint";
-import SaintDetailModal from "../../components/SaintDetailModal";
+import { Saint } from "../../src/models/Saint";
+import SaintDetailModal from "../../src/components/SaintDetailModal";
 
 const mockSaint: Saint = {
     id: "absd",

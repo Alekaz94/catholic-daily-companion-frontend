@@ -1,6 +1,6 @@
 import { act, fireEvent, render } from "@testing-library/react-native";
-import DailyReadingDetailModal from "../../components/DailyReadingDetailModal";
-import { DailyReading } from "../../models/DailyReading";
+import DailyReadingDetailModal from "../../src/components/DailyReadingDetailModal";
+import { DailyReading } from "../../src/models/DailyReading";
 
 const mockReading: DailyReading = {
     id: "string",

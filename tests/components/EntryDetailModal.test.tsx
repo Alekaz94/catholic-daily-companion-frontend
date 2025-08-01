@@ -1,5 +1,5 @@
 import { act, fireEvent, render } from "@testing-library/react-native";
-import EntryDetailModal from "../../components/EntryDetailModal"
+import EntryDetailModal from "../../src/components/EntryDetailModal"
 
 const mockJournalEntry = {
     id: "1sad23",

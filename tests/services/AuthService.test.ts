@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
-import { User } from "../../models/User";
-import API from "../../services/api";
-import * as AuthService from '../../services/AuthService';
+import { User } from "../../src/models/User";
+import API from "../../src/services/api";
+import * as AuthService from '../../src/services/AuthService';
 import * as SecureStore from 'expo-secure-store';
 
 

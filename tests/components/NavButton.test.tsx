@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import NavButton from "../../components/NavButton";
+import NavButton from "../../src/components/NavButton";
 import { act, fireEvent, render } from "@testing-library/react-native";
 
 jest.mock("@react-navigation/native", () => ({

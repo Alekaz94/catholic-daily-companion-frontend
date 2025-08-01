@@ -1,10 +1,10 @@
 import React from "react";
-import { Modal, View, StyleSheet, Button, Text, Image, TouchableOpacity } from "react-native";
+import { Modal, View, Text, Image, TouchableOpacity } from "react-native";
 import { Saint } from "../models/Saint";
 import defaultSaintImage from "../assets/images/default_saint.png"
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
-import { AppTheme, Colors } from "../styles/colors";
+import { AppTheme } from "../styles/colors";
 
 interface Props {
     visible: boolean;

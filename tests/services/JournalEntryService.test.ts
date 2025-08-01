@@ -4,9 +4,9 @@ import {
     createEntry,
     updateEntry,
     deleteEntry
-} from "../../services/JournalEntryService";
-import API from "../../services/api";
-import { JournalEntry } from "../../models/JournalEntry";
+} from "../../src/services/JournalEntryService";
+import API from "../../src/services/api";
+import { JournalEntry } from "../../src/models/JournalEntry";
   
 jest.mock("../../services/api");
   

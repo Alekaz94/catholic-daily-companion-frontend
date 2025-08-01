@@ -1,6 +1,5 @@
-import { User, UserPasswordChange } from "../models/User";
+import { User } from "../models/User";
 import API from "./api";
-import * as SecureStore from "expo-secure-store";
 
 const endpoint = "/api/v1/user"
 
