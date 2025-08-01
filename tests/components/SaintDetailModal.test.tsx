@@ -24,7 +24,7 @@ describe("SaintDetailModal", () => {
     });
 
     it("renders saint data correctly with fallback image", () => {
-        const { getByText, getByRole } = render(
+        const { getByText } = render(
             <SaintDetailModal visible={true} saint={mockSaint} onClose={jest.fn()} />
         );
 

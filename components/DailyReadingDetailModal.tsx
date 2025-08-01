@@ -23,8 +23,15 @@ const DailyReadingDetailModal: React.FC<Props> = ({visible, reading, onClose}) =
                 <Text style={[Typography.small, {color: AppTheme.reading.text}]}>{reading.createdAt}</Text>
                 <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center", color: AppTheme.reading.text}]}>First reading </Text>
                 <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading.firstReading}</Text>
-                <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center", color: AppTheme.reading.text}]}>Second reading </Text>
-                <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading.secondReading}</Text>
+                {reading.secondReading ? 
+                    <> 
+                        <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center", color: AppTheme.reading.text}]}>Second reading </Text>
+                        <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading.secondReading}</Text>
+                    </>
+                    : 
+                    <>
+                    </>
+                }
                 <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center", color: AppTheme.reading.text}]}>Psalm </Text>
                 <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading.psalm}</Text>
                 <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, alignSelf: "center", color: AppTheme.reading.text}]}>Gospel reading </Text>
