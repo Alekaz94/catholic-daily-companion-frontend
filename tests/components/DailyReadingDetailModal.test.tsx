@@ -19,6 +19,14 @@ describe("DailyReadingDetailModal", () => {
         expect(toJSON()).toBeNull();
     })
 
+    it("does not render content if visible is false", () => {
+        const { queryByText } = render(
+            <DailyReadingDetailModal visible={false} reading={null} onClose={jest.fn()} />
+        );
+    
+        expect(queryByText("Test entry")).toBeNull();
+    });
+
     it("renders daily reading data correctly", () => {
         const { getByText } = render(
             <DailyReadingDetailModal visible={true} reading={mockReading} onClose={jest.fn()} />
@@ -57,4 +65,27 @@ describe("DailyReadingDetailModal", () => {
         expect(queryByText("Psalm")).toBeTruthy();
         expect(queryByText("Gospel reading")).toBeTruthy();
     })
+
+    it("can handle multiple close button presses", async () => {
+        const onCloseMock = jest.fn();
+        const { getByText } = render(
+            <DailyReadingDetailModal visible={true} reading={mockReading} onClose={onCloseMock} />
+        );
+    
+        const closeButton = getByText("Close");
+    
+        await act(async () => {
+            fireEvent.press(closeButton);
+            fireEvent.press(closeButton);
+        });
+    
+        expect(onCloseMock).toHaveBeenCalledTimes(2);
+    });
+
+    it("matches the snapshot", () => {
+        const { toJSON } = render(
+            <DailyReadingDetailModal visible={true} reading={mockReading} onClose={jest.fn()} />
+        );
+        expect(toJSON()).toMatchSnapshot();
+    });
 })

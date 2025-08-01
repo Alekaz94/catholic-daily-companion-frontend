@@ -23,6 +23,14 @@ describe("SaintDetailModal", () => {
         expect(toJSON()).toBeNull();
     });
 
+    it("does not render content if visible is false", () => {
+        const { queryByText } = render(
+            <SaintDetailModal visible={false} saint={null} onClose={jest.fn()} />
+        );
+    
+        expect(queryByText("Test entry")).toBeNull();
+    });
+
     it("renders saint data correctly with fallback image", () => {
         const { getByText } = render(
             <SaintDetailModal visible={true} saint={mockSaint} onClose={jest.fn()} />
@@ -80,4 +88,27 @@ describe("SaintDetailModal", () => {
         )
         expect(getByText(/No feast day/)).toBeTruthy();
     })
+
+    it("can handle multiple close button presses", async () => {
+        const onCloseMock = jest.fn();
+        const { getByText } = render(
+            <SaintDetailModal visible={true} saint={mockSaint} onClose={onCloseMock} />
+        );
+    
+        const closeButton = getByText("Close");
+    
+        await act(async () => {
+            fireEvent.press(closeButton);
+            fireEvent.press(closeButton);
+        });
+    
+        expect(onCloseMock).toHaveBeenCalledTimes(2);
+    });
+
+    it("matches the snapshot", () => {
+        const { toJSON } = render(
+            <SaintDetailModal visible={true} saint={mockSaint} onClose={jest.fn()} />
+        );
+        expect(toJSON()).toMatchSnapshot();
+    });
 })

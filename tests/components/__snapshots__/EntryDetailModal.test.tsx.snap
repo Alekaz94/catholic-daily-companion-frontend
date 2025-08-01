@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EntryDetailModal matches the snapshot 1`] = `
+<Modal
+  animationType="slide"
+  hardwareAccelerated={false}
+  visible={true}
+>
+  <View
+    style={
+      [
+        {
+          "flex": 1,
+          "padding": 20,
+        },
+        {
+          "backgroundColor": "#EDE9FE",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "color": "#222",
+            "fontSize": 24,
+            "fontWeight": "bold",
+            "marginBottom": 16,
+          },
+          {
+            "color": "#1A1A1A",
+          },
+        ]
+      }
+    >
+      Test entry
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "color": "white",
+            "fontSize": 12,
+          },
+          {
+            "color": "#1A1A1A",
+          },
+        ]
+      }
+    >
+      2025-08-30
+    </Text>
+    <Text
+      style={
+        [
+          {
+            "color": "white",
+            "fontSize": 14,
+          },
+          {
+            "color": "#1A1A1A",
+            "marginBottom": 20,
+            "marginTop": 20,
+          },
+        ]
+      }
+    >
+      This is the content of the test entry
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#B794F4",
+          "borderRadius": 8,
+          "marginTop": 10,
+          "opacity": 1,
+          "paddingVertical": 12,
+          "width": "50%",
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "white",
+              "fontSize": 16,
+              "fontWeight": "bold",
+            },
+            {
+              "alignSelf": "center",
+              "color": "#1A1A1A",
+            },
+          ]
+        }
+      >
+        Close
+      </Text>
+    </View>
+  </View>
+</Modal>
+`;

@@ -20,7 +20,7 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
         <Modal visible={visible} animationType='slide'>
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, {color: AppTheme.journal.text}]}>{entry.title}</Text>
-                <Text style={[Typography.small, {color: AppTheme.journal.text}]}>{entry.date}</Text>
+                <Text style={[Typography.small, {color: AppTheme.journal.text}]}>{entry.updatedAt}</Text>
                 <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: AppTheme.journal.text}]}>{entry.content}</Text>
 
                 <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#B794F4"}]}>
