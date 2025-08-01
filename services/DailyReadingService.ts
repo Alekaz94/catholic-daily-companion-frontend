@@ -1,7 +1,7 @@
 import { DailyReading, NewDailyReading } from "../models/DailyReading";
 import API from "./api";
 
-const endpoint = "api/v1/daily-reading";
+const endpoint = "/api/v1/daily-reading";
 
 export const getAllDailyReadings = async (): Promise<DailyReading[]> => {
     const res = await API.get<DailyReading[]>(endpoint);
