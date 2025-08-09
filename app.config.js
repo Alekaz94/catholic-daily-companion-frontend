@@ -6,9 +6,10 @@ export default ({ config }) => {
     expo: {
       name: "catholic-daily-companion",
       slug: "catholic-daily-companion",
+      scheme: "catholic-daily-companion",
       version: "1.0.0",
       orientation: "portrait",
-      icon: "./assets/images/default_saint.png",
+      icon: "./src/assets/images/default_saint.png",
       userInterfaceStyle: "light",
       newArchEnabled: true,
       splash: {
@@ -30,7 +31,10 @@ export default ({ config }) => {
       plugins: ["expo-secure-store"],
 
       extra: {
-        API_BASE_URL: process.env.API_BASE_URL
+        API_BASE_URL: process.env.API_BASE_URL,
+        GOOGLE_EXPO_CLIENT_ID: process.env.GOOGLE_EXPO_CLIENT_ID,
+        GOOGLE_ANDROID_CLIENT_ID: process.env.GOOGLE_ANDROID_CLIENT_ID,
+        GOOGLE_WEB_CLIENT_ID: process.env.GOOGLE_WEB_CLIENT_ID,
       },
     },
   };

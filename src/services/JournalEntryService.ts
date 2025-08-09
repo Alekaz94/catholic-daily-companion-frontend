@@ -3,10 +3,10 @@ import { JournalEntry, NewJournalEntry, UpdateJournalEntry } from "../models/Jou
 
 const endpoint = "/api/v1/journal-entry"
 
-export const getAllEntries = async (): Promise<JournalEntry[]> => {
-    const res = await API.get<JournalEntry[]>(endpoint);
+export const getAllEntries = async (page: number, size: number, sort: string): Promise<any> => {
+    const res = await API.get(`${endpoint}?page=${page}&size=${size}&sort=${sort}`);
     return res.data;
-}
+};
 
 export const getSpecificEntry = async (id: string): Promise<JournalEntry> => {
     const res = await API.get<JournalEntry>(`${endpoint}/${id}`);

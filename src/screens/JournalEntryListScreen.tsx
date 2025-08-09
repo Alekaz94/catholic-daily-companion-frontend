@@ -27,16 +27,45 @@ const JournalEntryListScreen = () => {
     const [isVisibleDelete, setIsVisibleDelete] = useState(false);
     const [entryToDeleteId, setEntryToDeleteId] = useState<string | null>(null);
     const [entryToEdit, setEntryToEdit] = useState<JournalEntry | null>(null);
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation<JournalEntryListNavigationProp>();
 
     const fetchEntries = async () => {
-        const data = await getAllEntries();
-        setEntries(data);
+        if(isLoading || !hasMore) {
+            return;
+        }
+        setIsLoading(true);
+
+        try {
+            const res = await getAllEntries(page, 10, "desc");
+            if(page === 0) {
+                setEntries(res.content);
+            } else {
+                setEntries(prev => [
+                    ...prev,
+                    ...res.content.filter((entry: JournalEntry) => !prev.some(e => e.id === entry.id)),
+                ]);
+            }
+
+            setHasMore(!res.last);
+        } catch (error) {
+            console.error("Error loading journal entries ", error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     const handleDelete = async (id: string) => {
-        await deleteEntry(id);
-        fetchEntries();
+        try {
+            await deleteEntry(id);
+            setEntries(prev => prev.filter(entry => entry.id !== id));
+            setIsVisibleDelete(false);
+            setEntryToDeleteId(null)
+        } catch (error) {
+            console.log("Failed to delete entry ", error)
+        }
     }
 
     const handleUpdate = async (id: string, entryToUpdate: UpdateJournalEntry) => {
@@ -46,10 +75,16 @@ const JournalEntryListScreen = () => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", () => {
-            fetchEntries();
+            setEntries([]);
+            setPage(0);
+            setHasMore(true);
         });
         return unsubscribe;
     }, [navigation])
+
+    useEffect(() => {
+        fetchEntries();
+    }, [page]);
 
     return (
         <>
@@ -110,6 +145,9 @@ const JournalEntryListScreen = () => {
                             </View>
                         </LinearGradient>
                     )}
+                    onEndReached={fetchEntries}
+                    onEndReachedThreshold={0.5}
+                    ListFooterComponent={isLoading ? <Text>Loading more...</Text> : null}
                 />
 
                 <EntryDetailModal 

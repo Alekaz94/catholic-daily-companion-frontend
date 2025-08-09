@@ -8,4 +8,5 @@ export type AuthStackParamList = {
   Reading: undefined;
   Profile: undefined;
   Landing: undefined;
+  EmailAndPassword: undefined;
 };

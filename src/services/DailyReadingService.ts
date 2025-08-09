@@ -3,8 +3,8 @@ import API from "./api";
 
 const endpoint = "/api/v1/daily-reading";
 
-export const getAllDailyReadings = async (): Promise<DailyReading[]> => {
-    const res = await API.get<DailyReading[]>(endpoint);
+export const getAllDailyReadings = async (page: number, size: number): Promise<any> => {
+    const res = await API.get(`${endpoint}?page=${page}&size=${size}`);
     return res.data;
 }
 

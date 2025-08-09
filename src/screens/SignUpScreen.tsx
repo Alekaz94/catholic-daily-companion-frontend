@@ -103,7 +103,7 @@ const SignUpScreen = () => {
 
       <TouchableOpacity
         style={[Layout.button, {backgroundColor: AppTheme.auth.primary}]}
-        onPress={() => navigation.navigate("Landing")}
+        onPress={() => navigation.navigate("Login")}
       >
         <Text style={Layout.buttonText}>Back</Text>
       </TouchableOpacity>

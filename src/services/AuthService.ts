@@ -50,6 +50,15 @@ export const logout = async () => {
   setAuthToken(null);
 };
 
+export const firebaseLogin = async (idToken: string | undefined): Promise<{ user: User; token: string }> => {
+  const response = await API.post<LoginResponse>("/api/v1/firebase-auth/firebase-login", { idToken })
+  const { user, token } = response.data;
+
+  await storeSession(user, token);
+
+  return { user, token };
+}
+
 export const loadUserFromStorage = async () => {
   const token = await SecureStore.getItemAsync('token');
   const userString = await SecureStore.getItemAsync('user');
@@ -68,3 +77,15 @@ export const loadUserFromStorage = async () => {
   setAuthToken(token);
   return JSON.parse(userString);
 };
+
+const storeSession = async (user: User, token: string) => {
+  const decodedToken = jwtDecode<{ exp: number }>(token);
+
+  if(decodedToken.exp * 1000 < Date.now()) {
+    throw new Error("Token is expired");
+  }
+
+  await SecureStore.setItemAsync("token", token);
+  await SecureStore.setItemAsync("user", JSON.stringify(user));
+  setAuthToken(token);
+}
