@@ -70,7 +70,7 @@ const ProfileScreen = () => {
 
             <Text style={Typography.title}>My Profile</Text>
             <Text style={Typography.label}>Email:</Text>
-            <Text style={Typography.body}>{user?.email ?? 'Unknown'}</Text>
+            <Text style={[Typography.body, {color: "black"}]}>{user?.email ?? 'Unknown'}</Text>
             <Text style={{ margin: 10 }}></Text>
             <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold"}]}>Change Password</Text>
             <Text style={Typography.label}>Current Password:</Text>
@@ -96,11 +96,6 @@ const ProfileScreen = () => {
           disabled={!isFormValid()}
         >
             <Text style={Layout.buttonText}>Update Password</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={[Layout.button, {marginTop: 50}]} onPress={() => navigation.navigate("Home")} 
-        >
-            <Text style={Layout.buttonText}>Homescreen</Text>
         </TouchableOpacity>
 
         <LogoutButton />

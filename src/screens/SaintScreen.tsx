@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Saint } from "../models/Saint";
 import { getAllSaints, searchSaints } from "../services/SaintService";
 import { AuthStackParamList } from "../navigation/types";
@@ -28,7 +28,8 @@ const SaintScreen = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const screenWidth = Dimensions.get('window').width;
-    const cardWidth = (screenWidth - 3 * 12) / 2;
+    const cardWidth = (screenWidth - 5 * 12) / 2;
+    const listRef = useRef<FlatList>(null);
 
     const fetchSaints = async () => {
         if(isLoading || !hasMore) {
@@ -40,7 +41,7 @@ const SaintScreen = () => {
         try {
             const res = isSearching 
                 ? await searchSaints(searchQuery, page, 5)
-                : await getAllSaints(page, 5)
+                : await getAllSaints(page, 5);
 
             setSaints(prev => [
             ...prev,
@@ -56,8 +57,13 @@ const SaintScreen = () => {
     };
 
     const handleSearch = async () => {
-        if (searchQuery.trim() === "") return;
+        if (searchQuery.trim() === "") {
+            return;
+        }
         setIsSearching(true);
+        setPage(0);
+        setSaints([]);
+        listRef.current?.scrollToOffset({ offset: 0, animated: true });
     };
 
     const clearSearch = async () => {
@@ -66,6 +72,7 @@ const SaintScreen = () => {
         setSaints([]);
         setPage(0);
         setHasMore(true);
+        listRef.current?.scrollToOffset({ offset: 0, animated: true });
     }
 
     useEffect(() => {
@@ -87,7 +94,7 @@ const SaintScreen = () => {
     return (
         <SafeAreaView style={{flex: 1}}>
             <Navbar />
-            <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>
+            <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.saint.text}]}>Saints of the Catholic Church</Text>
             <TextInput 
                 style={Layout.input} 
@@ -100,6 +107,7 @@ const SaintScreen = () => {
                 <Text style={Typography.link}>Clear search</Text>
             </TouchableOpacity>
             <FlatList
+                ref={listRef}
                 data={saints}
                 keyExtractor={item => item.id}
                 numColumns={2}
@@ -110,10 +118,10 @@ const SaintScreen = () => {
                         setSelectedSaint(item);
                         setModalVisible(true);
                         }}
-                        style={{width: cardWidth}}
+                        style={{width: cardWidth, margin: 5}}
                     >
                         <LinearGradient 
-                            colors={['#FFD700', '#FFF5CC']}
+                            colors={['#FAF3E0', "#F0F9FF"]}
                             start={{x: 0, y: 0.5}}
                             end={{x: 1, y: 0.5}}
                             style={[Layout.card, {padding: 12, borderRadius: 12, alignItems: "center"}]}
@@ -121,7 +129,6 @@ const SaintScreen = () => {
                         
                             <Image style={Layout.image} source={item.imageUrl ? { uri: item.imageUrl } : defaultSaintImage} />
                             <Text style={[Typography.label, {color: AppTheme.saint.text}]}>{item.name}</Text>
-                            <Text style={[Typography.small, {color: AppTheme.saint.text}]}>ca {item.birthYear} - ca {item.deathYear}</Text>
                         </LinearGradient>
                     </TouchableOpacity>
 

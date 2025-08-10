@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, SafeAreaView, View, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -14,6 +14,7 @@ import { Typography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppTheme } from '../styles/colors';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -48,7 +49,7 @@ const HomeScreen = () => {
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F0F9FF"}}>
+    <ScrollView style={{ flex: 1, backgroundColor: "#F0F9FF"}}>
       <Navbar />
       <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
       <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
@@ -58,7 +59,7 @@ const HomeScreen = () => {
               <Text style={[Typography.label, {fontSize: 16, color: "black"}]}>No Saint's feast day today.</Text>
             </View>
           : <LinearGradient 
-              colors={['#FFD700', '#FAF3E0']}
+              colors={['#FAF3E0', "#F0F9FF"]}
               start={{x: 0, y: 0.5}}
               end={{x: 1, y: 0.5}}
               style={[Layout.card, {borderRadius: 12, padding: 15}]}>
@@ -74,19 +75,19 @@ const HomeScreen = () => {
         }
       </View>
       <View style={Layout.container}>
-      <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: AppTheme.reading.background}]}>
+      <View style={[Layout.card, {borderRadius: 12, padding: 10, backgroundColor: "#FAF3E0"}]}>
         <Text style={[Typography.label, {fontSize: 20}]}>Today's readings</Text>
         {!reading ? (
           <Text style={[Typography.label, {fontSize: 16}]}>No reading found for today!</Text>
         ) : (
           <>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text}]}>First reading </Text>
+            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text, borderBottomWidth: 1}]}>First reading </Text>
             <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.firstReading}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text}]}>Second reading </Text>
+            <Text style={[Typography.label, {marginBottom: 5, marginTop: 10, color: AppTheme.reading.text, borderBottomWidth: 1}]}>Second reading </Text>
             <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.secondReading}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text}]}>Psalm </Text>
+            <Text style={[Typography.label, {marginBottom: 5, marginTop: 10, color: AppTheme.reading.text, borderBottomWidth: 1}]}>Psalm </Text>
             <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.psalm}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text}]}>Gospel reading </Text>
+            <Text style={[Typography.label, {marginBottom: 5, marginTop: 10, color: AppTheme.reading.text, borderBottomWidth: 1}]}>Gospel reading </Text>
             <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.gospel}</Text> 
           </>
         )}     
@@ -98,7 +99,7 @@ const HomeScreen = () => {
         saint={saint}
         onClose={() => setModalVisible(false)}
       />
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
