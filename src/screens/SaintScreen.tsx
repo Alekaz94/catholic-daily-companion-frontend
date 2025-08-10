@@ -3,7 +3,7 @@ import { Saint } from "../models/Saint";
 import { getAllSaints, searchSaints } from "../services/SaintService";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { View, FlatList, TouchableOpacity, Text, Image, SafeAreaView } from "react-native";
+import { View, FlatList, TouchableOpacity, Text, Image, SafeAreaView, Dimensions } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
 import defaultSaintImage from '../assets/images/default_saint.png';
 import { Layout } from "../styles/Layout";
@@ -27,6 +27,8 @@ const SaintScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
+    const screenWidth = Dimensions.get('window').width;
+    const cardWidth = (screenWidth - 3 * 12) / 2;
 
     const fetchSaints = async () => {
         if(isLoading || !hasMore) {
@@ -99,23 +101,29 @@ const SaintScreen = () => {
             <FlatList
                 data={saints}
                 keyExtractor={item => item.id}
+                numColumns={2}
+                columnWrapperStyle={{justifyContent: "space-between", marginBottom: 10}}
+                contentContainerStyle={{ paddingBottom: 20}}
                 renderItem={({item}) => (
-                    <LinearGradient 
-                        colors={['#FFD700', '#FFF5CC']}
-                        start={{x: 0, y: 0.5}}
-                        end={{x: 1, y: 0.5}}
-                        style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15}]}
+                    <TouchableOpacity onPress={() => {
+                        setSelectedSaint(item);
+                        setModalVisible(true);
+                        }}
+                        style={{width: cardWidth}}
                     >
-                        <TouchableOpacity onPress={() => {
-                            setSelectedSaint(item);
-                            setModalVisible(true);
-                        }}>
+                        <LinearGradient 
+                            colors={['#FFD700', '#FFF5CC']}
+                            start={{x: 0, y: 0.5}}
+                            end={{x: 1, y: 0.5}}
+                            style={[Layout.card, {padding: 12, borderRadius: 12, alignItems: "center"}]}
+                        >
+                        
                             <Image style={Layout.image} source={item.imageUrl ? { uri: item.imageUrl } : defaultSaintImage} />
                             <Text style={[Typography.label, {color: AppTheme.saint.text}]}>{item.name}</Text>
                             <Text style={[Typography.small, {color: AppTheme.saint.text}]}>ca {item.birthYear} - ca {item.deathYear}</Text>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text}]}>Patron of {item.patronage}</Text>
-                        </TouchableOpacity>
-                    </LinearGradient>
+                        </LinearGradient>
+                    </TouchableOpacity>
+
                 )}
                 onEndReached={fetchSaints}
                 onEndReachedThreshold={0.5}
