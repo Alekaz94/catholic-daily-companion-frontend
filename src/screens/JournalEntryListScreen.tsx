@@ -32,31 +32,6 @@ const JournalEntryListScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation<JournalEntryListNavigationProp>();
 
-    const fetchEntries = async () => {
-        if(isLoading || !hasMore) {
-            return;
-        }
-        setIsLoading(true);
-
-        try {
-            const res = await getAllEntries(page, 10, "desc");
-            if(page === 0) {
-                setEntries(res.content);
-            } else {
-                setEntries(prev => [
-                    ...prev,
-                    ...res.content.filter((entry: JournalEntry) => !prev.some(e => e.id === entry.id)),
-                ]);
-            }
-
-            setHasMore(!res.last);
-        } catch (error) {
-            console.error("Error loading journal entries ", error);
-        } finally {
-            setIsLoading(false);
-        }
-    }
-
     const handleDelete = async (id: string) => {
         try {
             await deleteEntry(id);
@@ -69,8 +44,26 @@ const JournalEntryListScreen = () => {
     }
 
     const handleUpdate = async (id: string, entryToUpdate: UpdateJournalEntry) => {
-        await updateEntry(id, entryToUpdate);
-        fetchEntries();
+        try {
+            await updateEntry(id, entryToUpdate);
+            refreshEntries();
+        } catch (error) {
+            console.error("Failed to update entry", error);
+        }
+    }
+
+    const refreshEntries = async () => {
+        try {
+            setIsLoading(true);
+            const res = await getAllEntries(0, 10, "desc");
+            setEntries(res.content);
+            setPage(0);
+            setHasMore(!res.last);
+        } catch (error) {
+            console.error("Error refreshing entries ", error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -83,7 +76,32 @@ const JournalEntryListScreen = () => {
     }, [navigation])
 
     useEffect(() => {
-        fetchEntries();
+        const load = async () => {
+            if(isLoading || !hasMore) {
+                return;
+            }
+            setIsLoading(true);
+    
+            try {
+                const res = await getAllEntries(page, 10, "desc");
+                if(page === 0) {
+                    setEntries(res.content);
+                } else {
+                    setEntries(prev => [
+                        ...prev,
+                        ...res.content.filter((entry: JournalEntry) => !prev.some(e => e.id === entry.id)),
+                    ]);
+                }
+    
+                setHasMore(!res.last);
+            } catch (error) {
+                console.error("Error loading journal entries ", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        load();
     }, [page]);
 
     return (
@@ -145,9 +163,17 @@ const JournalEntryListScreen = () => {
                             </View>
                         </LinearGradient>
                     )}
-                    onEndReached={fetchEntries}
-                    onEndReachedThreshold={0.5}
-                    ListFooterComponent={isLoading ? <Text>Loading more...</Text> : null}
+                    onEndReached={() => {
+                        if(!isLoading && hasMore) {
+                            setPage(prev => prev + 1)
+                        }
+                    }}
+                    onEndReachedThreshold={0.2}
+                    ListFooterComponent={ isLoading 
+                        ? <Text>Loading more...</Text>
+                        : !hasMore 
+                        ? <Text style={{textAlign: 'center', marginTop: 10}}>No more entries</Text>
+                        : null}
                 />
 
                 <EntryDetailModal 

@@ -63,6 +63,9 @@ const SaintScreen = () => {
     const clearSearch = async () => {
         setSearchQuery("");
         setIsSearching(false);
+        setSaints([]);
+        setPage(0);
+        setHasMore(true);
     }
 
     useEffect(() => {
@@ -77,11 +80,9 @@ const SaintScreen = () => {
 
     useEffect(() => {
     if (searchQuery.trim() === "") {
-        setIsSearching(false);
-        setPage(0);
-        setSaints([]);
+        clearSearch();
     }
-}, [searchQuery]);
+    }, [searchQuery]);
 
     return (
         <SafeAreaView style={{flex: 1}}>
@@ -125,9 +126,17 @@ const SaintScreen = () => {
                     </TouchableOpacity>
 
                 )}
-                onEndReached={fetchSaints}
-                onEndReachedThreshold={0.5}
-                ListFooterComponent={isLoading ? <Text>Loading...</Text> : null}
+                onEndReached={() => {
+                    if(!isLoading && hasMore) {
+                        setPage(prev => prev + 1)
+                    }
+                }}
+                onEndReachedThreshold={0.2}
+                ListFooterComponent={isLoading ? 
+                    (<Text>Loading...</Text>) 
+                    : !hasMore 
+                    ? (<Text style={{textAlign: 'center', marginTop: 10}}>No more saints to load</Text>) 
+                    : null}
             />
 
             <SaintDetailModal 

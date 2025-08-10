@@ -24,36 +24,39 @@ const DailyReadingScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchReadings = async () => {
-        if(isLoading || !hasMore) {
-            return;
-        }
         
-        setIsLoading(true);
-        
-        try {
-            const res = await getAllDailyReadings(page, 10);
-            setReadings(prev => [
-                ...prev,
-                ...res.content.filter((reading: DailyReading) => !prev?.some(r => r.id === reading.id)),
-            ]);
-
-            setHasMore(!res.last);
-        } catch (error) {
-            console.error("Error loading daily readings ", error);
-        } finally {
-            setIsLoading(false);
-        }
     }
+
+    useEffect(() => {
+        const load = async () => {
+            if(isLoading || !hasMore) {
+                return;
+            }
+            
+            setIsLoading(true);
+            
+            try {
+                const res = await getAllDailyReadings(page, 10);
+                setReadings(prev => [
+                    ...prev,
+                    ...res.content.filter((reading: DailyReading) => !prev?.some(r => r.id === reading.id)),
+                ]);
+    
+                setHasMore(!res.last);
+            } catch (error) {
+                console.error("Error loading daily readings ", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        load();
+    }, [page]);
 
     useEffect(() => {
         setReadings([]);
         setPage(0);
         setHasMore(true);
     }, [])
-
-    useEffect(() => {
-        fetchReadings();
-    }, [page])
 
     return (
         <SafeAreaView style={{flex: 1}}>
@@ -73,9 +76,17 @@ const DailyReadingScreen = () => {
                         </TouchableOpacity>
                     </View>
                 )}
-                onEndReached={fetchReadings}
-                onEndReachedThreshold={0.5}
-                ListFooterComponent={isLoading ? <Text>Loading more...</Text> : null}
+                onEndReached={() => {
+                    if(!isLoading && hasMore) {
+                        setPage(prev => prev + 1);
+                    }
+                }}
+                onEndReachedThreshold={0.2}
+                ListFooterComponent={isLoading 
+                    ? <Text>Loading more...</Text>
+                    : !hasMore 
+                    ? <Text style={{textAlign: 'center', marginTop: 10}}>No more readings</Text>
+                    : null}
             />
 
             <DailyReadingDetailModal 
