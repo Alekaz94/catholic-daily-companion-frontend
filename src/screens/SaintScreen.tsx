@@ -3,7 +3,7 @@ import { Saint } from "../models/Saint";
 import { getAllSaints, searchSaints } from "../services/SaintService";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { View, FlatList, TouchableOpacity, Text, Image, SafeAreaView, Dimensions } from "react-native";
+import { View, FlatList, TouchableOpacity, Text, Image, Dimensions } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
 import defaultSaintImage from '../assets/images/default_saint.png';
 import { Layout } from "../styles/Layout";
@@ -12,6 +12,7 @@ import Navbar from "../components/Navbar";
 import { TextInput } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppTheme } from "../styles/colors";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -92,7 +93,7 @@ const SaintScreen = () => {
     }, [searchQuery]);
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.saint.text}]}>Saints of the Catholic Church</Text>

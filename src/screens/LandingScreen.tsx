@@ -15,6 +15,7 @@ import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppTheme } from '../styles/colors';
 import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type LandingNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -49,7 +50,8 @@ const LandingScreen = () => {
   }, [])
 
   return (
-      <ScrollView style={{ flex: 1, backgroundColor: "#F0F9FF"}}>         
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
+      <ScrollView style={{backgroundColor: "#F0F9FF"}}>         
       <NavbarLanding />
       <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
       <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
@@ -100,6 +102,7 @@ const LandingScreen = () => {
         onClose={() => setModalVisible(false)}
       />
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

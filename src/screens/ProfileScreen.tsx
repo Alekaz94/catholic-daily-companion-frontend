@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
@@ -9,6 +9,7 @@ import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
 import Navbar from '../components/Navbar';
 import LogoutButton from '../components/LogoutButton';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -64,7 +65,8 @@ const ProfileScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
+            <ScrollView style={{backgroundColor: "#F0F9FF"}}>
             <Navbar />
             <View style={Layout.container}>
 
@@ -100,6 +102,7 @@ const ProfileScreen = () => {
 
         <LogoutButton />
         </View>
+        </ScrollView>
     </SafeAreaView>
     );
 }

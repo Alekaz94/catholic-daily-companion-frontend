@@ -28,6 +28,15 @@ const screenStyles: Record<string, { backgroundColor: string; buttons: { title: 
         { title: "My journal", screen: "Journal" },
       ],
     },
+    CreateJournalEntry: {
+      backgroundColor: "#B794F4",
+      buttons: [
+        { title: "Home", screen: "Home" },
+        { title: "Saints", screen: "Saint" },
+        { title: "Mass readings", screen: "Reading" },
+        { title: "My journal", screen: "Journal" },
+      ],
+    },
     Reading: {
       backgroundColor: "#ADD8E6",
       buttons: [

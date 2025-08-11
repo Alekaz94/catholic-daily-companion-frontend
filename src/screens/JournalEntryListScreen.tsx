@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry";
 import { deleteEntry, getAllEntries, updateEntry } from "../services/JournalEntryService";
-import { FlatList, TouchableOpacity, View, Text, Modal, SafeAreaView } from "react-native";
+import { FlatList, TouchableOpacity, View, Text, Modal } from "react-native";
 import EntryDetailModal from "../components/EntryDetailModal";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -13,6 +13,7 @@ import { Layout } from "../styles/Layout";
 import Navbar from "../components/Navbar";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppTheme, Colors } from "../styles/colors";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -106,7 +107,7 @@ const JournalEntryListScreen = () => {
 
     return (
         <>
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.journal.text}]}>Daily reflections</Text>

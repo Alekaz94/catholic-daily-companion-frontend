@@ -9,4 +9,5 @@ export type AuthStackParamList = {
   Profile: undefined;
   Landing: undefined;
   EmailAndPassword: undefined;
+  AdminPanel: undefined;
 };

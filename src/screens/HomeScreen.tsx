@@ -15,6 +15,8 @@ import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppTheme } from '../styles/colors';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useAuth } from '../context/AuthContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -26,6 +28,7 @@ const HomeScreen = () => {
   const [reading, setReading] = useState<DailyReading | null>(null);
   const [saint, setSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const { user } = useAuth();
 
   const fetchTodaysReading = async () => {
     const todaysReading = await getTodaysReading();
@@ -49,8 +52,13 @@ const HomeScreen = () => {
   }, [])
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#F0F9FF"}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
+    <ScrollView style={{backgroundColor: "#F0F9FF"}}>
       <Navbar />
+      {user?.role === "ADMIN" 
+        && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: "#FAF3E0", margin: 10}]}>
+          <Text style={[Typography.link, {color: "black"}]}>Go to Admin Panel</Text>
+        </TouchableOpacity>)}
       <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
       <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
         <Text style={[Typography.label, {fontSize: 20}]}>Today is the feast day of {saint?.name}</Text>
@@ -100,6 +108,7 @@ const HomeScreen = () => {
         onClose={() => setModalVisible(false)}
       />
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

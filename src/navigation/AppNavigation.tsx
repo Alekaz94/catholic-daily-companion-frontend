@@ -12,6 +12,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import LandingScreen from "../screens/LandingScreen";
 import React from 'react';
 import EmailAndPasswordLoginScreen from '../screens/EmailAndPasswordLoginScreen';
+import AdminPanelScreen from '../screens/AdminPanelScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -22,6 +23,7 @@ const AppNavigator = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {user ? (
         <>
+          {user.role === "ADMIN" && <Stack.Screen name='AdminPanel' component={AdminPanelScreen} />}
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Saint" component={SaintScreen} />
           <Stack.Screen name="Reading" component={DailyReadingScreen} />

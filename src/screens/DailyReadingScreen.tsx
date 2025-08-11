@@ -3,12 +3,13 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { DailyReading } from "../models/DailyReading";
 import { getAllDailyReadings } from "../services/DailyReadingService";
-import { FlatList, TouchableOpacity, View, Text, SafeAreaView} from "react-native";
+import { FlatList, TouchableOpacity, View, Text, ScrollView} from "react-native";
 import DailyReadingDetailModal from "../components/DailyReadingDetailModal";
 import Navbar from "../components/Navbar";
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type DailyReadingNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -59,7 +60,7 @@ const DailyReadingScreen = () => {
     }, [])
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: "#ADD8E6"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.reading.background}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.reading.text}]}>Readings</Text>
