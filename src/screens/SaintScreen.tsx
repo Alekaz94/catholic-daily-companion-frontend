@@ -127,7 +127,6 @@ const SaintScreen = () => {
                             end={{x: 1, y: 0.5}}
                             style={[Layout.card, {padding: 12, borderRadius: 12, alignItems: "center"}]}
                         >
-                        
                             <Image style={Layout.image} source={item.imageUrl ? { uri: item.imageUrl } : defaultSaintImage} />
                             <Text style={[Typography.label, {color: AppTheme.saint.text}]}>{item.name}</Text>
                         </LinearGradient>

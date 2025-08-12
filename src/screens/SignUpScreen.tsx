@@ -10,6 +10,7 @@ import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
 import { AppTheme, Colors } from '../styles/colors';
 import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -102,10 +103,11 @@ const SignUpScreen = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[Layout.button, {backgroundColor: AppTheme.auth.primary}]}
+        style={[Layout.button, {backgroundColor: AppTheme.auth.primary, flexDirection: "row", justifyContent: "center"}]}
         onPress={() => navigation.navigate("Login")}
       >
-        <Text style={Layout.buttonText}>Back</Text>
+        <Ionicons name='arrow-back' color={"white"} size={20} />
+        <Text style={[Layout.buttonText, {marginLeft: 10}]}>Back</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
