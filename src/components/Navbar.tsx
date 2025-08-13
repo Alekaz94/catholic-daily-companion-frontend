@@ -15,8 +15,9 @@ const screenStyles: Record<string, { backgroundColor: string; buttons: { title: 
       buttons: [
         { title: "Home", screen: "Home" },
         { title: "Saints", screen: "Saint" },
-        { title: "Mass readings", screen: "Reading" },
-        { title: "My journal", screen: "Journal" },
+        { title: "Readings", screen: "Reading" },
+        { title: "Journal", screen: "Journal" },
+        { title: "Prayers", screen: "Prayer" }
       ],
     },
     Journal: {
@@ -24,8 +25,9 @@ const screenStyles: Record<string, { backgroundColor: string; buttons: { title: 
       buttons: [
         { title: "Home", screen: "Home" },
         { title: "Saints", screen: "Saint" },
-        { title: "Mass readings", screen: "Reading" },
-        { title: "My journal", screen: "Journal" },
+        { title: "Readings", screen: "Reading" },
+        { title: "Journal", screen: "Journal" },
+        { title: "Prayers", screen: "Prayer" }
       ],
     },
     CreateJournalEntry: {
@@ -33,8 +35,9 @@ const screenStyles: Record<string, { backgroundColor: string; buttons: { title: 
       buttons: [
         { title: "Home", screen: "Home" },
         { title: "Saints", screen: "Saint" },
-        { title: "Mass readings", screen: "Reading" },
-        { title: "My journal", screen: "Journal" },
+        { title: "Readings", screen: "Reading" },
+        { title: "Journal", screen: "Journal" },
+        { title: "Prayers", screen: "Prayer" }
       ],
     },
     Reading: {
@@ -42,10 +45,21 @@ const screenStyles: Record<string, { backgroundColor: string; buttons: { title: 
       buttons: [
         { title: "Home", screen: "Home" },
         { title: "Saints", screen: "Saint" },
-        { title: "Mass readings", screen: "Reading" },
-        { title: "My journal", screen: "Journal" },
+        { title: "Readings", screen: "Reading" },
+        { title: "Journal", screen: "Journal" },
+        { title: "Prayers", screen: "Prayer" }
       ],
     },
+    Prayer: {
+      backgroundColor: "#B794F4",
+      buttons: [
+        { title: "Home", screen: "Home" },
+        { title: "Saints", screen: "Saint" },
+        { title: "Readings", screen: "Reading" },
+        { title: "Journal", screen: "Journal" },
+        { title: "Prayers", screen: "Prayer" }
+      ]
+    }
   };
 
 const Navbar = () => {
