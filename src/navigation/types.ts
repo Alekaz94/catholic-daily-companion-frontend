@@ -10,4 +10,7 @@ export type AuthStackParamList = {
   Landing: undefined;
   EmailAndPassword: undefined;
   AdminPanel: undefined;
+  Prayer: undefined;
+  Rosary: undefined;
+  PrayerList: undefined;
 };

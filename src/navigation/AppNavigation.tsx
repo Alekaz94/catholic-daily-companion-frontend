@@ -13,6 +13,9 @@ import LandingScreen from "../screens/LandingScreen";
 import React from 'react';
 import EmailAndPasswordLoginScreen from '../screens/EmailAndPasswordLoginScreen';
 import AdminPanelScreen from '../screens/AdminPanelScreen';
+import PrayerScreen from '../screens/PrayerScreen';
+import RosaryScreen from '../screens/RosaryScreen';
+import PrayerListScreen from '../screens/PrayerListScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -30,6 +33,9 @@ const AppNavigator = () => {
           <Stack.Screen name="Journal" component={JournalEntryListScreen} />
           <Stack.Screen name="CreateJournalEntry" component={JournalEntryCreateScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="Prayer" component={PrayerScreen} />
+          <Stack.Screen name="Rosary" component={RosaryScreen} />
+          <Stack.Screen name="PrayerList" component={PrayerListScreen} />
         </>
       ) : (
         <>
