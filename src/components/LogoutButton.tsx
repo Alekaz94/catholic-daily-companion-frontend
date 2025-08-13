@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Colors } from "../styles/colors";
 import { Typography } from "../styles/Typography";
 import React from "react";
+import { Ionicons } from '@expo/vector-icons';
 
 const LogoutButton = () => {
     const {logout} = useAuth();
@@ -20,10 +21,11 @@ const LogoutButton = () => {
 
     return (
         <>
-        <TouchableOpacity style={[Layout.navbarButton, {backgroundColor: Colors.primary}]} onPress={() => {
+        <TouchableOpacity style={[Layout.navbarButton, {backgroundColor: Colors.primary, flexDirection: "row", justifyContent: "center"}]} onPress={() => {
             setIsVisible(true)
         }}>
-            <Text style={[Layout.buttonText, {color: "white"}]}> Logout</Text>
+        <Ionicons name="log-out-outline" color={"white"} size={20} />
+        <Text style={[Layout.buttonText, {color: "white"}]}> Logout</Text>
         </TouchableOpacity>
     
 
