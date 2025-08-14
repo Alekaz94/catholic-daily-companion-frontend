@@ -9,7 +9,7 @@ export default ({ config }) => {
       scheme: "catholic-daily-companion",
       version: "1.0.0",
       orientation: "portrait",
-      icon: "./src/assets/images/default_saint.png",
+      icon: "",
       userInterfaceStyle: "light",
       newArchEnabled: true,
       splash: {

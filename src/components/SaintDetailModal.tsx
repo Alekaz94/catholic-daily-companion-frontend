@@ -1,10 +1,10 @@
 import React from "react";
 import { Modal, View, Text, Image, TouchableOpacity } from "react-native";
 import { Saint } from "../models/Saint";
-import defaultSaintImage from "../assets/images/default_saint.png"
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
+import { Ionicons } from '@expo/vector-icons';
 
 interface Props {
     visible: boolean;
@@ -45,15 +45,25 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
     return (
         <Modal visible={visible} animationType='slide'>
             <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>          
-                <Image style={[Layout.image, {height: 300}]} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
+                {saint.imageUrl ? <Image style={[Layout.image, {height: 300}]} source={{ uri: saint.imageUrl }}/> : <Ionicons name="man-outline" size={100} color="#1A1A1A" style={{alignSelf: "center"}}/> }
                 <Text style={[Typography.title, {marginTop: 10, color: AppTheme.saint.text, alignSelf: "center"}]}>{saint.name}</Text>
-                <View style={[Layout.container, {flexDirection: "column", alignItems: "flex-start", justifyContent: "center", borderWidth: 1, borderRadius: 10, padding: 5}]}>
-                    <Text style={[Typography.title, {color: AppTheme.saint.text, fontSize: 20, alignSelf: "center", borderBottomWidth: 1}]}>Saint Facts</Text>
-                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 16}]}>Birth: ca {saint.birthYear}</Text>
-                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 16}]}>Death: ca {saint.deathYear}</Text>
-                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 16}]}>Feast day: {formatFeastDay(saint.feastDay)}</Text>
-                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 16}]}>Patron of {saint.patronage}</Text>
-                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 16}]}>Canonized: year {saint.canonizationYear}</Text>
+                <View style={{
+                    width: "80%", 
+                    height: 140, 
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    padding: 10,
+                    backgroundColor: "#FFFFFF22", 
+                    overflow: "hidden",
+                    alignSelf: "flex-start",
+                    }}
+                >                    
+                    <Text style={[Typography.title, {color: AppTheme.saint.text, fontSize: 16, alignSelf: "center", borderBottomWidth: 1}]}>Saint Facts</Text>
+                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>Birth: ca {saint.birthYear}</Text>
+                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>Death: ca {saint.deathYear}</Text>
+                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>Feast day: {formatFeastDay(saint.feastDay)}</Text>
+                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>Patron of {saint.patronage}</Text>
+                    <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>Canonized: year {saint.canonizationYear}</Text>
                 </View>
                 <Text style={[Typography.body, {marginTop: 15, marginBottom: 20, color: AppTheme.saint.text}]}>{saint.biography}</Text>
             

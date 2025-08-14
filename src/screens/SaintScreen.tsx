@@ -5,7 +5,6 @@ import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, FlatList, TouchableOpacity, Text, Image, Dimensions } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
-import defaultSaintImage from '../assets/images/default_saint.png';
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
@@ -13,6 +12,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppTheme } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from '@expo/vector-icons';
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -127,7 +127,7 @@ const SaintScreen = () => {
                             end={{x: 1, y: 0.5}}
                             style={[Layout.card, {padding: 12, borderRadius: 12, alignItems: "center"}]}
                         >
-                            <Image style={Layout.image} source={item.imageUrl ? { uri: item.imageUrl } : defaultSaintImage} />
+                            {item.imageUrl ? <Image style={Layout.image} source={{ uri: item.imageUrl }}/> : <Ionicons name="man-outline" size={50} color="#1A1A1A"/> }
                             <Text style={[Typography.label, {color: AppTheme.saint.text}]}>{item.name}</Text>
                         </LinearGradient>
                     </TouchableOpacity>

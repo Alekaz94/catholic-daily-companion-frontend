@@ -8,7 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
-import defaultSaintImage from '../assets/images/default_saint.png';
+import { Ionicons } from '@expo/vector-icons';
 
 type PrayerNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -22,7 +22,6 @@ const PrayerScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.journal.text}]}>Prayer</Text>
                 <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <TouchableOpacity onPress={() => navigation.navigate("Rosary")}>
                     <LinearGradient
@@ -33,7 +32,6 @@ const PrayerScreen = () => {
                         borderRadius: 12,
                         borderColor: AppTheme.journal.background,
                         padding: 16,
-                        marginVertical: 8,
                         shadowColor: '#000',
                         shadowOffset: { width: 0, height: 2 },
                         shadowRadius: 6,
@@ -41,8 +39,8 @@ const PrayerScreen = () => {
                         elevation: 3, 
                         }]}
                     >
-                        <Image style={Layout.image} source={defaultSaintImage} />
-                    <Text style={[Typography.body, {alignSelf: "center", color: AppTheme.journal.text}]}>Pray the rosary</Text>
+                        <Ionicons name="man-outline" size={50} color="#1A1A1A" style={{alignSelf: "center"}}/>                    
+                        <Text style={[Typography.body, {fontSize: 20, alignSelf: "center", color: AppTheme.journal.text}]}>Pray the rosary</Text>
                     </LinearGradient>
                 </TouchableOpacity>
 
@@ -63,8 +61,8 @@ const PrayerScreen = () => {
                         elevation: 3, 
                         }]}
                     >
-                        <Image style={Layout.image} source={defaultSaintImage} />
-                    <Text style={[Typography.body, {alignSelf: "center", color: AppTheme.journal.text}]}>List of prayers</Text>
+                        <Ionicons name="man-outline" size={50} color="#1A1A1A" style={{alignSelf: "center"}}/>
+                        <Text style={[Typography.body, {fontSize: 20, alignSelf: "center", color: AppTheme.journal.text}]}>List of prayers</Text>
                     </LinearGradient>
                 </TouchableOpacity>
                 </View>

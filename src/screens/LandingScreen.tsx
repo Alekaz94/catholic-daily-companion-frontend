@@ -8,7 +8,6 @@ import { DailyReading } from '../models/DailyReading';
 import { Saint } from '../models/Saint';
 import { getSaintOfTheDay } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
-import defaultSaintImage from '../assets/images/default_saint.png';
 import NavbarLanding from '../components/NavbarLanding';
 import { Typography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
@@ -16,6 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { AppTheme } from '../styles/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 
 type LandingNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -70,8 +70,8 @@ const LandingScreen = () => {
                 setModalVisible(true);
               }}
             >
-                <Image style={Layout.image} source={saint.imageUrl ? { uri: saint.imageUrl } : defaultSaintImage} />
-                <Text style={[Typography.body, {color: "black"}]} numberOfLines={1} >{saint.biography}</Text>
+              {saint.imageUrl ? <Image style={Layout.image} source={{ uri: saint.imageUrl }}/> : <Ionicons name="man-outline" size={50} color="#1A1A1A" style={{alignSelf: "center"}}/> }
+              <Text style={[Typography.body, {color: "black", marginTop: 10}]} numberOfLines={1} >{saint.biography}</Text>
             </TouchableOpacity> 
           </LinearGradient>
         }

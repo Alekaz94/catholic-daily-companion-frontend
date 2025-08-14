@@ -24,10 +24,6 @@ const DailyReadingScreen = () => {
     const [hasMore, setHasMore] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
-    const fetchReadings = async () => {
-        
-    }
-
     useEffect(() => {
         const load = async () => {
             if(isLoading || !hasMore) {
