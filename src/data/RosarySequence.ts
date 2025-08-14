@@ -43,7 +43,7 @@ export const createMysteryDecade = (mystery: string): RosaryStep[] => [
 
 export const fixedRosaryEnd: RosaryStep[] = [
     {
-        prayerText: "Hail holy Queen (Salve Regina): \nHail, holy Queen, mother of mercy, our life, our sweetness, and our hope. To you we cry, poor banished children of Eve, to you we send up our sighs, mourning and weeping in this valley of tears. Turn, then, most gracious advocate, your eyes of mercy toward us, and after this, our exile, show unto us the blessed fruit of your womb, Jesus. O clement, O loving, O sweet Virgin Mary.", 
+        prayerText: "Hail, Holy Queen (Salve Regina): \nHail, holy Queen, mother of mercy, our life, our sweetness, and our hope. To you we cry, poor banished children of Eve, to you we send up our sighs, mourning and weeping in this valley of tears. Turn, then, most gracious advocate, your eyes of mercy toward us, and after this, our exile, show unto us the blessed fruit of your womb, Jesus. O clement, O loving, O sweet Virgin Mary.", 
         checkboxes: 1
     },
 ]

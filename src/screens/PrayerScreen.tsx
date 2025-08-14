@@ -22,7 +22,7 @@ const PrayerScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
+                <View style={[Layout.container, {backgroundColor: AppTheme.journal.background, justifyContent: "space-evenly"}]}>
                 <TouchableOpacity onPress={() => navigation.navigate("Rosary")}>
                     <LinearGradient
                         colors={['#B794F4', '#F5F3FF']}
