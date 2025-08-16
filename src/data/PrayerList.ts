@@ -30,12 +30,16 @@ export const prayers: Prayers[] = [
         prayerText: "Angel of God, my guardian dear, to whom God's love commits me here, ever this day be at my side, to light and guard, to rule and guide. Amen."
     },
     {
-        title: "Prayer of Contrition",
+        title: "Acr of Contrition",
         prayerText: "Lord Jesus, Son of God, have mercy on me, a sinner."
     },
     {
         title: "Hail, Holy Queen (Salve Regina)",
         prayerText: "Hail, holy Queen, mother of mercy, our life, our sweetness, and our hope. To you we cry, poor banished children of Eve, to you we send up our sighs, mourning and weeping in this valley of tears. Turn, then, most gracious advocate, your eyes of mercy toward us, and after this, our exile, show unto us the blessed fruit of your womb, Jesus. O clement, O loving, O sweet Virgin Mary.", 
+    },
+    {
+        title: "Prayer Before Meals",
+        prayerText: "Bless us O Lord, and these thy gifts, which we are about to receive, from thy bounty, through Christ, our Lord. Amen",
     },
 ]
 
