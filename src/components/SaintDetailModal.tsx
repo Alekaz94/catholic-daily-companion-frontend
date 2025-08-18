@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, View, Text, Image, TouchableOpacity } from "react-native";
-import { Saint } from "../models/Saint";
+import { Saint, UpdatedSaint } from "../models/Saint";
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
@@ -66,7 +66,7 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                     <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>Canonized: year {saint.canonizationYear}</Text>
                 </View>
                 <Text style={[Typography.body, {marginTop: 15, marginBottom: 20, color: AppTheme.saint.text}]}>{saint.biography}</Text>
-            
+                
                 <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar}]}>
                     <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.saint.text}]}>Close</Text>
                 </TouchableOpacity> 

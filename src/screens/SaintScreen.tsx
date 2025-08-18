@@ -1,18 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Saint } from "../models/Saint";
-import { getAllSaints, searchSaints } from "../services/SaintService";
+import { Saint, UpdatedSaint } from "../models/Saint";
+import { deleteSaint, getAllSaints, searchSaints, updateSaint } from "../services/SaintService";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { View, FlatList, TouchableOpacity, Text, Image, Dimensions } from "react-native";
+import { View, FlatList, TouchableOpacity, Text, Image, Dimensions, Modal } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
 import { TextInput } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-import { AppTheme } from "../styles/colors";
+import { AppTheme, Colors } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from '@expo/vector-icons';
+import { useAuth } from "../context/AuthContext";
+import SaintUpdateModal from "../components/SaintUpdateModal";
+import { useNavigation } from "@react-navigation/native";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -20,6 +23,7 @@ type SaintNavigationProp = NativeStackNavigationProp<
 >
 
 const SaintScreen = () => {
+    const { user } = useAuth();
     const [saints, setSaints] = useState<Saint[]>([]);
     const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -28,8 +32,14 @@ const SaintScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
+    const [isVisibleDelete, setIsVisibleDelete] = useState(false);
+    const [saintToDelete, setSaintToDelete] = useState<string | null>(null);
+    const [saintToEdit, setSaintToEdit] = useState<Saint | null>(null);
+    const [editSaintModalVisible, setEditSaintModalVisible] = useState(false);
+    const navigation = useNavigation<SaintNavigationProp>();
     const screenWidth = Dimensions.get('window').width;
-    const cardWidth = (screenWidth - 5 * 12) / 2;
+    const spacing = 16;
+    const cardWidth = (screenWidth - 3 * spacing) / 2;
     const listRef = useRef<FlatList>(null);
 
     const fetchSaints = async () => {
@@ -92,11 +102,52 @@ const SaintScreen = () => {
     }
     }, [searchQuery]);
 
+    const handleDelete = async (id: string) => {
+        try {
+            await deleteSaint(id);
+            setSaints(prev => prev.filter(saint => saint.id !== id));
+            setIsVisibleDelete(false);
+            setSaintToDelete(null)
+        } catch (error) {
+            console.log("Failed to delete saint ", error)
+        }
+    }
+
+    const handleUpdate = async (id: string, saintToUpdate: UpdatedSaint) => {
+        try {
+            await updateSaint(id, saintToUpdate);
+            refreshSaints();
+        } catch (error) {
+            console.error("Failed to update saint ", error);
+        }
+    }
+
+    const refreshSaints = async () => {
+        try {
+            setIsLoading(true);
+            const res = isSearching 
+            ? await searchSaints(searchQuery, page, 5)
+            : await getAllSaints(page, 5);
+            setSaints(res.content);
+            setPage(page);
+            setHasMore(!res.last);
+        } catch (error) {
+            console.error("Error refreshing saints ", error);
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.saint.text}]}>Saints of the Catholic Church</Text>
+            {user?.role === "ADMIN" && (
+                <TouchableOpacity style={[Layout.button, {marginBottom: 10}]} onPress={() => navigation.navigate("CreateSaint")}>
+                    <Text style={Layout.buttonText}>Create new Saint</Text>
+                </TouchableOpacity>
+            )}
             <TextInput 
                 style={Layout.input} 
                 placeholder="Search saint by name..." 
@@ -112,26 +163,47 @@ const SaintScreen = () => {
                 data={saints}
                 keyExtractor={item => item.id}
                 numColumns={2}
-                columnWrapperStyle={{justifyContent: "space-between", marginBottom: 10}}
+                columnWrapperStyle={{justifyContent: "space-between", marginBottom: spacing}}
                 contentContainerStyle={{ paddingBottom: 20}}
                 renderItem={({item}) => (
-                    <TouchableOpacity onPress={() => {
-                        setSelectedSaint(item);
-                        setModalVisible(true);
-                        }}
-                        style={{width: cardWidth, margin: 5}}
-                    >
-                        <LinearGradient 
+                    <View style={{width: cardWidth, marginBottom: spacing}}>
+                    <LinearGradient 
                             colors={['#FAF3E0', "#F0F9FF"]}
                             start={{x: 0, y: 0.5}}
                             end={{x: 1, y: 0.5}}
-                            style={[Layout.card, {padding: 12, borderRadius: 12, alignItems: "center"}]}
+                            style={Layout.card}
+                        >
+                        <TouchableOpacity onPress={() => {
+                            setSelectedSaint(item);
+                            setModalVisible(true);
+                            }}
+                            style={{ alignItems: "center" }}
                         >
                             {item.imageUrl ? <Image style={Layout.image} source={{ uri: item.imageUrl }}/> : <Ionicons name="man-outline" size={50} color="#1A1A1A"/> }
-                            <Text style={[Typography.label, {color: AppTheme.saint.text}]}>{item.name}</Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
+                            <Text style={[Typography.label, {color: AppTheme.saint.text, textAlign: "center", marginTop: 8}]}>{item.name}</Text>
+                        </TouchableOpacity>
 
+                        {user?.role === "ADMIN" && (
+                            <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%", marginTop: 10}}>
+                                <TouchableOpacity onPress={() => {
+                                    setSaintToEdit(item);
+                                    setEditSaintModalVisible(true);
+                                }}
+                                style={{alignSelf: "flex-start"}}
+                                >
+                                    <Ionicons name="pencil-outline" size={20} />
+                                </TouchableOpacity>
+
+                                <TouchableOpacity onPress={() => {
+                                    setIsVisibleDelete(true);
+                                    setSaintToDelete(item.id)
+                                }}>
+                                    <Ionicons name="trash-outline" size={20} color="red" />
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                    </LinearGradient>
+                    </View>
                 )}
                 onEndReached={() => {
                     if(!isLoading && hasMore) {
@@ -152,6 +224,46 @@ const SaintScreen = () => {
                 onClose={() => setModalVisible(false)}
             />
             </View>
+
+            <SaintUpdateModal
+                visible={editSaintModalVisible}
+                saint={saintToEdit}
+                onClose={() => setEditSaintModalVisible(false)}
+                onUpdate={handleUpdate}
+            />
+
+            <Modal
+                animationType="fade"
+                transparent
+                visible={isVisibleDelete}
+                onRequestClose={() => setIsVisibleDelete(false)}
+            >
+                 <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
+                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: AppTheme.journal.background, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
+                        <Text style={Typography.title}>Are you sure you want to delete this entry?</Text>
+                        <View style={{flexDirection: "row"}}>
+                            <TouchableOpacity
+                                style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 20}]}
+                                onPress={() => {
+                                    if (saintToDelete) {
+                                    handleDelete(saintToDelete);
+                                    setIsVisibleDelete(false);
+                                    setSaintToDelete(null);
+                                  }}    
+                                }
+                            >
+                                <Text style={Typography.body}>Yes</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[Layout.button, {backgroundColor: "gray", width: "30%"}]}
+                                onPress={() => setIsVisibleDelete(false)}
+                            >
+                                <Text style={Typography.body}>Cancel</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 }

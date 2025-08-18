@@ -16,6 +16,7 @@ import AdminPanelScreen from '../screens/AdminPanelScreen';
 import PrayerScreen from '../screens/PrayerScreen';
 import RosaryScreen from '../screens/RosaryScreen';
 import PrayerListScreen from '../screens/PrayerListScreen';
+import SaintCreateScreen from '../screens/SaintCreateScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -29,6 +30,7 @@ const AppNavigator = () => {
           {user.role === "ADMIN" && <Stack.Screen name='AdminPanel' component={AdminPanelScreen} />}
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Saint" component={SaintScreen} />
+          <Stack.Screen name="CreateSaint" component={SaintCreateScreen} />
           <Stack.Screen name="Reading" component={DailyReadingScreen} />
           <Stack.Screen name="Journal" component={JournalEntryListScreen} />
           <Stack.Screen name="CreateJournalEntry" component={JournalEntryCreateScreen} />

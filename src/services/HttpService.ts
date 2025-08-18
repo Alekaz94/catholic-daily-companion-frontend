@@ -20,7 +20,7 @@ class HttpService {
   }
 
   put<T>(id: string, data: T) {
-    return API.put(`${this.endpoint}/${id}`);
+    return API.put(`${this.endpoint}/${id}`, data);
   }
 
   delete<T>(id: string) {

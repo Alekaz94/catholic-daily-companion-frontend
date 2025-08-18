@@ -52,7 +52,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
             return;
         }
 
-        alert("Update successful!");
+        alert("Update successfull!");
         onUpdate(entry.id, updatedFields);
         onClose();
     }
