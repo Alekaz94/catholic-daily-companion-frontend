@@ -8,7 +8,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
-import { Ionicons } from '@expo/vector-icons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 type PrayerNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -22,7 +23,7 @@ const PrayerScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                <View style={[Layout.container, {backgroundColor: AppTheme.journal.background, justifyContent: "space-evenly"}]}>
+                <View style={[Layout.container, {backgroundColor: AppTheme.journal.background, justifyContent: "space-evenly", paddingVertical: 20}]}>
                 <TouchableOpacity onPress={() => navigation.navigate("Rosary")}>
                     <LinearGradient
                         colors={['#B794F4', '#F5F3FF']}
@@ -32,15 +33,18 @@ const PrayerScreen = () => {
                         borderRadius: 12,
                         borderColor: AppTheme.journal.background,
                         padding: 16,
+                        height: 200,
                         shadowColor: '#000',
                         shadowOffset: { width: 0, height: 2 },
                         shadowRadius: 6,
                         shadowOpacity: 0.1,
                         elevation: 3, 
+                        alignItems: "center",
+                        justifyContent: "center"
                         }]}
                     >
-                        <Ionicons name="man-outline" size={50} color="#1A1A1A" style={{alignSelf: "center"}}/>                    
-                        <Text style={[Typography.body, {fontSize: 20, alignSelf: "center", color: AppTheme.journal.text}]}>Pray the rosary</Text>
+                        <MaterialCommunityIcons name="cross-outline" size={50} color="black" />
+                        <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: AppTheme.journal.text}]}>Pray the rosary</Text>
                     </LinearGradient>
                 </TouchableOpacity>
 
@@ -51,6 +55,7 @@ const PrayerScreen = () => {
                         end={{ x: 1, y: 1 }}
                         style={[Layout.card, {
                         borderRadius: 12,
+                        height: 200,
                         borderColor: AppTheme.journal.background,
                         padding: 16,
                         marginVertical: 8,
@@ -59,10 +64,12 @@ const PrayerScreen = () => {
                         shadowRadius: 6,
                         shadowOpacity: 0.1,
                         elevation: 3, 
+                        alignItems: "center",
+                        justifyContent: "center"
                         }]}
                     >
-                        <Ionicons name="man-outline" size={50} color="#1A1A1A" style={{alignSelf: "center"}}/>
-                        <Text style={[Typography.body, {fontSize: 20, alignSelf: "center", color: AppTheme.journal.text}]}>List of prayers</Text>
+                        <FontAwesome6 name="hands-praying" size={50} color="black" />
+                        <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: AppTheme.journal.text}]}>List of prayers</Text>
                     </LinearGradient>
                 </TouchableOpacity>
                 </View>
