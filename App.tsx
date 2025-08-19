@@ -7,6 +7,7 @@ import { ActivityIndicator } from 'react-native';
 import AppNavigator from './src/navigation/AppNavigation';
 import { AuthProvider } from './src/context/AuthContext';
 import { firebaseLogin, loadUserFromStorage } from './src/services/AuthService';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -53,11 +54,13 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <AuthProvider>
-        <NavigationContainer>
-          <AppNavigator />
-        </NavigationContainer>
-      </AuthProvider>
+      <RootSiblingParent>
+        <AuthProvider>
+          <NavigationContainer>
+            <AppNavigator />
+          </NavigationContainer>
+        </AuthProvider>
+      </RootSiblingParent>
     </GestureHandlerRootView>
   );
 }

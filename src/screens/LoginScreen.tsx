@@ -9,7 +9,6 @@ import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
 import Constants from "expo-constants";
-import * as AuthSession from "expo-auth-session";
 import { Ionicons } from '@expo/vector-icons';
 
 type LoginScreenNavigationScreen = NativeStackNavigationProp<

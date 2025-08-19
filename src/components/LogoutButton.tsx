@@ -2,7 +2,7 @@ import { TouchableOpacity, Text, Modal, View } from "react-native"
 import { useAuth } from '../context/AuthContext';
 import { Layout } from "../styles/Layout";
 import { useState } from "react";
-import { Colors } from "../styles/colors";
+import { AppTheme, Colors } from "../styles/colors";
 import { Typography } from "../styles/Typography";
 import React from "react";
 import { Ionicons } from '@expo/vector-icons';
@@ -34,17 +34,17 @@ const LogoutButton = () => {
             onRequestClose={() => setIsVisible(false)}
         >
              <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
-                <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: Colors.surface, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
+                <View style={{alignItems: "center", padding: 20, width: "100%", backgroundColor: Colors.surface, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
                     <Text style={Typography.title}>Are you sure you want to logout?</Text>
                     <View style={{flexDirection: "row"}}>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 20, borderWidth: 1}]}
+                            style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 40, borderWidth: 1}]}
                             onPress={handleLogout}
                         >
                             <Text style={Typography.body}>Yes</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: "gray", width: "30%", borderWidth: 1}]}
+                            style={[Layout.button, {backgroundColor: Colors.error, width: "30%", borderWidth: 1}]}
                             onPress={() => setIsVisible(false)}
                         >
                             <Text style={Typography.body}>Cancel</Text>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity, ScrollView, Modal } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
@@ -10,100 +10,240 @@ import { Typography } from '../styles/Typography';
 import Navbar from '../components/Navbar';
 import LogoutButton from '../components/LogoutButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import Toast from 'react-native-root-toast';
+import { ActivityIndicator } from 'react-native';
+import { AppTheme, Colors } from '../styles/colors';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
     "Profile"
 >
 
-
 const ProfileScreen = () => {
     const { user } = useAuth();
     const [newPassword, setNewPassword] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
+    const [confirmNewPassword, setConfirmNewPassword] = useState("");
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isConfirmVisible, setIsConfirmVisible] = useState(false);
     const navigation = useNavigation<ProfileNavigationProp>();
 
     const isFormValid = () => {
       return (
         currentPassword && 
         newPassword &&
+        confirmNewPassword &&
         currentPassword !== newPassword &&
-        newPassword.length >= 8
+        newPassword.length >= 8 &&
+        newPassword === confirmNewPassword
       )
     }
 
     const handlePasswordChange = async () => {
         if (!user?.id) {
-            Alert.alert("User ID missing. Please log in again.");
+            Toast.show("User ID missing. Please log in again.", {
+                duration: Toast.durations.LONG,
+                position: Toast.positions.TOP,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+            });
             return;
-          }
+        }
 
         if(!currentPassword || !newPassword) {
-            Alert.alert("Both current and new password is required.")
+            Toast.show("Both current and new password is required.", {
+                duration: Toast.durations.LONG,
+                position: Toast.positions.TOP,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+            });
             return;
         }
 
         if(currentPassword === newPassword) {
-            Alert.alert("New password can not be the same as the old.")
+            Toast.show("New password can not be the same as the old.", {
+                duration: Toast.durations.LONG,
+                position: Toast.positions.TOP,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+            });
             return;
         }
 
         if(newPassword.length < 8) {
-            Alert.alert("Password must be at least 8 characters long.");
+            Toast.show("Password must be at least 8 characters long.", {
+                duration: Toast.durations.LONG,
+                position: Toast.positions.TOP,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+            });
+            return;
+        }
+
+        if(newPassword !== confirmNewPassword) {
+            Toast.show("Confirm password must match new password.", {
+                duration: Toast.durations.LONG,
+                position: Toast.positions.TOP,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+            });
             return;
         }
 
         try {
+            setIsLoading(true);
+
             await changePassword(user.id, { currentPassword, newPassword});
-            Alert.alert("Password updated successfully!");
-            setCurrentPassword("");
-            setNewPassword("");
+
+            Toast.show('Password updated successfully!', {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.BOTTOM,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+            });
+
+            setTimeout(() => {
+                setCurrentPassword('');
+                setNewPassword('');
+                setConfirmNewPassword('');
+            }, 0);
         } catch (err: any) {
-            console.error('Error:', err.response?.data || err.message);
-            Alert.alert(err.response?.data || 'Did you type in your current password correct?');
+            Toast.show("Something went wrong.  Please check your current password.", {
+                duration: Toast.durations.LONG,
+                position: Toast.positions.BOTTOM,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+            })
+        } finally {
+            setIsLoading(false);
         }
     }
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
-            <ScrollView style={{backgroundColor: "#F0F9FF"}}>
-            <Navbar />
-            <View style={Layout.container}>
+            <ScrollView style={{backgroundColor: AppTheme.auth.background}}>
+                <Navbar />
+                <View style={Layout.container}>
+                <Text style={Typography.title}>My Profile</Text>
 
-            <Text style={Typography.title}>My Profile</Text>
-            <Text style={Typography.label}>Email:</Text>
-            <Text style={[Typography.body, {color: "black"}]}>{user?.email ?? 'Unknown'}</Text>
-            <Text style={{ margin: 10 }}></Text>
-            <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold"}]}>Change Password</Text>
-            <Text style={Typography.label}>Current Password:</Text>
-        <TextInput
-            secureTextEntry
-            style={Layout.input}
-            placeholder="Current Password"
-            value={currentPassword}
-            onChangeText={(value) => setCurrentPassword(value)}
-        />
+                <Text style={Typography.label}>Email:</Text>
+                <Text style={[Typography.body, {color: "black"}]}>{user?.email ?? 'Unknown'}</Text>
+                <Text style={{ margin: 10 }}></Text>
 
-        <Text style={Typography.label}>New Password:</Text>
-        <TextInput
-            secureTextEntry
-            style={Layout.input}
-            placeholder="New Password"
-            value={newPassword}
-            onChangeText={(value) => setNewPassword(value)}
-        />
+                <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold"}]}>Change Password</Text>
+                <Text style={Typography.label}>Current Password:</Text>
+                <View style={{ position: 'relative' }}>
+                    <TextInput
+                        secureTextEntry={!showCurrentPassword}
+                        style={Layout.input}
+                        placeholder="Current Password"
+                        value={currentPassword}
+                        accessibilityLabel="Current Password"
+                        onChangeText={(value) => setCurrentPassword(value)}
+                    />
+                    <TouchableOpacity
+                        style={{ position: 'absolute', right: 16, top: 10 }}
+                        onPress={() => setShowCurrentPassword(prev => !prev)}
+                    >
+                        <Ionicons name={showCurrentPassword ? "eye-off" : "eye"} size={22} color="gray" />
+                    </TouchableOpacity>
+                </View>
 
-        <TouchableOpacity style={[Layout.button, !isFormValid ? {backgroundColor: "gray"} : {backgroundColor: "#FAF3E0", borderWidth: 1}]} 
-          onPress={handlePasswordChange}
-          disabled={!isFormValid()}
-        >
-            <Text style={[Layout.buttonText, {color: "black"}]}>Update Password</Text>
-        </TouchableOpacity>
+                <Text style={Typography.label}>New Password:</Text>
+                <View style={{ position: 'relative'}}>
+                    <TextInput
+                        secureTextEntry={!showNewPassword}
+                        style={[Layout.input, {marginBottom: 2}]}
+                        placeholder="New Password"
+                        value={newPassword}
+                        accessibilityLabel="New Password"
+                        onChangeText={(value) => setNewPassword(value)}
+                    />
+                    <TouchableOpacity
+                        style={{ position: 'absolute', right: 16, top:10 }}
+                        onPress={() => setShowNewPassword(prev => !prev)}
+                    >
+                        <Ionicons name={showNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
+                    </TouchableOpacity>
+                    <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15 }}>
+                        Password must be at least 8 characters. Make sure it's something secure.
+                    </Text>
+                </View>
+                
+                <Text style={Typography.label}>Confirm New Password:</Text>
+                <View style={{ position: 'relative' }}>
+                    <TextInput 
+                        secureTextEntry={!showConfirmNewPassword}
+                        style={[Layout.input, {marginBottom: 2}]}
+                        placeholder="Confirm New Password"
+                        value={confirmNewPassword}
+                        accessibilityLabel="Confirm New Password"
+                        onChangeText={(value) => setConfirmNewPassword(value)}
+                    />
+                    <TouchableOpacity
+                        style={{ position: 'absolute', right: 16, top: 10 }}
+                        onPress={() => setShowConfirmNewPassword(prev => !prev)}
+                    >
+                        <Ionicons name={showConfirmNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
+                    </TouchableOpacity>
+                    <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15 }}>
+                        Confirm password must match new password
+                    </Text>
+                </View>
 
-        <LogoutButton />
-        </View>
-        </ScrollView>
-    </SafeAreaView>
+                <TouchableOpacity style={[Layout.button, {backgroundColor: isFormValid() ? "#FAF3E0" : "gray", borderWidth: isFormValid() ? 1 : 0, opacity: isLoading ? 0.7 : 1}]} 
+                    onPress={() => setIsConfirmVisible(true)}
+                    disabled={!isFormValid()}
+                >
+                    {isLoading ? (
+                        <ActivityIndicator color="black" />
+                    ) : (
+                        <Text style={[Layout.buttonText, {color: "black"}]}>Update Password</Text>
+                    )}
+                </TouchableOpacity>
+
+                <LogoutButton />
+                </View>
+            </ScrollView>
+
+            <Modal
+                animationType="fade"
+                transparent
+                visible={isConfirmVisible}
+                onRequestClose={() => setIsConfirmVisible(false)}
+            >
+             <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
+                <View style={{alignItems: "center", padding: 20, width: "100%", backgroundColor: Colors.surface, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
+                    <Text style={Typography.title}>Are you sure you want to update your password?</Text>
+                    <View style={{flexDirection: "row"}}>
+                        <TouchableOpacity
+                            style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 40, borderWidth: 1}]}
+                            onPress={handlePasswordChange}
+                        >
+                            <Text style={Typography.body}>Yes</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[Layout.button, {backgroundColor: Colors.error, width: "30%", borderWidth: 1}]}
+                            onPress={() => setIsConfirmVisible(false)}
+                        >
+                            <Text style={Typography.body}>Cancel</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        </Modal>
+        </SafeAreaView>
     );
 }
 

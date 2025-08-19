@@ -216,7 +216,7 @@ const JournalEntryListScreen = () => {
                                 <Text style={Typography.body}>Yes</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[Layout.button, {backgroundColor: "gray", width: "30%"}]}
+                                style={[Layout.button, {backgroundColor: Colors.error, width: "30%"}]}
                                 onPress={() => setIsVisibleDelete(false)}
                             >
                                 <Text style={Typography.body}>Cancel</Text>
