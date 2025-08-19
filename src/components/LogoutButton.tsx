@@ -17,15 +17,13 @@ const LogoutButton = () => {
         alert('Logout successfull!');
     }
 
-
-
     return (
         <>
-        <TouchableOpacity style={[Layout.navbarButton, {backgroundColor: Colors.primary, flexDirection: "row", justifyContent: "center"}]} onPress={() => {
+        <TouchableOpacity style={[Layout.navbarButton, {backgroundColor: "#FAF3E0", borderWidth: 1, flexDirection: "row", justifyContent: "center"}]} onPress={() => {
             setIsVisible(true)
         }}>
-        <Ionicons name="log-out-outline" color={"white"} size={20} />
-        <Text style={[Layout.buttonText, {color: "white"}]}> Logout</Text>
+        <Ionicons name="log-out-outline" color={"black"} size={20} />
+        <Text style={[Layout.buttonText, {color: "black"}]}> Logout</Text>
         </TouchableOpacity>
     
 
@@ -40,13 +38,13 @@ const LogoutButton = () => {
                     <Text style={Typography.title}>Are you sure you want to logout?</Text>
                     <View style={{flexDirection: "row"}}>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 20}]}
+                            style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 20, borderWidth: 1}]}
                             onPress={handleLogout}
                         >
                             <Text style={Typography.body}>Yes</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: "gray", width: "30%"}]}
+                            style={[Layout.button, {backgroundColor: "gray", width: "30%", borderWidth: 1}]}
                             onPress={() => setIsVisible(false)}
                         >
                             <Text style={Typography.body}>Cancel</Text>

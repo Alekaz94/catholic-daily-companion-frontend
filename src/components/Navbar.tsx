@@ -60,6 +60,16 @@ const screenStyles: Record<string, { backgroundColor: string; buttons: { title: 
         { title: "Prayers", screen: "Prayer" }
       ]
     },
+    PrayerList: {
+      backgroundColor: "#B794F4",
+      buttons: [
+        { title: "Home", screen: "Home" },
+        { title: "Saints", screen: "Saint" },
+        { title: "Readings", screen: "Reading" },
+        { title: "Journal", screen: "Journal" },
+        { title: "Prayers", screen: "Prayer" }
+      ]
+    },
     Rosary: {
       backgroundColor: "#B794F4",
       buttons: [

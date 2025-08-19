@@ -144,8 +144,8 @@ const SaintScreen = () => {
             <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
             <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.saint.text}]}>Saints of the Catholic Church</Text>
             {user?.role === "ADMIN" && (
-                <TouchableOpacity style={[Layout.button, {marginBottom: 10}]} onPress={() => navigation.navigate("CreateSaint")}>
-                    <Text style={Layout.buttonText}>Create new Saint</Text>
+                <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: AppTheme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>
+                    <Text style={[Layout.buttonText, {color: "black"}]}>Create new Saint</Text>
                 </TouchableOpacity>
             )}
             <TextInput 

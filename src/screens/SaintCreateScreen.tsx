@@ -113,11 +113,11 @@ const CreateSaintScreen = () => {
                 />
 
                 <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar}]} onPress={handleCreate} >
+                <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar, borderWidth: 1}]} onPress={handleCreate} >
                     <Text style={[Layout.buttonText, {color: AppTheme.saint.text}]}>Create</Text>
                 </TouchableOpacity>
             
-                <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={() => {navigation.navigate("Saint")}} >
+                <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} onPress={() => {navigation.navigate("Saint")}} >
                     <Text style={Layout.buttonText}>Cancel</Text>
                 </TouchableOpacity>
             </View>

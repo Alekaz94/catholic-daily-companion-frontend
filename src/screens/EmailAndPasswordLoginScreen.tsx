@@ -54,17 +54,17 @@ const EmailAndPasswordLoginScreen = () => {
           style={[Layout.input, {width: "90%", marginLeft: 5}]}
         />
       </View>
-      <TouchableOpacity style={[Layout.button, {backgroundColor: Colors.success, flexDirection: "row", justifyContent: "center"}]} onPress={handleLogin}>
-        <Ionicons name="log-in-outline" color={"white"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10}]}>Login</Text>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: Colors.success, flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={handleLogin}>
+        <Ionicons name="log-in-outline" color={"black"} size={20} />
+        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login</Text>
       </TouchableOpacity>
       
       <TouchableOpacity
-        style={[Layout.button, {backgroundColor: AppTheme.auth.primary, flexDirection: "row", justifyContent: "center"}]}
+        style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
         onPress={() => navigation.navigate("Login")}
       >
-        <Ionicons name='arrow-back' color={"white"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10}]}>Back</Text>
+        <Ionicons name='arrow-back' color={"black"} size={20} />
+        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Back</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

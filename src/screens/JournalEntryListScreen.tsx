@@ -111,8 +111,9 @@ const JournalEntryListScreen = () => {
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.journal.text}]}>Daily reflections</Text>
-                <TouchableOpacity style={Layout.button} onPress={() => navigation.navigate("CreateJournalEntry")}>
-                    <Text style={Layout.buttonText}>New Journal Entry</Text>
+                <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("CreateJournalEntry")}>
+                    <Ionicons name="create-outline" size={20} />
+                    <Text style={[Layout.buttonText, {color: "black", marginLeft: 10}]}>New Journal Entry</Text>
                 </TouchableOpacity>
 
                 <FlatList 

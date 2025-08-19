@@ -163,11 +163,11 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
                     onChangeText={(value) => setImageUrl(value)}
                 />
                 <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar}]} onPress={onHandleSubmit} >
-                            <Text>Save changes</Text>
+                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar, borderWidth: 1}]} onPress={onHandleSubmit} >
+                        <Text style={[Layout.buttonText, {color: "black"}]}>Save changes</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={onClose}> 
-                        <Text>Cancel</Text>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} onPress={onClose}> 
+                        <Text style={[Layout.buttonText, {color: "white"}]}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
             </View>

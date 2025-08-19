@@ -7,6 +7,7 @@ import { useState } from "react";
 import { prayers, Prayers } from "../data/PrayerList";
 import { LinearGradient } from "expo-linear-gradient";
 import PrayerDetailModal from "../components/PrayerDetailModal";
+import Navbar from "../components/Navbar";
 
 const PrayerListScreen = () => {
     const [selectedPrayer, setSelectedPrayer] = useState<Prayers | null>(null);
@@ -19,6 +20,7 @@ const PrayerListScreen = () => {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
+            <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, { marginBottom: 6, alignSelf: "center" }]}>Common Prayers</Text>
                 <FlatList 

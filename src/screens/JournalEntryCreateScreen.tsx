@@ -58,12 +58,12 @@ const JournalEntryCreateScreen = () => {
                 multiline={true}
             />
             <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-            <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: "#B794F4"}]} onPress={handleCreate} 
+            <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: "#B794F4", borderWidth: 1}]} onPress={handleCreate} 
             >
                 <Text style={[Layout.buttonText, {color: AppTheme.journal.text}]}>Create</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={() => {navigation.navigate("Journal")}} 
+            <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} onPress={() => {navigation.navigate("Journal")}} 
             >
                 <Text style={Layout.buttonText}>Cancel</Text>
             </TouchableOpacity>

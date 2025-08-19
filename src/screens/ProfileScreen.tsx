@@ -93,11 +93,11 @@ const ProfileScreen = () => {
             onChangeText={(value) => setNewPassword(value)}
         />
 
-        <TouchableOpacity style={[Layout.button, !isFormValid && {backgroundColor: "gray"}]} 
+        <TouchableOpacity style={[Layout.button, !isFormValid ? {backgroundColor: "gray"} : {backgroundColor: "#FAF3E0", borderWidth: 1}]} 
           onPress={handlePasswordChange}
           disabled={!isFormValid()}
         >
-            <Text style={Layout.buttonText}>Update Password</Text>
+            <Text style={[Layout.buttonText, {color: "black"}]}>Update Password</Text>
         </TouchableOpacity>
 
         <LogoutButton />

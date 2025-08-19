@@ -92,22 +92,16 @@ const SignUpScreen = () => {
         secureTextEntry
         style={Layout.input}
       />
-      <TouchableOpacity style={[Layout.button, {backgroundColor: Colors.success}]} onPress={handleSignUp}>
-        <Text style={Layout.buttonText}>Sign up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[Layout.button, {backgroundColor: AppTheme.auth.primary}]}
-        onPress={() => navigation.navigate('Login')}
-      >
-        <Text style={Layout.buttonText}>Already have an account?</Text>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: Colors.success, borderWidth: 1}]} onPress={handleSignUp}>
+        <Text style={[Layout.buttonText, {color: "black"}]}>Sign up</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[Layout.button, {backgroundColor: AppTheme.auth.primary, flexDirection: "row", justifyContent: "center"}]}
+        style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
         onPress={() => navigation.navigate("Login")}
       >
-        <Ionicons name='arrow-back' color={"white"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10}]}>Back</Text>
+        <Ionicons name='arrow-back' color={"black"} size={20} />
+        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Back</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

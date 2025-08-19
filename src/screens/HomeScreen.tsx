@@ -56,7 +56,7 @@ const HomeScreen = () => {
     <ScrollView style={{backgroundColor: "#F0F9FF"}}>
       <Navbar />
       {user?.role === "ADMIN" 
-        && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: "#FAF3E0", margin: 10}]}>
+        && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: "#FAF3E0", margin: 10, borderWidth: 1}]}>
           <Text style={[Typography.link, {color: "black"}]}>Go to Admin Panel</Text>
         </TouchableOpacity>)}
       <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>

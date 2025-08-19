@@ -116,7 +116,7 @@ const RosaryScreen = () => {
                     <Text style={[Typography.body,{fontSize: 16}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
                     <Text style={[Typography.body, {fontSize: 16}] }>Current Streak: {streak} days</Text>
 
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4"}]} onPress={handleComplete} disabled={completed}>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderWidth: 1}]} onPress={handleComplete} disabled={completed}>
                         <Text style={[Layout.buttonText, {color: "black"}]}>Mark as Completed</Text>
                     </TouchableOpacity>
 

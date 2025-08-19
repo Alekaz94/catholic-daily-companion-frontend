@@ -37,7 +37,7 @@ const DailyReadingDetailModal: React.FC<Props> = ({visible, reading, onClose}) =
                 <Text style={[Typography.label, {marginBottom: 5, marginTop: 20, borderBottomWidth: 1, color: AppTheme.reading.text}]}>Gospel reading </Text>
                 <Text style={[Typography.body, {marginBottom: 20, color: AppTheme.reading.text}]}>{reading.gospel}</Text>
             
-                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#ADD8E6"}]}>
+                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#ADD8E6", borderWidth: 1}]}>
                     <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.reading.text}]}>Close</Text>
                 </TouchableOpacity> 
             </View>

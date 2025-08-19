@@ -39,31 +39,31 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={[Layout.container, {justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>
-      <Text style={[Typography.title, {marginBottom: 40}]}>Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {marginBottom: 40, justifyContent: "center"}]}>Catholic Daily Companion</Text>
 
-      <TouchableOpacity style={[Layout.button, {backgroundColor: "#DB4437", flexDirection: "row", justifyContent: "center"}]} onPress={() => promptAsync()} disabled={!request}>
-        <Ionicons name="logo-google" color={"white"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10}]}>Login with Google</Text>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => promptAsync()} disabled={!request}>
+        <Ionicons name="logo-google" color={"black"} size={20} />
+        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login with Google</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[Layout.button, {backgroundColor: AppTheme.auth.primary, flexDirection: "row", justifyContent: "center"}]} onPress={() => navigation.navigate("EmailAndPassword")}>
-        <Ionicons name="mail-outline" color={"white"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10}]}>Login with Email & Password</Text>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("EmailAndPassword")}>
+        <Ionicons name="mail-outline" color={"black"} size={20} />
+        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login with Email & Password</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[Layout.button, {backgroundColor: AppTheme.auth.primary, flexDirection: "row", justifyContent: "center"}]}
+        style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
         onPress={() => navigation.navigate('Signup')}
       >
-        <Ionicons name="create-outline" color={"white"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10}]}>Create an account</Text>
+        <Ionicons name="create-outline" color={"black"} size={20} />
+        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Create an account</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[Layout.button, {backgroundColor: AppTheme.auth.primary, flexDirection: "row", justifyContent: "center"}]}
+        style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
         onPress={() => navigation.navigate("Landing")}
       >
-        <Ionicons name="arrow-back" color={"white"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10}]}>Back</Text>
+        <Ionicons name="arrow-back" color={"black"} size={20} />
+        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Back</Text>
       </TouchableOpacity>
     </SafeAreaView>    
   );
