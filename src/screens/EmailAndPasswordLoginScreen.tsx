@@ -20,6 +20,7 @@ const EmailAndPasswordLoginScreen = () => {
   const navigation = useNavigation<EmailAndPasswordLoginScreen>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -44,16 +45,24 @@ const EmailAndPasswordLoginScreen = () => {
           style={[Layout.input, {width: "90%", marginLeft: 5}]}
         />
       </View>
+
       <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-start"}}>
         <Ionicons name="lock-closed-outline" color={"black"} size={25} style={{marginBottom: 10}}/>
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={(value) => setPassword(value)}
-          secureTextEntry
+          secureTextEntry={!showPassword}
           style={[Layout.input, {width: "90%", marginLeft: 5}]}
         />
+        <TouchableOpacity
+          style={{ position: 'absolute', right: 16, top: 10 }}
+          onPress={() => setShowPassword(prev => !prev)}
+        >
+          <Ionicons name={showPassword ? "eye-off" : "eye"} size={22} color="gray" />
+        </TouchableOpacity>
       </View>
+      
       <TouchableOpacity style={[Layout.button, {backgroundColor: Colors.success, flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={handleLogin}>
         <Ionicons name="log-in-outline" color={"black"} size={20} />
         <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login</Text>

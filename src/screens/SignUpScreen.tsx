@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { AuthStackParamList } from '../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -24,6 +24,7 @@ const SignUpScreen = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignUp = async () => {
     if (!firstName || !lastName || !email || !password) {
@@ -85,13 +86,23 @@ const SignUpScreen = () => {
         autoCapitalize="none"
         style={Layout.input}
       />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={(value) => setPassword(value)}
-        secureTextEntry
-        style={Layout.input}
-      />
+      
+      <View>
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={(value) => setPassword(value)}
+          secureTextEntry={!showPassword}
+          style={Layout.input}
+        />
+        <TouchableOpacity
+          style={{ position: 'absolute', right: 16, top: 10 }}
+          onPress={() => setShowPassword(prev => !prev)}
+        >
+          <Ionicons name={showPassword ? "eye-off" : "eye"} size={22} color="gray" />
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity style={[Layout.button, {backgroundColor: Colors.success, borderWidth: 1}]} onPress={handleSignUp}>
         <Text style={[Layout.buttonText, {color: "black"}]}>Sign up</Text>
       </TouchableOpacity>

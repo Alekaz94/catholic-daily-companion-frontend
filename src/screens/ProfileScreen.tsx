@@ -231,13 +231,13 @@ const ProfileScreen = () => {
                             style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 40, borderWidth: 1}]}
                             onPress={handlePasswordChange}
                         >
-                            <Text style={Typography.body}>Yes</Text>
+                            <Text style={[Layout.buttonText, {color: "black"}]}>Yes</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={[Layout.button, {backgroundColor: Colors.error, width: "30%", borderWidth: 1}]}
                             onPress={() => setIsConfirmVisible(false)}
                         >
-                            <Text style={Typography.body}>Cancel</Text>
+                            <Text style={[Layout.buttonText, {color: "black"}]}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
