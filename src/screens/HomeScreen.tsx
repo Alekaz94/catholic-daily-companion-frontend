@@ -17,6 +17,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useAuth } from '../context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -29,6 +30,7 @@ const HomeScreen = () => {
   const [saint, setSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const { user } = useAuth();
+  const baseUrl = Constants.expoConfig?.extra?.API_BASE_URL;
 
   const fetchTodaysReading = async () => {
     const todaysReading = await getTodaysReading();
@@ -76,7 +78,7 @@ const HomeScreen = () => {
                 setModalVisible(true);
               }}
             >
-              {saint.imageUrl ? <Image style={Layout.image} source={{ uri: saint.imageUrl }}/> : <Ionicons name="man-outline" size={50} color="#1A1A1A" style={{alignSelf: "center"}}/> }
+              {saint.imageUrl ? <Image style={Layout.image} source={{  uri: `${baseUrl}${saint.imageUrl}`  }}/> : <Ionicons name="man-outline" size={50} color="#1A1A1A" style={{alignSelf: "center"}}/> }
               <Text style={[Typography.body, {color: "black", marginTop: 10}]} numberOfLines={1} >{saint.biography}</Text>
             </TouchableOpacity> 
           </LinearGradient>

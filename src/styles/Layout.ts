@@ -77,8 +77,9 @@ export const Layout: LayoutStyles = {
         fontWeight: 'bold',
     },
     image: {
-        width: '100%',
+        width: 200,
         height: 200,
         borderRadius: 8,
+        resizeMode: "cover"
       },
   };
