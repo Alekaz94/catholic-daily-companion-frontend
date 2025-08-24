@@ -49,14 +49,7 @@ const LoginScreen = () => {
         <Ionicons name="mail-outline" color={"black"} size={20} />
         <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login with Email & Password</Text>
       </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
-        onPress={() => navigation.navigate('Signup')}
-      >
-        <Ionicons name="create-outline" color={"black"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Create an account</Text>
-      </TouchableOpacity>
+      
       <TouchableOpacity
         style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
         onPress={() => navigation.navigate("Landing")}
