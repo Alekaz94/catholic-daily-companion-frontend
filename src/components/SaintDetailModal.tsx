@@ -5,8 +5,7 @@ import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
 import { Ionicons } from '@expo/vector-icons';
-import api from "../services/api";
-import Constants from "expo-constants";
+import { buildImageUri } from "../utils/imageUtils";
 
 interface Props {
     visible: boolean;
@@ -44,14 +43,12 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
         return null;
     }
 
-    const baseUrl = Constants.expoConfig?.extra?.API_BASE_URL;
-
     return (
         <Modal visible={visible} animationType='slide'>
             <ScrollView>
             <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>       
                 <View style={{ alignItems: 'center', marginTop: 10 }}>   
-                    {saint.imageUrl ? <Image style={Layout.image} source={{ uri: `${baseUrl}${saint.imageUrl}` }} resizeMode="contain"/> : <Ionicons name="man-outline" size={100} color="#1A1A1A" style={{alignSelf: "center"}}/> }
+                    {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain"/> : <Ionicons name="man-outline" size={100} color="#1A1A1A" style={{alignSelf: "center"}}/> }
                 </View>
                 <Text style={[Typography.title, {marginTop: 10, color: AppTheme.saint.text, alignSelf: "center"}]}>{saint.name}</Text>
                 <View style={{

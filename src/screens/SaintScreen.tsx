@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from "../context/AuthContext";
 import SaintUpdateModal from "../components/SaintUpdateModal";
 import { useNavigation } from "@react-navigation/native";
-import Constants from "expo-constants";
+import { buildImageUri } from "../utils/imageUtils";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -42,7 +42,6 @@ const SaintScreen = () => {
     const spacing = 16;
     const cardWidth = (screenWidth - 3 * spacing) / 2;
     const listRef = useRef<FlatList>(null);
-    const baseUrl = Constants.expoConfig?.extra?.API_BASE_URL;
 
     const fetchSaints = async () => {
         if(isLoading || !hasMore) {
@@ -181,7 +180,14 @@ const SaintScreen = () => {
                             }}
                             style={{ alignItems: "center" }}
                         >
-                            {item.imageUrl ? <Image style={[Layout.image, {width: cardWidth}]} source={{  uri: `${baseUrl}${item.imageUrl}`  }}/> : <Ionicons name="man-outline" size={50} color="#1A1A1A"/> }
+                            {item.imageUrl ? (
+                                <Image 
+                                    style={[Layout.image, {width: cardWidth}]} 
+                                    source={{  uri: buildImageUri(item.imageUrl)  }}
+                                /> 
+                            ) : (
+                                <Ionicons name="man-outline" size={50} color="#1A1A1A"/> 
+                            )}
                             <Text style={[Typography.label, {color: AppTheme.saint.text, textAlign: "center", marginTop: 8}]}>{item.name}</Text>
                         </TouchableOpacity>
 
