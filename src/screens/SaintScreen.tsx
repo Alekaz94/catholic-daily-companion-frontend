@@ -17,6 +17,7 @@ import { useAuth } from "../context/AuthContext";
 import SaintUpdateModal from "../components/SaintUpdateModal";
 import { useNavigation } from "@react-navigation/native";
 import { buildImageUri } from "../utils/imageUtils";
+import defaultSaint from "../assets/images/default_saint.jpg";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -186,7 +187,7 @@ const SaintScreen = () => {
                                     source={{  uri: buildImageUri(item.imageUrl)  }}
                                 /> 
                             ) : (
-                                <Ionicons name="man-outline" size={50} color="#1A1A1A"/> 
+                                <Image style={[Layout.image, {width: cardWidth}]} source={defaultSaint}/> 
                             )}
                             <Text style={[Typography.label, {color: AppTheme.saint.text, textAlign: "center", marginTop: 8}]}>{item.name}</Text>
                         </TouchableOpacity>

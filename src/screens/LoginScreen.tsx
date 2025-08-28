@@ -10,6 +10,7 @@ import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
 import Constants from "expo-constants";
 import { Ionicons } from '@expo/vector-icons';
+import GoogleLogin from "../components/GoogleLogin";
 
 type LoginScreenNavigationScreen = NativeStackNavigationProp<
   AuthStackParamList,
@@ -40,10 +41,7 @@ const LoginScreen = () => {
     <SafeAreaView style={[Layout.container, {justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>
       <Text style={[Typography.title, {marginBottom: 40, justifyContent: "center"}]}>Catholic Daily Companion</Text>
 
-      <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => promptAsync()} disabled={!request}>
-        <Ionicons name="logo-google" color={"black"} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login with Google</Text>
-      </TouchableOpacity>
+      <GoogleLogin />
 
       <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("EmailAndPassword")}>
         <Ionicons name="mail-outline" color={"black"} size={20} />

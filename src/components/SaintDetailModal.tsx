@@ -1,10 +1,10 @@
 import React from "react";
 import { Modal, View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import { Saint, UpdatedSaint } from "../models/Saint";
+import { Saint } from "../models/Saint";
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
-import { Ionicons } from '@expo/vector-icons';
+import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from "../utils/imageUtils";
 
 interface Props {
@@ -48,7 +48,7 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
             <ScrollView>
             <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>       
                 <View style={{ alignItems: 'center', marginTop: 10 }}>   
-                    {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain"/> : <Ionicons name="man-outline" size={100} color="#1A1A1A" style={{alignSelf: "center"}}/> }
+                    {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain"/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}
                 </View>
                 <Text style={[Typography.title, {marginTop: 10, color: AppTheme.saint.text, alignSelf: "center"}]}>{saint.name}</Text>
                 <View style={{

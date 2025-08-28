@@ -24,6 +24,7 @@ export default ({ config }) => {
           backgroundColor: "#ffffff",
         },
         edgeToEdgeEnabled: true,
+        package: "com.alexandros.catholicdailycompanion"
       },
       web: {
         favicon: "./assets/favicon.png",
@@ -35,6 +36,9 @@ export default ({ config }) => {
         GOOGLE_EXPO_CLIENT_ID: process.env.GOOGLE_EXPO_CLIENT_ID,
         GOOGLE_ANDROID_CLIENT_ID: process.env.GOOGLE_ANDROID_CLIENT_ID,
         GOOGLE_WEB_CLIENT_ID: process.env.GOOGLE_WEB_CLIENT_ID,
+        eas: {
+          projectId: "73e5ba86-8f70-4d0d-b33c-8bd4c8691ddc"
+        }
       },
     },
   };

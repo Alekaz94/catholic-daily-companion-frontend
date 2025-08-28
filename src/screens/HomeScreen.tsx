@@ -16,8 +16,7 @@ import { AppTheme } from '../styles/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAuth } from '../context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
+import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
 
 type HomeNavigationProp = NativeStackNavigationProp<
@@ -78,7 +77,7 @@ const HomeScreen = () => {
                 setModalVisible(true);
               }}
             >
-              {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl)  }}/> : <Ionicons name="man-outline" size={50} color="#1A1A1A" style={{alignSelf: "center"}}/> }
+              {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl)  }}/> : <Image style={Layout.image} source={defaultSaint}/> }
               <Text style={[Typography.body, {color: "black", marginTop: 10}]} numberOfLines={1} >{saint.biography}</Text>
             </TouchableOpacity> 
           </LinearGradient>
