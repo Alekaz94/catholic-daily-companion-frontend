@@ -7,20 +7,19 @@ import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import Constants from 'expo-constants';
 import { firebaseLogin } from "../services/AuthService";
 import { Layout } from "../styles/Layout";
+import * as Linking from 'expo-linking';
 import { Ionicons } from '@expo/vector-icons';
 
 WebBrowser.maybeCompleteAuthSession();
 
+const redirectUri = Linking.createURL('oauthredirect');
+
 const GoogleLogin = () => {
-    const getClientId = () => {
-        if (Platform.OS === "android") {
-          return Constants.expoConfig?.extra?.GOOGLE_ANDROID_CLIENT_ID;
-        }
-        return Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID;
-    };
-      
     const [request, response, promptAsync] = Google.useAuthRequest({
-        clientId: getClientId()
+        androidClientId: Constants.expoConfig?.extra?.GOOGLE_ANDROID_CLIENT_ID,
+        webClientId: Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID,
+        redirectUri,
+        scopes: ['profile', 'email'],
     })
 
     useEffect(() => {
