@@ -41,3 +41,7 @@ yarn-error.*
 
 # misc
 .log
+
+# Google services
+assets/google-services.json
+
