@@ -1,21 +1,12 @@
-import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import path from 'path';
+import { writeFileSync } from 'fs';
 
-const googleServicesJson = process.env.GOOGLE_SERVICES_JSON;
-
-if (!googleServicesJson) {
-  console.warn('GOOGLE_SERVICES_JSON env var is not set');
-} else {
-  const androidAppPath = path.resolve('./android/app');
-  if (!existsSync(androidAppPath)) {
-    mkdirSync(androidAppPath, { recursive: true });
-  }
-
+if (process.env.GOOGLE_SERVICES_JSON) {
   writeFileSync(
-    path.resolve(androidAppPath, 'google-services.json'),
-    googleServicesJson,
+    './android/app/google-services.json',
+    process.env.GOOGLE_SERVICES_JSON,
     { encoding: 'utf8' }
   );
-
-  console.log('Wrote google-services.json to android/app/');
+  console.log('Wrote google-services.json');
+} else {
+  console.warn('GOOGLE_SERVICES_JSON env var is not set');
 }
