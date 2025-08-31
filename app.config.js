@@ -2,17 +2,19 @@ import 'dotenv/config';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 
 export default ({ config }) => {
-  if (!existsSync('./android/app')) {
-    mkdirSync('./android/app', { recursive: true });
-  }
-
   if (process.env.GOOGLE_SERVICES_JSON) {
+    const androidAppDir = './android/app';
+
+    if (!existsSync(androidAppDir)) {
+      mkdirSync(androidAppDir, { recursive: true });
+    }
+
     writeFileSync(
-      GOOGLE_SERVICES_PATH,
+      `${androidAppDir}/google-services.json`,
       process.env.GOOGLE_SERVICES_JSON,
       { encoding: 'utf8' }
     );
-    console.log('Wrote google-services.json');
+    console.log('Wrote google-services.json from env');
   } else {
     console.warn('GOOGLE_SERVICES_JSON env var is not set');
   }
