@@ -1,12 +1,11 @@
+import { resolve } from "path";
 import { writeFileSync } from 'fs';
 
-if (process.env.GOOGLE_SERVICES_JSON) {
-  writeFileSync(
-    './android/app/google-services.json',
-    process.env.GOOGLE_SERVICES_JSON,
-    { encoding: 'utf8' }
-  );
-  console.log('Wrote google-services.json');
+const filePath = resolve(__dirname, '../android/app/google-services.json');
+
+if (process.env.EAS_BUILD && process.env.GOOGLE_SERVICES_JSON) {
+  writeFileSync(filePath, process.env.GOOGLE_SERVICES_JSON, 'utf8');
+  console.log('✅ google-services.json written');
 } else {
-  console.warn('GOOGLE_SERVICES_JSON env var is not set');
+  console.log('Skipping google-services.json write (not in EAS build or no env var)');
 }
