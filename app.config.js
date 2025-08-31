@@ -1,6 +1,18 @@
 import 'dotenv/config';
+import { writeFileSync } from 'fs';
 
 export default ({ config }) => {
+  if (process.env.GOOGLE_SERVICES_JSON) {
+    writeFileSync(
+      './android/app/google-services.json',
+      process.env.GOOGLE_SERVICES_JSON,
+      { encoding: 'utf8' }
+    );
+    console.log('Wrote google-services.json');
+  } else {
+    console.warn('GOOGLE_SERVICES_JSON env var is not set');
+  }
+
   return {
     ...config,
     expo: {
@@ -25,7 +37,7 @@ export default ({ config }) => {
         },
         edgeToEdgeEnabled: true,
         package: "com.alexandros.catholicdailycompanion",
-        googleServicesFile: "./assets/google-services.json",
+        googleServicesFile: './android/app/google-services.json',
       },
       web: {
         favicon: "./assets/favicon.png",
