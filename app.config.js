@@ -43,7 +43,7 @@ export default ({ config }) => {
         },
         edgeToEdgeEnabled: true,
         package: "com.alexandros.catholicdailycompanion",
-        googleServicesFile: './android/app/google-services.json',
+        googleServicesFile: "@GOOGLE_SERVICES_JSON",
       },
       web: {
         favicon: "./assets/favicon.png",

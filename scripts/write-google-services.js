@@ -1,5 +1,5 @@
-import { resolve } from "path";
-import { writeFileSync } from 'fs';
+const { writeFileSync } = require('fs');
+const { resolve } = require('path');
 
 const filePath = resolve(__dirname, '../android/app/google-services.json');
 
