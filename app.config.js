@@ -24,7 +24,8 @@ export default ({ config }) => {
           backgroundColor: "#ffffff",
         },
         edgeToEdgeEnabled: true,
-        package: "com.alexandros.catholicdailycompanion"
+        package: "com.alexandros.catholicdailycompanion",
+        googleServicesFile: "./assets/google-services.json",
       },
       web: {
         favicon: "./assets/favicon.png",

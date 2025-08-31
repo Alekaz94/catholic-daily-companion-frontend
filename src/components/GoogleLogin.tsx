@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { TouchableOpacity, Text, Platform } from "react-native";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
+import * as AuthSession from "expo-auth-session";
 import { auth } from "../../firebase";
 import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import Constants from 'expo-constants';
@@ -12,12 +13,13 @@ import { Ionicons } from '@expo/vector-icons';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const redirectUri = Linking.createURL('oauthredirect');
+const redirectUri = AuthSession.makeRedirectUri({
+    native: "catholic-daily-companion://oauthredirect",
+});
 
 const GoogleLogin = () => {
     const [request, response, promptAsync] = Google.useAuthRequest({
         androidClientId: Constants.expoConfig?.extra?.GOOGLE_ANDROID_CLIENT_ID,
-        webClientId: Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID,
         redirectUri,
         scopes: ['profile', 'email'],
     })
@@ -31,7 +33,7 @@ const GoogleLogin = () => {
 
                 const firebaseIdToken = await userCredential.user.getIdToken();
 
-                const backendRes = await firebaseLogin(firebaseIdToken);
+                await firebaseLogin(firebaseIdToken);
             }
         }
         authenticate();
