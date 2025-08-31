@@ -1,10 +1,14 @@
 import 'dotenv/config';
-import { writeFileSync } from 'fs';
+import { writeFileSync, mkdirSync, existsSync } from 'fs';
 
 export default ({ config }) => {
+  if (!existsSync('./android/app')) {
+    mkdirSync('./android/app', { recursive: true });
+  }
+
   if (process.env.GOOGLE_SERVICES_JSON) {
     writeFileSync(
-      './android/app/google-services.json',
+      GOOGLE_SERVICES_PATH,
       process.env.GOOGLE_SERVICES_JSON,
       { encoding: 'utf8' }
     );
