@@ -27,6 +27,7 @@ export default ({ config }) => {
       scheme: "catholic-daily-companion",
       version: "1.0.0",
       orientation: "portrait",
+      platforms: ["ios", "android"],
       icon: "",
       userInterfaceStyle: "light",
       newArchEnabled: true,
@@ -36,6 +37,7 @@ export default ({ config }) => {
       },
       ios: {
         supportsTablet: true,
+        bundleIdentifier: "com.alexandros.catholicdailycompanion"
       },
       android: {
         adaptiveIcon: {
@@ -43,7 +45,6 @@ export default ({ config }) => {
         },
         edgeToEdgeEnabled: true,
         package: "com.alexandros.catholicdailycompanion",
-        googleServicesFile: "@GOOGLE_SERVICES_JSON",
       },
       web: {
         favicon: "./assets/favicon.png",
