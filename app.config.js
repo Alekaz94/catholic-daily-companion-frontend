@@ -1,26 +1,26 @@
 import 'dotenv/config';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { Buffer } from 'buffer';
+import path from 'path';
 
 export default ({ config }) => {
-  const androidAppDir = './android/app';
-  const base64 = process.env.GOOGLE_SERVICES_JSON_BASE64;
+  const androidAppDir = path.resolve(__dirname, 'android/app');
 
-  if (base64) {
-    if (!existsSync(androidAppDir)) {
-      mkdirSync(androidAppDir, { recursive: true });
+  try {
+    if (process.env.GOOGLE_SERVICES_JSON_BASE64) {
+      if (!existsSync(androidAppDir)) {
+        console.warn(`[WARN] android/app does not exist yet, skipping writing google-services.json`);
+      } else {
+        const decoded = Buffer.from(process.env.GOOGLE_SERVICES_JSON_BASE64, 'base64').toString('utf8');
+        const outputPath = path.join(androidAppDir, 'google-services.json');
+        writeFileSync(outputPath, decoded, { encoding: 'utf8' });
+        console.log('✅ Wrote google-services.json from base64');
+      }
+    } else {
+      console.warn('⚠️ GOOGLE_SERVICES_JSON_BASE64 env var is not set');
     }
-
-    const decodedJson = Buffer.from(base64, 'base64').toString('utf8');
-
-    try {
-      writeFileSync(`${androidAppDir}/google-services.json`, decodedJson);
-      console.log('✅ Wrote google-services.json from base64 env var');
-    } catch (e) {
-      console.error('❌ Failed to write google-services.json:', e);
-    }
-  } else {
-    console.warn('⚠️ GOOGLE_SERVICES_JSON_BASE64 env var is not set');
+  } catch (e) {
+    console.error('❌ Failed to write google-services.json:', e);
   }
 
   return {
@@ -49,7 +49,7 @@ export default ({ config }) => {
         },
         edgeToEdgeEnabled: true,
         package: "com.alexandros.catholicdailycompanion",
-        googleServicesFile: "./android/app/google-services.json"
+        googleServicesFile: './android/app/google-services.json',
       },
       web: {
         favicon: "./assets/favicon.png",
@@ -60,7 +60,7 @@ export default ({ config }) => {
         GOOGLE_EXPO_CLIENT_ID: process.env.GOOGLE_EXPO_CLIENT_ID,
         GOOGLE_ANDROID_CLIENT_ID: process.env.GOOGLE_ANDROID_CLIENT_ID,
         GOOGLE_WEB_CLIENT_ID: process.env.GOOGLE_WEB_CLIENT_ID,
-        GOOGLE_SERVICES_JSON_BASE64: base64,
+        GOOGLE_SERVICES_JSON_BASE64: process.env.GOOGLE_SERVICES_JSON_BASE64,
         FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
         FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
         FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
