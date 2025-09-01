@@ -4,7 +4,7 @@ const { resolve } = require('path');
 const filePath = resolve(__dirname, '../android/app/google-services.json');
 const rawJson = process.env.GOOGLE_SERVICES_JSON;
 
-if (process.env.EAS_BUILD && rawJson) {
+if (process.env.EAS_BUILD && rawJson && !rawJson.startsWith('@')) {
   try {
     const parsed = JSON.parse(rawJson);
     writeFileSync(filePath, JSON.stringify(parsed, null, 2), 'utf8');
@@ -14,5 +14,5 @@ if (process.env.EAS_BUILD && rawJson) {
     process.exit(1);
   }
 } else {
-  console.log('⚠️ Skipping google-services.json write (not in EAS build or no env var)');
+  console.warn('⚠️ Skipping google-services.json write (not in EAS build, missing var, or placeholder value)');
 }
