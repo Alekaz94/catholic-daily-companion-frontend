@@ -2,7 +2,6 @@ const { writeFileSync } = require('fs');
 const { resolve } = require('path');
 
 const filePath = resolve(__dirname, '../android/app/google-services.json');
-
 const rawJson = process.env.GOOGLE_SERVICES_JSON;
 
 if (process.env.EAS_BUILD && rawJson) {
