@@ -1,22 +1,26 @@
 import 'dotenv/config';
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
+import { Buffer } from 'buffer';
 
 export default ({ config }) => {
-  if (process.env.GOOGLE_SERVICES_JSON) {
-    const androidAppDir = './android/app';
+  const androidAppDir = './android/app';
+  const base64 = process.env.GOOGLE_SERVICES_JSON_BASE64;
 
+  if (base64) {
     if (!existsSync(androidAppDir)) {
       mkdirSync(androidAppDir, { recursive: true });
     }
 
-    writeFileSync(
-      `${androidAppDir}/google-services.json`,
-      process.env.GOOGLE_SERVICES_JSON,
-      { encoding: 'utf8' }
-    );
-    console.log('Wrote google-services.json from env');
+    const decodedJson = Buffer.from(base64, 'base64').toString('utf8');
+
+    try {
+      writeFileSync(`${androidAppDir}/google-services.json`, decodedJson);
+      console.log('✅ Wrote google-services.json from base64 env var');
+    } catch (e) {
+      console.error('❌ Failed to write google-services.json:', e);
+    }
   } else {
-    console.warn('GOOGLE_SERVICES_JSON env var is not set');
+    console.warn('⚠️ GOOGLE_SERVICES_JSON_BASE64 env var is not set');
   }
 
   return {
@@ -51,12 +55,12 @@ export default ({ config }) => {
         favicon: "./assets/favicon.png",
       },
       plugins: ["expo-secure-store"],
-
       extra: {
         API_BASE_URL: process.env.API_BASE_URL,
         GOOGLE_EXPO_CLIENT_ID: process.env.GOOGLE_EXPO_CLIENT_ID,
         GOOGLE_ANDROID_CLIENT_ID: process.env.GOOGLE_ANDROID_CLIENT_ID,
         GOOGLE_WEB_CLIENT_ID: process.env.GOOGLE_WEB_CLIENT_ID,
+        GOOGLE_SERVICES_JSON_BASE64: base64,
         FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
         FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
         FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,

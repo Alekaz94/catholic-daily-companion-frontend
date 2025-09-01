@@ -9,7 +9,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest",
-    "eas-build-pre-install": "node scripts/write-google-services.js"
+    "eas-build-pre-install": "echo 'Running pre-install'",
+    "eas-build-prebuild": "echo 'Handled google-services.json in app.config.js'"
   },
   "jest": {
     "preset": "jest-expo",
