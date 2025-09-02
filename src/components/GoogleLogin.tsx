@@ -16,11 +16,17 @@ const redirectUri = AuthSession.makeRedirectUri({
     native: "catholic-daily-companion://oauthredirect",
 });
 
+const isDevelopment = __DEV__;
+
+const androidClientId = isDevelopment
+  ? Constants.expoConfig?.extra?.GOOGLE_ANDROID_DEBUG_CLIENT_ID
+  : Constants.expoConfig?.extra?.GOOGLE_ANDROID_RELEASE_CLIENT_ID;
+
+
 const GoogleLogin = () => {
     const [request, response, promptAsync] = Google.useAuthRequest({
-        androidClientId: Constants.expoConfig?.extra?.GOOGLE_ANDROID_CLIENT_ID,
+        androidClientId,
         webClientId: Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID,
-        clientId: Constants.expoConfig?.extra?.GOOGLE_EXPO_CLIENT_ID,
         redirectUri: AuthSession.makeRedirectUri({
           native: "catholic-daily-companion://oauthredirect",
         }),
@@ -31,7 +37,6 @@ const GoogleLogin = () => {
         console.log("Client IDs:", {
           androidClientId: Constants.expoConfig?.extra?.GOOGLE_ANDROID_CLIENT_ID,
           webClientId: Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID,
-          expoClientId: Constants.expoConfig?.extra?.GOOGLE_EXPO_CLIENT_ID,
           redirectUri
         });
       }, []);
