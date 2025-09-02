@@ -8,7 +8,6 @@ import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import Constants from 'expo-constants';
 import { firebaseLogin } from "../services/AuthService";
 import { Layout } from "../styles/Layout";
-import * as Linking from 'expo-linking';
 import { Ionicons } from '@expo/vector-icons';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -20,9 +19,22 @@ const redirectUri = AuthSession.makeRedirectUri({
 const GoogleLogin = () => {
     const [request, response, promptAsync] = Google.useAuthRequest({
         androidClientId: Constants.expoConfig?.extra?.GOOGLE_ANDROID_CLIENT_ID,
-        redirectUri,
+        webClientId: Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID,
+        clientId: Constants.expoConfig?.extra?.GOOGLE_EXPO_CLIENT_ID,
+        redirectUri: AuthSession.makeRedirectUri({
+          native: "catholic-daily-companion://oauthredirect",
+        }),
         scopes: ['profile', 'email'],
-    })
+    });
+
+      useEffect(() => {
+        console.log("Client IDs:", {
+          androidClientId: Constants.expoConfig?.extra?.GOOGLE_ANDROID_CLIENT_ID,
+          webClientId: Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID,
+          expoClientId: Constants.expoConfig?.extra?.GOOGLE_EXPO_CLIENT_ID,
+          redirectUri
+        });
+      }, []);
 
     useEffect(() => {
         const authenticate = async () => {  
@@ -38,6 +50,10 @@ const GoogleLogin = () => {
         }
         authenticate();
     }, [response])
+
+    useEffect(() => {
+        console.log("Google response:", response);
+      }, [response]);
 
     return (
         <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} disabled={!request} onPress={() => promptAsync()}>
