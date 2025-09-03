@@ -1,4 +1,4 @@
-const fs = require('fs');
+/* const fs = require('fs');
 const path = require('path');
 
 function writeGoogleServicesJson() {
@@ -15,4 +15,4 @@ function writeGoogleServicesJson() {
   console.log('✅ google-services.json written at', outputPath);
 }
 
-writeGoogleServicesJson();
+writeGoogleServicesJson(); */

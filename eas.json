@@ -1,10 +1,4 @@
 {
-    "cli": {
-      "version": ">= 2.0.0"
-    },
-    "hooks": {
-      "post-install": "node scripts/write-google-services.js"
-    },
     "build": {
       "development": {
         "distribution": "internal",
