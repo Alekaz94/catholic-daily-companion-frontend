@@ -54,7 +54,10 @@ export default ({ config }) => {
       web: {
         favicon: "./assets/favicon.png",
       },
-      plugins: ["expo-secure-store"],
+      plugins: [
+        "expo-secure-store",
+        '@react-native-google-signin/google-signin',
+      ],
       extra: {
         API_BASE_URL: process.env.API_BASE_URL,
         GOOGLE_EXPO_CLIENT_ID: process.env.GOOGLE_EXPO_CLIENT_ID,
