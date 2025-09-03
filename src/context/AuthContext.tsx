@@ -40,8 +40,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const bootstrapUser = async () => {
-    const user = await loadUserFromStorage();
-    setUser(user);
+    setLoading(true);
+    try {
+      const user = await loadUserFromStorage();
+      setUser(user);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signup = async (userToCreate: NewUser) => {

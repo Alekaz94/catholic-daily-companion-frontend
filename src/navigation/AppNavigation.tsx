@@ -17,11 +17,16 @@ import PrayerScreen from '../screens/PrayerScreen';
 import RosaryScreen from '../screens/RosaryScreen';
 import PrayerListScreen from '../screens/PrayerListScreen';
 import SaintCreateScreen from '../screens/SaintCreateScreen';
+import LoadingScreen from '../components/LoadingScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
 const AppNavigator = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if(loading) {
+    <LoadingScreen />
+  }
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
