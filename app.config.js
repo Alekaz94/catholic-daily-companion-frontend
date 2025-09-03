@@ -8,14 +8,14 @@ export default ({ config }) => {
 
   try {
     if (process.env.GOOGLE_SERVICES_JSON_BASE64) {
-      if (!existsSync(androidAppDir)) {
+      /* if (!existsSync(androidAppDir)) {
         console.warn(`[WARN] android/app does not exist yet, skipping writing google-services.json`);
       } else {
         const decoded = Buffer.from(process.env.GOOGLE_SERVICES_JSON_BASE64, 'base64').toString('utf8');
         const outputPath = path.join(androidAppDir, 'google-services.json');
         writeFileSync(outputPath, decoded, { encoding: 'utf8' });
         console.log('✅ Wrote google-services.json from base64');
-      }
+      } */
     } else {
       console.warn('⚠️ GOOGLE_SERVICES_JSON_BASE64 env var is not set');
     }

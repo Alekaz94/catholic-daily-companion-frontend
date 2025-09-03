@@ -1,20 +1,18 @@
-/* const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 
-const base64Content = process.env.GOOGLE_SERVICES_JSON_BASE64;
+function writeGoogleServicesJson() {
+  const base64 = process.env.GOOGLE_SERVICES_JSON_BASE64;
+  if (!base64) {
+    throw new Error('❌ Missing GOOGLE_SERVICES_JSON_BASE64');
+  }
 
-if (!base64Content) {
-  console.error('❌ Missing GOOGLE_SERVICES_JSON_BASE64 env variable');
-  process.exit(1);
+  const outputDir = path.join(__dirname, '..', 'android', 'app');
+  const outputPath = path.join(outputDir, 'google-services.json');
+  const decoded = Buffer.from(base64, 'base64').toString('utf8');
+
+  fs.writeFileSync(outputPath, decoded, { encoding: 'utf8' });
+  console.log('✅ google-services.json written at', outputPath);
 }
 
-const filePath = path.resolve(__dirname, '../android/app/google-services.json');
-
-try {
-  const jsonContent = Buffer.from(base64Content, 'base64').toString('utf8');
-  fs.writeFileSync(filePath, jsonContent, 'utf8');
-  console.log('✅ google-services.json written successfully from Base64 env variable');
-} catch (err) {
-  console.error('❌ Failed to write google-services.json:', err.message);
-  process.exit(1);
-} */
+writeGoogleServicesJson();

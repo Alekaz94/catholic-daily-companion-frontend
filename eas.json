@@ -1,4 +1,7 @@
 {
+    "cli": {
+      "prebuildCommand": "node scripts/write-google-services.js"
+    },
     "build": {
       "development": {
         "distribution": "internal",
