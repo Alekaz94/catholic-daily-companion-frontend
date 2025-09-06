@@ -19,8 +19,6 @@ import PrayerListScreen from '../screens/PrayerListScreen';
 import SaintCreateScreen from '../screens/SaintCreateScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import GoogleLogin from '../components/GoogleLogin';
-import { NavigationContainer } from '@react-navigation/native';
-import { navigationRef } from './RootNavigation';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
