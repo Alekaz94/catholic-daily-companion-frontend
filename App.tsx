@@ -8,6 +8,7 @@ import AppNavigator from './src/navigation/AppNavigation';
 import { AuthProvider } from './src/context/AuthContext';
 import { firebaseLogin, loadUserFromStorage } from './src/services/AuthService';
 import { RootSiblingParent } from 'react-native-root-siblings';
+import { navigationRef } from './src/navigation/RootNavigation';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -56,7 +57,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <RootSiblingParent>
         <AuthProvider>
-          <NavigationContainer>
+          <NavigationContainer ref={navigationRef}>
             <AppNavigator />
           </NavigationContainer>
         </AuthProvider>

@@ -30,6 +30,7 @@ const ProfileScreen = () => {
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+    const isOAuthUser = user?.email?.toLowerCase().endsWith("@gmail.com");
     const navigation = useNavigation<ProfileNavigationProp>();
 
     const isFormValid = () => {
@@ -137,81 +138,93 @@ const ProfileScreen = () => {
                 <View style={Layout.container}>
                 <Text style={Typography.title}>My Profile</Text>
 
-                <Text style={Typography.label}>Email:</Text>
-                <Text style={[Typography.body, {color: "black"}]}>{user?.email ?? 'Unknown'}</Text>
-                <Text style={{ margin: 10 }}></Text>
-
-                <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold"}]}>Change Password</Text>
-                <Text style={Typography.label}>Current Password:</Text>
-                <View style={{ position: 'relative' }}>
-                    <TextInput
-                        secureTextEntry={!showCurrentPassword}
-                        style={Layout.input}
-                        placeholder="Current Password"
-                        value={currentPassword}
-                        accessibilityLabel="Current Password"
-                        onChangeText={(value) => setCurrentPassword(value)}
-                    />
-                    <TouchableOpacity
-                        style={{ position: 'absolute', right: 16, top: 10 }}
-                        onPress={() => setShowCurrentPassword(prev => !prev)}
-                    >
-                        <Ionicons name={showCurrentPassword ? "eye-off" : "eye"} size={22} color="gray" />
-                    </TouchableOpacity>
-                </View>
-
-                <Text style={Typography.label}>New Password:</Text>
-                <View style={{ position: 'relative'}}>
-                    <TextInput
-                        secureTextEntry={!showNewPassword}
-                        style={[Layout.input, {marginBottom: 2}]}
-                        placeholder="New Password"
-                        value={newPassword}
-                        accessibilityLabel="New Password"
-                        onChangeText={(value) => setNewPassword(value)}
-                    />
-                    <TouchableOpacity
-                        style={{ position: 'absolute', right: 16, top:10 }}
-                        onPress={() => setShowNewPassword(prev => !prev)}
-                    >
-                        <Ionicons name={showNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
-                    </TouchableOpacity>
-                    <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15 }}>
-                        Password must be at least 8 characters. Make sure it's something secure.
-                    </Text>
+                <View style={{marginVertical: 20}}>
+                    <View style={{flexDirection: "row"}}>
+                        <Text style={Typography.label}>Name: </Text>
+                        <Text style={[Typography.body, {color: "black"}]}>{user?.firstName} {user?.lastName}</Text>
+                    </View>
+                    <View style={{flexDirection: "row"}}>
+                        <Text style={Typography.label}>Email: </Text>
+                        <Text style={[Typography.body, {color: "black"}]}>{user?.email ?? 'Unknown'}</Text>
+                    </View>
                 </View>
                 
-                <Text style={Typography.label}>Confirm New Password:</Text>
-                <View style={{ position: 'relative' }}>
-                    <TextInput 
-                        secureTextEntry={!showConfirmNewPassword}
-                        style={[Layout.input, {marginBottom: 2}]}
-                        placeholder="Confirm New Password"
-                        value={confirmNewPassword}
-                        accessibilityLabel="Confirm New Password"
-                        onChangeText={(value) => setConfirmNewPassword(value)}
-                    />
-                    <TouchableOpacity
-                        style={{ position: 'absolute', right: 16, top: 10 }}
-                        onPress={() => setShowConfirmNewPassword(prev => !prev)}
-                    >
-                        <Ionicons name={showConfirmNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
-                    </TouchableOpacity>
-                    <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15 }}>
-                        Confirm password must match new password
-                    </Text>
-                </View>
+                {!isOAuthUser && (
+                    <>
+                        <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold"}]}>Change Password</Text>
+                        <Text style={Typography.label}>Current Password:</Text>
+                        <View style={{ position: 'relative' }}>
+                            <TextInput
+                                secureTextEntry={!showCurrentPassword}
+                                style={Layout.input}
+                                placeholder="Current Password"
+                                value={currentPassword}
+                                accessibilityLabel="Current Password"
+                                onChangeText={(value) => setCurrentPassword(value)}
+                            />
+                            <TouchableOpacity
+                                style={{ position: 'absolute', right: 16, top: 10 }}
+                                onPress={() => setShowCurrentPassword(prev => !prev)}
+                            >
+                                <Ionicons name={showCurrentPassword ? "eye-off" : "eye"} size={22} color="gray" />
+                            </TouchableOpacity>
+                        </View>
 
-                <TouchableOpacity style={[Layout.button, {backgroundColor: isFormValid() ? "#FAF3E0" : "gray", borderWidth: isFormValid() ? 1 : 0, opacity: isLoading ? 0.7 : 1}]} 
-                    onPress={() => setIsConfirmVisible(true)}
-                    disabled={!isFormValid()}
-                >
-                    {isLoading ? (
-                        <ActivityIndicator color="black" />
-                    ) : (
-                        <Text style={[Layout.buttonText, {color: "black"}]}>Update Password</Text>
-                    )}
-                </TouchableOpacity>
+                        <Text style={Typography.label}>New Password:</Text>
+                        <View style={{ position: 'relative'}}>
+                            <TextInput
+                                secureTextEntry={!showNewPassword}
+                                style={[Layout.input, {marginBottom: 2}]}
+                                placeholder="New Password"
+                                value={newPassword}
+                                accessibilityLabel="New Password"
+                                onChangeText={(value) => setNewPassword(value)}
+                            />
+                            <TouchableOpacity
+                                style={{ position: 'absolute', right: 16, top:10 }}
+                                onPress={() => setShowNewPassword(prev => !prev)}
+                            >
+                                <Ionicons name={showNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15 }}>
+                                Password must be at least 8 characters. Make sure it's something secure.
+                            </Text>
+                        </View>
+                        
+                        <Text style={Typography.label}>Confirm New Password:</Text>
+                        <View style={{ position: 'relative' }}>
+                            <TextInput 
+                                secureTextEntry={!showConfirmNewPassword}
+                                style={[Layout.input, {marginBottom: 2}]}
+                                placeholder="Confirm New Password"
+                                value={confirmNewPassword}
+                                accessibilityLabel="Confirm New Password"
+                                onChangeText={(value) => setConfirmNewPassword(value)}
+                            />
+                            <TouchableOpacity
+                                style={{ position: 'absolute', right: 16, top: 10 }}
+                                onPress={() => setShowConfirmNewPassword(prev => !prev)}
+                            >
+                                <Ionicons name={showConfirmNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
+                            </TouchableOpacity>
+                            <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15 }}>
+                                Confirm password must match new password
+                            </Text>
+                        </View>
+
+                        <TouchableOpacity style={[Layout.button, {backgroundColor: isFormValid() ? "#FAF3E0" : "gray", borderWidth: isFormValid() ? 1 : 0, opacity: isLoading ? 0.7 : 1}]} 
+                            onPress={() => setIsConfirmVisible(true)}
+                            disabled={!isFormValid()}
+                        >
+                            {isLoading ? (
+                                <ActivityIndicator color="black" />
+                            ) : (
+                                <Text style={[Layout.buttonText, {color: "black"}]}>Update Password</Text>
+                            )}
+                        </TouchableOpacity>
+                    </>
+                )}
+                
 
                 <LogoutButton />
                 </View>

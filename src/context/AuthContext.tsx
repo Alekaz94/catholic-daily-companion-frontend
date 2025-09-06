@@ -7,6 +7,9 @@ import {
   firebaseLogin as firebaseLoginService,
 } from '../services/AuthService';
 import { NewUser, User } from '../models/User';
+import { setAuthToken } from '../services/api';
+import * as SecureStore from 'expo-secure-store';
+import { reset } from '../navigation/RootNavigation';
 
 interface AuthContextType {
   user: User | null;
@@ -25,32 +28,52 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if(user === null) {
+      reset("Landing");
+    }
+  }, [user])
+
   const login = async (email: string, password: string) => {
     const result = await loginService(email, password);
     if (!result) {
       throw new Error('Login failed: no response from login service');
     }
     const { user, token } = result;
+    setAuthToken(token);
     setUser(user);
   };
 
   const logout = async () => {
     await logoutService();
     setUser(null);
+    setAuthToken(null);
   };
 
   const bootstrapUser = async () => {
     setLoading(true);
     try {
-      const user = await loadUserFromStorage();
-      setUser(user);
+      const storedUser = await loadUserFromStorage();
+      if(storedUser) {
+        setUser(storedUser);
+        const token = await SecureStore.getItemAsync('token');
+        if(token) {
+          setAuthToken(token);
+        }
+      }
     } finally {
       setLoading(false);
     }
   };
 
   const signup = async (userToCreate: NewUser) => {
-    const { user, token } = await signUpService(userToCreate);
+    const result = await signUpService(userToCreate);
+    if(!result) {
+      throw new Error('Signup failed');
+    }
+
+    const { user, token } = result;
+    setAuthToken(token);
     setUser(user);
   };
 
@@ -61,6 +84,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     const { user, token } = result;
+    setAuthToken(token);
     setUser(user);
   }
 

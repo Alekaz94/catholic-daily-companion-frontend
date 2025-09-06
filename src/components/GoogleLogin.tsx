@@ -3,20 +3,29 @@ import { TouchableOpacity, Text } from "react-native";
 import { auth } from "../../firebase";
 import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import Constants from 'expo-constants';
-import { firebaseLogin } from "../services/AuthService";
 import { Layout } from "../styles/Layout";
 import { Ionicons } from '@expo/vector-icons';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { SignInResponse, statusCodes } from '@react-native-google-signin/google-signin';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthStackParamList } from "../navigation/types";
+import { useAuth } from "../context/AuthContext";
+
+type GoogleLoginNavigation = NativeStackNavigationProp<
+  AuthStackParamList,
+  "GoogleLogin"  
+>;
 
 const GoogleLogin = () => {
+    const { firebaseLogin } = useAuth();
+
     useEffect(() => {
         GoogleSignin.configure({
           webClientId: Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID,
           offlineAccess: true,
           forceCodeForRefreshToken: true,
         });
-      }, []);
+    }, []);
 
       const handleGoogleLogin = async () => {
         try {

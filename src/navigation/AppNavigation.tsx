@@ -18,6 +18,9 @@ import RosaryScreen from '../screens/RosaryScreen';
 import PrayerListScreen from '../screens/PrayerListScreen';
 import SaintCreateScreen from '../screens/SaintCreateScreen';
 import LoadingScreen from '../components/LoadingScreen';
+import GoogleLogin from '../components/GoogleLogin';
+import { NavigationContainer } from '@react-navigation/native';
+import { navigationRef } from './RootNavigation';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -25,7 +28,9 @@ const AppNavigator = () => {
   const { user, loading } = useAuth();
 
   if(loading) {
-    <LoadingScreen />
+    return (
+      <LoadingScreen />
+    )
   }
 
   return (
@@ -50,6 +55,7 @@ const AppNavigator = () => {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Signup" component={SignUpScreen} />
           <Stack.Screen name="EmailAndPassword" component={EmailAndPasswordLoginScreen} />
+          <Stack.Screen name="GoogleLogin" component={GoogleLogin} />
         </>
       )}
     </Stack.Navigator>

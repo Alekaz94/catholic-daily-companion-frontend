@@ -14,4 +14,5 @@ export type AuthStackParamList = {
   Prayer: undefined;
   Rosary: undefined;
   PrayerList: undefined;
+  GoogleLogin: undefined;
 };
