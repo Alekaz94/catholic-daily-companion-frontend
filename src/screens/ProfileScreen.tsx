@@ -186,7 +186,7 @@ const ProfileScreen = () => {
                             >
                                 <Ionicons name={showNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15 }}>
+                            <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
                                 Password must be at least 8 characters. Make sure it's something secure.
                             </Text>
                         </View>
@@ -207,7 +207,7 @@ const ProfileScreen = () => {
                             >
                                 <Ionicons name={showConfirmNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15 }}>
+                            <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
                                 Confirm password must match new password
                             </Text>
                         </View>
@@ -223,6 +223,12 @@ const ProfileScreen = () => {
                             )}
                         </TouchableOpacity>
                     </>
+                )}
+
+                {isOAuthUser && (
+                <Text style={{ color: 'gray', marginVertical: 20, fontStyle: 'italic' }}>
+                    Password changes are managed through your Google account.
+                </Text>
                 )}
                 
 
