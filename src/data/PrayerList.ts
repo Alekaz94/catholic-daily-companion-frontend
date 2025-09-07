@@ -30,7 +30,7 @@ export const prayers: Prayers[] = [
         prayerText: "Angel of God, my guardian dear, to whom God's love commits me here, ever this day be at my side, to light and guard, to rule and guide. Amen."
     },
     {
-        title: "Acr of Contrition",
+        title: "Act of Contrition",
         prayerText: "Lord Jesus, Son of God, have mercy on me, a sinner."
     },
     {
