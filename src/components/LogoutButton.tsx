@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, Modal, View } from "react-native"
+import { TouchableOpacity, Text, Modal, View, ActivityIndicator } from "react-native"
 import { useAuth } from '../context/AuthContext';
 import { Layout } from "../styles/Layout";
 import { useState } from "react";
@@ -10,20 +10,31 @@ import { Ionicons } from '@expo/vector-icons';
 const LogoutButton = () => {
     const {logout} = useAuth();
     const [isVisible, setIsVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogout = async () => {
-        await logout();
-        setIsVisible(false);
-        alert('Logout successfull!');
+        try {
+            setIsLoading(true);
+            await logout();
+            setIsVisible(false);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
         <>
-        <TouchableOpacity style={[Layout.navbarButton, {backgroundColor: "#FAF3E0", borderWidth: 1, flexDirection: "row", justifyContent: "center"}]} onPress={() => {
+        <TouchableOpacity style={[Layout.navbarButton, {backgroundColor: "#FAF3E0", borderWidth: 1, flexDirection: "row", justifyContent: "center", opacity: isLoading ? 0.7 : 1}]} onPress={() => {
             setIsVisible(true)
         }}>
-        <Ionicons name="log-out-outline" color={"black"} size={20} />
-        <Text style={[Layout.buttonText, {color: "black"}]}> Logout</Text>
+            {isLoading ? (
+                <ActivityIndicator color="black" />
+            ) : (
+                <>
+                    <Ionicons name="log-out-outline" color={"black"} size={20} />
+                    <Text style={[Layout.buttonText, {color: "black"}]}> Logout</Text>
+                </>
+            )}
         </TouchableOpacity>
     
 

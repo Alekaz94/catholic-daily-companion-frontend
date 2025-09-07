@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { TouchableOpacity, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import { auth } from "../../firebase";
 import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import Constants from 'expo-constants';
 import { Layout } from "../styles/Layout";
 import { Ionicons } from '@expo/vector-icons';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { SignInResponse, statusCodes } from '@react-native-google-signin/google-signin';
+import { SignInResponse } from '@react-native-google-signin/google-signin';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from "../navigation/types";
 import { useAuth } from "../context/AuthContext";
@@ -18,6 +18,7 @@ type GoogleLoginNavigation = NativeStackNavigationProp<
 
 const GoogleLogin = () => {
     const { firebaseLogin } = useAuth();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         GoogleSignin.configure({
@@ -29,6 +30,7 @@ const GoogleLogin = () => {
 
       const handleGoogleLogin = async () => {
         try {
+            setIsLoading(true);
             await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
         
             const result: SignInResponse | null = await GoogleSignin.signIn();
@@ -54,13 +56,21 @@ const GoogleLogin = () => {
             console.log("✅ User signed in:", user.email);
         } catch (error) {
             console.error("❌ Google signin error:", error);
+        } finally {
+            setIsLoading(false);
         }
-      };
+      };    
 
     return (
-        <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={handleGoogleLogin}>
-            <Ionicons name="logo-google" color={"black"} size={20} />
-            <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Sign in with Google</Text>
+        <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1, opacity: isLoading ? 0.7 : 1 }]} onPress={handleGoogleLogin}>
+            {isLoading ? (
+                <ActivityIndicator color="black" />
+            ) : (
+                <>
+                    <Ionicons name="logo-google" color={"black"} size={20} />
+                    <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Sign in with Google</Text>
+                </>
+            )}
         </TouchableOpacity>
     )
 }

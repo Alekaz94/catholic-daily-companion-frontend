@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Text, TouchableOpacity, SafeAreaView, View } from 'react-native';
+import { Text, TouchableOpacity, SafeAreaView, View, ActivityIndicator } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/types';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
-import { AppTheme, Colors } from '../styles/colors';
+import { AppTheme } from '../styles/colors';
 import { Ionicons } from '@expo/vector-icons';
 
 type EmailAndPasswordLoginScreen = NativeStackNavigationProp<
@@ -21,14 +21,18 @@ const EmailAndPasswordLoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
     try {
+      setIsLoading(true);
       await login(email, password);
       alert('Login successfull!');
     } catch (err: any) {
       console.error('Error:', err.response?.data || err.message);
       alert(err.response?.data || 'Something went wrong!');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,6 +47,7 @@ const EmailAndPasswordLoginScreen = () => {
           onChangeText={(value) => setEmail(value)}
           autoCapitalize="none"
           style={[Layout.input, {width: "90%", marginLeft: 5}]}
+          editable={!isLoading}
         />
       </View>
 
@@ -54,6 +59,7 @@ const EmailAndPasswordLoginScreen = () => {
           onChangeText={(value) => setPassword(value)}
           secureTextEntry={!showPassword}
           style={[Layout.input, {width: "90%", marginLeft: 5}]}
+          editable={!isLoading}
         />
         <TouchableOpacity
           style={{ position: 'absolute', right: 16, top: 10 }}
@@ -64,9 +70,15 @@ const EmailAndPasswordLoginScreen = () => {
       </View>
       
       <View style={{flexDirection: "row"}}>
-        <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%"}]} onPress={handleLogin}>
-          <Ionicons name="log-in-outline" color={"black"} size={20} />
-          <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login</Text>
+        <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
+          {isLoading ? (
+            <ActivityIndicator color="black" /> 
+          ) : (
+            <>
+              <Ionicons name="log-in-outline" color={"black"} size={20} />
+              <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login</Text>
+            </>
+          )}   
         </TouchableOpacity>
 
         <View style={{marginLeft: 10, alignSelf: "flex-start"}}>

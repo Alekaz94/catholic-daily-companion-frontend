@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { AuthStackParamList } from '../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import { NewUser } from '../models/User';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
-import { AppTheme, Colors } from '../styles/colors';
+import { AppTheme } from '../styles/colors';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -25,6 +25,7 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignUp = async () => {
     if (!firstName || !lastName || !email || !password) {
@@ -44,6 +45,7 @@ const SignUpScreen = () => {
     }
 
     try {
+      setIsLoading(true)
       const newUser: NewUser = {
         firstName,
         lastName,
@@ -55,6 +57,8 @@ const SignUpScreen = () => {
     } catch (err: any) {
       console.error('Error:', err.response?.data || err.message);
       alert(err.response?.data || 'Something went wrong!');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,12 +76,14 @@ const SignUpScreen = () => {
         value={firstName}
         onChangeText={(value) => setFirstName(value)}
         style={Layout.input}
+        editable={!isLoading}
       />
       <TextInput
         placeholder="Lastname"
         value={lastName}
         onChangeText={(value) => setLastName(value)}
         style={Layout.input}
+        editable={!isLoading}
       />
       <TextInput
         placeholder="Email"
@@ -85,6 +91,7 @@ const SignUpScreen = () => {
         onChangeText={(value) => setEmail(value)}
         autoCapitalize="none"
         style={Layout.input}
+        editable={!isLoading}
       />
       
       <View>
@@ -94,6 +101,7 @@ const SignUpScreen = () => {
           onChangeText={(value) => setPassword(value)}
           secureTextEntry={!showPassword}
           style={Layout.input}
+          editable={!isLoading}
         />
         <TouchableOpacity
           style={{ position: 'absolute', right: 16, top: 10 }}
@@ -104,8 +112,12 @@ const SignUpScreen = () => {
       </View>
 
       <View style={{flexDirection: "row"}}>
-      <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%"}]} onPress={handleSignUp}>
-          <Text style={[Layout.buttonText, {color: "black"}]}>Sign up</Text>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleSignUp}>
+          {isLoading ? (
+            <ActivityIndicator color="black" />
+          ) : (
+            <Text style={[Layout.buttonText, {color: "black"}]}>Sign up</Text>
+          )}
         </TouchableOpacity>
 
         <View style={{marginLeft: 10, alignSelf: "flex-start"}}>
