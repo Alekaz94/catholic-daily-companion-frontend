@@ -3,7 +3,7 @@ import { Saint, UpdatedSaint } from "../models/Saint";
 import { deleteSaint, getAllSaints, searchSaints, updateSaint } from "../services/SaintService";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { View, FlatList, TouchableOpacity, Text, Image, Dimensions, Modal } from "react-native";
+import { View, FlatList, TouchableOpacity, Text, Image, Dimensions, Modal, ActivityIndicator } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
@@ -160,72 +160,83 @@ const SaintScreen = () => {
             <TouchableOpacity style={{marginBottom: 20, marginTop: -10}} onPress={clearSearch}>
                 <Text style={Typography.link}>Clear search</Text>
             </TouchableOpacity>
-            <FlatList
-                ref={listRef}
-                data={saints}
-                keyExtractor={item => item.id}
-                numColumns={2}
-                columnWrapperStyle={{justifyContent: "space-between", marginBottom: spacing}}
-                contentContainerStyle={{ paddingBottom: 20}}
-                renderItem={({item}) => (
-                    <View style={{width: cardWidth, marginBottom: spacing}}>
-                    <LinearGradient 
-                            colors={['#FAF3E0', "#F0F9FF"]}
-                            start={{x: 0, y: 0.5}}
-                            end={{x: 1, y: 0.5}}
-                            style={Layout.card}
-                        >
-                        <TouchableOpacity onPress={() => {
-                            setSelectedSaint(item);
-                            setModalVisible(true);
-                            }}
-                            style={{ alignItems: "center" }}
-                        >
-                            {item.imageUrl ? (
-                                <Image 
-                                    style={[Layout.image, {width: cardWidth}]} 
-                                    source={{  uri: buildImageUri(item.imageUrl)  }}
-                                /> 
-                            ) : (
-                                <Image style={[Layout.image, {width: cardWidth}]} source={defaultSaint}/> 
-                            )}
-                            <Text style={[Typography.label, {color: AppTheme.saint.text, textAlign: "center", marginTop: 8}]}>{item.name}</Text>
-                        </TouchableOpacity>
-
-                        {user?.role === "ADMIN" && (
-                            <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%", marginTop: 10}}>
-                                <TouchableOpacity onPress={() => {
-                                    setSaintToEdit(item);
-                                    setEditSaintModalVisible(true);
+            {page === 0 && isLoading ? (
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <ActivityIndicator size="large" color="gray" />
+                    </View> 
+            ) : (
+                <FlatList
+                    ref={listRef}
+                    data={saints}
+                    keyExtractor={item => item.id}
+                    numColumns={2}
+                    columnWrapperStyle={{justifyContent: "space-between", marginBottom: spacing}}
+                    contentContainerStyle={{ paddingBottom: 20}}
+                    renderItem={({item}) => (
+                        <View style={{width: cardWidth, marginBottom: spacing}}>
+                        <LinearGradient 
+                                colors={['#FAF3E0', "#F0F9FF"]}
+                                start={{x: 0, y: 0.5}}
+                                end={{x: 1, y: 0.5}}
+                                style={Layout.card}
+                            >
+                            <TouchableOpacity onPress={() => {
+                                setSelectedSaint(item);
+                                setModalVisible(true);
                                 }}
-                                style={{alignSelf: "flex-start"}}
-                                >
-                                    <Ionicons name="pencil-outline" size={20} />
-                                </TouchableOpacity>
+                                style={{ alignItems: "center" }}
+                            >
+                                {item.imageUrl ? (
+                                    <Image 
+                                        style={[Layout.image, {width: cardWidth}]} 
+                                        source={{  uri: buildImageUri(item.imageUrl)  }}
+                                    /> 
+                                ) : (
+                                    <Image style={[Layout.image, {width: cardWidth}]} source={defaultSaint}/> 
+                                )}
+                                <Text style={[Typography.label, {color: AppTheme.saint.text, textAlign: "center", marginTop: 8}]}>{item.name}</Text>
+                            </TouchableOpacity>
 
-                                <TouchableOpacity onPress={() => {
-                                    setIsVisibleDelete(true);
-                                    setSaintToDelete(item.id)
-                                }}>
-                                    <Ionicons name="trash-outline" size={20} color="red" />
-                                </TouchableOpacity>
-                            </View>
-                        )}
-                    </LinearGradient>
-                    </View>
-                )}
-                onEndReached={() => {
-                    if(!isLoading && hasMore) {
-                        setPage(prev => prev + 1)
-                    }
-                }}
-                onEndReachedThreshold={0.2}
-                ListFooterComponent={isLoading ? 
-                    (<Text>Loading...</Text>) 
-                    : !hasMore 
-                    ? (<Text style={{textAlign: 'center', marginTop: 10}}>No more saints to load</Text>) 
-                    : null}
-            />
+                            {user?.role === "ADMIN" && (
+                                <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%", marginTop: 10}}>
+                                    <TouchableOpacity onPress={() => {
+                                        setSaintToEdit(item);
+                                        setEditSaintModalVisible(true);
+                                    }}
+                                    style={{alignSelf: "flex-start"}}
+                                    >
+                                        <Ionicons name="pencil-outline" size={20} />
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={() => {
+                                        setIsVisibleDelete(true);
+                                        setSaintToDelete(item.id)
+                                    }}>
+                                        <Ionicons name="trash-outline" size={20} color="red" />
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                        </LinearGradient>
+                        </View>
+                    )}
+                    onEndReached={() => {
+                        if(!isLoading && hasMore) {
+                            setPage(prev => prev + 1)
+                        }
+                    }}
+                    onEndReachedThreshold={0.2}
+                    ListFooterComponent={ isLoading && page > 0 
+                        ? (
+                            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
+                                <ActivityIndicator size="small" color="gray" />
+                                <Text style={{ marginLeft: 10 }}>Loading more...</Text>
+                            </View> 
+                        ) 
+                        : !hasMore 
+                        ? <Text style={{textAlign: 'center', marginTop: 10}}>No more saints to load</Text>
+                        : null}
+                />
+            )}
 
             <SaintDetailModal 
                 visible={modalVisible}

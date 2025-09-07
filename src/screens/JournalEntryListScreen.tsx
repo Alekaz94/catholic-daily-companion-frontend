@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry";
 import { deleteEntry, getAllEntries, updateEntry } from "../services/JournalEntryService";
-import { FlatList, TouchableOpacity, View, Text, Modal } from "react-native";
+import { FlatList, TouchableOpacity, View, Text, Modal, ActivityIndicator } from "react-native";
 import EntryDetailModal from "../components/EntryDetailModal";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -111,72 +111,109 @@ const JournalEntryListScreen = () => {
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.journal.text}]}>Daily reflections</Text>
-                <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("CreateJournalEntry")}>
-                    <Ionicons name="create-outline" size={20} />
-                    <Text style={[Layout.buttonText, {color: "black", marginLeft: 10}]}>New Journal Entry</Text>
-                </TouchableOpacity>
-
-                <FlatList 
-                    data={entries} 
-                    keyExtractor={item => item.id}
-                    renderItem={({item}) => (
-                        <LinearGradient
-                            colors={['#B794F4', '#F5F3FF']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 1 }}
-                            style={[Layout.card, {
-                                borderRadius: 12,
-                                borderColor: AppTheme.journal.background,
-                                padding: 16,
-                                marginVertical: 8,
-                                shadowColor: '#000',
-                                shadowOffset: { width: 0, height: 2 },
-                                shadowOpacity: 0.1,
-                                shadowRadius: 6,
-                                elevation: 3, 
-                            }]}
-                            >
-                            <TouchableOpacity onPress={() => {
-                                setSelectedEntry(item);
-                                setModalVisible(true);
-                            }}>
-                                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                    <Text style={[Typography.label, {color: AppTheme.journal.text}]}>{item.title}</Text>
-                                    <Text style={[Typography.small, {color: AppTheme.journal.text}]}>{item.date}</Text>
-                                </View>
-                                <Text style={[Typography.body, {color: AppTheme.journal.text}]} numberOfLines={2}>{item.content}</Text>
-                            </TouchableOpacity>
-                            
-                            <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 5}}>
-                                <TouchableOpacity onPress={() => {
-                                    setEntryToEdit(item);
-                                    setEditModalVisible(true);
-                                    }}
-                                >
-                                    <Ionicons name="pencil-outline" size={20} />
-                                </TouchableOpacity>
-
-                                <TouchableOpacity onPress={() => {
-                                    setIsVisibleDelete(true);
-                                    setEntryToDeleteId(item.id);
-                                }}>
-                                    <Ionicons name="trash-outline" size={20} color="red" />
-                                </TouchableOpacity>  
-                            </View>
-                        </LinearGradient>
+                <TouchableOpacity 
+                    style={[
+                        Layout.button, {
+                            marginBottom: 10, 
+                            backgroundColor: "#B794F4", 
+                            flexDirection: "row", 
+                            justifyContent: "center", 
+                            borderWidth: 1,
+                            opacity: isLoading ? 0.7 : 1 
+                        }]} 
+                    onPress={() => navigation.navigate("CreateJournalEntry")}
+                    disabled={isLoading} 
+                >
+                    {isLoading ? (
+                        <ActivityIndicator color="black" />
+                    ) : (
+                        <>
+                            <Ionicons name="create-outline" size={20} />
+                            <Text style={[Layout.buttonText, {color: "black", marginLeft: 10}]}>New Journal Entry</Text>
+                        </>
                     )}
-                    onEndReached={() => {
-                        if(!isLoading && hasMore) {
-                            setPage(prev => prev + 1)
-                        }
-                    }}
-                    onEndReachedThreshold={0.2}
-                    ListFooterComponent={ isLoading 
-                        ? <Text>Loading more...</Text>
-                        : !hasMore 
-                        ? <Text style={{textAlign: 'center', marginTop: 10}}>No more entries</Text>
-                        : null}
-                />
+                </TouchableOpacity>
+                {page === 0 && isLoading ? (
+                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                        <ActivityIndicator size="large" color="gray" />
+                    </View> 
+                ) : (
+                    <FlatList 
+                        data={entries} 
+                        keyExtractor={item => item.id}
+                        renderItem={({item}) => (
+                            <LinearGradient
+                                colors={['#B794F4', '#F5F3FF']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 1 }}
+                                style={[Layout.card, {
+                                    borderRadius: 12,
+                                    borderColor: AppTheme.journal.background,
+                                    padding: 16,
+                                    marginVertical: 8,
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.1,
+                                    shadowRadius: 6,
+                                    elevation: 3, 
+                                }]}
+                                >
+                                <TouchableOpacity 
+                                    onPress={() => {
+                                        setSelectedEntry(item);
+                                        setModalVisible(true);
+                                    }}
+                                    disabled={isLoading}
+                                >
+                                    <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                                        <Text style={[Typography.label, {color: AppTheme.journal.text}]}>{item.title}</Text>
+                                        <Text style={[Typography.small, {color: AppTheme.journal.text}]}>{item.date}</Text>
+                                    </View>
+                                    <Text style={[Typography.body, {color: AppTheme.journal.text}]} numberOfLines={2}>{item.content}</Text>
+                                </TouchableOpacity>
+                                
+                                <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 5}}>
+                                    <TouchableOpacity 
+                                        onPress={() => {
+                                            setEntryToEdit(item);
+                                            setEditModalVisible(true);
+                                        }}
+                                        disabled={isLoading} 
+                                    >
+                                        <Ionicons name="pencil-outline" size={20} />
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity 
+                                        onPress={() => {
+                                            setIsVisibleDelete(true);
+                                            setEntryToDeleteId(item.id);
+                                        }} 
+                                        disabled={isLoading} 
+                                    >
+                                        <Ionicons name="trash-outline" size={20} color="red" />
+                                    </TouchableOpacity>  
+                                </View>
+                            </LinearGradient>
+                        )}
+                        onEndReached={() => {
+                            if(!isLoading && hasMore) {
+                                setPage(prev => prev + 1)
+                            }
+                        }}
+                        onEndReachedThreshold={0.2}
+                        ListFooterComponent={ isLoading && page > 0 
+                            ? (
+                                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
+                                    <ActivityIndicator size="small" color="gray" />
+                                    <Text style={{ marginLeft: 10 }}>Loading more...</Text>
+                                </View> 
+                            ) 
+                            : !hasMore 
+                            ? <Text style={{textAlign: 'center', marginTop: 10}}>No more entries</Text>
+                            : null}
+                    />
+                )}
+                
 
                 <EntryDetailModal 
                     visible={modalVisible}
