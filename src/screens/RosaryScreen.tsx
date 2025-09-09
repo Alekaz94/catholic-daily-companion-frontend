@@ -177,7 +177,7 @@ const RosaryScreen = () => {
                     <Text style={[Typography.title, { marginTop: 16, alignSelf: "center" }]}>History</Text>
                     {history.map((entry) => (
                         <Text key={entry.id} style={[Typography.body, {fontSize: 16}]}>
-                            {new Date(entry.date).toLocaleDateString()} - {entry.completed ? "✅" : "❌"}
+                            {entry.date} - {entry.completed ? "✅" : "❌"}
                         </Text>
                     ))}
                 </View>
