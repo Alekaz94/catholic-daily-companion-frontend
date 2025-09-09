@@ -10,15 +10,27 @@ import { createMysteryDecade, fixedRosaryEnd, fixedRosaryStart, getTodaysMysteri
 import { Layout } from "../styles/Layout";
 import { Rosary } from "../models/Rosary";
 import { AppTheme } from "../styles/colors";
+import * as SecureStore from 'expo-secure-store';
+
+const formatDate = (date: Date) => {
+    const year = date.getUTCFullYear();
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+    const day = date.getUTCDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+};
 
 const RosaryScreen = () => {
     const { user } = useAuth();
     const mysteries = getTodaysMysteries();
+
     const rosarySequence: RosaryStep[] = [
         ...fixedRosaryStart,
         ...mysteries.flatMap(mystery => createMysteryDecade(mystery)),
         ...fixedRosaryEnd,
     ];
+
+    const STORAGE_KEY = `rosary_progress_${user?.id}_${formatDate(new Date())}`;
+
     const [checkedSteps, setCheckedSteps] = useState<boolean[][]>(
         rosarySequence.map(step => Array(step.checkboxes).fill(false))
     );
@@ -26,17 +38,42 @@ const RosaryScreen = () => {
     const [streak, setStreak] = useState(0);
     const [history, setHistory] = useState<Rosary[]>([]);
 
-    const allChecked = checkedSteps.every(step => {
-        step.every(checked => checked === true)
-    })
+    const allChecked = checkedSteps.every(step => step.every(checked => checked));
 
-    const toggleCheckbox = (stepIndex: number, boxIndex: number) => {
-        setCheckedSteps(prev => {
-            const updated = [...prev];
-            updated[stepIndex][boxIndex] = !updated[stepIndex][boxIndex];
-            return updated;
-        });
-    };
+    useEffect(() => {
+        if (!user?.id) {
+            return;
+        }
+    
+        const loadProgress = async () => {
+          try {
+            const saved = await SecureStore.getItemAsync(STORAGE_KEY);
+            if (saved) {
+              setCheckedSteps(JSON.parse(saved));
+            }
+          } catch (e) {
+            console.warn("Failed to load rosary progress", e);
+          }
+        };
+    
+        loadProgress();
+    }, [user, STORAGE_KEY, rosarySequence.length]);
+
+    useEffect(() => {
+        if (!user?.id) {
+            return;
+        }
+
+        const saveProgress = async () => {
+          try {
+            await SecureStore.setItemAsync(STORAGE_KEY, JSON.stringify(checkedSteps));
+          } catch (e) {
+            console.warn("Failed to save rosary progress", e);
+          }
+        };
+    
+        saveProgress();
+    }, [checkedSteps, user, STORAGE_KEY]);
 
     useEffect(() => {
         if(!user?.id) {
@@ -52,12 +89,25 @@ const RosaryScreen = () => {
                 setCompleted(done);
                 setStreak(currentStreak);
                 setHistory(pastLogs);
+
+                if(done) {
+                    const allTrue = rosarySequence.map(step => Array(step.checkboxes).fill(true));
+                    setCheckedSteps(allTrue);
+                }
             } catch (error) {
                 console.error("Failed to load rosary data ", error);
             };
         };
         fetchData();
-    }, [user]);
+    }, [user, rosarySequence.length]);
+
+    const toggleCheckbox = (stepIndex: number, boxIndex: number) => {
+        setCheckedSteps(prev => {
+            const updated = [...prev];
+            updated[stepIndex][boxIndex] = !updated[stepIndex][boxIndex];
+            return updated;
+        });
+    };
 
     const handleComplete = async () => {
         if(!user?.id) {
@@ -78,6 +128,9 @@ const RosaryScreen = () => {
             Alert.alert("Rosary marked as completed!");
             setCompleted(true);
             setStreak(prev => prev + 1);
+
+            const allTrue = rosarySequence.map(step => Array(step.checkboxes).fill(true));
+            setCheckedSteps(allTrue);
         } catch (error) {
             console.error("Failed to complete rosary ", error);
         }
@@ -100,11 +153,12 @@ const RosaryScreen = () => {
                         </Text>
                         <View style={{ flexDirection: "row", flexWrap: "wrap", alignContent: "center", justifyContent: "center"}}>
                             {checkedSteps[stepIndex].map((checked, boxIndex) => (
-                                <CheckBox 
+                                <CheckBox
                                     style={{marginHorizontal: 5}}
                                     key={boxIndex}
                                     value={checked}
-                                    onValueChange={() => toggleCheckbox(stepIndex, boxIndex)}
+                                    onValueChange={() => !completed && toggleCheckbox(stepIndex, boxIndex)}
+                                    disabled={completed}
                                 />
                             ))}
                         </View>
@@ -123,7 +177,7 @@ const RosaryScreen = () => {
                     <Text style={[Typography.title, { marginTop: 16, alignSelf: "center" }]}>History</Text>
                     {history.map((entry) => (
                         <Text key={entry.id} style={[Typography.body, {fontSize: 16}]}>
-                            {new Date(entry.date).toLocaleString()} - {entry.completed ? "✅" : "❌"}
+                            {new Date(entry.date).toLocaleDateString()} - {entry.completed ? "✅" : "❌"}
                         </Text>
                     ))}
                 </View>
