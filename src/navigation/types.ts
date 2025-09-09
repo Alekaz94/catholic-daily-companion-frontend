@@ -6,7 +6,8 @@ export type AuthStackParamList = {
   CreateJournalEntry: undefined;
   Saint: undefined;
   CreateSaint: undefined;
-  Reading: undefined;
+//  Reading: undefined;
+//  PastReadings: undefined;
   Profile: undefined;
   Landing: undefined;
   EmailAndPassword: undefined;

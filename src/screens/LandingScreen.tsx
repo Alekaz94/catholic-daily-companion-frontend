@@ -3,8 +3,6 @@ import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { getTodaysReading } from '../services/DailyReadingService';
-import { DailyReading } from '../models/DailyReading';
 import { Saint } from '../models/Saint';
 import { getSaintOfTheDay } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
@@ -12,7 +10,6 @@ import NavbarLanding from '../components/NavbarLanding';
 import { Typography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
-import { AppTheme } from '../styles/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import defaultSaint from "../assets/images/default_saint.jpg";
@@ -25,17 +22,8 @@ type LandingNavigationProp = NativeStackNavigationProp<
 
 const LandingScreen = () => {
   const navigation = useNavigation<LandingNavigationProp>();
-  const [reading, setReading] = useState<DailyReading | null>(null);
   const [saint, setSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
-
-  const fetchTodaysReading = async () => {
-    const todaysReading = await getTodaysReading();
-    if(!todaysReading) {
-      return;
-    }
-    setReading(todaysReading);
-  }
 
   const fetchSaintOfTheDay = async () => {
     const todaysSaint = await getSaintOfTheDay();
@@ -46,7 +34,6 @@ const LandingScreen = () => {
   }
 
   useEffect(() => {
-    fetchTodaysReading();
     fetchSaintOfTheDay();
   }, [])
 
@@ -76,25 +63,6 @@ const LandingScreen = () => {
             </TouchableOpacity> 
           </LinearGradient>
         }
-      </View>
-      <View style={Layout.container}>
-      <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0"}]}>
-        <Text style={[Typography.label, {fontSize: 20}]}>Today's readings</Text>
-        {!reading ? (
-          <Text style={[Typography.label, {fontSize: 16}]}>No reading found for today!</Text>
-        ) : (
-          <>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text}]}>First reading </Text>
-            <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.firstReading}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text}]}>Second reading </Text>
-            <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.secondReading}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text}]}>Psalm </Text>
-            <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.psalm}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text}]}>Gospel reading </Text>
-            <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.gospel}</Text> 
-          </>
-        )}     
-      </View>
       </View>
       
       <SaintDetailModal 

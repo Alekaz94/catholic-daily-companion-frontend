@@ -3,8 +3,6 @@ import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { getTodaysReading } from '../services/DailyReadingService';
-import { DailyReading } from '../models/DailyReading';
 import { Saint } from '../models/Saint';
 import { getSaintOfTheDay } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
@@ -26,18 +24,9 @@ type HomeNavigationProp = NativeStackNavigationProp<
 
 const HomeScreen = () => {
   const navigation = useNavigation<HomeNavigationProp>();
-  const [reading, setReading] = useState<DailyReading | null>(null);
   const [saint, setSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const { user } = useAuth();
-
-  const fetchTodaysReading = async () => {
-    const todaysReading = await getTodaysReading();
-    if(!todaysReading) {
-      return;
-    }
-    setReading(todaysReading);
-  }
 
   const fetchSaintOfTheDay = async () => {
     const todaysSaint = await getSaintOfTheDay();
@@ -48,7 +37,6 @@ const HomeScreen = () => {
   }
 
   useEffect(() => {
-    fetchTodaysReading();
     fetchSaintOfTheDay();
   }, [])
 
@@ -82,25 +70,6 @@ const HomeScreen = () => {
             </TouchableOpacity> 
           </LinearGradient>
         }
-      </View>
-      <View style={Layout.container}>
-      <View style={[Layout.card, {borderRadius: 12, padding: 10, backgroundColor: "#FAF3E0"}]}>
-        <Text style={[Typography.label, {fontSize: 20}]}>Today's readings</Text>
-        {!reading ? (
-          <Text style={[Typography.label, {fontSize: 16}]}>No reading found for today!</Text>
-        ) : (
-          <>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 5, color: AppTheme.reading.text, borderBottomWidth: 1}]}>First reading </Text>
-            <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.firstReading}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 10, color: AppTheme.reading.text, borderBottomWidth: 1}]}>Second reading </Text>
-            <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.secondReading}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 10, color: AppTheme.reading.text, borderBottomWidth: 1}]}>Psalm </Text>
-            <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.psalm}</Text>
-            <Text style={[Typography.label, {marginBottom: 5, marginTop: 10, color: AppTheme.reading.text, borderBottomWidth: 1}]}>Gospel reading </Text>
-            <Text style={[Typography.body, {color: AppTheme.reading.text}]}>{reading?.gospel}</Text> 
-          </>
-        )}     
-      </View>
       </View>
       
       <SaintDetailModal 

@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { DailyReading } from "../models/DailyReading";
 import { Layout } from "../styles/Layout";
@@ -45,4 +45,4 @@ const DailyReadingDetailModal: React.FC<Props> = ({visible, reading, onClose}) =
     );
 }
 
-export default DailyReadingDetailModal;
+export default DailyReadingDetailModal; */

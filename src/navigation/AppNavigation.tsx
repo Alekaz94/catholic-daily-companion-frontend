@@ -6,7 +6,6 @@ import SignUpScreen from '../screens/SignUpScreen';
 import JournalEntryListScreen from "../screens/JournalEntryListScreen"
 import { AuthStackParamList } from './types';
 import SaintScreen from '../screens/SaintScreen';
-import DailyReadingScreen from '../screens/DailyReadingScreen';
 import JournalEntryCreateScreen from '../screens/JournalEntryCreateScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import LandingScreen from "../screens/LandingScreen";
@@ -39,7 +38,6 @@ const AppNavigator = () => {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Saint" component={SaintScreen} />
           <Stack.Screen name="CreateSaint" component={SaintCreateScreen} />
-          <Stack.Screen name="Reading" component={DailyReadingScreen} />
           <Stack.Screen name="Journal" component={JournalEntryListScreen} />
           <Stack.Screen name="CreateJournalEntry" component={JournalEntryCreateScreen} />
           <Stack.Screen name="Profile" component={ProfileScreen} />
@@ -61,3 +59,6 @@ const AppNavigator = () => {
 };
 
 export default AppNavigator;
+
+//          <Stack.Screen name="Reading" component={DailyReadingScreen} />
+//          <Stack.Screen name="PastReadings" component={PastReadingsScreen} />
