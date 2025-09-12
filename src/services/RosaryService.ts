@@ -22,3 +22,13 @@ export const getStreak = async (userId: string): Promise<number> => {
     const result = await API.get(`${endpoint}/${userId}/streak`);
     return result.data;
 }
+
+export const  getRosaryHistoryDates = async (userId: string): Promise<string[]> => {
+    const result = await API.get(`${endpoint}/${userId}/rosary-dates`);
+    return result.data;
+}
+
+export const isRosaryCompletedOn = async (userId: string, date: string): Promise<boolean> => {
+    const res = await API.get<boolean>(`${endpoint}/${userId}/completed-on/${date}`);
+    return res.data;
+};

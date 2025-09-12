@@ -12,7 +12,7 @@ const NavbarLanding = () => {
     const navigation = useNavigation<NavbarNavigationProp>();
 
     return (
-        <View style={[Layout.navbarContainer, {backgroundColor: "#FAF3E0"}]}>
+        <View style={[Layout.navbarContainer, {backgroundColor: "#FAF3E0", justifyContent: "space-evenly"}]}>
             <NavButton testID="navbutton-Login" style={{backgroundColor: "#FAF3E0"}} title={"Login"} screen={"Login"} />
             <NavButton testID="navbutton-Signup" style={{backgroundColor: "#FAF3E0"}} title={"Sign up"} screen={"Signup"} />
         </View>

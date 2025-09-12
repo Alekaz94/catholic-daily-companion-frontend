@@ -26,3 +26,13 @@ export const updateEntry = async (id: string, entry: UpdateJournalEntry): Promis
 export const deleteEntry = async (id: string): Promise<void> => {
     await API.delete(`${endpoint}/${id}`);
 }
+
+export const  getJournalDates = async (): Promise<string[]> => {
+    const result = await API.get(`${endpoint}/dates`);
+    return result.data;
+}
+
+export const getJournalEntriesByDate = async (date: string): Promise<JournalEntry[] | null> => {
+    const res = await API.get<JournalEntry[]>(`${endpoint}/dates/${date}`);
+    return res.data;
+};

@@ -37,3 +37,18 @@ export const updateSaint = async (id: string, updatedSaint: UpdatedSaint): Promi
 export const deleteSaint = async (id: string): Promise<void> => {
     await API.delete(`${endpoint}/${id}`);
 }
+
+export const getSaintByFeastDay = async (feastCode: string): Promise<Saint[]> => {
+    const res = await API.get(`/api/v1/saint/feast/${feastCode}`);
+    return res.data;
+};
+
+export const getSaintsByMonth = async (year: string, month: string): Promise<Saint[] | null> => {
+    const res = await API.get(`/api/v1/saint/month/${year}/${month}`);
+    return res.data;
+};
+
+export const getFeastDayToSaintMap = async (): Promise<Record<string, string[]>> => {
+    const res = await API.get(`${endpoint}/feast`);
+    return res.data;;
+}
