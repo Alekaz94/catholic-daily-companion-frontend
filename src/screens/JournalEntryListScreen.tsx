@@ -137,8 +137,13 @@ const JournalEntryListScreen = () => {
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <ActivityIndicator size="large" color="gray" />
                     </View> 
-                ) : (
-                    <FlatList 
+                ) : ( entries.length === 0 ? (
+                        <View>
+                            <Text style={{textAlign: 'center', fontSize: 12, fontStyle: "italic", marginTop: 10}}>You have not made a journal entry.</Text>
+                            <Text style={{textAlign: 'center', fontSize: 12, fontStyle: "italic", marginTop: 5}}>Create your first entry by clicking the button 'New Journal Entry' above.</Text>
+                        </View>
+                    ): (
+                        <FlatList 
                         data={entries} 
                         keyExtractor={item => item.id}
                         renderItem={({item}) => (
@@ -212,6 +217,7 @@ const JournalEntryListScreen = () => {
                             ? <Text style={{textAlign: 'center', marginTop: 10}}>No more entries</Text>
                             : null}
                     />
+                    )
                 )}
                 
 
