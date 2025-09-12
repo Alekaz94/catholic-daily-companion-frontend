@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, ScrollView, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
@@ -133,7 +133,8 @@ const ProfileScreen = () => {
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
-            <ScrollView style={{backgroundColor: AppTheme.auth.background}}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: AppTheme.auth.background}}>
                 <Navbar />
                 <View style={Layout.container}>
                 <Text style={Typography.title}>My Profile</Text>
@@ -141,7 +142,7 @@ const ProfileScreen = () => {
                 <View style={{marginVertical: 20}}>
                     <View style={{flexDirection: "row"}}>
                         <Text style={Typography.label}>Name: </Text>
-                        <Text style={[Typography.body, {color: "black"}]}>{user?.firstName} {user?.lastName}</Text>
+                        <Text style={[Typography.body, {color: "black"}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
                     </View>
                     <View style={{flexDirection: "row"}}>
                         <Text style={Typography.label}>Email: </Text>
@@ -184,13 +185,13 @@ const ProfileScreen = () => {
                                 style={{ position: 'absolute', right: 16, top:10 }}
                                 onPress={() => setShowNewPassword(prev => !prev)}
                             >
-                                <Ionicons name={showNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
+                                <Ionicons name={showNewPassword ? "eye-off" : "eye"} size={22} color="gray" />                            
                             </TouchableOpacity>
                             <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
                                 Password must be at least 8 characters. Make sure it's something secure.
                             </Text>
                         </View>
-                        
+                            
                         <Text style={Typography.label}>Confirm New Password:</Text>
                         <View style={{ position: 'relative' }}>
                             <TextInput 
@@ -212,7 +213,7 @@ const ProfileScreen = () => {
                             </Text>
                         </View>
 
-                        <TouchableOpacity style={[Layout.button, {backgroundColor: isFormValid() ? "#FAF3E0" : "gray", borderWidth: isFormValid() ? 1 : 0, opacity: isLoading ? 0.7 : 1}]} 
+                        <TouchableOpacity style={[Layout.button, {backgroundColor: isFormValid() ? "#FAF3E0" : "gray", borderWidth: isFormValid() ? 1 : 0, opacity: isLoading ? 0.7 : 1, marginTop: 30}]} 
                             onPress={() => setIsConfirmVisible(true)}
                             disabled={!isFormValid()}
                         >
@@ -226,15 +227,15 @@ const ProfileScreen = () => {
                 )}
 
                 {isOAuthUser && (
-                <Text style={{ color: 'gray', marginVertical: 20, fontStyle: 'italic' }}>
-                    Password changes are managed through your Google account.
-                </Text>
+                    <Text style={{ color: 'gray', marginVertical: 20, fontStyle: 'italic' }}>
+                        Password changes are managed through your Google account.
+                    </Text>
                 )}
-                
 
                 <LogoutButton />
                 </View>
             </ScrollView>
+            </TouchableWithoutFeedback>
 
             <Modal
                 animationType="fade"

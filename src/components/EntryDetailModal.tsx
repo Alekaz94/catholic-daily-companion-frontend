@@ -21,7 +21,9 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, {color: AppTheme.journal.text}]}>{entry.title}</Text>
                 <Text style={[Typography.small, {color: AppTheme.journal.text}]}>Created: {entry.date}</Text>
-                <Text style={[Typography.small, {color: AppTheme.journal.text}]}>Updated: {entry.updatedAt}</Text>
+                {entry.updatedAt !== entry.date && 
+                    <Text style={[Typography.small, {color: AppTheme.journal.text}]}>Updated: {entry.updatedAt}</Text>
+                }
                 <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: AppTheme.journal.text}]}>{entry.content}</Text>
 
                 <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#B794F4", borderWidth: 1}]}>
