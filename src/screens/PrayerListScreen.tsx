@@ -19,21 +19,21 @@ const PrayerListScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: '#ADD8E6'}}>
             <Navbar />
-            <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
+            <View style={[Layout.container, {backgroundColor: AppTheme.prayer.background}]}>
                 <Text style={[Typography.title, { marginBottom: 6, alignSelf: "center" }]}>Common Prayers</Text>
                 <FlatList 
                     data={prayers} 
                     keyExtractor={item => item.title}
                     renderItem={({ item }) => (
                         <LinearGradient
-                            colors={['#B794F4', '#F5F3FF']}
+                            colors={['#ADD8E6', '#FFFFFF']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 1 }}
                             style={[Layout.card, {
                                 borderRadius: 12,
-                                borderColor: AppTheme.journal.background,
+                                borderColor: AppTheme.prayer.background,
                                 padding: 16,
                                 marginVertical: 8,
                                 shadowColor: '#000',
@@ -44,7 +44,7 @@ const PrayerListScreen = () => {
                             }]}
                         >
                             <TouchableOpacity onPress={() => openModal(item)}>
-                                <Text style={[Typography.label, {color: AppTheme.journal.text}]}>{item.title}</Text>
+                                <Text style={[Typography.label, {color: AppTheme.prayer.text}]}>{item.title}</Text>
                             </TouchableOpacity>
                         </LinearGradient>
                     )}

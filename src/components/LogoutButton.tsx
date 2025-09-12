@@ -30,10 +30,10 @@ const LogoutButton = () => {
             {isLoading ? (
                 <ActivityIndicator color="black" />
             ) : (
-                <>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Ionicons name="log-out-outline" color={"black"} size={20} />
                     <Text style={[Layout.buttonText, {color: "black"}]}> Logout</Text>
-                </>
+                </View>
             )}
         </TouchableOpacity>
     

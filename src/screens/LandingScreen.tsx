@@ -42,7 +42,7 @@ const LandingScreen = () => {
       <ScrollView style={{backgroundColor: "#F0F9FF"}}>         
       <NavbarLanding />
       <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
-      <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
+      <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
         <Text style={[Typography.label, {fontSize: 20}]}>Today is the feast day of {saint?.name}</Text>
         {!saint 
           ? <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0"}]}>

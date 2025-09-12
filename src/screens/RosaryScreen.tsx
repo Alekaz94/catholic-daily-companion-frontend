@@ -137,9 +137,9 @@ const RosaryScreen = () => {
     };
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: '#ADD8E6'}}>
             <Navbar />
-            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: AppTheme.journal.background}}>
+            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: AppTheme.prayer.background}}>
                 <Text style={[Typography.title, { marginBottom: 6, alignSelf: "center" }]}>Rosary</Text>
                 {rosarySequence.map((step, stepIndex) => (
                     <View key={stepIndex} style={{marginBottom: 24}}>
@@ -170,7 +170,7 @@ const RosaryScreen = () => {
                     <Text style={[Typography.body,{fontSize: 16}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
                     <Text style={[Typography.body, {fontSize: 16}] }>Current Streak: {streak} days</Text>
 
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderWidth: 1}]} onPress={handleComplete} disabled={completed}>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: '#ADD8E6', borderWidth: 1}]} onPress={handleComplete} disabled={completed}>
                         <Text style={[Layout.buttonText, {color: "black"}]}>Mark as Completed</Text>
                     </TouchableOpacity>
 

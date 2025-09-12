@@ -23,7 +23,7 @@ export const Colors = {
       navbar: '#FFD700',
       text: '#1A1A1A',
     },
-    reading: {
+    prayer: {
       background: '#F0F9FF',
       card: ['#ADD8E6', '#FFFFFF'],
       navbar: '#1E3A8A',

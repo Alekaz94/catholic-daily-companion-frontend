@@ -21,8 +21,7 @@ export const Layout: LayoutStyles = {
     navbarContainer: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-around",
-        backgroundColor: "#D4AF37",
+        justifyContent: "space-between",
         height: 70,
         paddingHorizontal: 10,
         paddingTop: 10,
