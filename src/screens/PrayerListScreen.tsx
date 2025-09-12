@@ -22,7 +22,7 @@ const PrayerListScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: '#ADD8E6'}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.prayer.background}]}>
-                <Text style={[Typography.title, { marginBottom: 6, alignSelf: "center" }]}>Common Prayers</Text>
+                <Text style={[Typography.title, { marginBottom: 10, alignSelf: "center" }]}>Common Prayers</Text>
                 <FlatList 
                     data={prayers} 
                     keyExtractor={item => item.title}
@@ -44,7 +44,7 @@ const PrayerListScreen = () => {
                             }]}
                         >
                             <TouchableOpacity onPress={() => openModal(item)}>
-                                <Text style={[Typography.label, {color: AppTheme.prayer.text}]}>{item.title}</Text>
+                                <Text style={[Typography.label, {color: AppTheme.prayer.text, fontSize: 16}]}>{item.title}</Text>
                             </TouchableOpacity>
                         </LinearGradient>
                     )}
