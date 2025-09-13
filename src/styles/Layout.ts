@@ -22,7 +22,7 @@ export const Layout: LayoutStyles = {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        height: 70,
+        height: 80,
         paddingHorizontal: 10,
         paddingTop: 10,
         borderBottomWidth: 1,
@@ -65,7 +65,7 @@ export const Layout: LayoutStyles = {
     },
     navbarButton: {
         backgroundColor: "#D4AF37",
-        paddingVertical: 12,
+        paddingVertical: 10,
         borderRadius: 8,
         alignItems: 'center' as const,
         marginTop: 10,

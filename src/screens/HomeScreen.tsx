@@ -50,8 +50,10 @@ const HomeScreen = () => {
       {user?.role === "ADMIN" 
         && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: "#FAF3E0", margin: 10, borderWidth: 1}]}>
           <Text style={[Typography.link, {color: "black"}]}>Go to Admin Panel</Text>
-        </TouchableOpacity>)}
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 50 }]}>Welcome to Catholic Daily Companion</Text>
+        </TouchableOpacity>
+      )}
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 50 }]}>Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center"}]}>Welcome back {user && user.firstName}</Text>
 
       <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
       {loadingSaint ? (
