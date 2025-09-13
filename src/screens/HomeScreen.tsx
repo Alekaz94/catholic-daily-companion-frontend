@@ -10,7 +10,6 @@ import Navbar from '../components/Navbar';
 import { Typography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
-import { AppTheme } from '../styles/colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAuth } from '../context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -26,14 +25,18 @@ const HomeScreen = () => {
   const navigation = useNavigation<HomeNavigationProp>();
   const [saint, setSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [loadingSaint, setLoadingSaint] = useState(false);
   const { user } = useAuth();
 
   const fetchSaintOfTheDay = async () => {
+    setLoadingSaint(true)
     const todaysSaint = await getSaintOfTheDay();
     if(!todaysSaint) {
+      setLoadingSaint(false);
       return;
     }
     setSaint(todaysSaint);
+    setLoadingSaint(false);
   }
 
   useEffect(() => {
@@ -48,28 +51,34 @@ const HomeScreen = () => {
         && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: "#FAF3E0", margin: 10, borderWidth: 1}]}>
           <Text style={[Typography.link, {color: "black"}]}>Go to Admin Panel</Text>
         </TouchableOpacity>)}
-      <Text style={[Typography.title, {alignSelf: "center", fontSize: 20, fontWeight: "bold", marginTop: 10}]}>Welcome to Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 50 }]}>Welcome to Catholic Daily Companion</Text>
+
       <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
-        <Text style={[Typography.label, {fontSize: 20}]}>Today is the feast day of {saint?.name}</Text>
-        {!saint 
-          ? <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0"}]}>
-              <Text style={[Typography.label, {fontSize: 16, color: "black"}]}>No Saint's feast day today.</Text>
-            </View>
-          : <LinearGradient 
+      {loadingSaint ? (
+        <Text style={[Typography.label, { textAlign: 'center' }]}>Loading saint of the day...</Text>
+      ) : !saint ? (
+        <View style={[Layout.card, { marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0" }]}>
+          <Text style={[Typography.label]}>No Saint's feast day today.</Text>
+        </View>
+      ) : (
+        (
+          <LinearGradient 
               colors={['#FAF3E0', "#F0F9FF"]}
               start={{x: 0, y: 0.5}}
               end={{x: 1, y: 0.5}}
-              style={[Layout.card, {borderRadius: 12, padding: 15}]}>
+              style={[Layout.card, {borderRadius: 12, padding: 15}]}
+          >
+            <Text style={[Typography.label]}>Today is the feast day of {saint?.name}</Text>
             <TouchableOpacity 
               onPress={() => {
                 setModalVisible(true);
               }}
             >
               {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl)  }}/> : <Image style={Layout.image} source={defaultSaint}/> }
-              <Text style={[Typography.body, {color: "black", marginTop: 10}]} numberOfLines={1} >{saint.biography}</Text>
+              <Text style={[Typography.body, { marginTop: 10 }]} >{saint.name}</Text>
             </TouchableOpacity> 
           </LinearGradient>
-        }
+        ))}
       </View>
       
       <SaintDetailModal 

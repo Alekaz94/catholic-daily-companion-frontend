@@ -57,6 +57,7 @@ export default ({ config }) => {
       },
       plugins: [
         "expo-secure-store",
+        "expo-font",
         '@react-native-google-signin/google-signin',
       ],
       extra: {

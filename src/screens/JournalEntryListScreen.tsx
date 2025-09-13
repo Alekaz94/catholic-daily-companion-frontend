@@ -139,8 +139,8 @@ const JournalEntryListScreen = () => {
                     </View> 
                 ) : ( entries.length === 0 ? (
                         <View>
-                            <Text style={{textAlign: 'center', fontSize: 12, fontStyle: "italic", marginTop: 10}}>You have not made a journal entry.</Text>
-                            <Text style={{textAlign: 'center', fontSize: 12, fontStyle: "italic", marginTop: 5}}>Create your first entry by clicking the button 'New Journal Entry' above.</Text>
+                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 10}]}>You have not made a journal entry.</Text>
+                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 5}]}>Create your first entry by clicking the button 'New Journal Entry' above.</Text>
                         </View>
                     ): (
                         <FlatList 
@@ -171,10 +171,10 @@ const JournalEntryListScreen = () => {
                                     disabled={isLoading}
                                 >
                                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Text style={[Typography.label, {color: AppTheme.journal.text}]}>{item.title}</Text>
-                                        <Text style={[Typography.small, {color: AppTheme.journal.text}]}>{item.date}</Text>
+                                        <Text style={[Typography.label, {color: AppTheme.journal.text, fontWeight: "bold"}]}>{item.title}</Text>
+                                        <Text style={[Typography.label, {color: AppTheme.journal.text}]}>{item.date}</Text>
                                     </View>
-                                    <Text style={[Typography.body, {color: AppTheme.journal.text}]} numberOfLines={2}>{item.content}</Text>
+                                    <Text style={[Typography.body, {color: AppTheme.journal.text, fontSize: 18, marginBottom: 5}]} numberOfLines={2}>{item.content}</Text>
                                 </TouchableOpacity>
                                 
                                 <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 5}}>

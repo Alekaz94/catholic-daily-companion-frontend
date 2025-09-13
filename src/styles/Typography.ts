@@ -7,33 +7,47 @@ interface TypographyStyles {
     body: TextStyle;
     small: TextStyle;
     link: TextStyle;
+    italic: TextStyle;
+    bold: TextStyle;
 }
 
 export const Typography: TypographyStyles = {
     title: {
+      fontFamily: "Playfair-ExtraBold",
       fontSize: 24,
-      fontWeight: 'bold',
-      color: '#222',
+      color: 'black',
       marginBottom: 16,
     },
     label: {
-      fontSize: 14,
-      fontWeight: '500',
+      fontFamily: "Playfair-Italic",
+      fontSize: 20,
       color: "black",
       marginBottom: 4,
     },
     body: {
-      fontSize: 14,
+      fontFamily: "Playfair-Regular",
+      fontSize: 16,
       color: 'black',
     },
     small: {
+      fontFamily: "Playfair-Regular",
       fontSize: 12,
       color: 'black',
     },
     link: {
+      fontFamily: "Playfair-Regular",
       color: Colors.primary,
       textDecorationLine: 'underline',
       fontSize: 16,
-      fontWeight: '500',
+    },
+    italic: {
+      fontFamily: "Playfair-Italic",
+      fontSize: 14,
+      color: "black",
+    },
+    bold: {
+      fontFamily: "Playfair-Bold",
+      fontSize: 14,
+      color: "black",
     }
   };

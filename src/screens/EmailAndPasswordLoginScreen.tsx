@@ -72,7 +72,7 @@ const EmailAndPasswordLoginScreen = () => {
           </View>
           
           <View style={{flexDirection: "row"}}>
-            <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
+            <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
               {isLoading ? (
                 <ActivityIndicator color="black" /> 
               ) : (
@@ -84,12 +84,12 @@ const EmailAndPasswordLoginScreen = () => {
             </TouchableOpacity>
 
             <View style={{marginLeft: 20, alignItems: "flex-start", justifyContent: "center", flexDirection: "column"}}>
-              <Text style={[Layout.buttonText, {color: "black", fontSize: 14, marginTop: 20}]}>Dont have and account?</Text>
+              <Text style={[Layout.buttonText, {color: "black", fontSize: 14, marginTop: 15}]}>Dont have and account?</Text>
               <TouchableOpacity
                 style={[Layout.button, {backgroundColor: AppTheme.auth.background}]}
                 onPress={() => navigation.navigate("Signup")}
               >
-                <Text style={[Layout.buttonText, {color: AppTheme.auth.primary, fontSize: 12, marginTop: -15}]}>Sign up here</Text>
+                <Text style={[Layout.buttonText, {color: AppTheme.auth.primary, fontSize: 14, marginTop: -20}]}>Sign up here</Text>
               </TouchableOpacity>
             </View>
           </View>

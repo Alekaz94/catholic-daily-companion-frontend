@@ -44,7 +44,7 @@ const PrayerListScreen = () => {
                             }]}
                         >
                             <TouchableOpacity onPress={() => openModal(item)}>
-                                <Text style={[Typography.label, {color: AppTheme.prayer.text, fontSize: 16}]}>{item.title}</Text>
+                                <Text style={[Typography.body, {color: AppTheme.prayer.text, fontSize: 16, fontWeight: "bold"}]}>{item.title}</Text>
                             </TouchableOpacity>
                         </LinearGradient>
                     )}

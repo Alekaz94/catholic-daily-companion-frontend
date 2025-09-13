@@ -112,20 +112,24 @@ const SignUpScreen = () => {
       </View>
 
       <View style={{flexDirection: "row"}}>
-      <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleSignUp}>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", height: 50, opacity: isLoading ? 0.7 : 1}]} onPress={handleSignUp}>
           {isLoading ? (
             <ActivityIndicator color="black" />
           ) : (
-            <Text style={[Layout.buttonText, {color: "black"}]}>Sign up</Text>
+            <>
+              <Ionicons name="document-text-outline" color={"black"} size={20} />
+              <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Sign up</Text>
+            </>
           )}
         </TouchableOpacity>
 
-        <View style={{marginLeft: 10, alignSelf: "flex-start"}}>
+        <View style={{marginLeft: 20, alignItems: "flex-start", justifyContent: "center", flexDirection: "column"}}>
+          <Text style={[Layout.buttonText, {color: "black", fontSize: 14, marginTop: 15}]}>Already have an account?</Text>
           <TouchableOpacity
-            style={[Layout.button, {backgroundColor: AppTheme.auth.background, marginLeft: 10, flexDirection: "row", justifyContent: "center"}]}
-            onPress={() => navigation.navigate("Login")}
+              style={[Layout.button, {backgroundColor: AppTheme.auth.background}]}
+              onPress={() => navigation.navigate("Login")}
           >
-              <Text style={[Layout.buttonText, {color: AppTheme.auth.primary, fontSize: 12}]}>Already have an account?</Text>
+              <Text style={[Layout.buttonText, {color: AppTheme.auth.primary, fontSize: 14, marginTop: -20}]}>Login here!</Text>
           </TouchableOpacity>
         </View>
       </View>

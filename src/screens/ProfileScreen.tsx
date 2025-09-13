@@ -137,16 +137,16 @@ const ProfileScreen = () => {
             <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: AppTheme.auth.background}}>
                 <Navbar />
                 <View style={Layout.container}>
-                <Text style={Typography.title}>My Profile</Text>
+                <Text style={[Typography.title, {textAlign: "center"}]}>My Profile</Text>
 
                 <View style={{marginVertical: 20}}>
                     <View style={{flexDirection: "row"}}>
-                        <Text style={Typography.label}>Name: </Text>
-                        <Text style={[Typography.body, {color: "black"}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
+                        <Text style={Typography.body}>Name: </Text>
+                        <Text style={[Typography.body, {color: "black", fontWeight: "500"}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
                     </View>
-                    <View style={{flexDirection: "row"}}>
-                        <Text style={Typography.label}>Email: </Text>
-                        <Text style={[Typography.body, {color: "black"}]}>{user?.email ?? 'Unknown'}</Text>
+                    <View style={{flexDirection: "row", marginTop: 5}}>
+                        <Text style={Typography.body}>Email: </Text>
+                        <Text style={[Typography.body, {color: "black", fontWeight: "500"}]}>{user?.email ?? 'Unknown'}</Text>
                     </View>
                 </View>
                 
@@ -227,7 +227,7 @@ const ProfileScreen = () => {
                 )}
 
                 {isOAuthUser && (
-                    <Text style={{ color: 'gray', marginVertical: 20, fontStyle: 'italic' }}>
+                    <Text style={[Typography.label, { color: 'gray', marginVertical: 20, fontSize: 18, textAlign: "center" }]}>
                         Password changes are managed through your Google account.
                     </Text>
                 )}

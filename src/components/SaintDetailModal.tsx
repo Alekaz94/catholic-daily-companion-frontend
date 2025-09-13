@@ -62,35 +62,35 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                     alignSelf: "flex-start",
                     }}
                 >                    
-                    <Text style={[Typography.title, {color: AppTheme.saint.text, fontSize: 16, alignSelf: "center", borderBottomWidth: 1}]}>Saint Facts</Text>
+                    <Text style={[Typography.title, {color: AppTheme.saint.text, alignSelf: "center", borderBottomWidth: 1}]}>Saint Facts</Text>
                     {saint.birthYear && (
                         <View style={{flexDirection: "row"}}>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12, fontWeight: "800"}]}>Birth: </Text>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>ca {saint.birthYear}</Text>
+                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "800"}]}>Birth: </Text>
+                            <Text style={[Typography.body, {color: AppTheme.saint.text}]}>ca {saint.birthYear}</Text>
                         </View>
                     )}
                     {saint.deathYear && (
                         <View style={{flexDirection: "row"}}>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12, fontWeight: "800"}]}>Death: </Text>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>ca {saint.deathYear}</Text>
+                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "800"}]}>Death: </Text>
+                            <Text style={[Typography.body, {color: AppTheme.saint.text}]}>ca {saint.deathYear}</Text>
                         </View>
                     )}
                     <View style={{flexDirection: "row"}}>
-                        <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12, fontWeight: "800"}]}>Feast day: </Text>
-                        <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>{formatFeastDay(saint.feastDay)}</Text>
+                        <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "800"}]}>Feast day: </Text>
+                        <Text style={[Typography.body, {color: AppTheme.saint.text}]}>{formatFeastDay(saint.feastDay)}</Text>
                     </View>
                     <View style={{flexDirection: "column"}}>
-                        <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12, fontWeight: "800"}]}>Patron of: </Text>
-                        <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>{saint.patronage}</Text>
+                        <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "800"}]}>Patron of: </Text>
+                        <Text style={[Typography.body, {color: AppTheme.saint.text,}]}>{saint.patronage}</Text>
                     </View>
                     {saint.canonizationYear && (
                         <View style={{flexDirection: "row"}}>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12, fontWeight: "800"}]}>Canonized: </Text>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontSize: 12}]}>{saint.canonizationYear}</Text>
+                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "800"}]}>Canonized: </Text>
+                            <Text style={[Typography.body, {color: AppTheme.saint.text}]}>{saint.canonizationYear}</Text>
                         </View>
                     )}
                 </View>
-                <Text style={[Typography.body, {marginTop: 15, marginBottom: 20, color: AppTheme.saint.text, fontSize: 16}]}>{saint.biography}</Text>
+                <Text style={[Typography.body, {marginTop: 15, marginBottom: 20, color: AppTheme.saint.text}]}>{saint.biography}</Text>
                 
                 <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar, borderWidth: 1}]}>
                     <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.saint.text}]}>Close</Text>

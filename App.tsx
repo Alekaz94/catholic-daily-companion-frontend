@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import { ActivityIndicator } from 'react-native';
@@ -9,10 +9,27 @@ import { AuthProvider } from './src/context/AuthContext';
 import { firebaseLogin, loadUserFromStorage } from './src/services/AuthService';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { navigationRef } from './src/navigation/RootNavigation';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'Playfair-Bold': require('./src/assets/fonts/Playfair_144pt-Bold.ttf'),
+    "Playfair-Regular": require("./src/assets/fonts/Playfair_144pt-Regular.ttf"),
+    "Playfair-ExtraBold": require("./src/assets/fonts/Playfair_144pt-ExtraBold.ttf"),
+    "Playfair-Italic": require("./src/assets/fonts/Playfair_144pt-Italic.ttf"),
+  })
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded && !loading) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, loading]);
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -49,12 +66,12 @@ export default function App() {
     initializeApp();
   }, []);
 
-  if(loading) {
+  if(!fontsLoaded || loading) {
     return <ActivityIndicator size="large" style={{ flex: 1 }} />;
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <RootSiblingParent>
         <AuthProvider>
           <NavigationContainer ref={navigationRef}>
