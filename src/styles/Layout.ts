@@ -32,6 +32,7 @@ export const Layout: LayoutStyles = {
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3,
+        overflow: "hidden",
     },
     card: {
       borderRadius: 8,

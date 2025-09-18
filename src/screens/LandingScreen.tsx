@@ -14,6 +14,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
+import QuoteBanner from '../components/QuoteBanner';
 
 type LandingNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -41,7 +42,8 @@ const LandingScreen = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
       <ScrollView style={{backgroundColor: "#F0F9FF"}}>         
       <NavbarLanding />
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 50 }]}>Welcome to Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 20 }]}>Welcome to Catholic Daily Companion</Text>
+      <QuoteBanner />
       <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
         {!saint 
           ? <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0"}]}>

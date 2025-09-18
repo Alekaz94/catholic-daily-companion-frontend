@@ -15,6 +15,8 @@ import { useAuth } from '../context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
+import QuoteBanner from '../components/QuoteBanner';
+import JournalPromptBanner from '../components/JournalPromptBanner';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -47,14 +49,16 @@ const HomeScreen = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
     <ScrollView style={{backgroundColor: "#F0F9FF"}}>
       <Navbar />
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 20 }]}>Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center"}]}>Welcome back {user && user.firstName}</Text>
+
+      <QuoteBanner />
+      <JournalPromptBanner />
       {user?.role === "ADMIN" 
         && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: "#FAF3E0", margin: 10, borderWidth: 1}]}>
           <Text style={[Typography.link, {color: "black"}]}>Go to Admin Panel</Text>
         </TouchableOpacity>
       )}
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 50 }]}>Catholic Daily Companion</Text>
-      <Text style={[Typography.title, {textAlign: "center"}]}>Welcome back {user && user.firstName}</Text>
-
       <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
       {loadingSaint ? (
         <Text style={[Typography.label, { textAlign: 'center' }]}>Loading saint of the day...</Text>
