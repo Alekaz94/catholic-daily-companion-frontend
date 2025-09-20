@@ -7,6 +7,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { Layout } from "../styles/Layout";
 import CalendarModal from "./CalendarModal";
+import { Typography } from "../styles/Typography";
 
 type NavbarNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
@@ -97,8 +98,10 @@ const Navbar = () => {
     return (
         <View
           testID="navbar-container"
-          style={[Layout.navbarContainer, {backgroundColor: config.backgroundColor,}]}
+          style={[Layout.navbarContainer, {backgroundColor: config.backgroundColor, flexDirection: "column"}]}
          >
+            <Text style={[Typography.title, {marginBottom: -10, fontSize: 20}]}>Catholic Daily Companion</Text>
+
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <NavButton

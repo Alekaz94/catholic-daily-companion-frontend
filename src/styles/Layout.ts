@@ -22,7 +22,7 @@ export const Layout: LayoutStyles = {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        height: 80,
+        height: 90,
         paddingHorizontal: 10,
         paddingTop: 10,
         borderBottomWidth: 1,

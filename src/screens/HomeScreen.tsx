@@ -49,8 +49,7 @@ const HomeScreen = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
     <ScrollView style={{backgroundColor: "#F0F9FF"}}>
       <Navbar />
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 20 }]}>Catholic Daily Companion</Text>
-      <Text style={[Typography.title, {textAlign: "center"}]}>Welcome back {user && user.firstName}</Text>
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 20}]}>Welcome back {user && user.firstName}</Text>
 
       <QuoteBanner />
       <JournalPromptBanner />
@@ -59,15 +58,23 @@ const HomeScreen = () => {
           <Text style={[Typography.link, {color: "black"}]}>Go to Admin Panel</Text>
         </TouchableOpacity>
       )}
-      <View style={[Layout.container, {marginBottom: -20, backgroundColor: "#F0F9FF"}]}>
+
       {loadingSaint ? (
-        <Text style={[Typography.label, { textAlign: 'center' }]}>Loading saint of the day...</Text>
+        <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
+          <Text style={[Typography.label, { textAlign: 'center' }]}>Loading saint of the day...</Text>
+        </View>
       ) : !saint ? (
-        <View style={[Layout.card, { marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0" }]}>
-          <Text style={[Typography.label]}>No Saint's feast day today.</Text>
+        <View style={{
+            borderRadius: 12,
+            padding: 16,
+            marginVertical: 12,
+            backgroundColor: "#FAF3E0" }}
+          >
+          <Text style={[Typography.label, {textAlign: "center"}]}>No feast day today.</Text>
         </View>
       ) : (
         (
+          <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
           <LinearGradient 
               colors={['#FAF3E0', "#F0F9FF"]}
               start={{x: 0, y: 0.5}}
@@ -84,8 +91,8 @@ const HomeScreen = () => {
               <Text style={[Typography.body, { marginTop: 10 }]} >{saint.name}</Text>
             </TouchableOpacity> 
           </LinearGradient>
+          </View>
         ))}
-      </View>
       
       <SaintDetailModal 
         visible={modalVisible}

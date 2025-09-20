@@ -13,7 +13,7 @@ const JournalPromptBanner = () => {
             marginVertical: 12
         }}>
             <Text style={{ fontSize: 16, fontWeight: "600", color: "#4B0082" }}>
-                ✍️ Daily Prompt
+                ✍️ Daily Journal
             </Text>
             <Text style={{ fontSize: 14, marginTop: 6 }}>{prompt}</Text>
         </View>

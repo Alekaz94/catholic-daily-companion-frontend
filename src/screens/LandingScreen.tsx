@@ -42,14 +42,20 @@ const LandingScreen = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
       <ScrollView style={{backgroundColor: "#F0F9FF"}}>         
       <NavbarLanding />
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 20 }]}>Welcome to Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 20}]}>Welcome to Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center"}]}>Start your spiritual journey today</Text>
       <QuoteBanner />
-      <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
         {!saint 
-          ? <View style={[Layout.card, {marginTop: 10, borderRadius: 12, padding: 15, backgroundColor: "#FAF3E0"}]}>
-              <Text style={[Typography.label]}>No Saint's feast day today.</Text>
+          ? <View style={{
+            borderRadius: 12,
+            padding: 16,
+            marginVertical: 12,
+            backgroundColor: "#FAF3E0" }}
+            >
+              <Text style={[Typography.label, {textAlign: "center"}]}>No feast day today.</Text>
             </View>
-          : <LinearGradient 
+          : <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
+            <LinearGradient 
               colors={['#FAF3E0', "#F0F9FF"]}
               start={{x: 0, y: 0.5}}
               end={{x: 1, y: 0.5}}
@@ -64,8 +70,8 @@ const LandingScreen = () => {
               <Text style={[Typography.body, { marginTop: 10 }]} >{saint.name}</Text>
             </TouchableOpacity> 
           </LinearGradient>
+          </View>
         }
-      </View>
       
       <SaintDetailModal 
         visible={modalVisible}
