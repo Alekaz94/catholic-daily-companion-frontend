@@ -62,7 +62,7 @@ const GoogleLogin = () => {
       };    
 
     return (
-        <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1, opacity: isLoading ? 0.7 : 1 }]} onPress={handleGoogleLogin}>
+        <TouchableOpacity style={[Layout.button, {backgroundColor: "#FAF3E0", flexDirection: "row", justifyContent: "center", borderWidth: 1, opacity: isLoading ? 0.7 : 1 }]} onPress={handleGoogleLogin}>
             {isLoading ? (
                 <ActivityIndicator color="black" />
             ) : (

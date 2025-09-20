@@ -43,13 +43,13 @@ const LoginScreen = () => {
 
       <GoogleLogin />
 
-      <TouchableOpacity style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("EmailAndPassword")}>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: "#FAF3E0", flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("EmailAndPassword")}>
         <Ionicons name="mail-outline" color={"black"} size={20} />
         <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login with Email & Password</Text>
       </TouchableOpacity>
       
       <TouchableOpacity
-        style={[Layout.button, {backgroundColor: "#B794F4", flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
+        style={[Layout.button, {backgroundColor: "#FAF3E0", flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
         onPress={() => navigation.navigate("Landing")}
       >
         <Ionicons name="arrow-back" color={"black"} size={20} />
