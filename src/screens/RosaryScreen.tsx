@@ -11,6 +11,7 @@ import { Layout } from "../styles/Layout";
 import { Rosary } from "../models/Rosary";
 import { AppTheme } from "../styles/colors";
 import * as SecureStore from 'expo-secure-store';
+import RosaryHistoryModal from "../components/RosaryHistoryModal";
 
 const formatDate = (date: Date) => {
     const year = date.getUTCFullYear();
@@ -22,6 +23,7 @@ const formatDate = (date: Date) => {
 const RosaryScreen = () => {
     const { user } = useAuth();
     const mysteries = getTodaysMysteries();
+    const [historyModalVisible, setHistoryModalVisible] = useState(false);
 
     const rosarySequence: RosaryStep[] = [
         ...fixedRosaryStart,
@@ -166,22 +168,29 @@ const RosaryScreen = () => {
                 ))}
 
                 <View style={{marginTop: 24, paddingTop: 16, borderTopWidth: 1, borderColor: "#ccc"}}>
-                    <Text style={[Typography.title, {marginBottom: 8, alignSelf: "center"}]}>Progress</Text>
+                    <Text style={[Typography.title, {marginBottom: 10, alignSelf: "center"}]}>Progress</Text>
                     <Text style={[Typography.body,{fontSize: 16}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
                     <Text style={[Typography.body, {fontSize: 16}] }>Current Streak: {streak} days</Text>
 
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: '#ADD8E6', borderWidth: 1}]} onPress={handleComplete} disabled={completed}>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: '#ADD8E6', borderWidth: 1, marginTop: 20}]} onPress={handleComplete} disabled={completed}>
                         <Text style={[Layout.buttonText, {color: "black"}]}>Mark as Completed</Text>
                     </TouchableOpacity>
 
-                    <Text style={[Typography.title, { marginTop: 16, alignSelf: "center" }]}>History</Text>
-                    {history.map((entry) => (
-                        <Text key={entry.id} style={[Typography.body, {fontSize: 16}]}>
-                            {entry.date} - {entry.completed ? "✅" : "❌"}
-                        </Text>
-                    ))}
+                    <Text style={[Typography.title, { marginTop: 16, marginBottom: -5, alignSelf: "center" }]}>History</Text>
+                    <TouchableOpacity
+                      onPress={() => setHistoryModalVisible(true)}
+                      style={[Layout.button, {backgroundColor: "#ADD8E6", borderWidth: 1, borderColor: "black", marginBottom: 20}]}
+                    >
+                        <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.prayer.text}]}>📜 View Rosary History</Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
+
+            <RosaryHistoryModal 
+                visible={historyModalVisible}
+                onClose={() => setHistoryModalVisible(false)}
+                history={history}
+            />
         </SafeAreaView>
     );
 }
