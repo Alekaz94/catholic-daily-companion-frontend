@@ -26,20 +26,19 @@ const NavButton: React.FC<Props> = ({ title, screen, icon, style, textStyle, tes
 
     return (
         <TouchableOpacity 
-            testID={testID} 
+            testID={testID}
+            activeOpacity={0.7} 
             style={[
                 Layout.navbarButton, 
-                { flexDirection: "column", alignItems: "center", padding: 6 },
-                showActive && { backgroundColor: "#E2E8F0", borderRadius: 6 },
+                showActive && { backgroundColor: "#E2E8F0", borderRadius: 16, borderWidth: 1, borderColor: "#007AFF" },
                 style,
             ]} 
             onPress={onPress ? onPress : () => screen && navigation.navigate(screen)}
         >
-            {icon && <Ionicons name={icon} size={18} color={showActive ? "#007AFF" : "#1A1A1A"} />}
+            {icon && <Ionicons name={icon} size={18} color={showActive ? "#007AFF" : "black"} />}
             <Text style={[
                 Layout.navbarButtonText,
                 textStyle,
-                { fontSize: 12, marginTop: 2 },
                 showActive && { fontWeight: "bold", color: "#007AFF" }
             ]}>
                 {title}

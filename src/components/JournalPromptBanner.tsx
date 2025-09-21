@@ -1,22 +1,32 @@
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { getDailyPrompt } from "../utils/getDailyPrompt"
+import { useNavigation } from "@react-navigation/native";
+import { AuthStackParamList } from "../navigation/types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 
 const JournalPromptBanner = () => {
     const prompt = getDailyPrompt();
+    const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+
+    const handleNavigate = () => {
+        navigation.navigate("Journal");
+    }
 
     return (
-        <View style={{
-            backgroundColor: "#E9D8FD",
-            borderRadius: 12,
-            padding: 16,
-            marginVertical: 12
-        }}>
-            <Text style={{ fontSize: 16, fontWeight: "600", color: "#4B0082" }}>
-                ✍️ Daily Journal
-            </Text>
-            <Text style={{ fontSize: 14, marginTop: 6 }}>{prompt}</Text>
-        </View>
+        <TouchableOpacity onPress={handleNavigate} activeOpacity={0.8}>
+            <View style={{
+                backgroundColor: "#E9D8FD",
+                borderRadius: 12,
+                padding: 16,
+                marginVertical: 12
+            }}>
+                <Text style={{ fontSize: 16, fontWeight: "600", color: "#4B0082" }}>
+                    ✍️ Daily Journal
+                </Text>
+                <Text style={{ fontSize: 14, marginTop: 6 }}>{prompt}</Text>
+            </View>
+        </TouchableOpacity>
     )
 }
 

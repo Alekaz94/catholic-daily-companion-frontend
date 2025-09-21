@@ -100,9 +100,9 @@ const Navbar = () => {
           testID="navbar-container"
           style={[Layout.navbarContainer, {backgroundColor: config.backgroundColor, flexDirection: "column"}]}
          >
-            <Text style={[Typography.title, {marginBottom: -10, fontSize: 20}]}>Catholic Daily Companion</Text>
+            <Text style={[Typography.title, {marginBottom: -10, fontSize: 18}]}>Catholic Daily Companion</Text>
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 12}}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <NavButton
                 title="Profile"
@@ -120,7 +120,7 @@ const Navbar = () => {
                       screen={btn.screen}
                       icon={btn.icon}
                       activeScreens={btn.activeScreens}
-                      textStyle={{ fontSize: 14 }}
+                      textStyle={{ fontSize: 12 }}
                   />
               ))}
                 

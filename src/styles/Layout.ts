@@ -11,6 +11,8 @@ interface LayoutStyles {
     navbarButton: ViewStyle;
     navbarButtonText: TextStyle;
     image: ImageStyle;
+    navbarButtonActive: ViewStyle;
+    navbarButtonTextActive: TextStyle;
     }
 
 export const Layout: LayoutStyles = {
@@ -65,16 +67,30 @@ export const Layout: LayoutStyles = {
         fontWeight: 'bold',
     },
     navbarButton: {
-        backgroundColor: "#D4AF37",
-        paddingVertical: 10,
-        borderRadius: 8,
+        paddingVertical: 6,
+        paddingHorizontal: 8,
+        borderRadius: 12,
         alignItems: 'center' as const,
-        marginTop: 10,
+        justifyContent: "center",
+        marginHorizontal: 4,
+        flexDirection: "column" as const,
+        backgroundColor: "transparent",
+        maxWidth: 70,
     },
     navbarButtonText: {
-        color: "#1A1A1A",
-        fontSize: 14,
-        fontWeight: 'bold',
+      color: "black",
+      fontSize: 12,
+      marginTop: 4,
+      textAlign: "center",
+      flexWrap: "wrap"
+    },
+    navbarButtonActive: {
+      backgroundColor: "#E2E8F0",
+      borderRadius: 16,
+    },
+    navbarButtonTextActive: {
+      fontWeight: "bold",
+      color: "#007AFF",
     },
     image: {
         width: 200,

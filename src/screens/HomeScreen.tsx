@@ -79,16 +79,17 @@ const HomeScreen = () => {
               colors={['#FAF3E0', "#F0F9FF"]}
               start={{x: 0, y: 0.5}}
               end={{x: 1, y: 0.5}}
-              style={[Layout.card, {borderRadius: 12, padding: 15}]}
+              style={[Layout.card, {borderRadius: 12}]}
           >
-            <Text style={[Typography.label]}>Today is the feast day of {saint?.name}</Text>
+            <Text style={[Typography.label, {marginBottom: 10, textAlign: "center"}]}>Today is the feast day of {saint?.name}</Text>
             <TouchableOpacity 
               onPress={() => {
                 setModalVisible(true);
               }}
+              style={{alignItems: "center"}}
             >
               {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl)  }}/> : <Image style={Layout.image} source={defaultSaint}/> }
-              <Text style={[Typography.body, { marginTop: 10 }]} >{saint.name}</Text>
+              <Text style={[Typography.label, { marginTop: 10 }]} >{saint.name}</Text>
             </TouchableOpacity> 
           </LinearGradient>
           </View>

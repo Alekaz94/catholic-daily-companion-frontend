@@ -65,7 +65,7 @@ interface Props {
                                         setSelectedJournal(journal);
                                     }}
                                 >
-                                    <Text style={[Typography.body, {borderRadius: 14, justifyContent: "center"}]}>Journal: {journal.title}</Text>
+                                    <Text style={[Typography.body, {borderRadius: 14, textAlign: "center"}]}>Journal: {journal.title}</Text>
                                 </TouchableOpacity>
                             ))}
                         </View>
@@ -73,7 +73,7 @@ interface Props {
 
                     {rosary && (
                         <View style={[Layout.card, {backgroundColor: AppTheme.prayer.background, marginBottom: 6, borderWidth: 1, borderRadius: 14}]}>
-                            <Text style={[Typography.body, {borderRadius: 14, justifyContent: "center"}]}>You prayed the Rosary today!</Text>
+                            <Text style={[Typography.body, {borderRadius: 14, textAlign: "center"}]}>You prayed the Rosary today!</Text>
                         </View>
                     )}
 

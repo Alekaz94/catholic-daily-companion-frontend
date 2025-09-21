@@ -15,7 +15,7 @@ const NavbarLanding = () => {
     return (
         <View style={[Layout.navbarContainer, {backgroundColor: "#FAF3E0", flexDirection: "column"}]}>
             <View>
-                <Text style={[Typography.title, {marginBottom: -15, fontSize: 20}]}>Catholic Daily Companion</Text>
+                <Text style={[Typography.title, {marginBottom: -15, fontSize: 18}]}>Catholic Daily Companion</Text>
             </View>
             <View style={{flexDirection: "row", gap: 50}}>
                 <NavButton testID="navbutton-Login" style={{backgroundColor: "#FAF3E0"}} title={"Login"} screen={"Login"} icon="log-in-outline"/>

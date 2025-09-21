@@ -15,6 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
 import QuoteBanner from '../components/QuoteBanner';
+import { AppTheme } from '../styles/colors';
 
 type LandingNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
