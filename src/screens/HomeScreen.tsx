@@ -17,6 +17,8 @@ import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
 import QuoteBanner from '../components/QuoteBanner';
 import JournalPromptBanner from '../components/JournalPromptBanner';
+import RosaryStatusBanner from '../components/RosaryStatusBanner';
+import { AppTheme } from '../styles/colors';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -47,7 +49,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
-    <ScrollView style={{backgroundColor: "#F0F9FF"}}>
+    <ScrollView style={{backgroundColor: AppTheme.auth.background}}>
       <Navbar />
       <Text style={[Typography.title, {textAlign: "center", marginTop: 20}]}>Welcome back {user && user.firstName}</Text>
 
@@ -75,26 +77,29 @@ const HomeScreen = () => {
       ) : (
         (
           <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
-          <LinearGradient 
-              colors={['#FAF3E0', "#F0F9FF"]}
-              start={{x: 0, y: 0.5}}
-              end={{x: 1, y: 0.5}}
-              style={[Layout.card, {borderRadius: 12}]}
-          >
-            <Text style={[Typography.label, {marginBottom: 10, textAlign: "center"}]}>Today is the feast day of {saint?.name}</Text>
-            <TouchableOpacity 
-              onPress={() => {
-                setModalVisible(true);
-              }}
-              style={{alignItems: "center"}}
+            <LinearGradient 
+                colors={['#FAF3E0', "#F0F9FF"]}
+                start={{x: 0, y: 0.5}}
+                end={{x: 1, y: 0.5}}
+                style={[Layout.card, {borderRadius: 12}]}
             >
-              {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl)  }}/> : <Image style={Layout.image} source={defaultSaint}/> }
-              <Text style={[Typography.label, { marginTop: 10 }]} >{saint.name}</Text>
-            </TouchableOpacity> 
-          </LinearGradient>
+              <Text style={[Typography.label, {marginBottom: 10, textAlign: "center"}]}>Today is the feast day of {saint?.name}</Text>
+              <TouchableOpacity 
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+                style={{alignItems: "center"}}
+              >
+                {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl)  }}/> : <Image style={Layout.image} source={defaultSaint}/> }
+                <Text style={[Typography.label, { marginTop: 10 }]} >{saint.name}</Text>
+              </TouchableOpacity> 
+            </LinearGradient>
           </View>
-        ))}
+        )
+      )}
       
+      <RosaryStatusBanner />
+
       <SaintDetailModal 
         visible={modalVisible}
         saint={saint}

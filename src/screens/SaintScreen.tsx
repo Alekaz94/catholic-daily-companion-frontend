@@ -144,7 +144,7 @@ const SaintScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
             <Navbar />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
+            <View style={[Layout.container, {backgroundColor: AppTheme.auth.background}]}>
                 <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.saint.text}]}>Saints of the Catholic Church</Text>
                 {user?.role === "ADMIN" && (
                     <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: AppTheme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>

@@ -170,7 +170,7 @@ const RosaryScreen = () => {
                 <View style={{marginTop: 24, paddingTop: 16, borderTopWidth: 1, borderColor: "#ccc"}}>
                     <Text style={[Typography.title, {marginBottom: 10, alignSelf: "center"}]}>Progress</Text>
                     <Text style={[Typography.body,{fontSize: 16}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
-                    <Text style={[Typography.body, {fontSize: 16}] }>Current Streak: {streak} days</Text>
+                    <Text style={[Typography.body, {fontSize: 16}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
 
                     <TouchableOpacity style={[Layout.button, {backgroundColor: '#ADD8E6', borderWidth: 1, marginTop: 20}]} onPress={handleComplete} disabled={completed}>
                         <Text style={[Layout.buttonText, {color: "black"}]}>Mark as Completed</Text>

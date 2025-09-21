@@ -41,8 +41,8 @@ const LandingScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
-      <ScrollView style={{backgroundColor: "#F0F9FF"}}>         
-      <NavbarLanding />
+    <ScrollView style={{backgroundColor: AppTheme.auth.background}}>
+    <NavbarLanding />
       <Text style={[Typography.title, {textAlign: "center", marginTop: 20}]}>Welcome to Catholic Daily Companion</Text>
       <Text style={[Typography.title, {textAlign: "center"}]}>Start your spiritual journey today</Text>
       <QuoteBanner />
@@ -61,14 +61,15 @@ const LandingScreen = () => {
               start={{x: 0, y: 0.5}}
               end={{x: 1, y: 0.5}}
               style={[Layout.card, {borderRadius: 12, padding: 15}]}>
-            <Text style={[Typography.label]}>Today is the feast day of {saint?.name}</Text>
+            <Text style={[Typography.label, {textAlign: "center", marginBottom: 10}]}>Today is the feast day of {saint?.name}</Text>
             <TouchableOpacity 
               onPress={() => {
                 setModalVisible(true);
               }}
+              style={{alignItems: "center"}}
             >
               {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl)  }}/> : <Image style={Layout.image} source={defaultSaint}/> }
-              <Text style={[Typography.body, { marginTop: 10 }]} >{saint.name}</Text>
+              <Text style={[Typography.label, { marginTop: 10 }]} >{saint.name}</Text>
             </TouchableOpacity> 
           </LinearGradient>
           </View>
