@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Image, RefreshControl } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -25,12 +25,34 @@ type HomeNavigationProp = NativeStackNavigationProp<
   "Home"
 >
 
+const SectionTitle = ({ children }: { children: string }) => (
+  <Text style={[Typography.italic, { marginTop: 10, marginHorizontal: 16 }]}>
+    {children}
+  </Text>
+);
+
+const Divider = () => (
+  <View style={{
+    height: 1,
+    backgroundColor: "#E5E7EB",
+    marginVertical: 10,
+    marginHorizontal: 16
+  }} />
+);
+
 const HomeScreen = () => {
   const navigation = useNavigation<HomeNavigationProp>();
   const [saint, setSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSaint, setLoadingSaint] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const { user } = useAuth();
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchSaintOfTheDay();
+    setRefreshing(false);
+  }
 
   const fetchSaintOfTheDay = async () => {
     setLoadingSaint(true)
@@ -49,18 +71,23 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
-    <ScrollView style={{backgroundColor: AppTheme.auth.background}}>
+    <ScrollView 
+      style={{backgroundColor: AppTheme.auth.background}}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }  
+    >
       <Navbar />
       <Text style={[Typography.title, {textAlign: "center", marginTop: 20}]}>Welcome back {user && user.firstName}</Text>
-
+      <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
+      <SectionTitle>🙏 Today's Rosary</SectionTitle>
+      <RosaryStatusBanner />
+      <SectionTitle>📓 Journal Prompt</SectionTitle>
       <JournalPromptBanner />
-      {user?.role === "ADMIN" 
-        && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: "#FAF3E0", margin: 10, borderWidth: 1}]}>
-          <Text style={[Typography.link, {color: "black"}]}>Go to Admin Panel</Text>
-        </TouchableOpacity>
-      )}
+      <Divider />
 
+      <SectionTitle>🌟 Saint of the Day</SectionTitle>
       {loadingSaint ? (
         <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
           <Text style={[Typography.label, { textAlign: 'center' }]}>Loading saint of the day...</Text>
@@ -97,9 +124,13 @@ const HomeScreen = () => {
           </View>
         )
       )}
-      
-      <RosaryStatusBanner />
 
+      {user?.role === "ADMIN" 
+        && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: "#FAF3E0", margin: 10, borderWidth: 1}]}>
+          <Text style={[Typography.link, {color: "black"}]}>Go to Admin Panel</Text>
+        </TouchableOpacity>
+      )}
+      
       <SaintDetailModal 
         visible={modalVisible}
         saint={saint}
