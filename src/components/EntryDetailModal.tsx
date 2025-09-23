@@ -4,6 +4,7 @@ import { JournalEntry } from "../models/JournalEntry";
 import { Typography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import { AppTheme } from '../styles/colors';
+import Divider from './Divider';
 
 interface Props {
     visible: boolean;
@@ -20,10 +21,12 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
         <Modal visible={visible} animationType='slide'>
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
                 <Text style={[Typography.title, {color: AppTheme.journal.text, fontWeight: "bold", textAlign: "center"}]}>{entry.title}</Text>
+                <Divider />
                 <Text style={[Typography.label, {color: AppTheme.journal.text}]}>Created: {entry.date}</Text>
                 {entry.updatedAt !== entry.date && 
                     <Text style={[Typography.label, {color: AppTheme.journal.text}]}>Updated: {entry.updatedAt}</Text>
                 }
+                <Divider />
                 <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: AppTheme.journal.text, fontSize: 18}]}>{entry.content}</Text>
 
                 <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#B794F4", borderWidth: 1}]}>

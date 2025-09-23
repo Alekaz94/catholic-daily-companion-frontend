@@ -5,6 +5,7 @@ import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import { AppTheme } from "../styles/colors";
 import React from "react";
+import Divider from "./Divider";
 
 interface Props {
     visible: boolean,
@@ -74,8 +75,9 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
         <Modal visible={visible} animationType="slide">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                    <Text style={[Typography.title, {color: AppTheme.journal.text}]}>Edit Entry</Text>
-                    <TextInput 
+                <Text style={[Typography.italic, {color: AppTheme.journal.text, fontSize: 20}]}>Edit Journalentry</Text>
+                <Divider />
+                <TextInput 
                         editable={!isLoading}
                         placeholder="Enter title..."
                         style={Layout.input}

@@ -70,8 +70,8 @@ const SignUpScreen = () => {
 
   return (
       <SafeAreaView style={[Layout.container,{ justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>        
-      <Text style={Typography.title}>Catholic Daily Companion</Text>
-      <TextInput
+        <Text style={[Typography.italic, {marginBottom: 30, justifyContent: "center", textAlign: "center", fontSize: 26}]}>Catholic Daily Companion</Text>
+        <TextInput
         placeholder="Firstname"
         value={firstName}
         onChangeText={(value) => setFirstName(value)}
@@ -124,12 +124,11 @@ const SignUpScreen = () => {
         </TouchableOpacity>
 
         <View style={{marginLeft: 20, alignItems: "flex-start", justifyContent: "center", flexDirection: "column"}}>
-          <Text style={[Layout.buttonText, {color: "black", fontSize: 14, marginTop: 15}]}>Already have an account?</Text>
-          <TouchableOpacity
-              style={[Layout.button, {backgroundColor: AppTheme.auth.background}]}
-              onPress={() => navigation.navigate("Login")}
-          >
-              <Text style={[Layout.buttonText, {color: AppTheme.auth.primary, fontSize: 14, marginTop: -20}]}>Login here!</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={{ color: "#1E293B", fontSize: 14 }}>
+              Already have an account?
+            </Text>
+            <Text style={{fontWeight: 'bold'}}>Log in </Text>
           </TouchableOpacity>
         </View>
       </View>

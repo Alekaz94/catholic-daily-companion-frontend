@@ -19,26 +19,13 @@ import QuoteBanner from '../components/QuoteBanner';
 import JournalPromptBanner from '../components/JournalPromptBanner';
 import RosaryStatusBanner from '../components/RosaryStatusBanner';
 import { AppTheme } from '../styles/colors';
+import Divider from '../components/Divider';
+import SectionTitle from './SectionTitle';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
   "Home"
 >
-
-const SectionTitle = ({ children }: { children: string }) => (
-  <Text style={[Typography.italic, { marginTop: 10, marginHorizontal: 16 }]}>
-    {children}
-  </Text>
-);
-
-const Divider = () => (
-  <View style={{
-    height: 1,
-    backgroundColor: "#E5E7EB",
-    marginVertical: 10,
-    marginHorizontal: 16
-  }} />
-);
 
 const HomeScreen = () => {
   const navigation = useNavigation<HomeNavigationProp>();
@@ -78,11 +65,14 @@ const HomeScreen = () => {
       }  
     >
       <Navbar />
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 20}]}>Welcome back {user && user.firstName}</Text>
+      <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginVertical: 20}]}>Welcome back {user && user.firstName}</Text>
+      <Divider />
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
+      <Divider />
       <SectionTitle>🙏 Today's Rosary</SectionTitle>
       <RosaryStatusBanner />
+      <Divider />
       <SectionTitle>📓 Journal Prompt</SectionTitle>
       <JournalPromptBanner />
       <Divider />

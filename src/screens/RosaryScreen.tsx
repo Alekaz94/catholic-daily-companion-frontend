@@ -12,6 +12,7 @@ import { Rosary } from "../models/Rosary";
 import { AppTheme } from "../styles/colors";
 import * as SecureStore from 'expo-secure-store';
 import RosaryHistoryModal from "../components/RosaryHistoryModal";
+import Divider from "../components/Divider";
 
 const formatDate = (date: Date) => {
     const year = date.getUTCFullYear();
@@ -142,7 +143,8 @@ const RosaryScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: '#ADD8E6'}}>
             <Navbar />
             <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: AppTheme.prayer.background}}>
-                <Text style={[Typography.title, { marginBottom: 6, alignSelf: "center" }]}>Rosary</Text>
+                <Text style={[Typography.italic, { marginBottom: 6, alignSelf: "center", fontSize: 20 }]}>Rosary</Text>
+                <Divider />
                 {rosarySequence.map((step, stepIndex) => (
                     <View key={stepIndex} style={{marginBottom: 24}}>
                         {step.title && (
@@ -150,7 +152,7 @@ const RosaryScreen = () => {
                                 {step.title}
                             </Text>
                         )}
-                        <Text style={[Typography.body, { marginBottom: 8, fontSize: 16 }]}>
+                        <Text style={[Typography.body, { marginBottom: 8, fontSize: 16, fontWeight: "600" }]}>
                             {step.prayerText}
                         </Text>
                         <View style={{ flexDirection: "row", flexWrap: "wrap", alignContent: "center", justifyContent: "center"}}>
@@ -164,11 +166,12 @@ const RosaryScreen = () => {
                                 />
                             ))}
                         </View>
+                        <Divider />
                     </View>
                 ))}
 
                 <View style={{marginTop: 24, paddingTop: 16, borderTopWidth: 1, borderColor: "#ccc"}}>
-                    <Text style={[Typography.title, {marginBottom: 10, alignSelf: "center"}]}>Progress</Text>
+                    <Text style={[Typography.italic, { marginBottom: 6, alignSelf: "center", fontSize: 20 }]}>Progress</Text>
                     <Text style={[Typography.body,{fontSize: 16}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
                     <Text style={[Typography.body, {fontSize: 16}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
 
@@ -176,7 +179,7 @@ const RosaryScreen = () => {
                         <Text style={[Layout.buttonText, {color: "black"}]}>Mark as Completed</Text>
                     </TouchableOpacity>
 
-                    <Text style={[Typography.title, { marginTop: 16, marginBottom: -5, alignSelf: "center" }]}>History</Text>
+                    <Text style={[Typography.italic, { marginTop: 12, alignSelf: "center", fontSize: 20 }]}>History</Text>
                     <TouchableOpacity
                       onPress={() => setHistoryModalVisible(true)}
                       style={[Layout.button, {backgroundColor: "#ADD8E6", borderWidth: 1, borderColor: "black", marginBottom: 20}]}

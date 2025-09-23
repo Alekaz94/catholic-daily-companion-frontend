@@ -40,7 +40,7 @@ const EmailAndPasswordLoginScreen = () => {
     <SafeAreaView style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: AppTheme.auth.background }]}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>  
         <View style={[Layout.container, {justifyContent: "center", alignContent: "center"}]}>
-          <Text style={Typography.title}>Catholic Daily Companion</Text>
+          <Text style={[Typography.italic, {marginBottom: 30, justifyContent: "center", textAlign: "center", fontSize: 26}]}>Catholic Daily Companion</Text>
           <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-start"}}>
             <Ionicons name="mail-outline" color={"black"} size={25} style={{marginBottom: 10}} />
             <TextInput
@@ -84,12 +84,11 @@ const EmailAndPasswordLoginScreen = () => {
             </TouchableOpacity>
 
             <View style={{marginLeft: 20, alignItems: "flex-start", justifyContent: "center", flexDirection: "column"}}>
-              <Text style={[Layout.buttonText, {color: "black", fontSize: 14, marginTop: 15}]}>Dont have and account?</Text>
-              <TouchableOpacity
-                style={[Layout.button, {backgroundColor: AppTheme.auth.background}]}
-                onPress={() => navigation.navigate("Signup")}
-              >
-                <Text style={[Layout.buttonText, {color: AppTheme.auth.primary, fontSize: 14, marginTop: -20}]}>Sign up here</Text>
+              <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+                <Text style={{ color: "#1E293B", fontSize: 14 }}>
+                  Don't have an account?
+                </Text>
+                <Text style={{fontWeight: 'bold'}}>Sign up here</Text>
               </TouchableOpacity>
             </View>
           </View>

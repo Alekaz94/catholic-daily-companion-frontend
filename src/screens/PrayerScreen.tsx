@@ -10,6 +10,7 @@ import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Divider from "../components/Divider";
 
 type PrayerNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -47,7 +48,7 @@ const PrayerScreen = () => {
                         <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: AppTheme.prayer.text}]}>Pray the rosary</Text>
                     </LinearGradient>
                 </TouchableOpacity>
-
+                <Divider />
                 <TouchableOpacity onPress={() => navigation.navigate("PrayerList")}>
                     <LinearGradient
                         colors={['#ADD8E6', '#FFFFFF']}

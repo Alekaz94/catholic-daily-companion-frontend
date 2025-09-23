@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-root-toast';
 import { ActivityIndicator } from 'react-native';
 import { AppTheme, Colors } from '../styles/colors';
+import Divider from '../components/Divider';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -138,7 +139,7 @@ const ProfileScreen = () => {
                 <Navbar />
                 <View style={Layout.container}>
                 <Text style={[Typography.title, {textAlign: "center"}]}>My Profile</Text>
-
+                <Divider />
                 <View style={{marginVertical: 20}}>
                     <View style={{flexDirection: "row"}}>
                         <Text style={Typography.body}>Name: </Text>
@@ -149,7 +150,7 @@ const ProfileScreen = () => {
                         <Text style={[Typography.body, {color: "black", fontWeight: "500"}]}>{user?.email ?? 'Unknown'}</Text>
                     </View>
                 </View>
-                
+                <Divider />
                 {!isOAuthUser && (
                     <>
                         <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold"}]}>Change Password</Text>
@@ -231,7 +232,7 @@ const ProfileScreen = () => {
                         Password changes are managed through your Google account.
                     </Text>
                 )}
-
+                <Divider />
                 <LogoutButton />
                 </View>
             </ScrollView>

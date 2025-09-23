@@ -33,12 +33,13 @@ export default ({ config }) => {
       version: "1.0.0",
       orientation: "portrait",
       platforms: ["ios", "android"],
-      icon: "",
+      icon: "./assets/images/cdc_main_logo.png",
       userInterfaceStyle: "light",
       newArchEnabled: true,
       splash: {
         resizeMode: "contain",
         backgroundColor: "#ffffff",
+        image: "./assets/images/cdc_logo.png",
       },
       ios: {
         supportsTablet: true,

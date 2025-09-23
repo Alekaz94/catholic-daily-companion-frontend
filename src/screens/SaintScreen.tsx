@@ -18,6 +18,7 @@ import SaintUpdateModal from "../components/SaintUpdateModal";
 import { useNavigation } from "@react-navigation/native";
 import { buildImageUri } from "../utils/imageUtils";
 import defaultSaint from "../assets/images/default_saint.jpg";
+import Divider from "../components/Divider";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -145,7 +146,8 @@ const SaintScreen = () => {
             <Navbar />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={[Layout.container, {backgroundColor: AppTheme.auth.background}]}>
-                <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.saint.text}]}>Saints of the Catholic Church</Text>
+                <Text style={[Typography.italic, {alignSelf: "center", color: AppTheme.saint.text, fontSize: 20}]}>Saints of the Catholic Church</Text>
+                <Divider />
                 {user?.role === "ADMIN" && (
                     <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: AppTheme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>
                         <Text style={[Layout.buttonText, {color: "black"}]}>Create new Saint</Text>
@@ -161,6 +163,7 @@ const SaintScreen = () => {
                 <TouchableOpacity style={{marginBottom: 20, marginTop: -10, alignSelf: "flex-start"}} onPress={clearSearch}>
                     <Text style={Typography.link}>Clear search</Text>
                 </TouchableOpacity>
+                <Divider />
                 {page === 0 && isLoading ? (
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                             <ActivityIndicator size="large" color="gray" />
@@ -218,6 +221,7 @@ const SaintScreen = () => {
                                     </View>
                                 )}
                             </LinearGradient>
+                            <Divider />
                             </View>
                         )}
                         onEndReached={() => {

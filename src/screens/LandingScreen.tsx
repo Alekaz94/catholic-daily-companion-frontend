@@ -16,6 +16,8 @@ import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
 import QuoteBanner from '../components/QuoteBanner';
 import { AppTheme } from '../styles/colors';
+import Divider from '../components/Divider';
+import SectionTitle from './SectionTitle';
 
 type LandingNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -41,11 +43,16 @@ const LandingScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
-    <ScrollView style={{backgroundColor: AppTheme.auth.background}}>
-    <NavbarLanding />
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 20}]}>Welcome to Catholic Daily Companion</Text>
-      <Text style={[Typography.title, {textAlign: "center"}]}>Start your spiritual journey today</Text>
+    <ScrollView 
+      style={{backgroundColor: AppTheme.auth.background}}
+    >
+      <NavbarLanding />
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 20, fontFamily: "Playfair-Italic"}]}>Welcome to Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center", fontFamily: "Playfair-Italic"}]}>Start your spiritual journey today</Text>
+      <Divider />
+      <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
+      <Divider />
         {!saint 
           ? <View style={{
             borderRadius: 12,
@@ -73,13 +80,47 @@ const LandingScreen = () => {
             </TouchableOpacity> 
           </LinearGradient>
           </View>
-        }
-      
-      <SaintDetailModal 
-        visible={modalVisible}
-        saint={saint}
-        onClose={() => setModalVisible(false)}
-      />
+    }
+    
+    <Divider />
+    <View style={{ paddingHorizontal: 24, marginTop: 20 }}>
+      <Text style={[Typography.title, { fontSize: 18, textAlign: 'center', marginBottom: 10 }]}>
+        What You’ll Get:
+      </Text>
+      <Text style={Typography.label}>• Daily Saint of the Day</Text>
+      <Text style={Typography.label}>• Inspirational Quotes</Text>
+      <Text style={Typography.label}>• Rosary Tracker</Text>
+      <Text style={Typography.label}>• Personal Journal Prompts</Text>
+    </View>
+    
+    <View style={{alignItems: "center", marginTop: 30, marginBottom: 40}}>
+      <TouchableOpacity 
+        style={{
+          backgroundColor: "#FAF3E0",
+          paddingVertical: 12,
+          paddingHorizontal: 32,
+          borderRadius: 8,
+          marginBottom: 10,
+          borderWidth: 1,
+          borderColor: "black"
+        }}
+        onPress={() => navigation.navigate("Signup")}  
+      >
+        <Text style={{color: "black", fontSize: 16}}>Get Started</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        <Text style={{ color: "#1E293B", fontSize: 14 }}>
+          Already have an account? <Text style={{fontWeight: 'bold'}}>Log in</Text>
+        </Text>
+      </TouchableOpacity>
+    </View>
+    
+    <SaintDetailModal 
+      visible={modalVisible}
+      saint={saint}
+      onClose={() => setModalVisible(false)}
+    />
     </ScrollView>
     </SafeAreaView>
   );

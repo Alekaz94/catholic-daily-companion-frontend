@@ -11,6 +11,7 @@ import Navbar from "../components/Navbar";
 import { AppTheme } from "../styles/colors";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Divider from "../components/Divider";
 
 type JournalEntryCreateNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -47,7 +48,8 @@ const JournalEntryCreateScreen = () => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
 
-                    <Text style={[Typography.title, {color: AppTheme.journal.text}]}>Create Journal Entry</Text>
+                    <Text style={[Typography.italic, {color: AppTheme.journal.text, fontSize: 20}]}>Create Journal Entry</Text>
+                    <Divider />
                     <TextInput 
                         style={Layout.input}
                         placeholder="Title" 

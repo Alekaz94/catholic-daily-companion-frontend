@@ -23,7 +23,7 @@ const PrayerDetailModal = ({ visible, title, text, onClose }: Props) => {
             onRequestClose={onClose}
         >
             <View style={[Layout.container, {backgroundColor: AppTheme.prayer.background}]}>
-                <Text style={[Typography.title, {color: AppTheme.prayer.text, alignSelf: "center", fontSize: 24}]}>{title}</Text>
+                <Text style={[Typography.italic, { marginBottom: 6, alignSelf: "center", fontSize: 20 }]}>{title}</Text>
                 <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: AppTheme.journal.text, fontSize: 16}]}>{text}</Text>
                 
                 <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#ADD8E6", borderWidth: 1}]}>

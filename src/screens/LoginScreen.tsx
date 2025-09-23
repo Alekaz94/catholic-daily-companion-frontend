@@ -39,7 +39,7 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={[Layout.container, {justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>
-      <Text style={[Typography.title, {marginBottom: 40, justifyContent: "center"}]}>Catholic Daily Companion</Text>
+      <Text style={[Typography.italic, {marginBottom: 30, justifyContent: "center", textAlign: "center", fontSize: 26}]}>Catholic Daily Companion</Text>
 
       <GoogleLogin />
 

@@ -14,6 +14,7 @@ import Navbar from "../components/Navbar";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppTheme, Colors } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Divider from "../components/Divider";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -110,7 +111,8 @@ const JournalEntryListScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                <Text style={[Typography.title, {alignSelf: "center", color: AppTheme.journal.text}]}>Daily reflections</Text>
+                <Text style={[Typography.italic, {alignSelf: "center", color: AppTheme.journal.text, fontSize: 20}]}>Daily reflections</Text>
+                <Divider />
                 <TouchableOpacity 
                     style={[
                         Layout.button, {
@@ -129,7 +131,7 @@ const JournalEntryListScreen = () => {
                     ) : (
                         <>
                             <Ionicons name="create-outline" size={20} />
-                            <Text style={[Layout.buttonText, {color: "black", marginLeft: 10}]}>New Journal Entry</Text>
+                            <Text style={[Layout.buttonText, {color: "black", marginLeft: 10}]}>Create Journal Entry</Text>
                         </>
                     )}
                 </TouchableOpacity>
