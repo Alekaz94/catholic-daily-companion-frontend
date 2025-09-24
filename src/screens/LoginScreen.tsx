@@ -4,13 +4,14 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import * as Google from "expo-auth-session/providers/google"
 import { useEffect } from "react";
-import { Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, TouchableOpacity, SafeAreaView, Image } from 'react-native';
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
 import Constants from "expo-constants";
 import { Ionicons } from '@expo/vector-icons';
 import GoogleLogin from "../components/GoogleLogin";
+import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
 
 type LoginScreenNavigationScreen = NativeStackNavigationProp<
   AuthStackParamList,
@@ -39,7 +40,7 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={[Layout.container, {justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>
-      <Text style={[Typography.italic, {marginBottom: 30, justifyContent: "center", textAlign: "center", fontSize: 26}]}>Catholic Daily Companion</Text>
+      <Image source={cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
 
       <GoogleLogin />
 

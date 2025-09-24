@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, Text, TouchableOpacity, View, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { AuthStackParamList } from '../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -7,10 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { NewUser } from '../models/User';
 import { Layout } from '../styles/Layout';
-import { Typography } from '../styles/Typography';
 import { AppTheme } from '../styles/colors';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -70,7 +70,7 @@ const SignUpScreen = () => {
 
   return (
       <SafeAreaView style={[Layout.container,{ justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>        
-        <Text style={[Typography.italic, {marginBottom: 30, justifyContent: "center", textAlign: "center", fontSize: 26}]}>Catholic Daily Companion</Text>
+        <Image source={cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
         <TextInput
         placeholder="Firstname"
         value={firstName}

@@ -13,7 +13,7 @@ const NavbarLanding = () => {
 
     return (
         <View style={[Layout.navbarContainer, {backgroundColor: "#FAF3E0", flexDirection: "row", justifyContent: "center", alignContent: "center"}]}>
-                <Image source={cdc_transparent_black} style={{width: 250, height: 250, resizeMode: "contain"}} />
+            <Image source={cdc_transparent_black} style={{width: 250, height: 250, resizeMode: "contain"}} />
         </View>
     );
 }

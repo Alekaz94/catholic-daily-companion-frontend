@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Text, TouchableOpacity, SafeAreaView, View, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, TouchableOpacity, SafeAreaView, View, ActivityIndicator, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/types';
 import { Layout } from '../styles/Layout';
-import { Typography } from '../styles/Typography';
 import { AppTheme } from '../styles/colors';
 import { Ionicons } from '@expo/vector-icons';
+import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
 
 type EmailAndPasswordLoginScreen = NativeStackNavigationProp<
   AuthStackParamList,
@@ -40,7 +40,7 @@ const EmailAndPasswordLoginScreen = () => {
     <SafeAreaView style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: AppTheme.auth.background }]}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>  
         <View style={[Layout.container, {justifyContent: "center", alignContent: "center"}]}>
-          <Text style={[Typography.italic, {marginBottom: 30, justifyContent: "center", textAlign: "center", fontSize: 26}]}>Catholic Daily Companion</Text>
+            <Image source={cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
           <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-start"}}>
             <Ionicons name="mail-outline" color={"black"} size={25} style={{marginBottom: 10}} />
             <TextInput
