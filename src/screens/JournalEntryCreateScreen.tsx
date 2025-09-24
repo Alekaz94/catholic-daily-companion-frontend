@@ -34,6 +34,7 @@ const JournalEntryCreateScreen = () => {
             setIsLoading(true);
             const newEntry: NewJournalEntry = {title, content};
             await createEntry(newEntry);
+            Alert.alert(`Created journal entry ${title} succesfully!`);
             navigation.goBack();
         } catch (error: any) {
             Alert.alert("Error", "Failed to create journal entry!");

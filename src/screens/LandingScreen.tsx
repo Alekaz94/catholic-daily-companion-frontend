@@ -18,6 +18,7 @@ import QuoteBanner from '../components/QuoteBanner';
 import { AppTheme } from '../styles/colors';
 import Divider from '../components/Divider';
 import SectionTitle from './SectionTitle';
+import FeatureItem from './FeatureItem';
 
 type LandingNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -58,6 +59,9 @@ const LandingScreen = () => {
             borderRadius: 12,
             padding: 16,
             marginVertical: 12,
+            marginHorizontal:16,
+            borderWidth: 1,
+            borderColor: "#ddd",
             backgroundColor: "#FAF3E0" }}
             >
               <Text style={[Typography.label, {textAlign: "center"}]}>No feast day today.</Text>
@@ -83,14 +87,27 @@ const LandingScreen = () => {
     }
     
     <Divider />
-    <View style={{ paddingHorizontal: 24, marginTop: 20 }}>
-      <Text style={[Typography.title, { fontSize: 18, textAlign: 'center', marginBottom: 10 }]}>
-        What You’ll Get:
-      </Text>
-      <Text style={Typography.label}>• Daily Saint of the Day</Text>
-      <Text style={Typography.label}>• Inspirational Quotes</Text>
-      <Text style={Typography.label}>• Rosary Tracker</Text>
-      <Text style={Typography.label}>• Personal Journal Prompts</Text>
+    <View style={{ 
+      paddingHorizontal: 24, 
+      marginTop: 20,
+      paddingVertical: 16,
+      marginHorizontal: 16,
+      backgroundColor: "#FAF3E0",
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: "#ddd"
+    }}>
+      <View style={{alignSelf: "center"}}>
+        <SectionTitle>Grow Your Faith With</SectionTitle>
+      </View>
+      <Divider />
+      <FeatureItem icon="📿" text="Saint of the Day" />
+      <Divider />
+      <FeatureItem icon="🕊️" text="Inspirational Quotes" />
+      <Divider />
+      <FeatureItem icon="🙏" text="Rosary Tracker" />
+      <Divider />
+      <FeatureItem icon="📓" text="Personal Journal Prompts" />
     </View>
     
     <View style={{alignItems: "center", marginTop: 30, marginBottom: 40}}>
@@ -102,7 +119,7 @@ const LandingScreen = () => {
           borderRadius: 8,
           marginBottom: 10,
           borderWidth: 1,
-          borderColor: "black"
+          borderColor: "#aaa"
         }}
         onPress={() => navigation.navigate("Signup")}  
       >

@@ -6,11 +6,6 @@ export const dailyQuotes = [
     },
     {
         type: "quote",
-        content: "Prayer is the best armor we have. It is the key which opens the heart to God",
-        author: "Saint Padre Pio"
-    },
-    {
-        type: "quote",
         content: "To love is to will the good of the other",
         author: "Saint Thomas Aquinas"
     },
@@ -38,16 +33,6 @@ export const dailyQuotes = [
         type: "quote",
         content: "Our hearts were made for You, O Lord, and they are restless until they rest in You,",
         author: "Saint Augustine"
-    },
-    {
-        type: "quote",
-        content: "Life with Christ is a wonderful adventure.",
-        author: "Saint John Paul II"
-    },
-    {
-        type: "quote",
-        content: "Spread love everywhere you go. Let no one ever come to you without leaving happier,",
-        author: "Saint Teresa of Calcutta"
     },
     {
         type: "verse",
@@ -88,11 +73,6 @@ export const dailyQuotes = [
         type: "verse",
         content: "He must increase, but I must decrease.",
         reference: "John 3:30"
-      },
-      {
-        type: "quote",
-        content: "The world offers you comfort. But you were not made for comfort. You were made for greatness.",
-        author: "Pope Benedict XVI"
       },
       {
         type: "quote",

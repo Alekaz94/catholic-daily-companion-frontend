@@ -70,9 +70,7 @@ const JournalEntryListScreen = () => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", () => {
-            setEntries([]);
-            setPage(0);
-            setHasMore(true);
+            refreshEntries();
         });
         return unsubscribe;
     }, [navigation])

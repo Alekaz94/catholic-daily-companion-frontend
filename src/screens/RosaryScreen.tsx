@@ -178,11 +178,11 @@ const RosaryScreen = () => {
                     <TouchableOpacity style={[Layout.button, {backgroundColor: '#ADD8E6', borderWidth: 1, marginTop: 20}]} onPress={handleComplete} disabled={completed}>
                         <Text style={[Layout.buttonText, {color: "black"}]}>Mark as Completed</Text>
                     </TouchableOpacity>
-
+                    <Divider />
                     <Text style={[Typography.italic, { marginTop: 12, alignSelf: "center", fontSize: 20 }]}>History</Text>
                     <TouchableOpacity
                       onPress={() => setHistoryModalVisible(true)}
-                      style={[Layout.button, {backgroundColor: "#ADD8E6", borderWidth: 1, borderColor: "black", marginBottom: 20}]}
+                      style={[Layout.button, {backgroundColor: "#ADD8E6", borderWidth: 1, marginBottom: 20}]}
                     >
                         <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.prayer.text}]}>📜 View Rosary History</Text>
                     </TouchableOpacity>

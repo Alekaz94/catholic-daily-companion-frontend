@@ -6,6 +6,8 @@ interface LayoutStyles {
     navbarContainer: ViewStyle;
     card: ViewStyle;
     input: ViewStyle;
+    searchInputView: ViewStyle;
+    searchInputTextInput: TextStyle;
     button: ViewStyle;
     buttonText: TextStyle;
     navbarButton: ViewStyle;
@@ -54,12 +56,33 @@ export const Layout: LayoutStyles = {
       marginBottom: 12,
       backgroundColor: '#fff',
     },
+    searchInputView: {
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: "#fff",
+      borderRadius: 10,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      borderWidth: 1,
+      borderColor: "#ccc",
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
+      elevation: 2,
+      marginBottom: 12,
+    },
+    searchInputTextInput: {
+      flex: 1,
+      fontSize: 16,
+    },
     button: {
       backgroundColor: Colors.primary,
       paddingVertical: 12,
       borderRadius: 8,
       alignItems: 'center' as const,
       marginTop: 10,
+      borderColor: "#aaa"
     },
     buttonText: {
         color: "white",

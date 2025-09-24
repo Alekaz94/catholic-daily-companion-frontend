@@ -65,7 +65,7 @@ const HomeScreen = () => {
       }  
     >
       <Navbar />
-      <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginVertical: 20}]}>Welcome back {user && user.firstName}</Text>
+      <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginTop: 20}]}>Welcome back {user && user.firstName}</Text>
       <Divider />
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
@@ -84,11 +84,15 @@ const HomeScreen = () => {
         </View>
       ) : !saint ? (
         <View style={{
-            borderRadius: 12,
-            padding: 16,
-            marginVertical: 12,
-            backgroundColor: "#FAF3E0" }}
-          >
+          borderRadius: 12,
+          padding: 16,
+          marginVertical: 12,
+          marginHorizontal:16,
+          borderWidth: 1,
+          borderColor: "#ddd",
+          backgroundColor: "#FAF3E0" 
+        }}
+        >
           <Text style={[Typography.label, {textAlign: "center"}]}>No feast day today.</Text>
         </View>
       ) : (

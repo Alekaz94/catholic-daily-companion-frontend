@@ -40,7 +40,7 @@ interface Props {
                             {saints.map((saint) => (
                                 <TouchableOpacity
                                     key={saint.id}
-                                    style={[Layout.card, { backgroundColor: AppTheme.saint.background, marginBottom: 6, borderWidth: 1, borderRadius: 14}]}
+                                    style={[Layout.card, { backgroundColor: AppTheme.saint.background, borderColor: "#aaa", marginBottom: 6, borderWidth: 1, borderRadius: 14}]}
                                     onPress={() => {
                                         setSaintModalVisible(true);
                                         setSelectedSaint(saint)
@@ -59,7 +59,7 @@ interface Props {
                             {journals.map((journal) => (
                                 <TouchableOpacity 
                                     key={journal.id}
-                                    style={[Layout.card, {backgroundColor: AppTheme.journal.background, marginBottom: 6, borderWidth: 1, borderRadius: 14}]}
+                                    style={[Layout.card, {backgroundColor: AppTheme.journal.background, borderColor: "#aaa", marginBottom: 6, borderWidth: 1, borderRadius: 14}]}
                                     onPress={() => {
                                         setJournalModalVisible(true);
                                         setSelectedJournal(journal);
@@ -72,7 +72,7 @@ interface Props {
                     )}
 
                     {rosary && (
-                        <View style={[Layout.card, {backgroundColor: AppTheme.prayer.background, marginBottom: 6, borderWidth: 1, borderRadius: 14}]}>
+                        <View style={[Layout.card, {backgroundColor: AppTheme.prayer.background, marginBottom: 6, borderColor: "#aaa", borderWidth: 1, borderRadius: 14}]}>
                             <Text style={[Typography.body, {borderRadius: 14, textAlign: "center"}]}>You prayed the Rosary today!</Text>
                         </View>
                     )}

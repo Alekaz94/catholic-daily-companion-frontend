@@ -153,16 +153,22 @@ const SaintScreen = () => {
                         <Text style={[Layout.buttonText, {color: "black"}]}>Create new Saint</Text>
                     </TouchableOpacity>
                 )}
-                <TextInput 
-                    style={Layout.input} 
-                    placeholder="Search saint by name..." 
-                    value={searchQuery} 
-                    onChangeText={(text) => {setSearchQuery(text)}}
-                    onSubmitEditing={handleSearch} 
-                />
-                <TouchableOpacity style={{marginBottom: 20, marginTop: -10, alignSelf: "flex-start"}} onPress={clearSearch}>
-                    <Text style={Typography.link}>Clear search</Text>
-                </TouchableOpacity>
+                <View style={Layout.searchInputView}>
+                    <Ionicons name="search-outline" size={20} color="#888" style={{ marginRight: 8 }} />
+                    <TextInput 
+                        style={Layout.searchInputTextInput} 
+                        placeholder="Search saint by name..." 
+                        value={searchQuery} 
+                        onChangeText={(text) => {setSearchQuery(text)}}
+                        onSubmitEditing={handleSearch}
+                        returnKeyType="search"
+                    />
+                    {searchQuery !== "" && (
+                        <TouchableOpacity onPress={clearSearch}>
+                            <Ionicons name="close-circle" size={20} color="#888" />
+                        </TouchableOpacity>
+                    )}
+                </View>
                 <Divider />
                 {page === 0 && isLoading ? (
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

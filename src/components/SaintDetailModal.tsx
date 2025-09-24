@@ -6,6 +6,8 @@ import { Layout } from "../styles/Layout";
 import { AppTheme } from "../styles/colors";
 import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from "../utils/imageUtils";
+import SaintFactRow from "./SaintFactRow";
+import Divider from "./Divider";
 
 interface Props {
     visible: boolean;
@@ -45,58 +47,50 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
 
     return (
         <Modal visible={visible} animationType='slide'>
-            <ScrollView>
-            <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>       
-                <View style={{ alignItems: 'center', marginTop: 10 }}>   
-                    {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain"/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}
-                </View>
-                <Text style={[Typography.italic, {marginTop: 10, color: AppTheme.saint.text, fontSize: 20, alignSelf: "center"}]}>{saint.name}</Text>
-                <View style={{
-                    width: "100%", 
-                    height: 200, 
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    padding: 6,
-                    backgroundColor: "#FFFFFF22", 
-                    overflow: "hidden",
-                    alignSelf: "flex-start",
-                    }}
-                >                    
-                    <Text style={[Typography.italic, {color: AppTheme.saint.text, fontSize: 16, alignSelf: "center", borderBottomWidth: 1}]}>Saint Facts</Text>
-                    {saint.birthYear && (
-                        <View style={{flexDirection: "row"}}>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "600"}]}>Birth: </Text>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text}]}>ca {saint.birthYear}</Text>
+            <View style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.6", justifyContent: "center"}}>
+                <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>       
+                    <View style={[Layout.container, {backgroundColor: AppTheme.saint.background, marginHorizontal: 20, borderRadius: 16, padding: 16, elevation: 5}]}>
+                        <View style={{ alignItems: 'center'}}>
+                            <Text style={[Typography.italic, { color: AppTheme.saint.text, fontSize: 22 }]}>Saint Details</Text>
                         </View>
-                    )}
-                    {saint.deathYear && (
-                        <View style={{flexDirection: "row"}}>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "600"}]}>Death: </Text>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text}]}>ca {saint.deathYear}</Text>
+                        <Divider />
+                        <View style={{alignSelf: "center"}}>
+                            {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain"/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}    
+                        </View> 
+                        <Text style={[Typography.italic, {marginTop: 10, color: AppTheme.saint.text, fontSize: 22, textAlign: "center"}]}>{saint.name}</Text>
+                        <View style={{
+                            width: "100%", 
+                            borderWidth: 1,
+                            borderColor: "#ccc",
+                            borderRadius: 10,
+                            padding: 12,
+                            backgroundColor: "#FFFFFF22", 
+                            marginTop: 12,
+                            }}
+                        >                    
+                            <Text style={[Typography.italic, {color: AppTheme.saint.text, fontSize: 18, textAlign: "center"}]}>Saint Facts</Text>
+                            <Divider />
+                            {saint.birthYear && (
+                                <SaintFactRow label="Birth" value={`ca ${saint.birthYear}`} />
+                            )}
+                            {saint.deathYear && (
+                                <SaintFactRow label="Death:" value={`ca ${saint.deathYear}`} />
+                            )}
+                            <SaintFactRow label="Feast day:" value={formatFeastDay(saint.feastDay)} />
+                            <SaintFactRow label="Patron of:" value={saint.patronage || "N/A"} multiline />
+                            {saint.canonizationYear && (
+                                <SaintFactRow label="Canonized:" value={saint.canonizationYear.toString()} />
+                            )}
                         </View>
-                    )}
-                    <View style={{flexDirection: "row"}}>
-                        <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "600"}]}>Feast day: </Text>
-                        <Text style={[Typography.body, {color: AppTheme.saint.text}]}>{formatFeastDay(saint.feastDay)}</Text>
+                        <Divider />
+                        <Text style={[Typography.body, {lineHeight: 20, textAlign: "justify", color: AppTheme.saint.text}]}>{saint.biography}</Text>
+                        <Divider />
+                        <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar, borderWidth: 1, borderColor: "#aaa"}]}>
+                            <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.saint.text}]}>Close</Text>
+                        </TouchableOpacity> 
                     </View>
-                    <View style={{flexDirection: "column"}}>
-                        <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "600"}]}>Patron of: </Text>
-                        <Text style={[Typography.body, {color: AppTheme.saint.text,}]}>{saint.patronage}</Text>
-                    </View>
-                    {saint.canonizationYear && (
-                        <View style={{flexDirection: "row"}}>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text, fontWeight: "600"}]}>Canonized: </Text>
-                            <Text style={[Typography.body, {color: AppTheme.saint.text}]}>{saint.canonizationYear}</Text>
-                        </View>
-                    )}
-                </View>
-                <Text style={[Typography.body, {marginTop: 15, marginBottom: 20, color: AppTheme.saint.text}]}>{saint.biography}</Text>
-                
-                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar, borderWidth: 1}]}>
-                    <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.saint.text}]}>Close</Text>
-                </TouchableOpacity> 
+                </ScrollView>
             </View> 
-            </ScrollView>
         </Modal>
     );
 }
