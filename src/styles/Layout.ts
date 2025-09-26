@@ -85,9 +85,9 @@ export const Layout: LayoutStyles = {
       borderColor: "#aaa"
     },
     buttonText: {
-        color: "white",
+        color: "black",
         fontSize: 16,
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
     navbarButton: {
         paddingVertical: 6,

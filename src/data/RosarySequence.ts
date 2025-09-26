@@ -90,3 +90,26 @@ export const getTodaysMysteries = (): string[] => {
             throw new Error("Invalid weekday")
     }
 };
+
+export const getWeekdayName = (date: Date): string => {
+    return date.toLocaleDateString("en-US", {weekday: "long"});
+}
+
+export const getMysteryTypeForToday = (): string => {
+    const weekday = new Date().getDay();
+    switch(weekday) {
+        case 0:
+        case 3: 
+            return "Glorious Mysteries";
+        case 1:
+        case 6:
+            return "Joyful Mysteries";
+        case 2:
+        case 5:
+            return "Sorrowful Mysteries";
+        case 4:
+            return "Luminous Mysteries";
+        default:
+            return "Mysteries";
+    }
+}

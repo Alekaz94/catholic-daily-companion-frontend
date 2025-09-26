@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, Image, RefreshControl } from 'react-native';
+import { Text, View, TouchableOpacity, Image, RefreshControl, ActivityIndicator } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -21,6 +21,7 @@ import RosaryStatusBanner from '../components/RosaryStatusBanner';
 import { AppTheme } from '../styles/colors';
 import Divider from '../components/Divider';
 import SectionTitle from './SectionTitle';
+import PrayerBanner from '../components/PrayerBanner';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -70,17 +71,32 @@ const HomeScreen = () => {
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
       <Divider />
-      <SectionTitle>🙏 Today's Rosary</SectionTitle>
+      <SectionTitle>🙏 Praying</SectionTitle>
+      <PrayerBanner />
+      <Divider />
+      <SectionTitle>📿 Today's Rosary</SectionTitle>
       <RosaryStatusBanner />
       <Divider />
-      <SectionTitle>📓 Journal Prompt</SectionTitle>
+      <SectionTitle>📓 Personal Journal</SectionTitle>
       <JournalPromptBanner />
       <Divider />
 
       <SectionTitle>🌟 Saint of the Day</SectionTitle>
       {loadingSaint ? (
-        <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
-          <Text style={[Typography.label, { textAlign: 'center' }]}>Loading saint of the day...</Text>
+        <View style={[Layout.container, {
+          padding: 16,
+          marginVertical: 12,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#F0F9FF",
+          borderRadius: 12,
+          marginHorizontal: 16,
+          }]}
+        >
+          <ActivityIndicator size="small" color="#1E3A8A" />
+          <Text style={[Typography.label, { marginTop: 8, textAlign: "center", fontSize: 14 }]}>
+            Loading saint of the day...
+          </Text>
         </View>
       ) : !saint ? (
         <View style={{

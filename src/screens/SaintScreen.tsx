@@ -146,14 +146,14 @@ const SaintScreen = () => {
             <Navbar />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={[Layout.container, {backgroundColor: AppTheme.auth.background}]}>
-                <Text style={[Typography.italic, {alignSelf: "center", color: AppTheme.saint.text, fontSize: 20}]}>Saints of the Catholic Church</Text>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>Saints of the Catholic Church</Text>
                 <Divider />
                 {user?.role === "ADMIN" && (
                     <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: AppTheme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>
                         <Text style={[Layout.buttonText, {color: "black"}]}>Create new Saint</Text>
                     </TouchableOpacity>
                 )}
-                <View style={Layout.searchInputView}>
+                <View style={[Layout.searchInputView, {marginTop: 10}]}>
                     <Ionicons name="search-outline" size={20} color="#888" style={{ marginRight: 8 }} />
                     <TextInput 
                         style={Layout.searchInputTextInput} 

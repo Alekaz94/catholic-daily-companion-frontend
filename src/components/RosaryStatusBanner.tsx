@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getStreak, isCompletedToday } from "../services/RosaryService";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { AppTheme } from "../styles/colors";
+import { getMysteryTypeForToday, getWeekdayName } from "../data/RosarySequence";
 
 const RosaryStatusBanner = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
@@ -13,6 +14,8 @@ const RosaryStatusBanner = () => {
     const [completed, setCompleted] = useState<boolean | null>(null);
     const [streak, setStreak] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
+    const weekday = getWeekdayName(new Date());
+    const mysteryType = getMysteryTypeForToday();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -67,7 +70,10 @@ const RosaryStatusBanner = () => {
                 }}
             >
                 <Text style={{ fontSize: 16, fontWeight: "600", color: completed ? "#065F46" : "#9F1239" }}>
-                    🕊️ Pray the rosary
+                    📿 Pray the Rosary
+                </Text>
+                <Text style={{ fontSize: 14, marginTop: 6 }}>
+                    Today is <Text style={{ fontWeight: "bold" }}>{weekday}</Text>, we pray the <Text style={{ fontStyle: "italic" }}>{mysteryType}</Text>.
                 </Text>
                 <Text style={{ fontSize: 14, marginTop: 6 }}>
                     {completed

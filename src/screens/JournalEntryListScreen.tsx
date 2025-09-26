@@ -109,7 +109,7 @@ const JournalEntryListScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                <Text style={[Typography.italic, {alignSelf: "center", color: AppTheme.journal.text, fontSize: 20}]}>Daily reflections</Text>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>Daily reflections</Text>
                 <Divider />
                 <TouchableOpacity 
                     style={[
@@ -140,7 +140,7 @@ const JournalEntryListScreen = () => {
                 ) : ( entries.length === 0 ? (
                         <View>
                             <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 10}]}>You have not made a journal entry.</Text>
-                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 5}]}>Create your first entry by clicking the button 'New Journal Entry' above.</Text>
+                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 5}]}>Create your first entry by clicking the button 'Create Journal Entry' above.</Text>
                         </View>
                     ): (
                         <FlatList 

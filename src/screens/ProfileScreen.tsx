@@ -138,7 +138,7 @@ const ProfileScreen = () => {
             <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: AppTheme.auth.background}}>
                 <Navbar />
                 <View style={Layout.container}>
-                <Text style={[Typography.title, {textAlign: "center"}]}>My Profile</Text>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>My Profile</Text>
                 <Divider />
                 <View style={{marginVertical: 20}}>
                     <View style={{flexDirection: "row"}}>

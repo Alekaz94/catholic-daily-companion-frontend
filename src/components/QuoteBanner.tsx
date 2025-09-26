@@ -14,7 +14,7 @@ const QuoteBanner = () => {
             borderLeftWidth: 5,
             borderLeftColor: AppTheme.saint.navbar
         }}>
-            <Text style={{ fontSize: 16, fontWeight: "600", color: "#8B4513" }}>
+            <Text style={{ fontSize: 16, fontWeight: "600", color: "#5D3A00" }}>
                 📖 {quote.type === "verse" ? "Verse of the Day" : "Quote of the Day"}
             </Text>
             <Text style={{ fontSize: 14, marginTop: 6, fontStyle: "italic" }}>

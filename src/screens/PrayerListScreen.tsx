@@ -8,6 +8,7 @@ import { prayers, Prayers } from "../data/PrayerList";
 import { LinearGradient } from "expo-linear-gradient";
 import PrayerDetailModal from "../components/PrayerDetailModal";
 import Navbar from "../components/Navbar";
+import Divider from "../components/Divider";
 
 const PrayerListScreen = () => {
     const [selectedPrayer, setSelectedPrayer] = useState<Prayers | null>(null);
@@ -22,7 +23,8 @@ const PrayerListScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: '#ADD8E6'}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: AppTheme.prayer.background}]}>
-                <Text style={[Typography.title, { marginBottom: 10, alignSelf: "center" }]}>Common Prayers</Text>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>Common Prayers</Text>
+                <Divider />
                 <FlatList 
                     data={prayers} 
                     keyExtractor={item => item.title}

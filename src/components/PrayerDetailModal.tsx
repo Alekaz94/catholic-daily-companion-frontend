@@ -2,6 +2,7 @@ import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
 import { AppTheme } from "../styles/colors";
+import Divider from "./Divider";
 
 interface Props {
     visible: boolean;
@@ -23,9 +24,10 @@ const PrayerDetailModal = ({ visible, title, text, onClose }: Props) => {
             onRequestClose={onClose}
         >
             <View style={[Layout.container, {backgroundColor: AppTheme.prayer.background}]}>
-                <Text style={[Typography.italic, { marginBottom: 6, alignSelf: "center", fontSize: 20 }]}>{title}</Text>
-                <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: AppTheme.journal.text, fontSize: 16}]}>{text}</Text>
-                
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>{title}</Text>
+                <Divider />
+                <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: AppTheme.journal.text, fontSize: 18}]}>{text}</Text>
+                <Divider />
                 <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#ADD8E6", borderWidth: 1}]}>
                     <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.prayer.text}]}>Close</Text>
                 </TouchableOpacity>

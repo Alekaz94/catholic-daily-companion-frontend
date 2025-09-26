@@ -24,7 +24,7 @@ const JournalPromptBanner = () => {
                 borderLeftWidth: 5,
                 borderLeftColor: AppTheme.journal.navbar
             }}>
-                <Text style={{ fontSize: 16, fontWeight: "600", color: "#4B0082" }}>
+                <Text style={{ fontSize: 16, fontWeight: "600", color: "#2E005A" }}>
                     ✍️ Daily Journal
                 </Text>
                 <Text style={{ fontSize: 14, marginTop: 6 }}>{prompt}</Text>
@@ -32,7 +32,7 @@ const JournalPromptBanner = () => {
                 <Text style={{
                     fontSize: 13,
                     marginTop: 8,
-                    color: "#6B46C1",
+                    color: "#3A1E6B",
                     textAlign: "right"
                 }}>
                     Have something on your mind? Tap here to reflect →
