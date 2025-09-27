@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const screenStyles: Record<string, { backgroundColor: string; buttons: NavbarButtonConfig[]}> = {
       Home: {
-        backgroundColor: theme.saint.background,
+        backgroundColor: theme.auth.primary,
         buttons: [
           { title: "Home", screen: "Home", icon: "home-outline" },
           { title: "Saints", screen: "Saint", icon: "people-outline" },

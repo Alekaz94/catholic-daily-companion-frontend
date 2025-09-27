@@ -26,7 +26,7 @@ const LogoutButton = () => {
 
     return (
         <>
-        <TouchableOpacity style={[Layout.button, {backgroundColor: theme.saint.background, borderWidth: 1, flexDirection: "row", justifyContent: "center", opacity: isLoading ? 0.7 : 1}]} onPress={() => {
+        <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, borderWidth: 1, flexDirection: "row", justifyContent: "center", opacity: isLoading ? 0.7 : 1}]} onPress={() => {
             setIsVisible(true)
         }}>
             {isLoading ? (

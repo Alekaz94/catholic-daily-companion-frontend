@@ -10,6 +10,7 @@ import { SignInResponse } from '@react-native-google-signin/google-signin';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from "../navigation/types";
 import { useAuth } from "../context/AuthContext";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 type GoogleLoginNavigation = NativeStackNavigationProp<
   AuthStackParamList,
@@ -19,6 +20,7 @@ type GoogleLoginNavigation = NativeStackNavigationProp<
 const GoogleLogin = () => {
     const { firebaseLogin } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
+    const theme = useAppTheme();
 
     useEffect(() => {
         GoogleSignin.configure({
@@ -62,13 +64,13 @@ const GoogleLogin = () => {
       };    
 
     return (
-        <TouchableOpacity style={[Layout.button, {backgroundColor: "#FAF3E0", flexDirection: "row", justifyContent: "center", borderWidth: 1, opacity: isLoading ? 0.7 : 1 }]} onPress={handleGoogleLogin}>
+        <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", borderWidth: 1, opacity: isLoading ? 0.7 : 1 }]} onPress={handleGoogleLogin}>
             {isLoading ? (
-                <ActivityIndicator color="black" />
+                <ActivityIndicator color={theme.auth.text} />
             ) : (
                 <>
-                    <Ionicons name="logo-google" color={"black"} size={20} />
-                    <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Sign in with Google</Text>
+                    <Ionicons name="logo-google" color={theme.auth.text} size={20} />
+                    <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Sign in with Google</Text>
                 </>
             )}
         </TouchableOpacity>

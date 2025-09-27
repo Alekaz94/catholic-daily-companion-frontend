@@ -10,7 +10,9 @@ import { Layout } from '../styles/Layout';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
+import cdc_transparent from "../assets/images//cdc_transparent.png"
 import { useAppTheme } from '../hooks/useAppTheme';
+import { useTheme } from '../context/ThemeContext';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -27,6 +29,7 @@ const SignUpScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const theme = useAppTheme();
+  const {isDark} = useTheme();
 
   const handleSignUp = async () => {
     if (!firstName || !lastName || !email || !password) {
@@ -71,7 +74,7 @@ const SignUpScreen = () => {
 
   return (
       <SafeAreaView style={[Layout.container,{ justifyContent: "center", backgroundColor: theme.auth.background}]}>        
-        <Image source={cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
+        <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
         <TextInput
         placeholder="Firstname"
         value={firstName}
@@ -113,23 +116,23 @@ const SignUpScreen = () => {
       </View>
 
       <View style={{flexDirection: "row"}}>
-      <TouchableOpacity style={[Layout.button, {backgroundColor: "#FAF3E0", borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", height: 50, opacity: isLoading ? 0.7 : 1}]} onPress={handleSignUp}>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", height: 50, opacity: isLoading ? 0.7 : 1}]} onPress={handleSignUp}>
           {isLoading ? (
-            <ActivityIndicator color="black" />
+            <ActivityIndicator color={theme.auth.text} />
           ) : (
             <>
-              <Ionicons name="document-text-outline" color={"black"} size={20} />
-              <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Sign up</Text>
+              <Ionicons name="document-text-outline" color={theme.auth.text} size={20} />
+              <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Sign up</Text>
             </>
           )}
         </TouchableOpacity>
 
         <View style={{marginLeft: 20, alignItems: "flex-start", justifyContent: "center", flexDirection: "column"}}>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={{ color: "#1E293B", fontSize: 14 }}>
+            <Text style={{ color: theme.auth.text, fontSize: 14 }}>
               Already have an account?
             </Text>
-            <Text style={{fontWeight: 'bold'}}>Log in </Text>
+            <Text style={{fontWeight: 'bold', color: theme.auth.text}}>Log in </Text>
           </TouchableOpacity>
         </View>
       </View>

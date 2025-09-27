@@ -37,7 +37,7 @@ export const Colors = {
     },
     auth: {
       background: '#F9FAFB',
-      primary: '#7F5AF0',
+      primary: '#FAF3E0',
       text: '#1A1A1A',
       smallText: "gray",
     },
@@ -70,7 +70,7 @@ export const Colors = {
     },
     auth: {
       background: '#121212',
-      primary: '#BB86FC',
+      primary: '#59512e',
       text: '#FFFFFF',
       smallText: "#FFFFFF"
     },

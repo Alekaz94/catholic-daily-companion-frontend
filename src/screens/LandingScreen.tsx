@@ -49,8 +49,8 @@ const LandingScreen = () => {
       style={{backgroundColor: theme.auth.background}}
     >
       <NavbarLanding />
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 20, fontFamily: "Playfair-Italic"}]}>Welcome to Catholic Daily Companion</Text>
-      <Text style={[Typography.title, {textAlign: "center", fontFamily: "Playfair-Italic"}]}>Start your spiritual journey today</Text>
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 20, fontFamily: "Playfair-Italic", color: theme.auth.text}]}>Welcome to Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center", fontFamily: "Playfair-Italic", color: theme.auth.text}]}>Start your spiritual journey today</Text>
       <Divider />
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
@@ -65,7 +65,7 @@ const LandingScreen = () => {
             borderColor: "#ddd",
             backgroundColor: theme.saint.background }}
             >
-              <Text style={[Typography.label, {textAlign: "center"}]}>No feast day today.</Text>
+              <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>No feast day today.</Text>
             </View>
           : <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
             <LinearGradient 
@@ -73,7 +73,7 @@ const LandingScreen = () => {
               start={{x: 0, y: 0.5}}
               end={{x: 1, y: 0.5}}
               style={[Layout.card, {borderRadius: 12, padding: 15}]}>
-            <Text style={[Typography.label, {textAlign: "center", marginBottom: 10}]}>Today is the feast day of {saint?.name}</Text>
+            <Text style={[Typography.label, {textAlign: "center", marginBottom: 10, color: theme.saint.text}]}>Today is the feast day of {saint?.name}</Text>
             <TouchableOpacity 
               onPress={() => {
                 setModalVisible(true);
@@ -81,7 +81,7 @@ const LandingScreen = () => {
               style={{alignItems: "center"}}
             >
               {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl)}} defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint}/> }
-              <Text style={[Typography.label, { marginTop: 10 }]} >{saint.name}</Text>
+              <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]} >{saint.name}</Text>
             </TouchableOpacity> 
           </LinearGradient>
           </View>
@@ -114,7 +114,7 @@ const LandingScreen = () => {
     <View style={{alignItems: "center", marginTop: 30, marginBottom: 40}}>
       <TouchableOpacity 
         style={{
-          backgroundColor: theme.auth.background,
+          backgroundColor: theme.auth.primary,
           paddingVertical: 12,
           paddingHorizontal: 32,
           borderRadius: 8,
@@ -124,11 +124,11 @@ const LandingScreen = () => {
         }}
         onPress={() => navigation.navigate("Signup")}  
       >
-        <Text style={{color: "black", fontSize: 16}}>Get Started</Text>
+        <Text style={{color: theme.auth.text, fontSize: 16}}>Get Started</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-        <Text style={{ color: "#1E293B", fontSize: 14 }}>
+        <Text style={{ color: theme.auth.text, fontSize: 14 }}>
           Already have an account? <Text style={{fontWeight: 'bold'}}>Log in</Text>
         </Text>
       </TouchableOpacity>

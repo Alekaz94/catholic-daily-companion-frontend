@@ -8,7 +8,9 @@ import { AuthStackParamList } from '../navigation/types';
 import { Layout } from '../styles/Layout';
 import { Ionicons } from '@expo/vector-icons';
 import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
+import cdc_transparent from "../assets/images/cdc_transparent.png"
 import { useAppTheme } from '../hooks/useAppTheme';
+import { useTheme } from '../context/ThemeContext';
 
 type EmailAndPasswordLoginScreen = NativeStackNavigationProp<
   AuthStackParamList,
@@ -23,6 +25,7 @@ const EmailAndPasswordLoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const theme = useAppTheme();
+  const {isDark} = useTheme();
 
   const handleLogin = async () => {
     try {
@@ -41,9 +44,9 @@ const EmailAndPasswordLoginScreen = () => {
     <SafeAreaView style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: theme.auth.background }]}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>  
         <View style={[Layout.container, {justifyContent: "center", alignContent: "center"}]}>
-            <Image source={cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
+            <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
           <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-start"}}>
-            <Ionicons name="mail-outline" color={"black"} size={25} style={{marginBottom: 10}} />
+            <Ionicons name="mail-outline" color={theme.auth.text} size={25} style={{marginBottom: 10}} />
             <TextInput
               placeholder="Email"
               value={email}
@@ -55,7 +58,7 @@ const EmailAndPasswordLoginScreen = () => {
           </View>
 
           <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-start"}}>
-            <Ionicons name="lock-closed-outline" color={"black"} size={25} style={{marginBottom: 10}}/>
+            <Ionicons name="lock-closed-outline" color={theme.auth.text} size={25} style={{marginBottom: 10}}/>
             <TextInput
               placeholder="Password"
               value={password}
@@ -73,23 +76,23 @@ const EmailAndPasswordLoginScreen = () => {
           </View>
           
           <View style={{flexDirection: "row"}}>
-            <TouchableOpacity style={[Layout.button, {backgroundColor: theme.saint.background, height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
+            <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
               {isLoading ? (
-                <ActivityIndicator color="black" /> 
+                <ActivityIndicator color={theme.auth.text} /> 
               ) : (
                 <>
-                  <Ionicons name="log-in-outline" color={"black"} size={20} />
-                  <Text style={[Layout.buttonText, {marginLeft: 10, color: "black"}]}>Login</Text>
+                  <Ionicons name="log-in-outline" color={theme.auth.text} size={20} />
+                  <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Login</Text>
                 </>
               )}   
             </TouchableOpacity>
 
             <View style={{marginLeft: 20, alignItems: "flex-start", justifyContent: "center", flexDirection: "column"}}>
               <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-                <Text style={{ color: "#1E293B", fontSize: 14 }}>
+                <Text style={{ color: theme.auth.text, fontSize: 14 }}>
                   Don't have an account?
                 </Text>
-                <Text style={{fontWeight: 'bold'}}>Sign up here</Text>
+                <Text style={{fontWeight: 'bold', color: theme.auth.text}}>Sign up here</Text>
               </TouchableOpacity>
             </View>
           </View>

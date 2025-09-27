@@ -137,7 +137,7 @@ const ProfileScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: theme.saint.background}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.primary}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: theme.auth.background}}>
                 <Navbar />
@@ -235,7 +235,7 @@ const ProfileScreen = () => {
                             disabled={!isFormValid()}
                         >
                             {isLoading ? (
-                                <ActivityIndicator color="black" />
+                                <ActivityIndicator color={theme.auth.text} />
                             ) : (
                                 <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Update Password</Text>
                             )}
