@@ -15,7 +15,7 @@ const PrayerBanner = () => {
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.85}>
             <View style={{
-                backgroundColor: theme.prayer.background,
+                backgroundColor: theme.prayer.banner,
                 borderRadius: 12,
                 padding: 16,
                 marginVertical: 12,

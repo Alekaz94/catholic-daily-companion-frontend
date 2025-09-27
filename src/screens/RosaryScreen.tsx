@@ -155,7 +155,7 @@ const RosaryScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.cardOne}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
             <Navbar />
             <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: theme.prayer.background}}>
                 <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Rosary</Text>
@@ -192,14 +192,14 @@ const RosaryScreen = () => {
                     <Text style={[Typography.body,{fontSize: 18, color: theme.prayer.text}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
                     <Text style={[Typography.body, {fontSize: 18, color: theme.prayer.text}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
 
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: theme.prayer.cardTwo, borderWidth: 1, marginTop: 20, marginBottom: 6}]} onPress={handleComplete} disabled={completed}>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: theme.prayer.button, borderWidth: 1, marginTop: 20, marginBottom: 6}]} onPress={handleComplete} disabled={completed}>
                         <Text style={[Layout.buttonText, {color: theme.prayer.text}]}>Mark as Completed</Text>
                     </TouchableOpacity>
                     <Divider />
                     <Text style={[Typography.italic, { marginTop: 4, alignSelf: "center", fontSize: 20, color: theme.prayer.text }]}>History</Text>
                     <TouchableOpacity
                       onPress={() => setHistoryModalVisible(true)}
-                      style={[Layout.button, {backgroundColor: theme.prayer.cardTwo, borderWidth: 1, marginBottom: 20}]}
+                      style={[Layout.button, {backgroundColor: theme.prayer.button, borderWidth: 1, marginBottom: 20}]}
                     >
                         <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.prayer.text}]}>📜 View Rosary History</Text>
                     </TouchableOpacity>

@@ -17,7 +17,7 @@ const NavbarLanding = () => {
     const {isDark} = useTheme();
 
     return (
-        <View style={[Layout.navbarContainer, {backgroundColor: theme.saint.background, flexDirection: "row", justifyContent: "center", alignContent: "center"}]}>
+        <View style={[Layout.navbarContainer, {backgroundColor: theme.auth.navbar, flexDirection: "row", justifyContent: "center", alignContent: "center"}]}>
             <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{width: 250, height: 250, resizeMode: "contain"}} />
         </View>
     );

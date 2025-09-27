@@ -76,12 +76,12 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
         <Modal visible={visible} animationType="slide">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
-                <Text style={[Typography.italic, {color: theme.journal.text, fontSize: 20}]}>Edit Journalentry</Text>
+                <Text style={[Typography.italic, {color: theme.journal.text, fontSize: 20, textAlign: "center"}]}>Edit Journalentry</Text>
                 <Divider />
                 <TextInput 
                         editable={!isLoading}
                         placeholder="Enter title..."
-                        style={Layout.input}
+                        style={[Layout.input, {marginTop: 10}]}
                         value={title}
                         onChangeText={(value) => setTitle(value)}
                     />

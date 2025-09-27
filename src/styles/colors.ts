@@ -18,6 +18,8 @@ export const Colors = {
       navbar: '#7F5AF0',
       text: '#1A1A1A',
       smallText: "gray",
+      primary: '#B794F4',
+      button: "#B794F4"
     },
     saint: {
       background: '#FAF3E0',
@@ -25,7 +27,8 @@ export const Colors = {
       cardTwo: '#F0F9FF',
       navbar: '#FFD700',
       text: '#1A1A1A',
-      bannerText: "#000000"
+      bannerText: "#000000",
+      button: '#FFD700'
     },
     prayer: {
       background: '#F0F9FF',
@@ -34,13 +37,20 @@ export const Colors = {
       navbar: '#1E3A8A',
       text: '#1A1A1A',
       safeAreaView: "#ADD8E6",
+      banner: "#ADD8E6",
+      primary: '#ADD8E6',
+      button: "#ADD8E6"
     },
     auth: {
       background: '#F9FAFB',
       primary: '#FAF3E0',
       text: '#1A1A1A',
       smallText: "gray",
+      navbar: "#FAF3E0"
     },
+    divider: {
+      primary: "gray"
+    }
   }
 
   export const DarkAppTheme = {
@@ -51,6 +61,8 @@ export const Colors = {
       navbar: '#B794F4',
       text: '#F1F1F1',
       smallText: "#FFFFFF",
+      primary: '#3C366B',
+      button: "#3C366B"
     },
     saint: {
       background: '#59512e',
@@ -58,7 +70,8 @@ export const Colors = {
       cardTwo: '#5A4E1A',
       navbar: '#FFD700',
       text: '#F1F1F1',
-      bannerText: "#000000"
+      bannerText: "#000000",
+      button: '#5A4E1A'
     },
     prayer: {
       background: '#121212',
@@ -66,13 +79,20 @@ export const Colors = {
       cardTwo: '#1F2937',
       navbar: '#93C5FD',
       text: '#F1F1F1',
-      safeAreaView: "#4B5563"
+      safeAreaView: "#4B5563",
+      banner: "#1F2937",
+      primary: "#1F2937",
+      button: "#1F2937"
     },
     auth: {
       background: '#121212',
-      primary: '#59512e',
+      primary: '#121212',
       text: '#FFFFFF',
-      smallText: "#FFFFFF"
+      smallText: "#FFFFFF",
+      navbar: "#202124"
     },
+    divider: {
+      primary: "white"
+    }
   };
   

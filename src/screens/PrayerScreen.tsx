@@ -22,7 +22,7 @@ const PrayerScreen = () => {
     const theme = useAppTheme();
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.safeAreaView}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.prayer.background}]}>
                 <View style={[Layout.container, {backgroundColor: theme.prayer.background, justifyContent: "space-evenly", paddingVertical: 20}]}>

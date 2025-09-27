@@ -144,7 +144,7 @@ const SaintScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.primary}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.navbar}}>
             <Navbar />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>

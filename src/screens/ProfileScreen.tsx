@@ -137,7 +137,7 @@ const ProfileScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.primary}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.navbar}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: theme.auth.background}}>
                 <Navbar />

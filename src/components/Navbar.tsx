@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const screenStyles: Record<string, { backgroundColor: string; buttons: NavbarButtonConfig[]}> = {
       Home: {
-        backgroundColor: theme.auth.primary,
+        backgroundColor: theme.auth.navbar,
         buttons: [
           { title: "Home", screen: "Home", icon: "home-outline" },
           { title: "Saints", screen: "Saint", icon: "people-outline" },
@@ -33,7 +33,7 @@ const Navbar = () => {
         ],
       },
       Journal: {
-        backgroundColor: theme.journal.cardOne,
+        backgroundColor: theme.journal.primary,
         buttons: [
           { title: "Home", screen: "Home", icon: "home-outline" },
           { title: "Saints", screen: "Saint", icon: "people-outline" },
@@ -42,7 +42,7 @@ const Navbar = () => {
         ],
       },
       CreateJournalEntry: {
-        backgroundColor: theme.journal.cardOne,
+        backgroundColor: theme.journal.primary,
         buttons: [
           { title: "Home", screen: "Home", icon: "home-outline" },
           { title: "Saints", screen: "Saint", icon: "people-outline" },
@@ -51,7 +51,7 @@ const Navbar = () => {
         ],
       },
       Prayer: {
-        backgroundColor: theme.prayer.cardOne,
+        backgroundColor: theme.prayer.primary,
         buttons: [
           { title: "Home", screen: "Home", icon: "home-outline" },
           { title: "Saints", screen: "Saint", icon: "people-outline" },
@@ -60,7 +60,7 @@ const Navbar = () => {
         ]
       },
       PrayerList: {
-        backgroundColor: theme.prayer.cardOne,
+        backgroundColor: theme.prayer.primary,
         buttons: [
           { title: "Home", screen: "Home", icon: "home-outline" },
           { title: "Saints", screen: "Saint", icon: "people-outline" },
@@ -69,7 +69,7 @@ const Navbar = () => {
         ]
       },
       Rosary: {
-        backgroundColor: theme.prayer.cardOne,
+        backgroundColor: theme.prayer.primary,
         buttons: [
           { title: "Home", screen: "Home", icon: "home-outline" },
           { title: "Saints", screen: "Saint", icon: "people-outline" },

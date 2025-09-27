@@ -59,7 +59,7 @@ const HomeScreen = () => {
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.primary}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar}}>
     <ScrollView 
       style={{backgroundColor: theme.auth.background}}
       refreshControl={

@@ -17,7 +17,7 @@ const JournalPromptBanner = () => {
     return (
         <TouchableOpacity onPress={handleNavigate} activeOpacity={0.8}>
             <View style={{
-                backgroundColor: theme.journal.background,
+                backgroundColor: theme.journal.cardTwo,
                 borderRadius: 12,
                 padding: 16,
                 marginVertical: 12,

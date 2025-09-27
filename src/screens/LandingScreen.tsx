@@ -44,7 +44,7 @@ const LandingScreen = () => {
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.saint.background}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar}}>
     <ScrollView 
       style={{backgroundColor: theme.auth.background}}
     >

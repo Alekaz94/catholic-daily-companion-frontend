@@ -108,7 +108,7 @@ const JournalEntryListScreen = () => {
 
     return (
         <>
-        <SafeAreaView style={{flex: 1, backgroundColor: theme.journal.cardOne}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.journal.primary}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
                 <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Daily reflections</Text>
@@ -117,7 +117,7 @@ const JournalEntryListScreen = () => {
                     style={[
                         Layout.button, {
                             marginBottom: 10, 
-                            backgroundColor: theme.journal.cardOne, 
+                            backgroundColor: theme.journal.primary, 
                             flexDirection: "row", 
                             justifyContent: "center", 
                             borderWidth: 1,

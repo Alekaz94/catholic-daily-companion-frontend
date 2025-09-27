@@ -30,7 +30,7 @@ const PrayerDetailModal = ({ visible, title, text, onClose }: Props) => {
                 <Divider />
                 <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: theme.journal.text, fontSize: 18}]}>{text}</Text>
                 <Divider />
-                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.prayer.cardOne, borderWidth: 1}]}>
+                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.prayer.button, borderWidth: 1}]}>
                     <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.prayer.text}]}>Close</Text>
                 </TouchableOpacity>
             </View>

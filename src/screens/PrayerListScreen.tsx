@@ -21,7 +21,7 @@ const PrayerListScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.cardOne}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.prayer.background}]}>
                 <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Common Prayers</Text>
