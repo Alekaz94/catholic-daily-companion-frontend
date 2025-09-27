@@ -8,6 +8,7 @@ import { AuthStackParamList } from "../navigation/types";
 import { Layout } from "../styles/Layout";
 import CalendarModal from "./CalendarModal";
 import { Typography } from "../styles/Typography";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 type NavbarNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
@@ -18,74 +19,66 @@ type NavbarButtonConfig = {
   activeScreens?: (keyof AuthStackParamList)[];
 };
 
-const screenStyles: Record<string, { backgroundColor: string; buttons: NavbarButtonConfig[]}> = {
-    Home: {
-      backgroundColor: "#FAF3E0",
-      buttons: [
-        { title: "Home", screen: "Home", icon: "home-outline" },
-        { title: "Saints", screen: "Saint", icon: "people-outline" },
-        { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-        { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-      ],
-    },
-    Journal: {
-      backgroundColor: "#B794F4",
-      buttons: [
-        { title: "Home", screen: "Home", icon: "home-outline" },
-        { title: "Saints", screen: "Saint", icon: "people-outline" },
-        { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-        { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-      ],
-    },
-    CreateJournalEntry: {
-      backgroundColor: "#B794F4",
-      buttons: [
-        { title: "Home", screen: "Home", icon: "home-outline" },
-        { title: "Saints", screen: "Saint", icon: "people-outline" },
-        { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-        { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-      ],
-    },
-    // Reading: {
-    //   backgroundColor: "#ADD8E6",
-    //   buttons: [
-    //     { title: "Home", screen: "Home" },
-    //     { title: "Saints", screen: "Saint" },
-    //     { title: "Readings", screen: "Reading" },
-    //     { title: "Journal", screen: "Journal" },
-    //     { title: "Prayers", screen: "Prayer" }
-    //   ],
-    // },
-    Prayer: {
-      backgroundColor: "#ADD8E6",
-      buttons: [
-        { title: "Home", screen: "Home", icon: "home-outline" },
-        { title: "Saints", screen: "Saint", icon: "people-outline" },
-        { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-        { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-      ]
-    },
-    PrayerList: {
-      backgroundColor: "#ADD8E6",
-      buttons: [
-        { title: "Home", screen: "Home", icon: "home-outline" },
-        { title: "Saints", screen: "Saint", icon: "people-outline" },
-        { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-        { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-      ]
-    },
-    Rosary: {
-      backgroundColor: "#ADD8E6",
-      buttons: [
-        { title: "Home", screen: "Home", icon: "home-outline" },
-        { title: "Saints", screen: "Saint", icon: "people-outline" },
-        { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-        { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-      ]
-    }
-  };
-
 const Navbar = () => {
+  const theme = useAppTheme();
+
+  const screenStyles: Record<string, { backgroundColor: string; buttons: NavbarButtonConfig[]}> = {
+      Home: {
+        backgroundColor: theme.saint.background,
+        buttons: [
+          { title: "Home", screen: "Home", icon: "home-outline" },
+          { title: "Saints", screen: "Saint", icon: "people-outline" },
+          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ],
+      },
+      Journal: {
+        backgroundColor: theme.journal.cardOne,
+        buttons: [
+          { title: "Home", screen: "Home", icon: "home-outline" },
+          { title: "Saints", screen: "Saint", icon: "people-outline" },
+          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ],
+      },
+      CreateJournalEntry: {
+        backgroundColor: theme.journal.cardOne,
+        buttons: [
+          { title: "Home", screen: "Home", icon: "home-outline" },
+          { title: "Saints", screen: "Saint", icon: "people-outline" },
+          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ],
+      },
+      Prayer: {
+        backgroundColor: theme.prayer.cardOne,
+        buttons: [
+          { title: "Home", screen: "Home", icon: "home-outline" },
+          { title: "Saints", screen: "Saint", icon: "people-outline" },
+          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ]
+      },
+      PrayerList: {
+        backgroundColor: theme.prayer.cardOne,
+        buttons: [
+          { title: "Home", screen: "Home", icon: "home-outline" },
+          { title: "Saints", screen: "Saint", icon: "people-outline" },
+          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ]
+      },
+      Rosary: {
+        backgroundColor: theme.prayer.cardOne,
+        buttons: [
+          { title: "Home", screen: "Home", icon: "home-outline" },
+          { title: "Saints", screen: "Saint", icon: "people-outline" },
+          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ]
+      }
+    };
+
     const navigation = useNavigation<NavbarNavigationProp>();
     const route = useRoute<RouteProp<Record<string, object | undefined>, string>>();
     const [modalVisible, setModalVisible] = useState(false);
@@ -93,14 +86,14 @@ const Navbar = () => {
     const config = screenStyles[currentScreen] || screenStyles["Home"];
 
     const isProfileActive = currentScreen === "Profile";
-    const isCalendarActive = modalVisible;
+    const isCalendarActive = modalVisible;    
 
     return (
         <View
           testID="navbar-container"
           style={[Layout.navbarContainer, {backgroundColor: config.backgroundColor, flexDirection: "column"}]}
          >
-            <Text style={[Typography.italic, {marginBottom: -10, fontSize: 18}]}>Catholic Daily Companion</Text>
+            <Text style={[Typography.italic, {marginBottom: -10, fontSize: 18, color: theme.auth.text}]}>Catholic Daily Companion</Text>
             
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 12}}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>

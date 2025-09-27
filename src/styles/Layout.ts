@@ -119,6 +119,6 @@ export const Layout: LayoutStyles = {
         width: 200,
         height: 200,
         borderRadius: 8,
-        resizeMode: "cover"
+        resizeMode: "contain"
       },
   };

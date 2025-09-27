@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { LinearGradient } from "expo-linear-gradient";
-import { AppTheme } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { Layout } from "../styles/Layout";
@@ -11,6 +10,7 @@ import { Typography } from "../styles/Typography";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Divider from "../components/Divider";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 type PrayerNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -19,20 +19,21 @@ type PrayerNavigationProp = NativeStackNavigationProp<
 
 const PrayerScreen = () => {
     const navigation = useNavigation<PrayerNavigationProp>();
+    const theme = useAppTheme();
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: "#ADD8E6"}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.safeAreaView}}>
             <Navbar />
-            <View style={[Layout.container, {backgroundColor: AppTheme.prayer.background}]}>
-                <View style={[Layout.container, {backgroundColor: AppTheme.prayer.background, justifyContent: "space-evenly", paddingVertical: 20}]}>
+            <View style={[Layout.container, {backgroundColor: theme.prayer.background}]}>
+                <View style={[Layout.container, {backgroundColor: theme.prayer.background, justifyContent: "space-evenly", paddingVertical: 20}]}>
                 <TouchableOpacity onPress={() => navigation.navigate("Rosary")}>
                     <LinearGradient
-                        colors={['#ADD8E6', '#FFFFFF']}
+                        colors={[theme.prayer.cardOne, theme.prayer.cardTwo]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                         style={[Layout.card, {
                         borderRadius: 12,
-                        borderColor: AppTheme.prayer.background,
+                        borderColor: theme.prayer.background,
                         padding: 16,
                         height: 200,
                         shadowColor: '#000',
@@ -44,20 +45,20 @@ const PrayerScreen = () => {
                         justifyContent: "center"
                         }]}
                     >
-                        <MaterialCommunityIcons name="cross-outline" size={50} color="black" />
-                        <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: AppTheme.prayer.text}]}>Pray the rosary</Text>
+                        <MaterialCommunityIcons name="cross-outline" size={50} color={theme.prayer.text} />
+                        <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: theme.prayer.text}]}>Pray the rosary</Text>
                     </LinearGradient>
                 </TouchableOpacity>
                 <Divider />
                 <TouchableOpacity onPress={() => navigation.navigate("PrayerList")}>
                     <LinearGradient
-                        colors={['#ADD8E6', '#FFFFFF']}
+                        colors={[theme.prayer.cardOne, theme.prayer.cardTwo]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                         style={[Layout.card, {
                         borderRadius: 12,
                         height: 200,
-                        borderColor: AppTheme.prayer.background,
+                        borderColor: theme.prayer.background,
                         padding: 16,
                         marginVertical: 8,
                         shadowColor: '#000',
@@ -69,8 +70,8 @@ const PrayerScreen = () => {
                         justifyContent: "center"
                         }]}
                     >
-                        <FontAwesome6 name="hands-praying" size={50} color="black" />
-                        <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: AppTheme.prayer.text}]}>List of prayers</Text>
+                        <FontAwesome6 name="hands-praying" size={50} color={theme.prayer.text} />
+                        <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: theme.prayer.text}]}>List of prayers</Text>
                     </LinearGradient>
                 </TouchableOpacity>
                 </View>

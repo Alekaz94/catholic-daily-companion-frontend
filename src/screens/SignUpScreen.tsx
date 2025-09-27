@@ -7,10 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { NewUser } from '../models/User';
 import { Layout } from '../styles/Layout';
-import { AppTheme } from '../styles/colors';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
+import { useAppTheme } from '../hooks/useAppTheme';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -26,6 +26,7 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const theme = useAppTheme();
 
   const handleSignUp = async () => {
     if (!firstName || !lastName || !email || !password) {
@@ -69,7 +70,7 @@ const SignUpScreen = () => {
   }, [user])
 
   return (
-      <SafeAreaView style={[Layout.container,{ justifyContent: "center", backgroundColor: AppTheme.auth.background}]}>        
+      <SafeAreaView style={[Layout.container,{ justifyContent: "center", backgroundColor: theme.auth.background}]}>        
         <Image source={cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
         <TextInput
         placeholder="Firstname"

@@ -3,8 +3,8 @@ import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { JournalEntry } from "../models/JournalEntry";
 import { Typography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
-import { AppTheme } from '../styles/colors';
 import Divider from './Divider';
+import { useAppTheme } from '../hooks/useAppTheme';
 
 interface Props {
     visible: boolean;
@@ -13,24 +13,26 @@ interface Props {
 }
 
 const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
+    const theme = useAppTheme();
+
     if(!entry) {
         return null;
     }
 
     return (
         <Modal visible={visible} animationType='slide'>
-            <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                <Text style={[Typography.title, {color: AppTheme.journal.text, fontWeight: "bold", textAlign: "center"}]}>{entry.title}</Text>
+            <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
+                <Text style={[Typography.title, {color: theme.journal.text, fontWeight: "bold", textAlign: "center"}]}>{entry.title}</Text>
                 <Divider />
-                <Text style={[Typography.label, {color: AppTheme.journal.text}]}>Created: {entry.date}</Text>
+                <Text style={[Typography.label, {color: theme.journal.text}]}>Created: {entry.date}</Text>
                 {entry.updatedAt !== entry.date && 
-                    <Text style={[Typography.label, {color: AppTheme.journal.text}]}>Updated: {entry.updatedAt}</Text>
+                    <Text style={[Typography.label, {color: theme.journal.text}]}>Updated: {entry.updatedAt}</Text>
                 }
                 <Divider />
-                <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: AppTheme.journal.text, fontSize: 18}]}>{entry.content}</Text>
+                <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: theme.journal.text, fontSize: 18}]}>{entry.content}</Text>
 
-                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: "#B794F4", borderWidth: 1}]}>
-                    <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.journal.text}]}>Close</Text>
+                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.journal.cardOne, borderWidth: 1}]}>
+                    <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.journal.text}]}>Close</Text>
                 </TouchableOpacity> 
             </View>
         </Modal>

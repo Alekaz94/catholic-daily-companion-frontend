@@ -12,9 +12,10 @@ import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import Navbar from "../components/Navbar";
 import { LinearGradient } from "expo-linear-gradient";
-import { AppTheme, Colors } from "../styles/colors";
+import { Colors } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Divider from "../components/Divider";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -33,6 +34,7 @@ const JournalEntryListScreen = () => {
     const [hasMore, setHasMore] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation<JournalEntryListNavigationProp>();
+    const theme = useAppTheme();
 
     const handleDelete = async (id: string) => {
         try {
@@ -106,16 +108,16 @@ const JournalEntryListScreen = () => {
 
     return (
         <>
-        <SafeAreaView style={{flex: 1, backgroundColor: "#B794F4"}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.journal.cardOne}}>
             <Navbar />
-            <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>Daily reflections</Text>
+            <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Daily reflections</Text>
                 <Divider />
                 <TouchableOpacity 
                     style={[
                         Layout.button, {
                             marginBottom: 10, 
-                            backgroundColor: "#B794F4", 
+                            backgroundColor: theme.journal.cardOne, 
                             flexDirection: "row", 
                             justifyContent: "center", 
                             borderWidth: 1,
@@ -125,11 +127,11 @@ const JournalEntryListScreen = () => {
                     disabled={isLoading} 
                 >
                     {isLoading ? (
-                        <ActivityIndicator color="black" />
+                        <ActivityIndicator color={theme.journal.text} />
                     ) : (
                         <>
-                            <Ionicons name="create-outline" size={20} />
-                            <Text style={[Layout.buttonText, {color: "black", marginLeft: 10}]}>Create Journal Entry</Text>
+                            <Ionicons name="create-outline" size={20} color={theme.journal.text}/>
+                            <Text style={[Layout.buttonText, {color: theme.journal.text, marginLeft: 10}]}>Create Journal Entry</Text>
                         </>
                     )}
                 </TouchableOpacity>
@@ -139,8 +141,8 @@ const JournalEntryListScreen = () => {
                     </View> 
                 ) : ( entries.length === 0 ? (
                         <View>
-                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 10}]}>You have not made a journal entry.</Text>
-                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 5}]}>Create your first entry by clicking the button 'Create Journal Entry' above.</Text>
+                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 10, color: theme.journal.smallText}]}>You have not made a journal entry.</Text>
+                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 5, color: theme.journal.smallText}]}>Create your first entry by clicking the button 'Create Journal Entry' above.</Text>
                         </View>
                     ): (
                         <FlatList 
@@ -148,12 +150,12 @@ const JournalEntryListScreen = () => {
                         keyExtractor={item => item.id}
                         renderItem={({item}) => (
                             <LinearGradient
-                                colors={['#B794F4', '#F5F3FF']}
+                                colors={[theme.journal.cardOne, theme.journal.cardTwo]}
                                 start={{ x: 0, y: 0 }}
                                 end={{ x: 1, y: 1 }}
                                 style={[Layout.card, {
                                     borderRadius: 12,
-                                    borderColor: AppTheme.journal.background,
+                                    borderColor: theme.journal.background,
                                     padding: 16,
                                     marginVertical: 8,
                                     shadowColor: '#000',
@@ -171,10 +173,10 @@ const JournalEntryListScreen = () => {
                                     disabled={isLoading}
                                 >
                                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Text style={[Typography.label, {color: AppTheme.journal.text, fontWeight: "bold"}]}>{item.title}</Text>
-                                        <Text style={[Typography.label, {color: AppTheme.journal.text}]}>{item.date}</Text>
+                                        <Text style={[Typography.label, {color: theme.journal.text, fontWeight: "bold"}]}>{item.title}</Text>
+                                        <Text style={[Typography.label, {color: theme.journal.text}]}>{item.date}</Text>
                                     </View>
-                                    <Text style={[Typography.body, {color: AppTheme.journal.text, fontSize: 18, marginBottom: 5}]} numberOfLines={2}>{item.content}</Text>
+                                    <Text style={[Typography.body, {color: theme.journal.text, fontSize: 18, marginBottom: 5}]} numberOfLines={2}>{item.content}</Text>
                                 </TouchableOpacity>
                                 
                                 <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 5}}>
@@ -185,7 +187,7 @@ const JournalEntryListScreen = () => {
                                         }}
                                         disabled={isLoading} 
                                     >
-                                        <Ionicons name="pencil-outline" size={20} />
+                                        <Ionicons name="pencil-outline" size={20} color={theme.journal.text}/>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity 
@@ -209,12 +211,12 @@ const JournalEntryListScreen = () => {
                         ListFooterComponent={ isLoading && page > 0 
                             ? (
                                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
-                                    <ActivityIndicator size="small" color="gray" />
-                                    <Text style={{ marginLeft: 10 }}>Loading more...</Text>
+                                    <ActivityIndicator size="small" color={theme.journal.text} />
+                                    <Text style={{ marginLeft: 10, color: theme.journal.text }}>Loading more...</Text>
                                 </View> 
                             ) 
                             : !hasMore 
-                            ? <Text style={{textAlign: 'center', marginTop: 10}}>No more entries</Text>
+                            ? <Text style={{textAlign: 'center', marginTop: 10, color: theme.journal.text}}>No more entries</Text>
                             : null}
                     />
                     )
@@ -243,8 +245,8 @@ const JournalEntryListScreen = () => {
                 onRequestClose={() => setIsVisibleDelete(false)}
             >
                  <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
-                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: AppTheme.journal.background, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
-                        <Text style={Typography.title}>Are you sure you want to delete this entry?</Text>
+                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: theme.journal.background, borderRadius: 12, borderColor: theme.journal.text, borderWidth: 1}}>
+                        <Text style={[Typography.title, {color: theme.journal.text}]}>Are you sure you want to delete this entry?</Text>
                         <View style={{flexDirection: "row"}}>
                             <TouchableOpacity
                                 style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 20}]}
@@ -256,13 +258,13 @@ const JournalEntryListScreen = () => {
                                   }}    
                                 }
                             >
-                                <Text style={Typography.body}>Yes</Text>
+                                <Text style={[Typography.body, { color: theme.journal.text }]}>Yes</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[Layout.button, {backgroundColor: Colors.error, width: "30%"}]}
                                 onPress={() => setIsVisibleDelete(false)}
                             >
-                                <Text style={Typography.body}>Cancel</Text>
+                                <Text style={[Typography.body, {color: theme.journal.text}]}>Cancel</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

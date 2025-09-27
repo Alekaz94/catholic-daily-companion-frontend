@@ -11,6 +11,7 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import { navigationRef } from './src/navigation/RootNavigation';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { ThemeProvider } from './src/context/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -74,9 +75,11 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <RootSiblingParent>
         <AuthProvider>
-          <NavigationContainer ref={navigationRef}>
-            <AppNavigator />
-          </NavigationContainer>
+          <ThemeProvider>
+            <NavigationContainer ref={navigationRef}>
+              <AppNavigator />
+            </NavigationContainer>
+          </ThemeProvider>
         </AuthProvider>
       </RootSiblingParent>
     </GestureHandlerRootView>

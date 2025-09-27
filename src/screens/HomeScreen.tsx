@@ -18,10 +18,10 @@ import { buildImageUri } from '../utils/imageUtils';
 import QuoteBanner from '../components/QuoteBanner';
 import JournalPromptBanner from '../components/JournalPromptBanner';
 import RosaryStatusBanner from '../components/RosaryStatusBanner';
-import { AppTheme } from '../styles/colors';
 import Divider from '../components/Divider';
 import SectionTitle from './SectionTitle';
 import PrayerBanner from '../components/PrayerBanner';
+import { useAppTheme } from '../hooks/useAppTheme';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -35,6 +35,7 @@ const HomeScreen = () => {
   const [loadingSaint, setLoadingSaint] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const { user } = useAuth();
+  const theme = useAppTheme();
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -58,15 +59,15 @@ const HomeScreen = () => {
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.saint.background}}>
     <ScrollView 
-      style={{backgroundColor: AppTheme.auth.background}}
+      style={{backgroundColor: theme.auth.background}}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }  
     >
       <Navbar />
-      <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginTop: 20}]}>Welcome back {user && user.firstName}</Text>
+      <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginTop: 20, color: theme.auth.text}]}>Welcome back {user && user.firstName}</Text>
       <Divider />
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
@@ -88,13 +89,13 @@ const HomeScreen = () => {
           marginVertical: 12,
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#F0F9FF",
+          backgroundColor: theme.saint.background,
           borderRadius: 12,
           marginHorizontal: 16,
           }]}
         >
-          <ActivityIndicator size="small" color="#1E3A8A" />
-          <Text style={[Typography.label, { marginTop: 8, textAlign: "center", fontSize: 14 }]}>
+          <ActivityIndicator size="small" color={theme.saint.text} />
+          <Text style={[Typography.label, { marginTop: 8, textAlign: "center", fontSize: 14, color: theme.saint.text }]}>
             Loading saint of the day...
           </Text>
         </View>
@@ -106,29 +107,29 @@ const HomeScreen = () => {
           marginHorizontal:16,
           borderWidth: 1,
           borderColor: "#ddd",
-          backgroundColor: "#FAF3E0" 
+          backgroundColor: theme.saint.background 
         }}
         >
-          <Text style={[Typography.label, {textAlign: "center"}]}>No feast day today.</Text>
+          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>No feast day today.</Text>
         </View>
       ) : (
         (
-          <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
+          <View style={[Layout.container, {backgroundColor: theme.saint.cardTwo}]}>
             <LinearGradient 
-                colors={['#FAF3E0', "#F0F9FF"]}
+                colors={[theme.saint.cardOne, theme.saint.cardTwo]}
                 start={{x: 0, y: 0.5}}
                 end={{x: 1, y: 0.5}}
                 style={[Layout.card, {borderRadius: 12}]}
             >
-              <Text style={[Typography.label, {marginBottom: 10, textAlign: "center"}]}>Today is the feast day of {saint?.name}</Text>
+              <Text style={[Typography.label, {marginBottom: 10, textAlign: "center", color: theme.saint.text}]}>Today is the feast day of {saint?.name}</Text>
               <TouchableOpacity 
                 onPress={() => {
                   setModalVisible(true);
                 }}
                 style={{alignItems: "center"}}
               >
-                {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl)  }}/> : <Image style={Layout.image} source={defaultSaint}/> }
-                <Text style={[Typography.label, { marginTop: 10 }]} >{saint.name}</Text>
+                {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl) }} defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint}/> }
+                <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]} >{saint.name}</Text>
               </TouchableOpacity> 
             </LinearGradient>
           </View>

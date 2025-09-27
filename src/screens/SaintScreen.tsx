@@ -10,7 +10,7 @@ import { Typography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
 import { TextInput } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-import { AppTheme, Colors } from "../styles/colors";
+import { Colors } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from "../context/AuthContext";
@@ -19,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import { buildImageUri } from "../utils/imageUtils";
 import defaultSaint from "../assets/images/default_saint.jpg";
 import Divider from "../components/Divider";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -27,6 +28,7 @@ type SaintNavigationProp = NativeStackNavigationProp<
 
 const SaintScreen = () => {
     const { user } = useAuth();
+    const theme = useAppTheme();
     const [saints, setSaints] = useState<Saint[]>([]);
     const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -142,15 +144,15 @@ const SaintScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.saint.background}}>
             <Navbar />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <View style={[Layout.container, {backgroundColor: AppTheme.auth.background}]}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>Saints of the Catholic Church</Text>
+            <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.saint.text}]}>Saints of the Catholic Church</Text>
                 <Divider />
                 {user?.role === "ADMIN" && (
-                    <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: AppTheme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>
-                        <Text style={[Layout.buttonText, {color: "black"}]}>Create new Saint</Text>
+                    <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: theme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>
+                        <Text style={[Layout.buttonText, {color: theme.saint.text}]}>Create new Saint</Text>
                     </TouchableOpacity>
                 )}
                 <View style={[Layout.searchInputView, {marginTop: 10}]}>
@@ -172,7 +174,7 @@ const SaintScreen = () => {
                 <Divider />
                 {page === 0 && isLoading ? (
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                            <ActivityIndicator size="large" color="gray" />
+                            <ActivityIndicator size="large" color={theme.saint.text} />
                         </View> 
                 ) : (
                     <FlatList
@@ -185,7 +187,7 @@ const SaintScreen = () => {
                         renderItem={({item}) => (
                             <View style={{width: cardWidth}}>
                             <LinearGradient 
-                                    colors={['#FAF3E0', "#F0F9FF"]}
+                                    colors={[theme.saint.cardOne, theme.saint.cardTwo]}
                                     start={{x: 0, y: 0.5}}
                                     end={{x: 1, y: 0.5}}
                                     style={Layout.card}
@@ -200,11 +202,12 @@ const SaintScreen = () => {
                                         <Image 
                                             style={[Layout.image, {width: cardWidth}]} 
                                             source={{  uri: buildImageUri(item.imageUrl)  }}
+                                            defaultSource={defaultSaint}
                                         /> 
                                     ) : (
                                         <Image style={[Layout.image, {width: cardWidth}]} source={defaultSaint}/> 
                                     )}
-                                    <Text style={[Typography.label, {color: AppTheme.saint.text, textAlign: "center", marginTop: 8}]}>{item.name}</Text>
+                                    <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center", marginTop: 8}]}>{item.name}</Text>
                                 </TouchableOpacity>
 
                                 {user?.role === "ADMIN" && (
@@ -239,12 +242,12 @@ const SaintScreen = () => {
                         ListFooterComponent={ isLoading && page > 0 
                             ? (
                                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
-                                    <ActivityIndicator size="small" color="gray" />
-                                    <Text style={{ marginLeft: 10 }}>Loading more...</Text>
+                                    <ActivityIndicator size="small" color={theme.saint.text} />
+                                    <Text style={{ marginLeft: 10, color: theme.saint.text }}>Loading more...</Text>
                                 </View> 
                             ) 
                             : !hasMore 
-                            ? <Text style={{textAlign: 'center', marginTop: 10}}>No more saints to load</Text>
+                            ? <Text style={{textAlign: 'center', marginTop: 10, color: theme.saint.text}}>No more saints to load</Text>
                             : null}
                     />
                 )}
@@ -271,8 +274,8 @@ const SaintScreen = () => {
                 onRequestClose={() => setIsVisibleDelete(false)}
             >
                  <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
-                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: AppTheme.journal.background, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
-                        <Text style={Typography.title}>Are you sure you want to delete this entry?</Text>
+                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: theme.saint.background, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
+                        <Text style={[Typography.title, { color: theme.saint.text }]}>Are you sure you want to delete this entry?</Text>
                         <View style={{flexDirection: "row"}}>
                             <TouchableOpacity
                                 style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 20}]}
@@ -284,13 +287,13 @@ const SaintScreen = () => {
                                   }}    
                                 }
                             >
-                                <Text style={Typography.body}>Yes</Text>
+                                <Text style={[Typography.body, {color: theme.saint.text}]}>Yes</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[Layout.button, {backgroundColor: Colors.error, width: "30%"}]}
                                 onPress={() => setIsVisibleDelete(false)}
                             >
-                                <Text style={Typography.body}>Cancel</Text>
+                                <Text style={[Typography.body, {color: theme.saint.text}]}>Cancel</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

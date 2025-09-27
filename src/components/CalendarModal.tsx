@@ -11,6 +11,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Saint } from "../models/Saint";
 import { JournalEntry } from "../models/JournalEntry";
 import DateDetailModal from "./DateDetailModal";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 interface MarkedDates {
     [key: string]: { dots: { key: string; color: string }[] };
@@ -35,7 +36,7 @@ type CalendarNavigationProp = NativeStackNavigationProp<
 
 const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
     const { user } = useAuth();
-    
+    const theme = useAppTheme();
     const [markedDates, setMarkedDates] = useState<MarkedDates>({});
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [selectedSaints, setSelectedSaints] = useState<Saint[] | null>(null);
@@ -138,7 +139,7 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
     return (
         <View style={Layout.container}>
             {isLoading ? (
-                <ActivityIndicator size="large" />
+                <ActivityIndicator size="large" color={theme.auth.text} />
             ) : (
                 <Modal 
                     visible={visible}
@@ -165,8 +166,8 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
                             />
                         </Pressable>
 
-                        <TouchableOpacity onPress={onClose} style={{ marginTop: 20, borderRadius:10, borderWidth: 1, width: "50%", alignSelf: "center", backgroundColor: "white", padding:6 }}>
-                            <Text style={{ color: 'black', textAlign: 'center' }}>Close</Text>
+                        <TouchableOpacity onPress={onClose} style={{ marginTop: 20, borderRadius:10, borderWidth: 1, width: "50%", alignSelf: "center", backgroundColor: theme.auth.background, padding:6, borderColor: theme.auth.text }}>
+                            <Text style={{ color: theme.auth.text, textAlign: 'center' }}>Close</Text>
                         </TouchableOpacity>
                     </View>
                 </Modal>

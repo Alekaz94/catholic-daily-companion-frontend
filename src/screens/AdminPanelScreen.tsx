@@ -4,7 +4,7 @@ import { User } from "../models/User";
 import { deleteUser, getAllUsers, searchUser } from "../services/UserService";
 import Navbar from "../components/Navbar";
 import { Layout } from "../styles/Layout";
-import { AppTheme, Colors } from "../styles/colors";
+import { Colors } from "../styles/colors";
 import { Typography } from "../styles/Typography";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from "react-native-gesture-handler";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 type AdminNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -30,6 +31,7 @@ const AdminPanelScreen = () => {
     const size = 10;
     const listRef = useRef<FlatList>(null);
     const navigation = useNavigation<AdminNavigationProp>();
+    const theme = useAppTheme();
 
     const handleDelete = async (id: string) => {
         try {
@@ -97,9 +99,9 @@ const AdminPanelScreen = () => {
       }, [searchQuery]);
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.saint.background}}>
             <Navbar />
-            <View style={[Layout.container, {backgroundColor: AppTheme.auth.background}]}>
+            <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
                 <Text style={[Typography.title, {justifyContent: "center", alignSelf: "center"}]}>Admin panel</Text>
                 <Text style={[Typography.label, {marginBottom: 10}]}>All Registered Users</Text>
                 <TextInput
@@ -151,7 +153,7 @@ const AdminPanelScreen = () => {
                 onRequestClose={() => setIsVisibleDelete(false)}
             >
                  <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
-                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: AppTheme.journal.background, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
+                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: theme.journal.background, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
                         <Text style={[Typography.body, {color: "black"}]}>Are you sure you want to delete {users.find(user => user.id === userToDeleteId)?.email}?</Text>
                         <View style={{flexDirection: "row"}}>
                             <TouchableOpacity

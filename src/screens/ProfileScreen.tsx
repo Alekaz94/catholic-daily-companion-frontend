@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal, TouchableWithoutFeedback, Keyboard, Switch } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
@@ -13,8 +13,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-root-toast';
 import { ActivityIndicator } from 'react-native';
-import { AppTheme, Colors } from '../styles/colors';
+import { Colors } from '../styles/colors';
 import Divider from '../components/Divider';
+import { useAppTheme } from '../hooks/useAppTheme';
+import { useTheme } from '../context/ThemeContext';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -33,6 +35,8 @@ const ProfileScreen = () => {
     const [isConfirmVisible, setIsConfirmVisible] = useState(false);
     const isOAuthUser = user?.email?.toLowerCase().endsWith("@gmail.com");
     const navigation = useNavigation<ProfileNavigationProp>();
+    const theme = useAppTheme();
+    const { isDark, toggleTheme } = useTheme();
 
     const isFormValid = () => {
       return (
@@ -133,28 +137,40 @@ const ProfileScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: "#FAF3E0"}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.saint.background}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-            <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: AppTheme.auth.background}}>
+            <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: theme.auth.background}}>
                 <Navbar />
                 <View style={Layout.container}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>My Profile</Text>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>My Profile</Text>
                 <Divider />
                 <View style={{marginVertical: 20}}>
                     <View style={{flexDirection: "row"}}>
-                        <Text style={Typography.body}>Name: </Text>
-                        <Text style={[Typography.body, {color: "black", fontWeight: "500"}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
+                        <Text style={[Typography.body, {color: theme.auth.text}]}>Name: </Text>
+                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
                     </View>
                     <View style={{flexDirection: "row", marginTop: 5}}>
-                        <Text style={Typography.body}>Email: </Text>
-                        <Text style={[Typography.body, {color: "black", fontWeight: "500"}]}>{user?.email ?? 'Unknown'}</Text>
+                        <Text style={[Typography.body, {color: theme.auth.text}]}>Email: </Text>
+                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.email ?? 'Unknown'}</Text>
                     </View>
+                </View>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+                    <Text style={[Typography.body, { color: theme.auth.text, marginRight: 10 }]}>
+                        Dark Mode
+                    </Text>
+                    <Switch
+                        value={isDark}
+                        onValueChange={toggleTheme}
+                        trackColor={{ false: '#767577', true: '#81b0ff' }}
+                        thumbColor={isDark ? "#59512e" : '#f4f3f4'}
+                    />
                 </View>
                 <Divider />
                 {!isOAuthUser && (
                     <>
-                        <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold"}]}>Change Password</Text>
-                        <Text style={Typography.label}>Current Password:</Text>
+                        <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold", color: theme.auth.text}]}>Change Password</Text>
+                        <Text style={[Typography.label, {color: theme.auth.text}]}>Current Password:</Text>
                         <View style={{ position: 'relative' }}>
                             <TextInput
                                 secureTextEntry={!showCurrentPassword}
@@ -172,7 +188,7 @@ const ProfileScreen = () => {
                             </TouchableOpacity>
                         </View>
 
-                        <Text style={Typography.label}>New Password:</Text>
+                        <Text style={[Typography.label, {color: theme.auth.text}]}>New Password:</Text>
                         <View style={{ position: 'relative'}}>
                             <TextInput
                                 secureTextEntry={!showNewPassword}
@@ -188,12 +204,12 @@ const ProfileScreen = () => {
                             >
                                 <Ionicons name={showNewPassword ? "eye-off" : "eye"} size={22} color="gray" />                            
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
+                            <Text style={{ fontSize: 12, color: theme.auth.text, marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
                                 Password must be at least 8 characters. Make sure it's something secure.
                             </Text>
                         </View>
                             
-                        <Text style={Typography.label}>Confirm New Password:</Text>
+                        <Text style={[Typography.label, {color: theme.auth.text}]}>Confirm New Password:</Text>
                         <View style={{ position: 'relative' }}>
                             <TextInput 
                                 secureTextEntry={!showConfirmNewPassword}
@@ -209,7 +225,7 @@ const ProfileScreen = () => {
                             >
                                 <Ionicons name={showConfirmNewPassword ? "eye-off" : "eye"} size={22} color="gray" />
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: 'gray', marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
+                            <Text style={{ fontSize: 12, color: theme.auth.smallText, marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
                                 Confirm password must match new password
                             </Text>
                         </View>
@@ -221,14 +237,14 @@ const ProfileScreen = () => {
                             {isLoading ? (
                                 <ActivityIndicator color="black" />
                             ) : (
-                                <Text style={[Layout.buttonText, {color: "black"}]}>Update Password</Text>
+                                <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Update Password</Text>
                             )}
                         </TouchableOpacity>
                     </>
                 )}
 
                 {isOAuthUser && (
-                    <Text style={[Typography.label, { color: 'gray', marginVertical: 20, fontSize: 18, textAlign: "center" }]}>
+                    <Text style={[Typography.label, { color: theme.auth.smallText, marginVertical: 20, fontSize: 18, textAlign: "center" }]}>
                         Password changes are managed through your Google account.
                     </Text>
                 )}

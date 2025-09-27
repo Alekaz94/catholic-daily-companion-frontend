@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { Typography } from "../styles/Typography";
-import { AppTheme } from "../styles/colors";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 const SaintFactRow = ({
     label,
@@ -10,11 +10,15 @@ const SaintFactRow = ({
     label: string;
     value: string;
     multiline?: boolean;
-  }) => (
-    <View style={{ marginBottom: 8 }}>
-        <Text style={[Typography.body, { fontWeight: "600", color: AppTheme.saint.text }]}>{label}</Text>
-        <Text style={[Typography.body, { color: AppTheme.saint.text, marginLeft: 4 }]}>{value}</Text>
-    </View>
-)
+  }) => {
+    const theme = useAppTheme();
+
+    return (
+      <View style={{ marginBottom: 8 }}>
+          <Text style={[Typography.body, { fontWeight: "600", color: theme.saint.text }]}>{label}</Text>
+          <Text style={[Typography.body, { color: theme.saint.text, marginLeft: 4 }]}>{value}</Text>
+      </View>
+    )
+  }
 
 export default SaintFactRow;

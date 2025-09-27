@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { completeToday, getHistory, getStreak, isCompletedToday } from "../services/RosaryService";
-import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/Navbar";
 import { Typography } from "../styles/Typography";
@@ -9,10 +9,10 @@ import CheckBox from "expo-checkbox"
 import { createMysteryDecade, fixedRosaryEnd, fixedRosaryStart, getMysteryTypeForToday, getTodaysMysteries, getWeekdayName, RosaryStep } from "../data/RosarySequence";
 import { Layout } from "../styles/Layout";
 import { Rosary } from "../models/Rosary";
-import { AppTheme } from "../styles/colors";
 import * as SecureStore from 'expo-secure-store';
 import RosaryHistoryModal from "../components/RosaryHistoryModal";
 import Divider from "../components/Divider";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 const formatDate = (date: Date) => {
     const year = date.getUTCFullYear();
@@ -23,10 +23,12 @@ const formatDate = (date: Date) => {
 
 const RosaryScreen = () => {
     const { user } = useAuth();
-    const mysteries = getTodaysMysteries();
-    const weekday = getWeekdayName(new Date());
-    const mysteryType = getMysteryTypeForToday();
+    const theme = useAppTheme();
+    const mysteries = useMemo(() => getTodaysMysteries(), []);
+    const weekday = useMemo(() => getWeekdayName(new Date()), []);
+    const mysteryType = useMemo(() => getMysteryTypeForToday(), []);
     const [historyModalVisible, setHistoryModalVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const rosarySequence: RosaryStep[] = [
         ...fixedRosaryStart,
@@ -101,7 +103,9 @@ const RosaryScreen = () => {
                 }
             } catch (error) {
                 console.error("Failed to load rosary data ", error);
-            };
+            } finally {
+                setIsLoading(false);
+            }
         };
         fetchData();
     }, [user, rosarySequence.length]);
@@ -141,22 +145,31 @@ const RosaryScreen = () => {
         }
     };
 
+    if(isLoading) {
+        return (
+            <SafeAreaView>
+                <ActivityIndicator size="large" color="#1E3A8A" />
+                <Text style={[Typography.label, { marginTop: 10, color: theme.prayer.text }]}>Loading Rosary...</Text>
+            </SafeAreaView>
+        )
+    }
+
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: '#ADD8E6'}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.cardOne}}>
             <Navbar />
-            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: AppTheme.prayer.background}}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>Rosary</Text>
+            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: theme.prayer.background}}>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Rosary</Text>
                 <Divider />
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 18}]}>Today, {weekday}, we pray the {mysteryType}</Text>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 18, color: theme.prayer.text}]}>Today, {weekday}, we pray the {mysteryType}</Text>
                 <Divider />
                 {rosarySequence.map((step, stepIndex) => (
                     <View key={stepIndex} style={{marginBottom: 24}}>
                         {step.title && (
-                            <Text style={[Typography.title, { marginBottom: 12, fontSize: 20}]}>
+                            <Text style={[Typography.title, { marginBottom: 12, fontSize: 20, color: theme.prayer.text}]}>
                                 {step.title}
                             </Text>
                         )}
-                        <Text style={[Typography.body, { marginBottom: 12, fontSize: 18, fontWeight: "600" }]}>
+                        <Text style={[Typography.body, { marginBottom: 12, fontSize: 18, fontWeight: "600", color: theme.prayer.text }]}>
                             {step.prayerText}
                         </Text>
                         <View style={{ flexDirection: "row", flexWrap: "wrap", alignContent: "center", justifyContent: "center"}}>
@@ -175,20 +188,20 @@ const RosaryScreen = () => {
                 ))}
 
                 <View style={{marginTop: 24, paddingTop: 16, borderTopWidth: 1, borderColor: "#ccc"}}>
-                    <Text style={[Typography.italic, { marginBottom: 10, alignSelf: "center", fontSize: 20 }]}>Progress</Text>
-                    <Text style={[Typography.body,{fontSize: 18}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
-                    <Text style={[Typography.body, {fontSize: 18}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
+                    <Text style={[Typography.italic, { marginBottom: 10, alignSelf: "center", fontSize: 20, color: theme.prayer.text }]}>Progress</Text>
+                    <Text style={[Typography.body,{fontSize: 18, color: theme.prayer.text}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
+                    <Text style={[Typography.body, {fontSize: 18, color: theme.prayer.text}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
 
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: '#ADD8E6', borderWidth: 1, marginTop: 20, marginBottom: 6}]} onPress={handleComplete} disabled={completed}>
-                        <Text style={[Layout.buttonText, {color: "black"}]}>Mark as Completed</Text>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: theme.prayer.cardTwo, borderWidth: 1, marginTop: 20, marginBottom: 6}]} onPress={handleComplete} disabled={completed}>
+                        <Text style={[Layout.buttonText, {color: theme.prayer.text}]}>Mark as Completed</Text>
                     </TouchableOpacity>
                     <Divider />
-                    <Text style={[Typography.italic, { marginTop: 4, alignSelf: "center", fontSize: 20 }]}>History</Text>
+                    <Text style={[Typography.italic, { marginTop: 4, alignSelf: "center", fontSize: 20, color: theme.prayer.text }]}>History</Text>
                     <TouchableOpacity
                       onPress={() => setHistoryModalVisible(true)}
-                      style={[Layout.button, {backgroundColor: "#ADD8E6", borderWidth: 1, marginBottom: 20}]}
+                      style={[Layout.button, {backgroundColor: theme.prayer.cardTwo, borderWidth: 1, marginBottom: 20}]}
                     >
-                        <Text style={[Layout.buttonText, {alignSelf: "center", color: AppTheme.prayer.text}]}>📜 View Rosary History</Text>
+                        <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.prayer.text}]}>📜 View Rosary History</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

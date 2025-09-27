@@ -15,10 +15,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
 import QuoteBanner from '../components/QuoteBanner';
-import { AppTheme } from '../styles/colors';
 import Divider from '../components/Divider';
 import SectionTitle from './SectionTitle';
 import FeatureItem from './FeatureItem';
+import { useAppTheme } from '../hooks/useAppTheme';
 
 type LandingNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -29,6 +29,7 @@ const LandingScreen = () => {
   const navigation = useNavigation<LandingNavigationProp>();
   const [saint, setSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const theme = useAppTheme();
 
   const fetchSaintOfTheDay = async () => {
     const todaysSaint = await getSaintOfTheDay();
@@ -43,9 +44,9 @@ const LandingScreen = () => {
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#FAF3E0"}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.saint.background}}>
     <ScrollView 
-      style={{backgroundColor: AppTheme.auth.background}}
+      style={{backgroundColor: theme.auth.background}}
     >
       <NavbarLanding />
       <Text style={[Typography.title, {textAlign: "center", marginTop: 20, fontFamily: "Playfair-Italic"}]}>Welcome to Catholic Daily Companion</Text>
@@ -62,13 +63,13 @@ const LandingScreen = () => {
             marginHorizontal:16,
             borderWidth: 1,
             borderColor: "#ddd",
-            backgroundColor: "#FAF3E0" }}
+            backgroundColor: theme.saint.background }}
             >
               <Text style={[Typography.label, {textAlign: "center"}]}>No feast day today.</Text>
             </View>
-          : <View style={[Layout.container, {backgroundColor: "#F0F9FF"}]}>
+          : <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
             <LinearGradient 
-              colors={['#FAF3E0', "#F0F9FF"]}
+              colors={[theme.saint.cardOne, theme.saint.cardTwo]}
               start={{x: 0, y: 0.5}}
               end={{x: 1, y: 0.5}}
               style={[Layout.card, {borderRadius: 12, padding: 15}]}>
@@ -79,7 +80,7 @@ const LandingScreen = () => {
               }}
               style={{alignItems: "center"}}
             >
-              {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl)  }}/> : <Image style={Layout.image} source={defaultSaint}/> }
+              {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl)}} defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint}/> }
               <Text style={[Typography.label, { marginTop: 10 }]} >{saint.name}</Text>
             </TouchableOpacity> 
           </LinearGradient>
@@ -92,7 +93,7 @@ const LandingScreen = () => {
       marginTop: 20,
       paddingVertical: 16,
       marginHorizontal: 16,
-      backgroundColor: "#FAF3E0",
+      backgroundColor: theme.auth.background,
       borderRadius: 12,
       borderWidth: 1,
       borderColor: "#ddd"
@@ -101,11 +102,11 @@ const LandingScreen = () => {
         <SectionTitle>Grow Your Faith With</SectionTitle>
       </View>
       <Divider />
-      <FeatureItem icon="📿" text="Saint of the Day" />
+      <FeatureItem icon="🌟" text="Saint of the Day" />
       <Divider />
       <FeatureItem icon="🕊️" text="Inspirational Quotes" />
       <Divider />
-      <FeatureItem icon="🙏" text="Rosary Tracker" />
+      <FeatureItem icon="📿" text="Rosary Tracker" />
       <Divider />
       <FeatureItem icon="📓" text="Personal Journal Prompts" />
     </View>
@@ -113,7 +114,7 @@ const LandingScreen = () => {
     <View style={{alignItems: "center", marginTop: 30, marginBottom: 40}}>
       <TouchableOpacity 
         style={{
-          backgroundColor: "#FAF3E0",
+          backgroundColor: theme.auth.background,
           paddingVertical: 12,
           paddingHorizontal: 32,
           borderRadius: 8,

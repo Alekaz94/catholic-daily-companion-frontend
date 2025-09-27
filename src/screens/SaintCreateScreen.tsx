@@ -7,8 +7,8 @@ import { NewSaint } from "../models/Saint";
 import { createSaint } from "../services/SaintService";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Layout } from "../styles/Layout";
-import { AppTheme } from "../styles/colors";
 import { Typography } from "../styles/Typography";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 type SaintCreateNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -25,6 +25,7 @@ const CreateSaintScreen = () => {
     const [biography, setBiography] = useState("");
     const [canonizationYear, setCanonizationYear] = useState<string>("");
     const [imageUrl, setImageUrl] = useState<string | null>("");
+    const theme = useAppTheme();
 
     const handleCreate = async () => {
         if(!name.trim() || !birthYear.trim() || !deathYear.trim() || !feastDay?.trim() || !patronage.trim() || !biography.trim()) {
@@ -57,9 +58,9 @@ const CreateSaintScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: AppTheme.saint.background}}>
-            <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>
-                <Text style={[Typography.title, {color: AppTheme.saint.text}]}>Create Saint</Text>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.saint.background}}>
+            <View style={[Layout.container, {backgroundColor: theme.saint.background}]}>
+                <Text style={[Typography.title, {color: theme.saint.text}]}>Create Saint</Text>
                 <TextInput
                     placeholder="Enter name"
                     style={Layout.input}
@@ -113,12 +114,12 @@ const CreateSaintScreen = () => {
                 />
 
                 <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar, borderWidth: 1}]} onPress={handleCreate} >
-                    <Text style={[Layout.buttonText, {color: AppTheme.saint.text}]}>Create</Text>
+                <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.saint.navbar, borderWidth: 1}]} onPress={handleCreate} >
+                    <Text style={[Layout.buttonText, {color: theme.saint.text}]}>Create</Text>
                 </TouchableOpacity>
             
                 <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} onPress={() => {navigation.navigate("Saint")}} >
-                    <Text style={Layout.buttonText}>Cancel</Text>
+                    <Text style={[Layout.buttonText,{color: theme.saint.text}]}>Cancel</Text>
                 </TouchableOpacity>
             </View>
             </View>

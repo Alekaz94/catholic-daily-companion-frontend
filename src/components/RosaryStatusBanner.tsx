@@ -2,11 +2,11 @@ import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { AuthStackParamList } from "../navigation/types"
 import { useAuth } from "../context/AuthContext";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getStreak, isCompletedToday } from "../services/RosaryService";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
-import { AppTheme } from "../styles/colors";
 import { getMysteryTypeForToday, getWeekdayName } from "../data/RosarySequence";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 const RosaryStatusBanner = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
@@ -14,8 +14,9 @@ const RosaryStatusBanner = () => {
     const [completed, setCompleted] = useState<boolean | null>(null);
     const [streak, setStreak] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
-    const weekday = getWeekdayName(new Date());
-    const mysteryType = getMysteryTypeForToday();
+    const theme = useAppTheme();
+    const weekday = useMemo(() => getWeekdayName(new Date()), []);
+    const mysteryType = useMemo(() => getMysteryTypeForToday(), []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,13 +48,13 @@ const RosaryStatusBanner = () => {
     if(isLoading || completed === null) {
         return (
             <View style={{
-                backgroundColor: AppTheme.prayer.background,
+                backgroundColor: theme.prayer.background,
                 borderRadius: 12,
                 padding: 16,
                 marginVertical: 12,
                 alignItems: "center"
             }}>
-                <ActivityIndicator size="small" color="#1E3A8A" /> 
+                <ActivityIndicator size="small" color={theme.prayer.text} /> 
             </View>
         )
     }
@@ -81,7 +82,7 @@ const RosaryStatusBanner = () => {
                         :   "You haven't prayed the rosary today. Want to pray now?"
                     }
                 </Text>
-                <Text style={{ fontSize: 13, marginTop: 8, color: AppTheme.prayer.text, textAlign: "right" }}>
+                <Text style={{ fontSize: 13, marginTop: 8, color: theme.prayer.text, textAlign: "right" }}>
                     {completed ? "Tap to reflect more" : "Tap to begin praying →"}
                 </Text>
             </View>

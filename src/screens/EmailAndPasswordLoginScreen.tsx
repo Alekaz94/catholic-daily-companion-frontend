@@ -6,9 +6,9 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../navigation/types';
 import { Layout } from '../styles/Layout';
-import { AppTheme } from '../styles/colors';
 import { Ionicons } from '@expo/vector-icons';
 import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
+import { useAppTheme } from '../hooks/useAppTheme';
 
 type EmailAndPasswordLoginScreen = NativeStackNavigationProp<
   AuthStackParamList,
@@ -22,6 +22,7 @@ const EmailAndPasswordLoginScreen = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const theme = useAppTheme();
 
   const handleLogin = async () => {
     try {
@@ -37,7 +38,7 @@ const EmailAndPasswordLoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: AppTheme.auth.background }]}>
+    <SafeAreaView style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: theme.auth.background }]}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>  
         <View style={[Layout.container, {justifyContent: "center", alignContent: "center"}]}>
             <Image source={cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
@@ -72,7 +73,7 @@ const EmailAndPasswordLoginScreen = () => {
           </View>
           
           <View style={{flexDirection: "row"}}>
-            <TouchableOpacity style={[Layout.button, {backgroundColor: "#FAF3E0", height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
+            <TouchableOpacity style={[Layout.button, {backgroundColor: theme.saint.background, height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
               {isLoading ? (
                 <ActivityIndicator color="black" /> 
               ) : (

@@ -3,9 +3,9 @@ import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry"
 import { Modal, TextInput, View, Text, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Layout } from "../styles/Layout";
 import { Typography } from "../styles/Typography";
-import { AppTheme } from "../styles/colors";
 import React from "react";
 import Divider from "./Divider";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 interface Props {
     visible: boolean,
@@ -18,6 +18,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const theme = useAppTheme();
 
     useEffect(() => {
         if(entry) {
@@ -74,8 +75,8 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
     return (
         <Modal visible={visible} animationType="slide">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                <View style={[Layout.container, {backgroundColor: AppTheme.journal.background}]}>
-                <Text style={[Typography.italic, {color: AppTheme.journal.text, fontSize: 20}]}>Edit Journalentry</Text>
+                <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
+                <Text style={[Typography.italic, {color: theme.journal.text, fontSize: 20}]}>Edit Journalentry</Text>
                 <Divider />
                 <TextInput 
                         editable={!isLoading}
@@ -92,16 +93,16 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
                         onChangeText={(value) => setContent(value)}
                     /> 
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                        <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: "#B794F4", borderWidth: 1, opacity: isLoading ? 0.7 : 1}]} onPress={onHandleSubmit} >
+                        <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.journal.cardOne, borderWidth: 1, opacity: isLoading ? 0.7 : 1}]} onPress={onHandleSubmit} >
                             {isLoading ? (
                                 <ActivityIndicator color="black" />
                             ) : (
-                                <Text style={[Layout.buttonText, {color: AppTheme.journal.text}]}>Save changes</Text>
+                                <Text style={[Layout.buttonText, {color: theme.journal.text}]}>Save changes</Text>
                             )}
                         </TouchableOpacity>
                         
                         <TouchableOpacity disabled={isLoading} style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1, opacity: isLoading ? 0.7 : 1}]} onPress={onClose} >
-                            <Text style={Layout.buttonText}>Cancel</Text>
+                            <Text style={[Layout.buttonText, {color: theme.journal.text}]}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

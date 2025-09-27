@@ -1,7 +1,11 @@
+import { useAppTheme } from "../hooks/useAppTheme";
 import { Typography } from "../styles/Typography";
 import { Text } from 'react-native';
 
-const SectionTitle = ({ children }: { children: string }) => (
+const SectionTitle = ({ children }: { children: string }) => {
+  const theme = useAppTheme();
+
+  return (
     <Text
       style={[
         Typography.italic,
@@ -11,12 +15,13 @@ const SectionTitle = ({ children }: { children: string }) => (
           marginTop: 10,
           marginBottom: 0,
           marginHorizontal: 16,
-          color: "#374151",
+          color: theme.auth.text,
         },
     ]}
     >
       {children}
     </Text>
-);
+  )
+};
 
 export default SectionTitle;

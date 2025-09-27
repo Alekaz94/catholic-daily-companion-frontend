@@ -1,7 +1,6 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Layout } from "../styles/Layout";
-import { AppTheme } from "../styles/colors";
 import { Typography } from "../styles/Typography";
 import { useState } from "react";
 import { prayers, Prayers } from "../data/PrayerList";
@@ -9,10 +8,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import PrayerDetailModal from "../components/PrayerDetailModal";
 import Navbar from "../components/Navbar";
 import Divider from "../components/Divider";
+import { useAppTheme } from "../hooks/useAppTheme";
 
 const PrayerListScreen = () => {
     const [selectedPrayer, setSelectedPrayer] = useState<Prayers | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const theme = useAppTheme();
 
     const openModal = (prayer: Prayers) => {
         setSelectedPrayer(prayer);
@@ -20,22 +21,22 @@ const PrayerListScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: '#ADD8E6'}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.cardOne}}>
             <Navbar />
-            <View style={[Layout.container, {backgroundColor: AppTheme.prayer.background}]}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600"}]}>Common Prayers</Text>
+            <View style={[Layout.container, {backgroundColor: theme.prayer.background}]}>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Common Prayers</Text>
                 <Divider />
                 <FlatList 
                     data={prayers} 
                     keyExtractor={item => item.title}
                     renderItem={({ item }) => (
                         <LinearGradient
-                            colors={['#ADD8E6', '#FFFFFF']}
+                            colors={[theme.prayer.cardOne, theme.prayer.cardTwo]}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 1 }}
                             style={[Layout.card, {
                                 borderRadius: 12,
-                                borderColor: AppTheme.prayer.background,
+                                borderColor: theme.prayer.background,
                                 padding: 16,
                                 marginVertical: 8,
                                 shadowColor: '#000',
@@ -46,7 +47,7 @@ const PrayerListScreen = () => {
                             }]}
                         >
                             <TouchableOpacity onPress={() => openModal(item)}>
-                                <Text style={[Typography.body, {color: AppTheme.prayer.text, fontSize: 16, fontWeight: "bold"}]}>{item.title}</Text>
+                                <Text style={[Typography.body, {color: theme.prayer.text, fontSize: 16, fontWeight: "bold"}]}>{item.title}</Text>
                             </TouchableOpacity>
                         </LinearGradient>
                     )}
