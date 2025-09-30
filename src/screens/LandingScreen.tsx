@@ -33,6 +33,18 @@ const LandingScreen = () => {
   const [loadingSaint, setLoadingSaint] = useState(false);
   const theme = useAppTheme();
 
+  const formatSaintNames = (saints: Saint[]) => {
+    if (saints.length === 1) {
+      return saints[0].name;
+    } else if (saints.length === 2) {
+      return saints.map(s => s.name).join(" and ");
+    } else {
+      const lastSaint = saints[saints.length - 1].name;
+      const otherSaints = saints.slice(0, saints.length - 1).map(s => s.name).join(", ");
+      return `${otherSaints}, and ${lastSaint}`;
+    }
+  }
+
   const fetchSaintOfTheDay = async () => {
     setLoadingSaint(true)
     const todaysSaint = await getSaintOfTheDay();
@@ -91,9 +103,11 @@ const LandingScreen = () => {
         </View>
       ) : (
             <>
-              <Text style={[Typography.label, {marginVertical: 10, textAlign: "center", color: theme.saint.text}]}>
-                Today is the feast day of {saints.map(s => s.name).join(", ")}
-              </Text>
+              {!loadingSaint && saints && saints.length > 0 && (
+                <Text style={[Typography.label, {marginBottom: 10, textAlign: "center", color: theme.saint.text}]}>
+                  Today is the feast day of {formatSaintNames(saints)}
+                </Text>
+              )}
           
               {saints.map((saint) => (
                 <View key={saint.id} style={[Layout.container, {backgroundColor: theme.saint.cardTwo, marginBottom: 16}]}>
