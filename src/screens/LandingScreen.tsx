@@ -104,13 +104,13 @@ const LandingScreen = () => {
       ) : (
             <>
               {!loadingSaint && saints && saints.length > 0 && (
-                <Text style={[Typography.label, {marginBottom: 10, textAlign: "center", color: theme.saint.text}]}>
+                <Text style={[Typography.label, {marginVertical: 10, textAlign: "center", color: theme.saint.text}]}>
                   Today is the feast day of {formatSaintNames(saints)}
                 </Text>
               )}
           
               {saints.map((saint: Saint) => (
-                <View key={saint.id} style={[Layout.container, {backgroundColor: theme.saint.cardTwo, marginBottom: 16}]}>
+                <View key={saint.id} style={[Layout.container, {backgroundColor: theme.auth.background, marginBottom: 16}]}>
                   <LinearGradient 
                       colors={[theme.saint.cardOne, theme.saint.cardTwo]}
                       start={{x: 0, y: 0.5}}

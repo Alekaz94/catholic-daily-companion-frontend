@@ -134,7 +134,7 @@ const HomeScreen = () => {
           )}
       
           {saints.map((saint: Saint) => (
-            <View key={saint.id} style={[Layout.container, {backgroundColor: theme.saint.cardTwo, marginBottom: 16}]}>
+            <View key={saint.id} style={[Layout.container, {backgroundColor: theme.auth.background, marginBottom: 16}]}>
               <LinearGradient 
                   colors={[theme.saint.cardOne, theme.saint.cardTwo]}
                   start={{x: 0, y: 0.5}}
