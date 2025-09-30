@@ -52,14 +52,11 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
             <View style={{ flex: 1, backgroundColor: theme.saint.background, justifyContent: "center"}}>
                 <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>       
                     <View style={[Layout.container, {backgroundColor: theme.saint.background, marginHorizontal: 20, borderRadius: 16, padding: 16, elevation: 5}]}>
-                        <View style={{ alignItems: 'center'}}>
-                            <Text style={[Typography.italic, { color: theme.saint.text, fontSize: 22 }]}>Saint Details</Text>
-                        </View>
+                        <Text style={[Typography.italic, { color: theme.saint.text, fontSize: 22, textAlign: "center" }]}>{saint.name}</Text>
                         <Divider />
                         <View style={{alignSelf: "center"}}>
                             {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain" defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}    
                         </View> 
-                        <Text style={[Typography.italic, {marginTop: 10, color: theme.saint.text, fontSize: 22, textAlign: "center"}]}>{saint.name}</Text>
                         <View style={{
                             width: "100%", 
                             borderWidth: 1,

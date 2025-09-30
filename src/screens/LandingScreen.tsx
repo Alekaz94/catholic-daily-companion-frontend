@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -27,16 +27,21 @@ type LandingNavigationProp = NativeStackNavigationProp<
 
 const LandingScreen = () => {
   const navigation = useNavigation<LandingNavigationProp>();
-  const [saint, setSaint] = useState<Saint | null>(null);
+  const [saints, setSaints] = useState<Saint[] | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
+  const [loadingSaint, setLoadingSaint] = useState(false);
   const theme = useAppTheme();
 
   const fetchSaintOfTheDay = async () => {
+    setLoadingSaint(true)
     const todaysSaint = await getSaintOfTheDay();
     if(!todaysSaint) {
+      setLoadingSaint(false);
       return;
     }
-    setSaint(todaysSaint);
+    setSaints(todaysSaint);
+    setLoadingSaint(false);
   }
 
   useEffect(() => {
@@ -55,37 +60,67 @@ const LandingScreen = () => {
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
       <Divider />
-        {!saint 
-          ? <View style={{
+      {loadingSaint ? (
+        <View style={[Layout.container, {
+          padding: 16,
+          marginVertical: 12,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: theme.saint.background,
+          borderRadius: 12,
+          marginHorizontal: 16,
+          }]}
+        >
+          <ActivityIndicator size="small" color={theme.saint.text} />
+          <Text style={[Typography.label, { marginTop: 8, textAlign: "center", fontSize: 14, color: theme.saint.text }]}>
+            Loading saint of the day...
+          </Text>
+        </View>
+        ) : !saints || saints.length === 0 ? (
+        <View style={{
             borderRadius: 12,
             padding: 16,
             marginVertical: 12,
             marginHorizontal:16,
             borderWidth: 1,
             borderColor: "#ddd",
-            backgroundColor: theme.saint.background }}
-            >
-              <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>No feast day today.</Text>
-            </View>
-          : <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
-            <LinearGradient 
-              colors={[theme.saint.cardOne, theme.saint.cardTwo]}
-              start={{x: 0, y: 0.5}}
-              end={{x: 1, y: 0.5}}
-              style={[Layout.card, {borderRadius: 12, padding: 15}]}>
-            <Text style={[Typography.label, {textAlign: "center", marginBottom: 10, color: theme.saint.text}]}>Today is the feast day of {saint?.name}</Text>
-            <TouchableOpacity 
-              onPress={() => {
-                setModalVisible(true);
-              }}
-              style={{alignItems: "center"}}
-            >
-              {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl)}} defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint}/> }
-              <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]} >{saint.name}</Text>
-            </TouchableOpacity> 
-          </LinearGradient>
-          </View>
-    }
+            backgroundColor: theme.saint.background 
+          }}
+        >
+          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>No feast day today.</Text>
+        </View>
+      ) : (
+            <>
+              <Text style={[Typography.label, {marginVertical: 10, textAlign: "center", color: theme.saint.text}]}>
+                Today is the feast day of {saints.map(s => s.name).join(", ")}
+              </Text>
+          
+              {saints.map((saint) => (
+                <View key={saint.id} style={[Layout.container, {backgroundColor: theme.saint.cardTwo, marginBottom: 16}]}>
+                  <LinearGradient 
+                      colors={[theme.saint.cardOne, theme.saint.cardTwo]}
+                      start={{x: 0, y: 0.5}}
+                      end={{x: 1, y: 0.5}}
+                      style={[Layout.card, {borderRadius: 12}]}
+                  >
+                    <TouchableOpacity 
+                      onPress={() => {
+                        setModalVisible(true);
+                        setSelectedSaint(saint)
+                      }}
+                      style={{alignItems: "center"}}
+                    >
+                      {saint.imageUrl 
+                        ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} defaultSource={defaultSaint}/> 
+                        : <Image style={Layout.image} source={defaultSaint}/> 
+                      }
+                      <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]}>{saint.name}</Text>
+                    </TouchableOpacity> 
+                  </LinearGradient>
+                </View>
+              ))}
+            </>
+      )}
     
     <Divider />
     <View style={{ 
@@ -136,7 +171,7 @@ const LandingScreen = () => {
     
     <SaintDetailModal 
       visible={modalVisible}
-      saint={saint}
+      saint={selectedSaint}
       onClose={() => setModalVisible(false)}
     />
     </ScrollView>

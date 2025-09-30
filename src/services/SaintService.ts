@@ -19,8 +19,8 @@ export const getSpecificSaint = async (id: string): Promise<Saint> => {
     return res.data;
 }
 
-export const getSaintOfTheDay = async (): Promise<Saint> => {
-    const res = await API.get<Saint>(`${endpoint}/today`);
+export const getSaintOfTheDay = async (): Promise<Saint[]> => {
+    const res = await API.get<Saint[]>(`${endpoint}/today`);
     return res.data;
 }
 

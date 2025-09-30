@@ -30,7 +30,8 @@ type HomeNavigationProp = NativeStackNavigationProp<
 
 const HomeScreen = () => {
   const navigation = useNavigation<HomeNavigationProp>();
-  const [saint, setSaint] = useState<Saint | null>(null);
+  const [saints, setSaints] = useState<Saint[] | null>(null);
+  const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSaint, setLoadingSaint] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -50,7 +51,7 @@ const HomeScreen = () => {
       setLoadingSaint(false);
       return;
     }
-    setSaint(todaysSaint);
+    setSaints(todaysSaint);
     setLoadingSaint(false);
   }
 
@@ -99,41 +100,50 @@ const HomeScreen = () => {
             Loading saint of the day...
           </Text>
         </View>
-      ) : !saint ? (
+        ) : !saints || saints.length === 0 ? (
         <View style={{
-          borderRadius: 12,
-          padding: 16,
-          marginVertical: 12,
-          marginHorizontal:16,
-          borderWidth: 1,
-          borderColor: "#ddd",
-          backgroundColor: theme.saint.background 
-        }}
+            borderRadius: 12,
+            padding: 16,
+            marginVertical: 12,
+            marginHorizontal:16,
+            borderWidth: 1,
+            borderColor: "#ddd",
+            backgroundColor: theme.saint.background 
+          }}
         >
           <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>No feast day today.</Text>
         </View>
       ) : (
-        (
-          <View style={[Layout.container, {backgroundColor: theme.saint.cardTwo}]}>
-            <LinearGradient 
-                colors={[theme.saint.cardOne, theme.saint.cardTwo]}
-                start={{x: 0, y: 0.5}}
-                end={{x: 1, y: 0.5}}
-                style={[Layout.card, {borderRadius: 12}]}
-            >
-              <Text style={[Typography.label, {marginBottom: 10, textAlign: "center", color: theme.saint.text}]}>Today is the feast day of {saint?.name}</Text>
-              <TouchableOpacity 
-                onPress={() => {
-                  setModalVisible(true);
-                }}
-                style={{alignItems: "center"}}
+        <>
+          <Text style={[Typography.label, {marginVertical: 10, textAlign: "center", color: theme.saint.text}]}>
+            Today is the feast day of {saints.map(s => s.name).join(", ")}
+          </Text>
+      
+          {saints.map((saint) => (
+            <View key={saint.id} style={[Layout.container, {backgroundColor: theme.saint.cardTwo, marginBottom: 16}]}>
+              <LinearGradient 
+                  colors={[theme.saint.cardOne, theme.saint.cardTwo]}
+                  start={{x: 0, y: 0.5}}
+                  end={{x: 1, y: 0.5}}
+                  style={[Layout.card, {borderRadius: 12}]}
               >
-                {saint.imageUrl ? <Image style={Layout.image} source={{  uri: buildImageUri(saint.imageUrl) }} defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint}/> }
-                <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]} >{saint.name}</Text>
-              </TouchableOpacity> 
-            </LinearGradient>
-          </View>
-        )
+                <TouchableOpacity 
+                  onPress={() => {
+                    setModalVisible(true);
+                    setSelectedSaint(saint)
+                  }}
+                  style={{alignItems: "center"}}
+                >
+                  {saint.imageUrl 
+                    ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} defaultSource={defaultSaint}/> 
+                    : <Image style={Layout.image} source={defaultSaint}/> 
+                  }
+                  <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]}>{saint.name}</Text>
+                </TouchableOpacity> 
+              </LinearGradient>
+            </View>
+          ))}
+        </>
       )}
 
       {user?.role === "ADMIN" 
@@ -144,7 +154,7 @@ const HomeScreen = () => {
       
       <SaintDetailModal 
         visible={modalVisible}
-        saint={saint}
+        saint={selectedSaint}
         onClose={() => setModalVisible(false)}
       />
     </ScrollView>
