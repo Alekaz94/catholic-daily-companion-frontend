@@ -153,6 +153,14 @@ const ProfileScreen = () => {
                         <Text style={[Typography.body, {color: theme.auth.text}]}>Email: </Text>
                         <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.email ?? 'Unknown'}</Text>
                     </View>
+                    <View style={{flexDirection: "row", marginVertical: 5}}> 
+                        <Text style={[Typography.body, {color: theme.auth.text}]}>Account created: </Text> 
+                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.createdAt ?? ''}</Text> 
+                    </View> 
+                    <View style={{flexDirection: "row", marginVertical: 5}}> 
+                        <Text style={[Typography.body, {color: theme.auth.text}]}>Account updated: </Text> 
+                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.updatedAt ?? ''}</Text> 
+                    </View>
                 </View>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
