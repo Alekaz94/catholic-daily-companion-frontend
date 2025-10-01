@@ -104,7 +104,7 @@ const LandingScreen = () => {
       ) : (
             <>
               {!loadingSaint && saints && saints.length > 0 && (
-                <Text style={[Typography.label, {marginVertical: 10, textAlign: "center", color: theme.saint.text}]}>
+                <Text style={[Typography.label, {marginVertical: 10, padding: 5, textAlign: "center", color: theme.saint.text}]}>
                   Today is the feast day of {formatSaintNames(saints)}
                 </Text>
               )}
