@@ -17,4 +17,7 @@ export type AuthStackParamList = {
   PrayerList: undefined;
   GoogleLogin: undefined;
   CalendarModal: undefined;
+  Settings: undefined;
+  "Privacy Policy": undefined;
+  Feedback: undefined;
 };

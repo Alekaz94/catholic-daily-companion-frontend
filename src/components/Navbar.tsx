@@ -9,6 +9,8 @@ import { Layout } from "../styles/Layout";
 import CalendarModal from "./CalendarModal";
 import { Typography } from "../styles/Typography";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { useTheme } from "../context/ThemeContext";
+import { useDrawer } from "../context/DrawerContext";
 
 type NavbarNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
 
@@ -19,63 +21,68 @@ type NavbarButtonConfig = {
   activeScreens?: (keyof AuthStackParamList)[];
 };
 
+type NavbarProps = {
+    openDrawer?: () => void;
+};
+
 const Navbar = () => {
   const theme = useAppTheme();
+  const {isDark} = useTheme();
 
   const screenStyles: Record<string, { backgroundColor: string; buttons: NavbarButtonConfig[]}> = {
       Home: {
         backgroundColor: theme.auth.navbar,
         buttons: [
-          { title: "Home", screen: "Home", icon: "home-outline" },
-          { title: "Saints", screen: "Saint", icon: "people-outline" },
-          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+          { title: "Home", screen: "Home", icon: isDark ? "home-outline" : "home" },
+          { title: "Saints", screen: "Saint", icon: isDark ? "people-outline" : "people" },
+          { title: "Journal", screen: "Journal", icon: isDark ? "book-outline" : "book" , activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: isDark ? "heart-outline" : "heart", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
         ],
       },
       Journal: {
         backgroundColor: theme.journal.primary,
         buttons: [
-          { title: "Home", screen: "Home", icon: "home-outline" },
-          { title: "Saints", screen: "Saint", icon: "people-outline" },
-          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+          { title: "Home", screen: "Home", icon: isDark ? "home-outline" : "home" },
+          { title: "Saints", screen: "Saint", icon: isDark ? "people-outline" : "people" },
+          { title: "Journal", screen: "Journal", icon: isDark ? "book-outline" : "book" , activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: isDark ? "heart-outline" : "heart", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
         ],
       },
       CreateJournalEntry: {
         backgroundColor: theme.journal.primary,
         buttons: [
-          { title: "Home", screen: "Home", icon: "home-outline" },
-          { title: "Saints", screen: "Saint", icon: "people-outline" },
-          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+          { title: "Home", screen: "Home", icon: isDark ? "home-outline" : "home" },
+          { title: "Saints", screen: "Saint", icon: isDark ? "people-outline" : "people" },
+          { title: "Journal", screen: "Journal", icon: isDark ? "book-outline" : "book" , activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: isDark ? "heart-outline" : "heart", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
         ],
       },
       Prayer: {
         backgroundColor: theme.prayer.primary,
         buttons: [
-          { title: "Home", screen: "Home", icon: "home-outline" },
-          { title: "Saints", screen: "Saint", icon: "people-outline" },
-          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-        ]
+          { title: "Home", screen: "Home", icon: isDark ? "home-outline" : "home" },
+          { title: "Saints", screen: "Saint", icon: isDark ? "people-outline" : "people" },
+          { title: "Journal", screen: "Journal", icon: isDark ? "book-outline" : "book" , activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: isDark ? "heart-outline" : "heart", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ],
       },
       PrayerList: {
         backgroundColor: theme.prayer.primary,
         buttons: [
-          { title: "Home", screen: "Home", icon: "home-outline" },
-          { title: "Saints", screen: "Saint", icon: "people-outline" },
-          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-        ]
+          { title: "Home", screen: "Home", icon: isDark ? "home-outline" : "home" },
+          { title: "Saints", screen: "Saint", icon: isDark ? "people-outline" : "people" },
+          { title: "Journal", screen: "Journal", icon: isDark ? "book-outline" : "book" , activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: isDark ? "heart-outline" : "heart", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ],
       },
       Rosary: {
         backgroundColor: theme.prayer.primary,
         buttons: [
-          { title: "Home", screen: "Home", icon: "home-outline" },
-          { title: "Saints", screen: "Saint", icon: "people-outline" },
-          { title: "Journal", screen: "Journal", icon: "book-outline", activeScreens: ["Journal", "CreateJournalEntry"] },
-          { title: "Prayers", screen: "Prayer", icon: "heart-outline", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
-        ]
+          { title: "Home", screen: "Home", icon: isDark ? "home-outline" : "home" },
+          { title: "Saints", screen: "Saint", icon: isDark ? "people-outline" : "people" },
+          { title: "Journal", screen: "Journal", icon: isDark ? "book-outline" : "book" , activeScreens: ["Journal", "CreateJournalEntry"] },
+          { title: "Prayers", screen: "Prayer", icon: isDark ? "heart-outline" : "heart", activeScreens: ["Prayer", "Rosary", "PrayerList"] },
+        ],
       }
     };
 
@@ -84,6 +91,7 @@ const Navbar = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const currentScreen = route.name;
     const config = screenStyles[currentScreen] || screenStyles["Home"];
+    const { openDrawer } = useDrawer();
 
     const isProfileActive = currentScreen === "Profile";
     const isCalendarActive = modalVisible;    
@@ -97,13 +105,14 @@ const Navbar = () => {
             
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 12}}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <NavButton
-                title="Profile"
-                icon="person-circle-outline"
-                style={{ backgroundColor: config.backgroundColor }}
-                isActive={route.name === "Profile"}
-                onPress={() => navigation.navigate("Profile")}
-              />
+              <TouchableOpacity
+                onPress={openDrawer}
+                style={{ paddingHorizontal: 10, paddingVertical: 5}}
+                accessibilityLabel="Open menu"
+                accessibilityRole="button"
+              >
+                <Ionicons name={isDark ? "menu-outline" : "menu"} size={28} color={theme.auth.text} />
+              </TouchableOpacity>
 
               {config.buttons.map((btn) => (
                   <NavButton 
@@ -119,7 +128,7 @@ const Navbar = () => {
                 
               <NavButton
                 title="Calendar"
-                icon="calendar-outline"
+                icon= {isDark ? "calendar-outline" : "calendar"}
                 isActive={modalVisible}
                 style={{ backgroundColor: config.backgroundColor }}
                 onPress={() => setModalVisible(true)}

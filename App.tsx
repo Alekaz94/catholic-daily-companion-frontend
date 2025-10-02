@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import { ActivityIndicator } from 'react-native';
-import AppNavigator from './src/navigation/AppNavigation';
 import { AuthProvider } from './src/context/AuthContext';
 import { firebaseLogin, loadUserFromStorage } from './src/services/AuthService';
 import { RootSiblingParent } from 'react-native-root-siblings';
@@ -12,6 +11,7 @@ import { navigationRef } from './src/navigation/RootNavigation';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from './src/context/ThemeContext';
+import DrawerNavigatorWrapper from './src/navigation/DrawerNavigatorWrapper';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -77,7 +77,7 @@ export default function App() {
         <AuthProvider>
           <ThemeProvider>
             <NavigationContainer ref={navigationRef}>
-              <AppNavigator />
+              <DrawerNavigatorWrapper />
             </NavigationContainer>
           </ThemeProvider>
         </AuthProvider>

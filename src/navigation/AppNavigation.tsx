@@ -19,6 +19,9 @@ import SaintCreateScreen from '../screens/SaintCreateScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import GoogleLogin from '../components/GoogleLogin';
 import CalendarModal from '../components/CalendarModal';
+import FeedbackScreen from '../screens/FeedbackScreen';
+import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -45,7 +48,9 @@ const AppNavigator = () => {
           <Stack.Screen name="Prayer" component={PrayerScreen} />
           <Stack.Screen name="Rosary" component={RosaryScreen} />
           <Stack.Screen name="PrayerList" component={PrayerListScreen} />
-          <Stack.Screen name="CalendarModal" component={CalendarModal} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="Privacy Policy" component={PrivacyPolicyScreen} />
+          <Stack.Screen name="Feedback" component={FeedbackScreen} />
         </>
       ) : (
         <>
@@ -62,5 +67,3 @@ const AppNavigator = () => {
 
 export default AppNavigator;
 
-//          <Stack.Screen name="Reading" component={DailyReadingScreen} />
-//          <Stack.Screen name="PastReadings" component={PastReadingsScreen} />
