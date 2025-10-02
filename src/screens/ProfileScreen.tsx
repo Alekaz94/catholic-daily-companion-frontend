@@ -8,7 +8,6 @@ import { changePassword } from '../services/UserService';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
 import Navbar from '../components/Navbar';
-import LogoutButton from '../components/LogoutButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-root-toast';
@@ -36,7 +35,6 @@ const ProfileScreen = () => {
     const isOAuthUser = user?.email?.toLowerCase().endsWith("@gmail.com");
     const navigation = useNavigation<ProfileNavigationProp>();
     const theme = useAppTheme();
-    const { isDark, toggleTheme } = useTheme();
 
     const isFormValid = () => {
       return (
@@ -245,8 +243,6 @@ const ProfileScreen = () => {
                         Password changes are managed through your Google account.
                     </Text>
                 )}
-                <Divider />
-                <LogoutButton />
                 </View>
             </ScrollView>
             </TouchableWithoutFeedback>
