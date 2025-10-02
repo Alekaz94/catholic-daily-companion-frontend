@@ -29,11 +29,6 @@ const formatFeastDayToFeastCode = (date: string): string => {
     return `${month}-${day}`;
 };
 
-type CalendarNavigationProp = NativeStackNavigationProp<
-  AuthStackParamList,
-  "CalendarModal"
->
-
 const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
     const { user } = useAuth();
     const theme = useAppTheme();

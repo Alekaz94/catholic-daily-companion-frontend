@@ -145,11 +145,11 @@ const ProfileScreen = () => {
                 <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>My Profile</Text>
                 <Divider />
                 <View style={{marginVertical: 20}}>
-                    <View style={{flexDirection: "row"}}>
+                    <View style={{flexDirection: "row", marginVertical: 5}}>
                         <Text style={[Typography.body, {color: theme.auth.text}]}>Name: </Text>
                         <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
                     </View>
-                    <View style={{flexDirection: "row", marginTop: 5}}>
+                    <View style={{flexDirection: "row", marginVertical: 5}}>
                         <Text style={[Typography.body, {color: theme.auth.text}]}>Email: </Text>
                         <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.email ?? 'Unknown'}</Text>
                     </View>
@@ -163,17 +163,6 @@ const ProfileScreen = () => {
                     </View>
                 </View>
 
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-                    <Text style={[Typography.body, { color: theme.auth.text, marginRight: 10 }]}>
-                        Dark Mode
-                    </Text>
-                    <Switch
-                        value={isDark}
-                        onValueChange={toggleTheme}
-                        trackColor={{ false: '#767577', true: '#81b0ff' }}
-                        thumbColor={isDark ? "#59512e" : '#f4f3f4'}
-                    />
-                </View>
                 <Divider />
                 {!isOAuthUser && (
                     <>

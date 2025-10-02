@@ -64,13 +64,34 @@ const FeedbackScreen = () => {
               <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>Category</Text>
               <View style={{ flexDirection: 'row', marginTop: 10 }}>
                 <TouchableOpacity onPress={() => setCategory('suggestion')} style={{ marginRight: 20 }}>
-                  <Text style={{ color: category === 'suggestion' ? theme.auth.text : '#888' }}>Suggestion</Text>
+                  <Text style={{ 
+                    color: category === 'suggestion' ? theme.auth.text : '#888',
+                    borderWidth: category === "suggestion" ? 1 : 0,
+                    padding: 5,
+                    borderRadius: 6
+                  }}>
+                    Suggestion
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setCategory('bug')} style={{ marginRight: 20 }}>
-                  <Text style={{ color: category === 'bug' ? theme.auth.text : '#888' }}>Bug</Text>
+                  <Text style={{ 
+                    color: category === 'bug' ? theme.auth.text : '#888',
+                    borderWidth: category === "bug" ? 1 : 0,
+                    padding: 5,
+                    borderRadius: 6
+                  }}>
+                    Bug
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setCategory('other')}>
-                  <Text style={{ color: category === 'other' ? theme.auth.text : '#888' }}>Other</Text>
+                  <Text style={{ 
+                    color: category === 'other' ? theme.auth.text : '#888', 
+                    borderWidth: category === "other" ? 1 : 0,
+                    padding: 5,
+                    borderRadius: 6
+                  }}>
+                    Other
+                  </Text>
                 </TouchableOpacity>
               </View>
 

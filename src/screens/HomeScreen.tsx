@@ -49,7 +49,7 @@ const HomeScreen = () => {
       return `${otherSaints}, and ${lastSaint}`;
     }
   }
-
+  
   const onRefresh = async () => {
     setRefreshing(true);
     await fetchSaintOfTheDay();
