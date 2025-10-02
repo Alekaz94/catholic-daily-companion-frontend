@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal, TouchableWithoutFeedback, Keyboard, Switch } from 'react-native';
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
@@ -15,7 +15,8 @@ import { ActivityIndicator } from 'react-native';
 import { Colors } from '../styles/colors';
 import Divider from '../components/Divider';
 import { useAppTheme } from '../hooks/useAppTheme';
-import { useTheme } from '../context/ThemeContext';
+import * as SecureStore from 'expo-secure-store';
+import { getStreak } from '../services/RosaryService';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -32,6 +33,8 @@ const ProfileScreen = () => {
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+    const [streak, setStreak] = useState<number>(0);
+    const [highestStreak, setHighestStreak] = useState<number>(0);
     const isOAuthUser = user?.email?.toLowerCase().endsWith("@gmail.com");
     const navigation = useNavigation<ProfileNavigationProp>();
     const theme = useAppTheme();
@@ -134,6 +137,31 @@ const ProfileScreen = () => {
         }
     }
 
+    useEffect(() => {
+        const fetchStreak = async () => {
+            if(user) {
+                try {
+                    const currentStreak = await getStreak(user.id);
+                    setStreak(currentStreak);
+                    
+                    const storedHighest = await SecureStore.getItemAsync("streak");
+                    const highest = storedHighest ? parseInt(storedHighest) : 0;
+
+                    if(currentStreak > highest) {
+                        await SecureStore.setItemAsync("streak", currentStreak.toString());
+                        setHighestStreak(currentStreak);
+                    } else {
+                        setHighestStreak(highest);
+                    }
+                } catch (error) {
+                    console.error("Could not retrieve rosary streak for user", error);
+                }
+            }
+        }
+
+        fetchStreak();
+    }, [user])
+
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.navbar}}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -142,7 +170,9 @@ const ProfileScreen = () => {
                 <View style={Layout.container}>
                 <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>My Profile</Text>
                 <Divider />
-                <View style={{marginVertical: 20}}>
+                <View style={{marginVertical: 15}}>
+                    <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>User Info</Text>
+                    <Divider />
                     <View style={{flexDirection: "row", marginVertical: 5}}>
                         <Text style={[Typography.body, {color: theme.auth.text}]}>Name: </Text>
                         <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
@@ -161,10 +191,23 @@ const ProfileScreen = () => {
                     </View>
                 </View>
 
-                <Divider />
+                <View style={{marginVertical: 15}}>
+                    <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Rosary Info</Text>
+                    <Divider />
+                    <View style={{flexDirection: "row", marginVertical: 5}}>
+                        <Text style={[Typography.body, {color: theme.auth.text}]}>Highest prayed rosary streak: </Text>
+                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{highestStreak}</Text>
+                    </View>
+                    <View style={{flexDirection: "row", marginVertical: 5}}>
+                        <Text style={[Typography.body, {color: theme.auth.text}]}>Current prayed streak: </Text>
+                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{streak}</Text>
+                    </View>
+                </View>
+
                 {!isOAuthUser && (
-                    <>
-                        <Text style={[Typography.label, {marginBottom: 10, fontWeight: "bold", color: theme.auth.text}]}>Change Password</Text>
+                    <View style={{marginVertical: 15}}>
+                        <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Password Change</Text>
+                        <Divider />
                         <Text style={[Typography.label, {color: theme.auth.text}]}>Current Password:</Text>
                         <View style={{ position: 'relative' }}>
                             <TextInput
@@ -235,13 +278,17 @@ const ProfileScreen = () => {
                                 <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Update Password</Text>
                             )}
                         </TouchableOpacity>
-                    </>
+                    </View>
                 )}
 
                 {isOAuthUser && (
-                    <Text style={[Typography.label, { color: theme.auth.smallText, marginVertical: 20, fontSize: 18, textAlign: "center" }]}>
-                        Password changes are managed through your Google account.
-                    </Text>
+                    <View style={{marginVertical: 15}}>
+                        <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Password Change</Text>
+                        <Divider />
+                        <Text style={[Typography.label, { color: theme.auth.smallText, fontSize: 18, textAlign: "center", marginVertical: 5}]}>
+                            Password changes are managed through your Google account.
+                        </Text>
+                    </View>
                 )}
                 </View>
             </ScrollView>
