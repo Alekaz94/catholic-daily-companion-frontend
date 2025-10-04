@@ -22,6 +22,8 @@ import CalendarModal from '../components/CalendarModal';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import AdminAllUsersScreen from '../screens/AdminAllUsersScreen';
+import AdminFeedbackScreen from '../screens/AdminFeedbackScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -39,6 +41,8 @@ const AppNavigator = () => {
       {user ? (
         <>
           {user.role === "ADMIN" && <Stack.Screen name='AdminPanel' component={AdminPanelScreen} />}
+          {user.role === "ADMIN" && <Stack.Screen name="AdminAllUsersScreen" component={AdminAllUsersScreen} />}
+          {user.role === "ADMIN" && <Stack.Screen name="AdminFeedbackScreen" component={AdminFeedbackScreen} />}
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Saint" component={SaintScreen} />
           <Stack.Screen name="CreateSaint" component={SaintCreateScreen} />

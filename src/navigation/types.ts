@@ -20,4 +20,6 @@ export type AuthStackParamList = {
   Settings: undefined;
   "Privacy Policy": undefined;
   Feedback: undefined;
+  AdminAllUsersScreen: undefined;
+  AdminFeedbackScreen: undefined;
 };

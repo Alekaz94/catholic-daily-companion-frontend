@@ -31,7 +31,6 @@ const EmailAndPasswordLoginScreen = () => {
     try {
       setIsLoading(true);
       await login(email, password);
-      alert('Login successfull!');
     } catch (err: any) {
       console.error('Error:', err.response?.data || err.message);
       alert(err.response?.data || 'Something went wrong!');

@@ -255,13 +255,19 @@ const SaintScreen = () => {
                 <SaintDetailModal 
                     visible={modalVisible}
                     saint={selectedSaint}
-                    onClose={() => setModalVisible(false)}
+                    onClose={() => {
+                        setModalVisible(false)
+                        setSelectedSaint(null)
+                    }}
                 />
 
                 <SaintUpdateModal
                     visible={editSaintModalVisible}
                     saint={saintToEdit}
-                    onClose={() => setEditSaintModalVisible(false)}
+                    onClose={() => { 
+                        setEditSaintModalVisible(false)
+                        setSaintToEdit(null)
+                    }}
                     onUpdate={handleUpdate}
                 />
             </View>
@@ -291,7 +297,10 @@ const SaintScreen = () => {
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={[Layout.button, {backgroundColor: Colors.error, width: "30%"}]}
-                                onPress={() => setIsVisibleDelete(false)}
+                                onPress={() => {
+                                    setIsVisibleDelete(false)
+                                    setSaintToDelete(null)
+                                }}
                             >
                                 <Text style={[Typography.body, {color: theme.saint.text}]}>Cancel</Text>
                             </TouchableOpacity>

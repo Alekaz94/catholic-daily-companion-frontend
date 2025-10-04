@@ -158,9 +158,6 @@ const JournalEntryListScreen = () => {
                                     borderColor: theme.journal.background,
                                     padding: 16,
                                     marginVertical: 8,
-                                    shadowColor: '#000',
-                                    shadowOffset: { width: 0, height: 2 },
-                                    shadowOpacity: 0.1,
                                     shadowRadius: 6,
                                     elevation: 3, 
                                 }]}
@@ -226,13 +223,19 @@ const JournalEntryListScreen = () => {
                 <EntryDetailModal 
                     visible={modalVisible}
                     entry={selectedEntry}
-                    onClose={() => setModalVisible(false)} 
+                    onClose={() => {
+                        setModalVisible(false)
+                        setSelectedEntry(null)
+                    }}
                 />
 
                 <JournalEntryUpdateModal 
                     visible={editModalVisible}
                     entry={entryToEdit}
-                    onClose={() => setEditModalVisible(false)}
+                    onClose={() => { 
+                        setEditModalVisible(false)
+                        setEntryToEdit(null)
+                    }}
                     onUpdate={handleUpdate}
                 />
                 </View>
