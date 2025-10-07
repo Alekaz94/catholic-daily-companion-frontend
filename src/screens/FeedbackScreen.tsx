@@ -112,7 +112,9 @@ const FeedbackScreen = () => {
                   {
                     backgroundColor: message.trim().length >= 5 ? theme.auth.navbar : '#ccc',
                     marginTop: 30,
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    borderColor: "#ccc"
                   }
                 ]}
                 disabled={isLoading || message.trim().length < 5}

@@ -1,4 +1,4 @@
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context"
 import { Layout } from "../styles/Layout";
 import Navbar from "../components/Navbar";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
@@ -7,7 +7,7 @@ import Divider from "../components/Divider";
 import { Typography } from "../styles/Typography";
 import { useEffect, useState } from "react";
 import { Feedback } from "../models/Feedback";
-import { getAllFeedback } from "../services/FeedbackService";
+import { getAllFeedback, updateFeedback } from "../services/FeedbackService";
 import { FlatList } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import AdminFeedbackModal from "../components/AdminFeedbackModal";
@@ -28,6 +28,37 @@ const AdminFeedbackScreen = () => {
     const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation<AdminFeedbackNavigationProp>();
+    const [showFixed, setShowFixed] = useState(false);
+
+    const handleUpdate = async () => {
+        if(!selectedFeedback) {
+            return;
+        }
+
+        const newStatus = selectedFeedback.isFixed === true ? false : true;
+
+        try {
+            setIsLoading(true);
+
+            const updatedFeedback = await updateFeedback(selectedFeedback.id, {
+                isFixed: newStatus
+            });
+
+            setFeedback(prevFeedbacks => 
+                prevFeedbacks.map(fb => 
+                    fb.id === updatedFeedback.id ? updatedFeedback : fb
+                )
+            );
+            
+            setSelectedFeedback(updatedFeedback);
+
+            setModalVisible(false);
+        } catch (error) {
+            console.error("Failed to update feedback", error);
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     useEffect(() => {
         const fetchFeedback = async () => {
@@ -44,6 +75,8 @@ const AdminFeedbackScreen = () => {
 
         fetchFeedback();
     }, [])
+    
+    const filteredFeedback = feedback.filter(fb => fb.isFixed === showFixed);
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.background}}>
@@ -51,13 +84,32 @@ const AdminFeedbackScreen = () => {
             <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
                 <Text style={[Typography.italic, {fontSize: 22, marginBottom: 10, textAlign: "center", color: theme.auth.text}]}>All Feedback</Text>
                 <Divider />
+
+                <View style={{ alignItems: "center", marginBottom: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => setShowFixed(prev => !prev)}
+                        style={{
+                        paddingVertical: 6,
+                        paddingHorizontal: 12,
+                        borderRadius: 6,
+                        backgroundColor: theme.auth.navbar,
+                        borderWidth: 1,
+                        borderColor: "#ccc",
+                        }}
+                    >
+                        <Text style={{ color: theme.auth.text }}>
+                            {showFixed ? "Show Unfixed Feedback" : "Show Fixed Feedback"}
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
                 {isLoading ? 
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <ActivityIndicator size="large" color="gray" />
                     </View> 
                 : (
                     <FlatList
-                        data={feedback}
+                        data={filteredFeedback}
                         keyExtractor={item => item.id}
                         renderItem={({item}) => (
                             <LinearGradient
@@ -66,7 +118,7 @@ const AdminFeedbackScreen = () => {
                                 end={{ x: 1, y: 1 }}
                                 style={[Layout.card, {
                                     borderWidth: 1,
-                                    borderColor: theme.auth.text,
+                                    borderColor: "#ccc",
                                     shadowRadius: 6,
                                     elevation: 3, 
                                     borderRadius: 12,
@@ -104,7 +156,8 @@ const AdminFeedbackScreen = () => {
                 onClose={() => {
                     setModalVisible(false);
                     setSelectedFeedback(null);
-                }}            
+                }}
+                handleUpdate={handleUpdate}      
             />
         </SafeAreaView>
     )
