@@ -75,7 +75,7 @@ const EmailAndPasswordLoginScreen = () => {
           </View>
           
           <View style={{flexDirection: "row"}}>
-            <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
+            <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
               {isLoading ? (
                 <ActivityIndicator color={theme.auth.text} /> 
               ) : (

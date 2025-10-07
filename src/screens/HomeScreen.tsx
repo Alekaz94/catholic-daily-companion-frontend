@@ -161,7 +161,7 @@ const HomeScreen = () => {
       )}
 
       {user?.role === "ADMIN" 
-        && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10, borderWidth: 1, borderColor: theme.auth.text}]}>
+        && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10}]}>
           <Text style={[Typography.link, {color: theme.auth.text}]}>Go to Admin Panel</Text>
         </TouchableOpacity>
       )}

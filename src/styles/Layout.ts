@@ -77,12 +77,12 @@ export const Layout: LayoutStyles = {
       fontSize: 16,
     },
     button: {
-      backgroundColor: Colors.primary,
       paddingVertical: 12,
       borderRadius: 8,
       alignItems: 'center' as const,
       marginTop: 10,
-      borderColor: "#aaa"
+      borderColor: "#ccc",
+      borderWidth: 1
     },
     buttonText: {
         color: "black",

@@ -35,14 +35,14 @@ const RosaryHistoryModal: React.FC<Props> = ({visible, onClose, history}) => {
                             <Text style={[Typography.body, {textAlign: "center", color: theme.prayer.text}]}>No rosary history available.</Text>
                         ) : (
                             history.map((entry) => (
-                                <Text key={entry.id} style={[Typography.body, {fontSize: 16, marginBottom: 4, color: theme.prayer.text}]}>
+                                <Text key={entry.id} style={[Typography.body, {fontSize: 16, marginBottom: 4, color: theme.prayer.text, textAlign: "center"}]}>
                                     {entry.date} - {entry.completed ? "✅" : "❌"}
                                 </Text>
                             ))
                         )}
                     </ScrollView>
 
-                    <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.prayer.cardOne, borderWidth: 1}]}>
+                    <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.prayer.cardOne}]}>
                         <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.prayer.text}]}>Close</Text>
                     </TouchableOpacity>
                 </View>

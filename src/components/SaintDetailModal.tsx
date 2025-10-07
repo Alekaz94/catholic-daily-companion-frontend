@@ -84,7 +84,7 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                         <Divider />
                         <Text style={[Typography.body, {lineHeight: 20, textAlign: "justify", color: theme.saint.text}]}>{saint.biography}</Text>
                         <Divider />
-                        <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.saint.button, borderWidth: 1, borderColor: "#aaa"}]}>
+                        <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.saint.button}]}>
                             <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.saint.text}]}>Close</Text>
                         </TouchableOpacity> 
                     </View>

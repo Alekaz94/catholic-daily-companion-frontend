@@ -31,7 +31,7 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
                 <Divider />
                 <Text style={[Typography.body, {marginTop: 20, marginBottom: 20, color: theme.journal.text, fontSize: 18}]}>{entry.content}</Text>
 
-                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.journal.button, borderWidth: 1}]}>
+                <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.journal.button}]}>
                     <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.journal.text}]}>Close</Text>
                 </TouchableOpacity> 
             </View>

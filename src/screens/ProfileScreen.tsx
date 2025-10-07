@@ -183,11 +183,11 @@ const ProfileScreen = () => {
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}> 
                         <Text style={[Typography.body, {color: theme.auth.text}]}>Account created: </Text> 
-                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.createdAt ?? ''}</Text> 
+                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.createdAt ?? 'Unknown'}</Text> 
                     </View> 
                     <View style={{flexDirection: "row", marginVertical: 5}}> 
                         <Text style={[Typography.body, {color: theme.auth.text}]}>Account updated: </Text> 
-                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.updatedAt ?? ''}</Text> 
+                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.updatedAt ?? 'Unknown'}</Text> 
                     </View>
                 </View>
 
@@ -242,7 +242,7 @@ const ProfileScreen = () => {
                             >
                                 <Ionicons name={showNewPassword ? "eye-off" : "eye"} size={22} color="gray" />                            
                             </TouchableOpacity>
-                            <Text style={{ fontSize: 12, color: theme.auth.text, marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
+                            <Text style={{ fontSize: 12, color: theme.auth.smallText, marginTop: 2, marginBottom: 15, fontStyle: 'italic' }}>
                                 Password must be at least 8 characters. Make sure it's something secure.
                             </Text>
                         </View>
@@ -305,13 +305,13 @@ const ProfileScreen = () => {
                     <Text style={Typography.title}>Are you sure you want to update your password?</Text>
                     <View style={{flexDirection: "row"}}>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 40, borderWidth: 1}]}
+                            style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 40}]}
                             onPress={handlePasswordChange}
                         >
                             <Text style={[Layout.buttonText, {color: "black"}]}>Yes</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: Colors.error, width: "30%", borderWidth: 1}]}
+                            style={[Layout.button, {backgroundColor: Colors.error, width: "30%"}]}
                             onPress={() => setIsConfirmVisible(false)}
                         >
                             <Text style={[Layout.buttonText, {color: "black"}]}>Cancel</Text>

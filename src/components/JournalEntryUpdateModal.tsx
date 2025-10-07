@@ -93,7 +93,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
                         onChangeText={(value) => setContent(value)}
                     /> 
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                        <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.journal.cardOne, borderWidth: 1, opacity: isLoading ? 0.7 : 1}]} onPress={onHandleSubmit} >
+                        <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.journal.cardOne, borderWidth: 1, borderColor: "#ccc", opacity: isLoading ? 0.7 : 1}]} onPress={onHandleSubmit} >
                             {isLoading ? (
                                 <ActivityIndicator color="black" />
                             ) : (
@@ -101,7 +101,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
                             )}
                         </TouchableOpacity>
                         
-                        <TouchableOpacity disabled={isLoading} style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1, opacity: isLoading ? 0.7 : 1}]} onPress={onClose} >
+                        <TouchableOpacity disabled={isLoading} style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", opacity: isLoading ? 0.7 : 1}]} onPress={onClose} >
                             <Text style={[Layout.buttonText, {color: theme.journal.text}]}>Cancel</Text>
                         </TouchableOpacity>
                     </View>

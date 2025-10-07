@@ -121,10 +121,10 @@ const AdminAllUsersScreen = () => {
                         ref={listRef}
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (
-                            <View style={[Layout.card, { marginBottom: 10, borderColor: theme.auth.text }]}>
+                            <View style={[Layout.button, { marginBottom: 10, borderColor: theme.auth.text, backgroundColor: theme.auth.primary, borderWidth: 1 }]}>
                                 <Text style={[Typography.label, {color: theme.auth.text}]}>{item.email}</Text>
                                 <Text style={[Typography.body, {color: theme.auth.text}]}>Role: {item.role}</Text>
-                                <View style={{flexDirection: "row", justifyContent: "flex-end"}}>
+                                <View style={{flexDirection: "row", marginTop: 10}}>
                                     <TouchableOpacity onPress={() => {
                                         setIsVisibleDelete(true);
                                         setUserToDeleteId(item.id);

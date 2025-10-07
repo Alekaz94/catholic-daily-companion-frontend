@@ -116,7 +116,7 @@ const SignUpScreen = () => {
       </View>
 
       <View style={{flexDirection: "row"}}>
-      <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, borderRadius: 14, flexDirection: "row", justifyContent: "center", borderWidth: 1, width: "40%", height: 50, opacity: isLoading ? 0.7 : 1}]} onPress={handleSignUp}>
+      <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, borderRadius: 14, flexDirection: "row", justifyContent: "center", width: "40%", height: 50, opacity: isLoading ? 0.7 : 1}]} onPress={handleSignUp}>
           {isLoading ? (
             <ActivityIndicator color={theme.auth.text} />
           ) : (

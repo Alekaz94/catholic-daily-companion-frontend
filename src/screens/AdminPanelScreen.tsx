@@ -32,7 +32,7 @@ const AdminPanelScreen = () => {
                 <View style={Layout.container}>
                     <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, marginTop: 10, color: theme.auth.text}]}>All Users</Text>
                     <TouchableOpacity 
-                        style={[Layout.button, {marginTop: 15, backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10, borderWidth: 1, borderColor: theme.auth.text}]} 
+                        style={[Layout.button, {marginTop: 15, backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10}]} 
                         onPress={() => navigation.navigate("AdminAllUsersScreen")}
                     >
                         <Text style={[Layout.buttonText, {color: theme.auth.text, textAlign: "center"}]}>Users</Text>
@@ -43,7 +43,7 @@ const AdminPanelScreen = () => {
                 <View style={Layout.container}>
                     <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, marginTop: 10, color: theme.auth.text}]}>Feedback from Users</Text>
                     <TouchableOpacity 
-                        style={[Layout.button, {marginTop: 15, backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10, borderWidth: 1, borderColor: theme.auth.text}]} 
+                        style={[Layout.button, {marginTop: 15, backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10}]} 
                         onPress={() => navigation.navigate("AdminFeedbackScreen")}
                     >
                         <Text style={[Layout.buttonText, {color: theme.auth.text, textAlign: "center"}]}>Feedback</Text>

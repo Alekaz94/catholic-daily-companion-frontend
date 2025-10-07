@@ -161,7 +161,7 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
                             />
                         </Pressable>
 
-                        <TouchableOpacity onPress={onClose} style={{ marginTop: 20, borderRadius:10, borderWidth: 1, width: "50%", alignSelf: "center", backgroundColor: theme.auth.background, padding:6, borderColor: theme.auth.text }}>
+                        <TouchableOpacity onPress={onClose} style={{ marginTop: 20, borderRadius:10, width: "50%", alignSelf: "center", backgroundColor: theme.auth.background, padding:6 }}>
                             <Text style={{ color: theme.auth.text, textAlign: 'center' }}>Close</Text>
                         </TouchableOpacity>
                     </View>
