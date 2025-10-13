@@ -17,6 +17,9 @@ import Divider from '../components/Divider';
 import { useAppTheme } from '../hooks/useAppTheme';
 import * as SecureStore from 'expo-secure-store';
 import { getStreak } from '../services/RosaryService';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { PasswordChangeInput, passwordChangeSchema } from '../validation/profileValidation';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -25,9 +28,6 @@ type ProfileNavigationProp = NativeStackNavigationProp<
 
 const ProfileScreen = () => {
     const { user } = useAuth();
-    const [newPassword, setNewPassword] = useState("");
-    const [currentPassword, setCurrentPassword] = useState("");
-    const [confirmNewPassword, setConfirmNewPassword] = useState("");
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
@@ -39,101 +39,45 @@ const ProfileScreen = () => {
     const navigation = useNavigation<ProfileNavigationProp>();
     const theme = useAppTheme();
 
-    const isFormValid = () => {
-      return (
-        currentPassword && 
-        newPassword &&
-        confirmNewPassword &&
-        currentPassword !== newPassword &&
-        newPassword.length >= 8 &&
-        newPassword === confirmNewPassword
-      )
-    }
+    const {
+        handleSubmit,
+        control,
+        formState: { errors, isSubmitting },
+        reset
+    } = useForm<PasswordChangeInput>({
+        resolver: zodResolver(passwordChangeSchema)
+    });
 
-    const handlePasswordChange = async () => {
-        if (!user?.id) {
-            Toast.show("User ID missing. Please log in again.", {
-                duration: Toast.durations.LONG,
-                position: Toast.positions.TOP,
-                shadow: true,
-                animation: true,
-                hideOnPress: true,
-            });
-            return;
-        }
-
-        if(!currentPassword || !newPassword) {
-            Toast.show("Both current and new password is required.", {
-                duration: Toast.durations.LONG,
-                position: Toast.positions.TOP,
-                shadow: true,
-                animation: true,
-                hideOnPress: true,
-            });
-            return;
-        }
-
-        if(currentPassword === newPassword) {
-            Toast.show("New password can not be the same as the old.", {
-                duration: Toast.durations.LONG,
-                position: Toast.positions.TOP,
-                shadow: true,
-                animation: true,
-                hideOnPress: true,
-            });
-            return;
-        }
-
-        if(newPassword.length < 8) {
-            Toast.show("Password must be at least 8 characters long.", {
-                duration: Toast.durations.LONG,
-                position: Toast.positions.TOP,
-                shadow: true,
-                animation: true,
-                hideOnPress: true,
-            });
-            return;
-        }
-
-        if(newPassword !== confirmNewPassword) {
-            Toast.show("Confirm password must match new password.", {
-                duration: Toast.durations.LONG,
-                position: Toast.positions.TOP,
-                shadow: true,
-                animation: true,
-                hideOnPress: true,
-            });
+    const onSubmit = async (data: PasswordChangeInput) => {
+        if(!user) {
             return;
         }
 
         try {
             setIsLoading(true);
-
-            await changePassword(user.id, { currentPassword, newPassword});
-
-            Toast.show('Password updated successfully!', {
+            await changePassword(user?.id, data)
+            Toast.show("Password changed successfully!", {
                 duration: Toast.durations.SHORT,
                 position: Toast.positions.BOTTOM,
-                shadow: true,
-                animation: true,
-                hideOnPress: true,
             });
-
-            setTimeout(() => {
-                setCurrentPassword('');
-                setNewPassword('');
-                setConfirmNewPassword('');
-            }, 0);
+            reset({
+                currentPassword: '',
+                newPassword: '',
+                confirmNewPassword: '',
+            });
+            setShowCurrentPassword(false);
+            setShowNewPassword(false);
+            setShowConfirmNewPassword(false);
+            setIsConfirmVisible(false);
         } catch (err: any) {
-            Toast.show("Something went wrong.  Please check your current password.", {
-                duration: Toast.durations.LONG,
+            Toast.show(err.response?.data || 'Something went wrong!', {
+                duration: Toast.durations.SHORT,
                 position: Toast.positions.BOTTOM,
-                shadow: true,
-                animation: true,
-                hideOnPress: true,
-            })
+                backgroundColor: 'red',
+                textColor: 'white',
+            });
         } finally {
-            setIsLoading(false);
+            setIsLoading(false)
         }
     }
 
@@ -210,13 +154,20 @@ const ProfileScreen = () => {
                         <Divider />
                         <Text style={[Typography.label, {color: theme.auth.text}]}>Current Password:</Text>
                         <View style={{ position: 'relative' }}>
-                            <TextInput
-                                secureTextEntry={!showCurrentPassword}
-                                style={Layout.input}
-                                placeholder="Current Password"
-                                value={currentPassword}
-                                accessibilityLabel="Current Password"
-                                onChangeText={(value) => setCurrentPassword(value)}
+                            <Controller
+                                control={control}
+                                name='currentPassword'
+                                render={({ field: { onChange, value } }) => (
+                                    <TextInput
+                                        secureTextEntry={!showCurrentPassword}
+                                        style={Layout.input}
+                                        placeholder="Current Password"
+                                        value={value}
+                                        accessibilityLabel="Current Password"
+                                        onChangeText={onChange}
+                                        editable={!isSubmitting}
+                                    />
+                                )}
                             />
                             <TouchableOpacity
                                 style={{ position: 'absolute', right: 16, top: 10 }}
@@ -225,16 +176,24 @@ const ProfileScreen = () => {
                                 <Ionicons name={showCurrentPassword ? "eye-off" : "eye"} size={22} color="gray" />
                             </TouchableOpacity>
                         </View>
+                        {errors.currentPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.currentPassword.message}</Text>}
 
                         <Text style={[Typography.label, {color: theme.auth.text}]}>New Password:</Text>
                         <View style={{ position: 'relative'}}>
-                            <TextInput
-                                secureTextEntry={!showNewPassword}
-                                style={[Layout.input, {marginBottom: 2}]}
-                                placeholder="New Password"
-                                value={newPassword}
-                                accessibilityLabel="New Password"
-                                onChangeText={(value) => setNewPassword(value)}
+                            <Controller
+                                control={control}
+                                name='newPassword'
+                                render={({ field: { onChange, value } }) => (
+                                    <TextInput
+                                        secureTextEntry={!showNewPassword}
+                                        style={[Layout.input, {marginBottom: 2}]}
+                                        placeholder="New Password"
+                                        value={value}
+                                        accessibilityLabel="New Password"
+                                        onChangeText={onChange}
+                                        editable={!isSubmitting}
+                                    />
+                                )}
                             />
                             <TouchableOpacity
                                 style={{ position: 'absolute', right: 16, top:10 }}
@@ -246,16 +205,24 @@ const ProfileScreen = () => {
                                 Password must be at least 8 characters. Make sure it's something secure.
                             </Text>
                         </View>
+                        {errors.newPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.newPassword.message}</Text>}
                             
                         <Text style={[Typography.label, {color: theme.auth.text}]}>Confirm New Password:</Text>
                         <View style={{ position: 'relative' }}>
-                            <TextInput 
-                                secureTextEntry={!showConfirmNewPassword}
-                                style={[Layout.input, {marginBottom: 2}]}
-                                placeholder="Confirm New Password"
-                                value={confirmNewPassword}
-                                accessibilityLabel="Confirm New Password"
-                                onChangeText={(value) => setConfirmNewPassword(value)}
+                            <Controller
+                                control={control}
+                                name='confirmNewPassword'
+                                render={({ field: { onChange, value } }) => (
+                                    <TextInput 
+                                        secureTextEntry={!showConfirmNewPassword}
+                                        style={[Layout.input, {marginBottom: 2}]}
+                                        placeholder="Confirm New Password"
+                                        value={value}
+                                        accessibilityLabel="Confirm New Password"
+                                        onChangeText={onChange}
+                                        editable={!isSubmitting}
+                                    />
+                                )}
                             />
                             <TouchableOpacity
                                 style={{ position: 'absolute', right: 16, top: 10 }}
@@ -267,10 +234,10 @@ const ProfileScreen = () => {
                                 Confirm password must match new password
                             </Text>
                         </View>
+                        {errors.confirmNewPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.confirmNewPassword.message}</Text>}
 
-                        <TouchableOpacity style={[Layout.button, {backgroundColor: isFormValid() ? "#FAF3E0" : "gray", borderWidth: isFormValid() ? 1 : 0, opacity: isLoading ? 0.7 : 1, marginTop: 30}]} 
+                        <TouchableOpacity style={[Layout.button, {opacity: isLoading ? 0.7 : 1, marginTop: 30}]} 
                             onPress={() => setIsConfirmVisible(true)}
-                            disabled={!isFormValid()}
                         >
                             {isLoading ? (
                                 <ActivityIndicator color={theme.auth.text} />
@@ -306,7 +273,7 @@ const ProfileScreen = () => {
                     <View style={{flexDirection: "row"}}>
                         <TouchableOpacity
                             style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 40}]}
-                            onPress={handlePasswordChange}
+                            onPress={handleSubmit(onSubmit)}
                         >
                             <Text style={[Layout.buttonText, {color: "black"}]}>Yes</Text>
                         </TouchableOpacity>

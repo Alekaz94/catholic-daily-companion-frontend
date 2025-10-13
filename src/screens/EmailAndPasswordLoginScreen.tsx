@@ -11,6 +11,10 @@ import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
 import cdc_transparent from "../assets/images/cdc_transparent.png"
 import { useAppTheme } from '../hooks/useAppTheme';
 import { useTheme } from '../context/ThemeContext';
+import { Controller, useForm } from 'react-hook-form';
+import { LoginInput, loginSchema } from '../validation/loginValidation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Toast from 'react-native-root-toast';
 
 type EmailAndPasswordLoginScreen = NativeStackNavigationProp<
   AuthStackParamList,
@@ -27,13 +31,29 @@ const EmailAndPasswordLoginScreen = () => {
   const theme = useAppTheme();
   const {isDark} = useTheme();
 
-  const handleLogin = async () => {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginInput>({
+    resolver: zodResolver(loginSchema),
+  })
+
+  const handleLogin = async (data: LoginInput) => {
     try {
       setIsLoading(true);
-      await login(email, password);
+      await login(data.email, data.password);
+      Toast.show('Login successful!', {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+      });
     } catch (err: any) {
-      console.error('Error:', err.response?.data || err.message);
-      alert(err.response?.data || 'Something went wrong!');
+      Toast.show(err.response?.data || 'Something went wrong!', {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        backgroundColor: 'red',
+        textColor: 'white',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -46,25 +66,38 @@ const EmailAndPasswordLoginScreen = () => {
             <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
           <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-start"}}>
             <Ionicons name="mail-outline" color={theme.auth.text} size={25} style={{marginBottom: 10}} />
-            <TextInput
-              placeholder="Email"
-              value={email}
-              onChangeText={(value) => setEmail(value)}
-              autoCapitalize="none"
-              style={[Layout.input, {width: "90%", marginLeft: 5}]}
-              editable={!isLoading}
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange, value } }) => (
+                <TextInput
+                  placeholder="Email"
+                  value={value}
+                  onChangeText={onChange}
+                  autoCapitalize="none"
+                  style={[Layout.input, {width: "90%", marginLeft: 5}]}
+                  editable={!isSubmitting}
+                />
+            )}
             />
           </View>
+          {errors.email && <Text style={{ color: 'red', marginTop: -10, marginBottom: 15 }}>{errors.email.message}</Text>}
 
           <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-start"}}>
             <Ionicons name="lock-closed-outline" color={theme.auth.text} size={25} style={{marginBottom: 10}}/>
-            <TextInput
-              placeholder="Password"
-              value={password}
-              onChangeText={(value) => setPassword(value)}
-              secureTextEntry={!showPassword}
-              style={[Layout.input, {width: "90%", marginLeft: 5}]}
-              editable={!isLoading}
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, value } }) => (
+                <TextInput
+                  placeholder="Password"
+                  value={value}
+                  onChangeText={onChange}
+                  secureTextEntry={!showPassword}
+                  style={[Layout.input, {width: "90%", marginLeft: 5}]}
+                  editable={!isSubmitting}
+                />
+              )}
             />
             <TouchableOpacity
               style={{ position: 'absolute', right: 16, top: 10 }}
@@ -73,9 +106,10 @@ const EmailAndPasswordLoginScreen = () => {
               <Ionicons name={showPassword ? "eye-off" : "eye"} size={22} color="gray" />
             </TouchableOpacity>
           </View>
+          {errors.password && <Text style={{ color: 'red', marginTop: -10, marginBottom: 15 }}>{errors.password.message}</Text>}
           
           <View style={{flexDirection: "row"}}>
-            <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleLogin}>
+            <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, height: 50, borderRadius: 14, flexDirection: "row", justifyContent: "center", width: "40%", opacity: isLoading ? 0.7 : 1}]} onPress={handleSubmit(handleLogin)}>
               {isLoading ? (
                 <ActivityIndicator color={theme.auth.text} /> 
               ) : (

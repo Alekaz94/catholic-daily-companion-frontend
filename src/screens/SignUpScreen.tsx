@@ -5,7 +5,6 @@ import { AuthStackParamList } from '../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
-import { NewUser } from '../models/User';
 import { Layout } from '../styles/Layout';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,6 +12,10 @@ import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
 import cdc_transparent from "../assets/images//cdc_transparent.png"
 import { useAppTheme } from '../hooks/useAppTheme';
 import { useTheme } from '../context/ThemeContext';
+import { SignupInput, signUpSchema } from '../validation/signupValidation';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Toast from 'react-native-root-toast';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -22,47 +25,32 @@ type SignupNavigationProp = NativeStackNavigationProp<
 const SignUpScreen = () => {
   const { signup, user } = useAuth();
   const navigation = useNavigation<SignupNavigationProp>();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const theme = useAppTheme();
-  const {isDark} = useTheme();
+  const { isDark } = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSignUp = async () => {
-    if (!firstName || !lastName || !email || !password) {
-      alert('Please fill out all the fields!');
-      return;
-    }
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<SignupInput>({
+    resolver: zodResolver(signUpSchema),
+  });
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert('Please enter a valid email adress!');
-      return;
-    }
-
-    if (password.length < 8) {
-      alert('Password must be atleast 8 characters long!');
-      return;
-    }
-
+  const onSubmit = async (data: SignupInput) => {
     try {
-      setIsLoading(true)
-      const newUser: NewUser = {
-        firstName,
-        lastName,
-        email,
-        password,
-      };
-      await signup(newUser);
-      alert('Signup successfull!');
+      await signup(data);
+      Toast.show('Signup successful!', {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+      });
     } catch (err: any) {
-      console.error('Error:', err.response?.data || err.message);
-      alert(err.response?.data || 'Something went wrong!');
-    } finally {
-      setIsLoading(false);
+      Toast.show(err.response?.data || 'Something went wrong!', {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        backgroundColor: 'red',
+        textColor: 'white',
+      });
     }
   };
 
@@ -75,67 +63,98 @@ const SignUpScreen = () => {
   return (
       <SafeAreaView style={[Layout.container,{ justifyContent: "center", backgroundColor: theme.auth.background}]}>        
         <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
-        <TextInput
-        placeholder="Firstname"
-        value={firstName}
-        onChangeText={(value) => setFirstName(value)}
-        style={Layout.input}
-        editable={!isLoading}
-      />
-      <TextInput
-        placeholder="Lastname"
-        value={lastName}
-        onChangeText={(value) => setLastName(value)}
-        style={Layout.input}
-        editable={!isLoading}
-      />
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={(value) => setEmail(value)}
-        autoCapitalize="none"
-        style={Layout.input}
-        editable={!isLoading}
-      />
-      
-      <View>
-        <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={(value) => setPassword(value)}
-          secureTextEntry={!showPassword}
-          style={Layout.input}
-          editable={!isLoading}
-        />
-        <TouchableOpacity
-          style={{ position: 'absolute', right: 16, top: 10 }}
-          onPress={() => setShowPassword(prev => !prev)}
-        >
-          <Ionicons name={showPassword ? "eye-off" : "eye"} size={22} color="gray" />
-        </TouchableOpacity>
-      </View>
-
-      <View style={{flexDirection: "row"}}>
-      <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, borderRadius: 14, flexDirection: "row", justifyContent: "center", width: "40%", height: 50, opacity: isLoading ? 0.7 : 1}]} onPress={handleSignUp}>
-          {isLoading ? (
-            <ActivityIndicator color={theme.auth.text} />
-          ) : (
-            <>
-              <Ionicons name="document-text-outline" color={theme.auth.text} size={20} />
-              <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Sign up</Text>
-            </>
+        <Controller
+          control={control}
+          name="firstName"
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              placeholder="Firstname"
+              value={value}
+              onChangeText={onChange}
+              style={Layout.input}
+              editable={!isSubmitting}
+            />
           )}
-        </TouchableOpacity>
+        />
+        {errors.firstName && <Text style={{ color: 'red', marginTop: -10, marginBottom: 15 }}>{errors.firstName.message}</Text>}
 
-        <View style={{marginLeft: 20, alignItems: "flex-start", justifyContent: "center", flexDirection: "column"}}>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={{ color: theme.auth.text, fontSize: 14 }}>
-              Already have an account?
-            </Text>
-            <Text style={{fontWeight: 'bold', color: theme.auth.text}}>Log in </Text>
+        <Controller
+          control={control}
+          name="lastName"
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              placeholder="Lastname"
+              value={value}
+              onChangeText={onChange}
+              style={Layout.input}
+              editable={!isSubmitting}
+            />
+          )}
+        />
+        {errors.lastName && <Text style={{ color: 'red', marginTop: -10, marginBottom: 15 }}>{errors.lastName.message}</Text>}
+
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              placeholder="Email"
+              value={value}
+              onChangeText={onChange}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              style={Layout.input}
+              editable={!isSubmitting}
+            />
+          )}
+        />
+        {errors.email && <Text style={{ color: 'red', marginTop: -10, marginBottom: 15 }}>{errors.email.message}</Text>}
+      
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <View>
+              <TextInput
+                placeholder="Password"
+                value={value}
+                onChangeText={onChange}
+                secureTextEntry={!showPassword}
+                style={Layout.input}
+                editable={!isSubmitting}
+              />
+              <TouchableOpacity
+                style={{ position: 'absolute', right: 16, top: 10 }}
+                onPress={() => setShowPassword(prev => !prev)}
+              >
+                <Ionicons name={showPassword ? "eye-off" : "eye"} size={22} color="gray" />
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+        {errors.password && <Text style={{ color: 'red', marginTop: -10, marginBottom: 15 }}>{errors.password.message}</Text>}
+
+        <View style={{flexDirection: "row"}}>
+        <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, borderRadius: 14, flexDirection: "row", justifyContent: "center", width: "40%", height: 50}]} onPress={handleSubmit(onSubmit)}>
+            {isSubmitting ? (
+              <ActivityIndicator color={theme.auth.text} />
+            ) : (
+              <>
+                <Ionicons name="document-text-outline" color={theme.auth.text} size={20} />
+                <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Sign up</Text>
+              </>
+            )}
           </TouchableOpacity>
+
+          <View style={{marginLeft: 20, alignItems: "flex-start", justifyContent: "center", flexDirection: "column"}}>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <Text style={{ color: theme.auth.text, fontSize: 14 }}>
+                Already have an account?
+              </Text>
+              <Text style={{fontWeight: 'bold', color: theme.auth.text}}>Log in </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
     </SafeAreaView>
   );
 };
