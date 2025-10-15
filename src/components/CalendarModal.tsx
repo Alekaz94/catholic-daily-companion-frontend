@@ -12,6 +12,7 @@ import { Saint } from "../models/Saint";
 import { JournalEntry } from "../models/JournalEntry";
 import DateDetailModal from "./DateDetailModal";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { auth } from "../../firebase";
 
 interface MarkedDates {
     [key: string]: { dots: { key: string; color: string }[] };
@@ -161,7 +162,7 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
                             />
                         </Pressable>
 
-                        <TouchableOpacity onPress={onClose} style={{ marginTop: 20, borderRadius:10, width: "50%", alignSelf: "center", backgroundColor: theme.auth.background, padding:6 }}>
+                        <TouchableOpacity onPress={onClose} style={{borderWidth: 1, borderColor: theme.auth.text, marginTop: 20, borderRadius:10, width: "50%", alignSelf: "center", backgroundColor: theme.auth.background, padding:6 }}>
                             <Text style={{ color: theme.auth.text, textAlign: 'center' }}>Close</Text>
                         </TouchableOpacity>
                     </View>
