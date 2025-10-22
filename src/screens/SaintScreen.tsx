@@ -20,6 +20,7 @@ import { buildImageUri } from "../utils/imageUtils";
 import defaultSaint from "../assets/images/default_saint.jpg";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { cacheSaints, getCachedSaints } from "../services/CacheService";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -59,10 +60,16 @@ const SaintScreen = () => {
                 ? await searchSaints(searchQuery, page, 5)
                 : await getAllSaints(page, 5);
 
-            setSaints(prev => [
-            ...prev,
-            ...res.content.filter((s: Saint) => !prev.some(p => p.id === s.id)),
-            ]);
+            const newSaints = [
+                ...saints,
+                ...res.content.filter((s: Saint) => !saints.some(p => p.id === s.id)),
+            ];
+
+            setSaints(newSaints);
+
+            if(!isSearching && page === 0) {
+                await cacheSaints(newSaints);
+            }
 
             setHasMore(!res.last);
         } catch (error) {
@@ -98,7 +105,20 @@ const SaintScreen = () => {
     }, [isSearching]);
 
     useEffect(() => {
-        fetchSaints();
+        const loadCachedData = async () => {
+            if(page === 0 && !isSearching) {
+                const cached = await getCachedSaints();
+                if(cached) {
+                    setSaints(cached);
+                } else {
+                    fetchSaints();
+                }
+            } else {
+                fetchSaints();
+            }
+        }
+
+        loadCachedData();
     }, [page, isSearching]);
 
     useEffect(() => {
@@ -110,7 +130,9 @@ const SaintScreen = () => {
     const handleDelete = async (id: string) => {
         try {
             await deleteSaint(id);
-            setSaints(prev => prev.filter(saint => saint.id !== id));
+            const updated = saints.filter(s => s.id !== id);
+            setSaints(updated);
+            await cacheSaints(updated)
             setIsVisibleDelete(false);
             setSaintToDelete(null)
         } catch (error) {
@@ -134,6 +156,7 @@ const SaintScreen = () => {
             ? await searchSaints(searchQuery, page, 5)
             : await getAllSaints(page, 5);
             setSaints(res.content);
+            await cacheSaints(res.content);
             setPage(page);
             setHasMore(!res.last);
         } catch (error) {

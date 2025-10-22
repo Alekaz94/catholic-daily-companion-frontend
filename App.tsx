@@ -12,6 +12,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from './src/context/ThemeContext';
 import DrawerNavigatorWrapper from './src/navigation/DrawerNavigatorWrapper';
+import axios from 'axios';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,7 +52,11 @@ export default function App() {
                 setUser(updatedUser);
               }
             } catch (error) {
-              console.error('Firebase login error:', error);
+              if (axios.isAxiosError(error)) {
+                console.error("Firebase login error:", error.response?.data || error.message);
+              } else {
+                console.error("Unknown error during Firebase login:", error);
+              }
             }
           } else {
             setUser(null);

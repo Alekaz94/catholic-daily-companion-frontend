@@ -10,6 +10,8 @@ import { NewUser, User } from '../models/User';
 import { setAuthToken } from '../services/api';
 import * as SecureStore from 'expo-secure-store';
 import { reset } from '../navigation/RootNavigation';
+import { clearCachedSaints } from '../services/CacheService';
+import Toast from 'react-native-root-toast';
 
 interface AuthContextType {
   user: User | null;
@@ -46,6 +48,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     await logoutService();
+    await clearCachedSaints();
     setUser(null);
     setAuthToken(null);
   };
@@ -54,11 +57,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setLoading(true);
     try {
       const storedUser = await loadUserFromStorage();
+
       if(storedUser) {
         setUser(storedUser);
         const token = await SecureStore.getItemAsync('token');
         if(token) {
           setAuthToken(token);
+        }
+      } else {
+        const existingRefreshToken = await SecureStore.getItemAsync("refreshToken");
+        if(existingRefreshToken) {
+          Toast.show("Session expired! Please log in again.", {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.TOP,
+          });
         }
       }
     } finally {
