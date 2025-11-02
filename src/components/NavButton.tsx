@@ -6,7 +6,6 @@ import { Layout } from "../styles/Layout";
 import React from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { useAppTheme } from "../hooks/useAppTheme";
-import { auth } from "../../firebase";
 
 type Props = {
     title: string;

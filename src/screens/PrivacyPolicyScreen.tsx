@@ -1,5 +1,6 @@
 import React from "react";
-import { SafeAreaView, ScrollView, View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { ScrollView, View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppTheme } from "../hooks/useAppTheme";
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";

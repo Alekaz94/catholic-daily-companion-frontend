@@ -7,7 +7,7 @@ import Divider from "./Divider";
 import { formatSubmittedAt } from "../utils/dateUtils";
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from "../context/ThemeContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
     visible: boolean;

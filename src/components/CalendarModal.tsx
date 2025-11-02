@@ -6,13 +6,10 @@ import { getRosaryHistoryDates, isRosaryCompletedOn } from "../services/RosarySe
 import { getJournalDates, getJournalEntriesByDate } from "../services/JournalEntryService";
 import { useAuth } from "../context/AuthContext";
 import { getFeastDayToSaintMap, getSaintByFeastDay } from "../services/SaintService";
-import { AuthStackParamList } from "../navigation/types";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Saint } from "../models/Saint";
 import { JournalEntry } from "../models/JournalEntry";
 import DateDetailModal from "./DateDetailModal";
 import { useAppTheme } from "../hooks/useAppTheme";
-import { auth } from "../../firebase";
 
 interface MarkedDates {
     [key: string]: { dots: { key: string; color: string }[] };
@@ -159,6 +156,7 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
                                 markingType="multi-dot"
                                 markedDates={markedDates}
                                 onDayPress={onDayPress}
+                                style={{height: 400, backgroundColor: "white"}}
                             />
                         </Pressable>
 

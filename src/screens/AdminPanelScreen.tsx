@@ -7,8 +7,6 @@ import { useNavigation } from "@react-navigation/native";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { Typography } from "../styles/Typography";
 import Divider from "../components/Divider";
-import AdminAllUsersScreen from "./AdminAllUsersScreen";
-import AdminFeedbackScreen from "./AdminFeedbackScreen";
 import { Layout } from "../styles/Layout";
 
 type AdminNavigationProp = NativeStackNavigationProp<
