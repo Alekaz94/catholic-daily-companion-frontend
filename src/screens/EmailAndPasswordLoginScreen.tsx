@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Text, TouchableOpacity, SafeAreaView, View, ActivityIndicator, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
+import { Text, TouchableOpacity, View, ActivityIndicator, TouchableWithoutFeedback, Keyboard, Image } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -61,9 +62,14 @@ const EmailAndPasswordLoginScreen = () => {
 
   return (
     <SafeAreaView style={[{ flex: 1, padding: 20, justifyContent: "center", backgroundColor: theme.auth.background }]}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>  
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}> 
         <View style={[Layout.container, {justifyContent: "center", alignContent: "center"}]}>
-            <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
+          <View style={{ position: "absolute", top: 20, left: 20 }}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Ionicons name="arrow-back" size={28} color={theme.auth.text} />
+            </TouchableOpacity>
+          </View> 
+          <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70, marginTop: -70}} />
           <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-start"}}>
             <Ionicons name="mail-outline" color={theme.auth.text} size={25} style={{marginBottom: 10}} />
             <Controller

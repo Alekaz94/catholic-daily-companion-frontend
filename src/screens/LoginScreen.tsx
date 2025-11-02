@@ -4,7 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/AuthContext";
 import * as Google from "expo-auth-session/providers/google"
 import { useEffect } from "react";
-import { Text, TouchableOpacity, SafeAreaView, Image } from 'react-native';
+import { Text, TouchableOpacity, Image, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Layout } from "../styles/Layout";
 import Constants from "expo-constants";
 import { Ionicons } from '@expo/vector-icons';
@@ -43,22 +44,21 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={[Layout.container, {justifyContent: "center", backgroundColor: theme.auth.background}]}>
-      <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70}} />
+      <View style={[Layout.container, {justifyContent: "center", alignContent: "center"}]}>
+        <View style={{ position: "absolute", top: 20, left: 2}}>
+          <TouchableOpacity onPress={() => navigation.navigate("Landing")}>
+            <Ionicons name="arrow-back" size={28} color={theme.auth.text} />
+          </TouchableOpacity>
+        </View>
+        <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ height: 250, width: 250, alignSelf: "center", resizeMode: "contain", marginBottom: -70, marginTop: -70}} />
 
-      <GoogleLogin />
+        <GoogleLogin />
 
-      <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("EmailAndPassword")}>
-        <Ionicons name="mail-outline" color={theme.auth.text} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Login with Email & Password</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity
-        style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", borderWidth: 1}]}
-        onPress={() => navigation.navigate("Landing")}
-      >
-        <Ionicons name="arrow-back" color={theme.auth.text} size={20} />
-        <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Back</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("EmailAndPassword")}>
+          <Ionicons name="mail-outline" color={theme.auth.text} size={20} />
+          <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Login with Email & Password</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>    
   );
 }
