@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator, Modal } from 'react-native';
 import { useAppTheme } from '../hooks/useAppTheme';
 import * as DrawerLayout from 'react-native-drawer-layout';
 import AppNavigator from './AppNavigation';
@@ -21,6 +21,7 @@ const DrawerNavigatorWrapper = () => {
     const { user, logout } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
 
     const menuItems = [
         { icon: 'home', label: 'Home' },
@@ -80,10 +81,7 @@ const DrawerNavigatorWrapper = () => {
                     ) : (
                         <View>
                             <TouchableOpacity  
-                                onPress={() => {
-                                    handleLogout();
-                                    closeDrawer();
-                                }}
+                                onPress={() => setShowLogoutModal(true)}
                                 style={{flexDirection: "row", alignItems: "center", paddingVertical: 15}}
                             >
                                 <Ionicons name={isDark ? "log-out-outline" : "log-out"} size={24} color={theme.auth.text} style={{marginRight: 20}} />
@@ -107,6 +105,82 @@ const DrawerNavigatorWrapper = () => {
             drawerStyle={{ backgroundColor: theme.auth.background, width: 260, paddingVertical: 20, paddingHorizontal: 15 }}
           >
             <AppNavigator />
+
+            <Modal
+                visible={showLogoutModal}
+                transparent
+                animationType="fade"
+                onRequestClose={() => {
+                    setShowLogoutModal(false);
+                }}
+            >
+                <View
+                    style={{
+                        flex: 1,
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <View
+                        style={{
+                            width: 300,
+                            backgroundColor: theme.auth.background,
+                            borderRadius: 10,
+                            padding: 20,
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Ionicons name="alert-circle-outline" size={48} color={theme.auth.text} />
+                        <Text
+                            style={{
+                            fontSize: 18,
+                            fontWeight: 'bold',
+                            color: theme.auth.text,
+                            marginVertical: 10,
+                            textAlign: 'center',
+                            }}
+                        >
+                            Are you sure you want to logout?
+                        </Text>
+                        <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                            <TouchableOpacity
+                                onPress={() => setShowLogoutModal(false)}
+                                style={{
+                                  backgroundColor: theme.auth.primary,
+                                  paddingVertical: 10,
+                                  paddingHorizontal: 20,
+                                  borderRadius: 8,
+                                  marginHorizontal: 15,
+                                  borderWidth: 1,
+                                  borderColor: theme.auth.text
+                                }}
+                            >
+                                <Text style={{ color: theme.auth.text, fontWeight: '600' }}>Cancel</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => {
+                                    handleLogout();
+                                    setShowLogoutModal(false);
+                                    closeDrawer();
+                                }}
+                                style={{
+                                    backgroundColor: 'red',
+                                    paddingVertical: 10,
+                                    paddingHorizontal: 20,
+                                    borderRadius: 8,
+                                    marginHorizontal: 15,
+                                    borderWidth: 1,
+                                    borderColor: theme.auth.text
+                                }}
+                            >
+                                <Text style={{ color: 'white', fontWeight: '600' }}>Logout</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
           </DrawerLayout.Drawer>
         </DrawerProvider>
     );
