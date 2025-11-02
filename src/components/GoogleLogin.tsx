@@ -5,8 +5,7 @@ import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import Constants from 'expo-constants';
 import { Layout } from "../styles/Layout";
 import { Ionicons } from '@expo/vector-icons';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { SignInResponse } from '@react-native-google-signin/google-signin';
+import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from "../navigation/types";
 import { useAuth } from "../context/AuthContext";
@@ -35,15 +34,9 @@ const GoogleLogin = () => {
             setIsLoading(true);
             await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
         
-            const result: SignInResponse | null = await GoogleSignin.signIn();
+            const userInfo: User | null = await GoogleSignin.signIn();
 
-            if (result.type !== 'success') {
-                console.warn("Google Sign-In was cancelled or failed");
-                return;
-              }
-
-                const idToken = result.data.idToken;
-                const user = result.data.user;
+            const { idToken } = await GoogleSignin.getTokens();
                 
             if (!idToken) {
                 throw new Error("No ID token from Google");
@@ -55,9 +48,9 @@ const GoogleLogin = () => {
         
             await firebaseLogin(firebaseIdToken);
         
-            console.log("✅ User signed in:", user.email);
+            console.log("User signed in:", userInfo.user.email);
         } catch (error) {
-            console.error("❌ Google signin error:", error);
+            console.error("Google signin error:", error);
         } finally {
             setIsLoading(false);
         }
