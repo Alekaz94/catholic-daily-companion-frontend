@@ -12,7 +12,6 @@ import { useAuth } from "../context/AuthContext";
 import { deleteUser } from "../services/UserService";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-root-toast";
-import { getNotificationsEnabled, setNotificationsEnabled } from "../services/NotificationHandler";
 
 const SettingsScreen = () => { 
     const theme = useAppTheme(); 
@@ -20,7 +19,6 @@ const SettingsScreen = () => {
     const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
     const {user, logout} = useAuth();
     const [isLoading, setIsLoading] = useState(false);
-    const [notificationsEnabled, setNotificationsToggle] = useState(true);
 
     const handleDeleteAccount = async () => {
         if(!user?.id) {
@@ -48,19 +46,6 @@ const SettingsScreen = () => {
             setIsDeleteConfirmVisible(false);
         }
     }
-
-    const toggleNotifications = async (value: boolean) => {
-        setNotificationsToggle(value);
-        await setNotificationsEnabled(value);
-    }
-
-    useEffect(() => {
-        const loadPreference = async () => {
-            const enabled = await getNotificationsEnabled();
-            setNotificationsToggle(enabled);
-        }
-        loadPreference();
-    }, [])
     
     return ( 
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.navbar}}> 
@@ -74,13 +59,7 @@ const SettingsScreen = () => {
                         <Switch value={isDark} onValueChange={toggleTheme} trackColor={{ false: '#767577', true: '#81b0ff' }} thumbColor={isDark ? "#59512e" : '#FAF3E0'} /> 
                     </View> 
                     
-                    <Divider /> 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10}}> 
-                        <Text style={[Typography.body, { color: theme.auth.text, marginRight: 10 }]}> Notifications </Text>
-                        <Switch value={notificationsEnabled} onValueChange={toggleNotifications} trackColor={{ false: '#767577', true: '#81b0ff' }} thumbColor={notificationsEnabled ? "#59512e" : '#FAF3E0'} />
-                    </View> 
-
-                    <View style={{ marginTop: 40, borderTopWidth: 1, borderColor: 'red', paddingTop: 20 }}>
+                    <View style={{ marginTop: 10, borderTopWidth: 1, borderColor: 'red', paddingTop: 20 }}>
                         <Text style={[Typography.label, { color: 'red', fontWeight: 'bold', fontSize: 18 }]}>Danger Zone</Text>
                         <TouchableOpacity
                             style={[Layout.button, { backgroundColor: '#ff4d4f', borderColor: 'darkred', borderWidth: 1, marginTop: 10 }]}
