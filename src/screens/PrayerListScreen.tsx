@@ -30,26 +30,26 @@ const PrayerListScreen = () => {
                     data={prayers} 
                     keyExtractor={item => item.title}
                     renderItem={({ item }) => (
-                        <LinearGradient
-                            colors={[theme.prayer.cardOne, theme.prayer.cardTwo]}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 1 }}
-                            style={[Layout.card, {
-                                borderRadius: 12,
-                                borderColor: theme.prayer.background,
-                                padding: 16,
-                                marginVertical: 8,
-                                shadowColor: '#000',
-                                shadowOffset: { width: 0, height: 2 },
-                                shadowOpacity: 0.1,
-                                shadowRadius: 6,
-                                elevation: 3, 
-                            }]}
-                        >
-                            <TouchableOpacity onPress={() => openModal(item)}>
-                                <Text style={[Typography.body, {color: theme.prayer.text, fontSize: 16, fontWeight: "bold"}]}>{item.title}</Text>
-                            </TouchableOpacity>
-                        </LinearGradient>
+                        <TouchableOpacity onPress={() => openModal(item)}>
+                            <LinearGradient
+                                colors={[theme.prayer.cardOne, theme.prayer.cardTwo]}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 1 }}
+                                style={[Layout.card, {
+                                    borderRadius: 12,
+                                    borderColor: theme.prayer.background,
+                                    padding: 16,
+                                    marginVertical: 8,
+                                    shadowColor: '#000',
+                                    shadowOffset: { width: 0, height: 2 },
+                                    shadowOpacity: 0.1,
+                                    shadowRadius: 6,
+                                    elevation: 3, 
+                                }]}
+                            >
+                                    <Text style={[Typography.body, {color: theme.prayer.text, fontSize: 16, fontWeight: "bold"}]}>{item.title}</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
                     )}
                 />
                 {selectedPrayer && (
