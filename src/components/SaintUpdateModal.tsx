@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Saint, UpdatedSaint } from "../models/Saint";
 import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Layout } from "../styles/Layout";
-import { AppTheme } from "../styles/colors";
 import { Typography } from "../styles/Typography";
+import { useAppTheme } from '../hooks/useAppTheme';
 
 interface Props {
     visible: boolean;
@@ -21,6 +21,7 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
     const [biography, setBiography] = useState("");
     const [canonizationYear, setCanonizationYear] = useState<number>(0);
     const [imageUrl, setImageUrl] = useState<string | null>("");
+    const theme = useAppTheme();
 
     useEffect(() => {
         if(saint) {
@@ -109,8 +110,8 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
     
     return (
         <Modal visible={visible} animationType="slide">
-            <View style={[Layout.container, {backgroundColor: AppTheme.saint.background}]}>
-                <Text style={[Typography.title, {color: AppTheme.saint.text}]}>Edit Saint</Text>
+            <View style={[Layout.container, {backgroundColor: theme.saint.background}]}>
+                <Text style={[Typography.title, {color: theme.saint.text}]}>Edit Saint</Text>
                 <TextInput
                     placeholder="Enter name"
                     style={Layout.input}
@@ -163,7 +164,7 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
                     onChangeText={(value) => setImageUrl(value)}
                 />
                 <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: AppTheme.saint.navbar, borderWidth: 1}]} onPress={onHandleSubmit}>
+                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.saint.navbar, borderWidth: 1}]} onPress={onHandleSubmit}>
                         <Text style={[Layout.buttonText, {color: "black"}]}>Save changes</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} onPress={onClose}> 
