@@ -187,15 +187,17 @@ const RosaryScreen = () => {
                     </View>
                 ))}
 
+                <TouchableOpacity style={[Layout.button, {backgroundColor: theme.prayer.button, marginTop: 20, marginBottom: 6}]} onPress={handleComplete} disabled={completed}>
+                    <Text style={[Layout.buttonText, {color: theme.prayer.text}]}>Mark as Completed</Text>
+                </TouchableOpacity>
+
                 <View style={{marginTop: 24, paddingTop: 16, borderTopWidth: 1, borderColor: "#ccc"}}>
                     <Text style={[Typography.italic, { marginBottom: 10, alignSelf: "center", fontSize: 20, color: theme.prayer.text }]}>Progress</Text>
                     <Text style={[Typography.body,{fontSize: 18, color: theme.prayer.text}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
-                    <Text style={[Typography.body, {fontSize: 18, color: theme.prayer.text}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
+                    <Text style={[Typography.body, {fontSize: 18, color: theme.prayer.text, marginBottom: 10}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
 
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: theme.prayer.button, marginTop: 20, marginBottom: 6}]} onPress={handleComplete} disabled={completed}>
-                        <Text style={[Layout.buttonText, {color: theme.prayer.text}]}>Mark as Completed</Text>
-                    </TouchableOpacity>
                     <Divider />
+
                     <Text style={[Typography.italic, { marginTop: 4, alignSelf: "center", fontSize: 20, color: theme.prayer.text }]}>History</Text>
                     <TouchableOpacity
                       onPress={() => setHistoryModalVisible(true)}

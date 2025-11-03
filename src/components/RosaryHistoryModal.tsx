@@ -27,7 +27,8 @@ const RosaryHistoryModal: React.FC<Props> = ({visible, onClose, history}) => {
                     padding: 20,
                     width: "100%",
                     maxHeight: "80%",
-                    borderColor: theme.prayer.text
+                    borderColor: theme.prayer.text,
+                    borderWidth: 1
                 }}>
                     <Text style={[Typography.title, { marginTop: 16, alignSelf: "center", color: theme.prayer.text }]}>Rosary History</Text>
                     <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
