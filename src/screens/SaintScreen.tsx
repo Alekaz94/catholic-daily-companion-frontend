@@ -48,30 +48,35 @@ const SaintScreen = () => {
     const cardWidth = (screenWidth - 3 * spacing) / 2;
     const listRef = useRef<FlatList>(null);
 
-    const fetchSaints = async () => {
-        if(isLoading || !hasMore) {
+    const fetchSaints = async (reset = false) => {
+        if(isLoading || !hasMore && !reset) {
             return;
         }
 
         setIsLoading(true);
 
         try {
+            const currentPage = reset ? 0 : page;
             const res = isSearching 
-                ? await searchSaints(searchQuery, page, 5)
-                : await getAllSaints(page, 5);
+                ? await searchSaints(searchQuery, currentPage, 5)
+                : await getAllSaints(currentPage, 5);
 
-            const newSaints = [
-                ...saints,
-                ...res.content.filter((s: Saint) => !saints.some(p => p.id === s.id)),
-            ];
+            const newData = res.content || [];
 
-            setSaints(newSaints);
-
-            if(!isSearching && page === 0) {
-                await cacheSaints(newSaints);
+            if(reset || currentPage === 0) {
+                setSaints(newData);
+            } else {
+                setSaints((prev) => [
+                    ...prev,
+                    ...newData.filter((s: Saint) => !prev.some((p) => p.id === s.id)),
+                ]);
             }
 
             setHasMore(!res.last);
+
+            if(!isSearching && currentPage === 0) {
+                await cacheSaints(newData);
+            }
         } catch (error) {
             console.error("Error loading saints:", error);
         } finally {
@@ -79,90 +84,70 @@ const SaintScreen = () => {
         }
     };
 
-    const handleSearch = async () => {
-        if (searchQuery.trim() === "") {
-            return;
-        }
-        setIsSearching(true);
-        setPage(0);
-        setSaints([]);
-        listRef.current?.scrollToOffset({ offset: 0, animated: true });
-    };
-
-    const clearSearch = async () => {
-        setSearchQuery("");
-        setIsSearching(false);
-        setSaints([]);
-        setPage(0);
-        setHasMore(true);
-        listRef.current?.scrollToOffset({ offset: 0, animated: true });
-    }
-
-    useEffect(() => {
-        setSaints([]);
-        setPage(0);
-        setHasMore(true);
-    }, [isSearching]);
-
     useEffect(() => {
         const loadCachedData = async () => {
-            if(page === 0 && !isSearching) {
-                const cached = await getCachedSaints();
-                if(cached) {
-                    setSaints(cached);
-                } else {
-                    fetchSaints();
-                }
+            const cached = await getCachedSaints();
+            if (cached && cached.length > 0) {
+                setSaints(cached);
             } else {
-                fetchSaints();
+                fetchSaints(true);
             }
-        }
-
+        };
         loadCachedData();
-    }, [page, isSearching]);
+    }, []);
 
     useEffect(() => {
-    if (searchQuery.trim() === "") {
-        clearSearch();
-    }
+        if (page > 0) {
+            fetchSaints()
+        };
+    }, [page]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            const isActiveSearch = searchQuery.trim().length > 0;
+            setIsSearching(isActiveSearch);
+            setPage(0);
+            fetchSaints(true);
+            listRef.current?.scrollToOffset({ offset: 0, animated: true });
+        }, 400);
+
+        return () => clearTimeout(timeout);
     }, [searchQuery]);
+
+    const clearSearch = () => {
+        setSearchQuery("");
+        setIsSearching(false);
+        setPage(0);
+        fetchSaints(true);
+    };
 
     const handleDelete = async (id: string) => {
         try {
             await deleteSaint(id);
             const updated = saints.filter(s => s.id !== id);
             setSaints(updated);
-            await cacheSaints(updated)
-            setIsVisibleDelete(false);
-            setSaintToDelete(null)
+            await cacheSaints(updated);
         } catch (error) {
             console.log("Failed to delete saint ", error)
+        } finally {
+            setIsVisibleDelete(false);
+            setSaintToDelete(null);
         }
     }
 
     const handleUpdate = async (id: string, saintToUpdate: UpdatedSaint) => {
         try {
             await updateSaint(id, saintToUpdate);
-            refreshSaints();
-        } catch (error) {
-            console.error("Failed to update saint ", error);
-        }
-    }
-
-    const refreshSaints = async () => {
-        try {
-            setIsLoading(true);
-            const res = isSearching 
-            ? await searchSaints(searchQuery, page, 5)
-            : await getAllSaints(page, 5);
+            const res = isSearching
+                ? await searchSaints(searchQuery, page, 5)
+                : await getAllSaints(page, 5);
             setSaints(res.content);
             await cacheSaints(res.content);
-            setPage(page);
-            setHasMore(!res.last);
         } catch (error) {
-            console.error("Error refreshing saints ", error);
+            console.error("Failed to update saint ", error);
         } finally {
-            setIsLoading(false)
+            setEditSaintModalVisible(false);
+            setSaintToEdit(null);
         }
     }
 
@@ -185,7 +170,6 @@ const SaintScreen = () => {
                         placeholder="Search saint by name..." 
                         value={searchQuery} 
                         onChangeText={(text) => {setSearchQuery(text)}}
-                        onSubmitEditing={handleSearch}
                         returnKeyType="search"
                     />
                     {searchQuery !== "" && (
