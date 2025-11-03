@@ -28,7 +28,8 @@ export const Colors = {
       navbar: '#FFD700',
       text: '#1A1A1A',
       bannerText: "#000000",
-      button: '#FFD700'
+      button: '#FFD700',
+      detail: '#FAF3E0'
     },
     prayer: {
       background: '#F0F9FF',
@@ -71,7 +72,8 @@ export const Colors = {
       navbar: '#FFD700',
       text: '#F1F1F1',
       bannerText: "#000000",
-      button: '#5A4E1A'
+      button: '#121212', 
+      detail: '#121212'
     },
     prayer: {
       background: '#121212',
