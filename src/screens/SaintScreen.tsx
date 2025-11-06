@@ -214,7 +214,7 @@ const SaintScreen = () => {
                                     ) : (
                                         <Image style={[Layout.image, {width: cardWidth}]} source={defaultSaint}/> 
                                     )}
-                                    <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center", marginTop: 8}]}>{item.name}</Text>
+                                    <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center", marginTop: 8, width: cardWidth - 10}]} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
                                 </TouchableOpacity>
 
                                 {user?.role === "ADMIN" && (

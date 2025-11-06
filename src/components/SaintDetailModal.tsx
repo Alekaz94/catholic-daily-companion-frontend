@@ -48,10 +48,10 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
     }
 
     return (
-        <Modal visible={visible} animationType='slide'>
-            <View style={{ flex: 1, backgroundColor: theme.saint.detail, justifyContent: "center"}}>
+        <Modal visible={visible} animationType='slide' transparent>
+            <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: "center"}}>
                 <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>       
-                    <View style={[Layout.container, {backgroundColor: theme.saint.detail, marginHorizontal: 20, borderRadius: 16, padding: 16, elevation: 5}]}>
+                    <View style={[Layout.container, {backgroundColor: theme.saint.detail, marginHorizontal: 20, borderRadius: 16, padding: 16, elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4,}]}>
                         <Text style={[Typography.italic, { color: theme.saint.text, fontSize: 22, textAlign: "center" }]}>{saint.name}</Text>
                         <Divider />
                         <View style={{alignSelf: "center"}}>
