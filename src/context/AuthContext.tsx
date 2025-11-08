@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   login as loginService,
-  logout as logoutService,
   signup as signUpService,
   loadUserFromStorage,
   firebaseLogin as firebaseLoginService,
 } from '../services/AuthService';
+import { clearSession } from "../services/SessionService";
 import { NewUser, User } from '../models/User';
-import { setAuthToken } from '../services/api';
+import { setAuthToken } from '../services/AuthTokenManager';
 import * as SecureStore from 'expo-secure-store';
 import { reset } from '../navigation/RootNavigation';
 import { clearCachedSaints } from '../services/CacheService';
@@ -29,12 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if(user === null) {
-      reset("Landing");
-    }
-  }, [user])
+  const [initialized, setInitialized] = useState(false);
 
   const login = async (email: string, password: string) => {
     const result = await loginService(email, password);
@@ -47,7 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const logout = async () => {
-    await logoutService();
+    await clearSession();
     await clearCachedSaints();
     setUser(null);
     setAuthToken(null);
@@ -101,7 +96,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   useEffect(() => {
-    bootstrapUser();
+    if(initialized && user === null) {
+      reset("Landing");
+    }
+  }, [user, initialized]);
+
+  useEffect(() => {
+    bootstrapUser().finally(() => setInitialized(true));
   }, []);
 
   return (

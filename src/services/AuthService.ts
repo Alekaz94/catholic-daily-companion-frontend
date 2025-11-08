@@ -1,8 +1,11 @@
 import { jwtDecode } from 'jwt-decode';
 import { NewUser, User } from "../models/User";
 import * as SecureStore from 'expo-secure-store';
-import API, { setAuthToken } from './api';
+import API from './api';
+import { setAuthToken } from './AuthTokenManager';
 import { LoginResponse } from '../models/Login';
+import { refreshAccessToken } from './TokenService';
+import { storeSession } from './SessionService';
 
 export const login = async (
   email: string,
@@ -33,13 +36,6 @@ export const signup = async (userToCreate: NewUser): Promise<{user: User; token:
   return { user, token };
 };
 
-export const logout = async () => {
-  await SecureStore.deleteItemAsync('token');
-  await SecureStore.deleteItemAsync('user');
-  await SecureStore.deleteItemAsync("refreshToken");
-  setAuthToken(null);
-};
-
 export const firebaseLogin = async (idToken: string | undefined): Promise<{ user: User; token: string }> => {
   const response = await API.post<LoginResponse>("/api/v1/firebase-auth/firebase-login", { idToken })
   const { user, token, refreshToken } = response.data;
@@ -49,36 +45,8 @@ export const firebaseLogin = async (idToken: string | undefined): Promise<{ user
   return { user, token };
 }
 
-export const refreshAccessToken = async (): Promise<boolean> => {
-  const refreshToken = await SecureStore.getItemAsync("refreshToken");
-
-  if(!refreshToken) {
-    console.warn("No refresh token found");
-    return false;
-  }
-
-  try {
-    const res = await API.post("/api/v1/auth/refresh-token", { refreshToken });
-
-    const { token: newToken, refreshToken: newRefreshToken } = res.data;
-    const userString = await SecureStore.getItemAsync("user");
-
-    if(!userString || !newToken || !newRefreshToken) {
-      throw new Error("Missing data on refresh");
-    }
-
-    const user = JSON.parse(userString);
-    await storeSession(user, newToken, newRefreshToken);
-
-    return true;
-  } catch (error) {
-    console.error("Refresh token failed:", error);
-    await logout();
-    return false;
-  }
-}
-
 export const loadUserFromStorage = async () => {
+  const EXPIRY_BUFFER = 60 * 1000;
   const token = await SecureStore.getItemAsync('token');
   const userString = await SecureStore.getItemAsync('user');
 
@@ -88,7 +56,7 @@ export const loadUserFromStorage = async () => {
 
   const decodedToken = jwtDecode<{ exp: number }>(token);
 
-  if (decodedToken.exp * 1000 < Date.now()) {
+  if (decodedToken.exp * 1000 < Date.now() + EXPIRY_BUFFER) {
     const refreshed = await refreshAccessToken();
     if(!refreshed) {
       return null;
@@ -108,16 +76,3 @@ export const loadUserFromStorage = async () => {
   setAuthToken(token);
   return JSON.parse(userString);
 };
-
-const storeSession = async (user: User, token: string, refreshToken: string) => {
-  const decodedToken = jwtDecode<{ exp: number }>(token);
-
-  if(decodedToken.exp * 1000 < Date.now()) {
-    throw new Error("Access token is expired");
-  }
-
-  await SecureStore.setItemAsync("token", token);
-  await SecureStore.setItemAsync("refreshToken", refreshToken);
-  await SecureStore.setItemAsync("user", JSON.stringify(user));
-  setAuthToken(token);
-}

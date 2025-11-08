@@ -9,6 +9,16 @@ export const changePassword = async (id: string, passwords: { currentPassword: s
     return await API.put(`${endpoint}/${id}`, passwords);
 }
 
+export const updateName = async (id: string, names: { firstName?: string, lastName?: string}): Promise<User> => {
+    try {
+        const result = await API.put(`${endpoint}/update-name/${id}`, names);
+        return result.data;
+    } catch (error) {
+        console.error("Failed to update users name:", error);
+        throw error;
+    }
+}
+
 export const getAllUsers = async (page: number, size: number): Promise<any> => {
     const result = await API.get(`${endpoint}?page=${page}&size=${size}`);
     return result.data;
