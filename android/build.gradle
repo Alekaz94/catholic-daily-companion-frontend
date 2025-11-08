@@ -1,15 +1,19 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+  ext {
+    kotlin_version = '1.9.10'
+  }
+
   repositories {
     google()
     mavenCentral()
   }
   dependencies {
         classpath 'com.google.gms:google-services:4.4.1'
-    classpath('com.android.tools.build:gradle')
-    classpath('com.facebook.react:react-native-gradle-plugin')
-    classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
+    classpath 'com.android.tools.build:gradle:8.8.2'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath 'com.facebook.react:react-native-gradle-plugin'
   }
 }
 
@@ -31,6 +35,29 @@ allprojects {
     google()
     mavenCentral()
     maven { url 'https://www.jitpack.io' }
+  }
+}
+
+subprojects {
+  afterEvaluate { project ->
+    if (project.hasProperty("android")) {
+      project.android {
+        compileSdkVersion 36
+        defaultConfig {
+          minSdkVersion 24
+          targetSdkVersion 36
+        }
+      }
+    }
+  }
+
+  configurations.all {
+    resolutionStrategy {
+      force 'androidx.core:core:1.16.0'
+      force 'androidx.appcompat:appcompat:1.7.0'
+      force 'androidx.annotation:annotation:1.9.1'
+      exclude group: 'com.android.support'
+    }
   }
 }
 
