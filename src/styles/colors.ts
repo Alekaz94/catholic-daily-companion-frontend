@@ -47,7 +47,9 @@ export const Colors = {
       primary: '#FAF3E0',
       text: '#1A1A1A',
       smallText: "gray",
-      navbar: "#FAF3E0"
+      navbar: "#FAF3E0",
+      inputDisabled: "#E5E7EB",
+      disabledText: '#9CA3AF' 
     },
     divider: {
       primary: "gray"
@@ -91,7 +93,9 @@ export const Colors = {
       primary: '#121212',
       text: '#FFFFFF',
       smallText: "#FFFFFF",
-      navbar: "#202124"
+      navbar: "#202124",
+      inputDisabled: "#2C2C2C",
+      disabledText: '#777777'
     },
     divider: {
       primary: "white"

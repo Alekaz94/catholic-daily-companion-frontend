@@ -4,7 +4,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from '../context/AuthContext';
-import { changePassword } from '../services/UserService';
+import { changePassword, updateName } from '../services/UserService';
 import { Layout } from '../styles/Layout';
 import { Typography } from '../styles/Typography';
 import Navbar from '../components/Navbar';
@@ -12,7 +12,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Toast from 'react-native-root-toast';
 import { ActivityIndicator } from 'react-native';
-import { Colors } from '../styles/colors';
 import Divider from '../components/Divider';
 import { useAppTheme } from '../hooks/useAppTheme';
 import * as SecureStore from 'expo-secure-store';
@@ -20,6 +19,9 @@ import { getStreak } from '../services/RosaryService';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PasswordChangeInput, passwordChangeSchema } from '../validation/profileValidation';
+import { NameChangeInput, nameChangeSchema } from '../validation/userNameChangeValidation';
+import NameChangeConfirmModal from '../components/NameChangeConfirmModal';
+import PasswordChangeConfirmModal from '../components/PasswordChangeConfirmModal';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -31,13 +33,23 @@ const ProfileScreen = () => {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+    const [isPasswordLoading, setIsPasswordLoading] = useState(false);
+    const [isNameLoading, setIsNameLoading] = useState(false);    const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+    const [isConfirmNameVisible, setIsConfirmNameVisible] = useState(false);
     const [streak, setStreak] = useState<number>(0);
     const [highestStreak, setHighestStreak] = useState<number>(0);
     const isOAuthUser = user?.email?.toLowerCase().endsWith("@gmail.com");
     const navigation = useNavigation<ProfileNavigationProp>();
     const theme = useAppTheme();
+
+    const {
+        handleSubmit: nameChangeSubmit,
+        control: nameChangeControl,
+        formState: { errors: nameChangeErrors, isSubmitting: nameChangeIsSubmitting},
+        reset: nameChangeReset
+    } = useForm<NameChangeInput>({
+        resolver: zodResolver(nameChangeSchema)
+    })
 
     const {
         handleSubmit,
@@ -48,13 +60,50 @@ const ProfileScreen = () => {
         resolver: zodResolver(passwordChangeSchema)
     });
 
+    const handleUpdateName = async (data: NameChangeInput) => {
+        if(!user) {
+            return;
+        }
+
+        try {
+            setIsNameLoading(true);
+
+            const payload = {
+                firstName: data.newFirstName?.trim() || undefined,
+                lastName: data.newLastName?.trim() || undefined,
+            };
+
+            await updateName(user?.id, payload);
+            Toast.show("Name changed successfully!", {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.BOTTOM
+            });
+            nameChangeReset({
+                currentFirstName: user.firstName ?? "",
+                currentLastName: user.lastName ?? "",
+                newFirstName: "",
+                newLastName: "",
+            });
+            setIsConfirmNameVisible(false);
+        } catch (error: any) {
+            Toast.show(error.response?.data || 'Something went wrong!', {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.BOTTOM,
+                backgroundColor: 'red',
+                textColor: 'white',
+            });
+        } finally {
+            setIsNameLoading(false)
+        }
+    }
+
     const onSubmit = async (data: PasswordChangeInput) => {
         if(!user) {
             return;
         }
 
         try {
-            setIsLoading(true);
+            setIsPasswordLoading(true);
             await changePassword(user?.id, data)
             Toast.show("Password changed successfully!", {
                 duration: Toast.durations.SHORT,
@@ -77,9 +126,20 @@ const ProfileScreen = () => {
                 textColor: 'white',
             });
         } finally {
-            setIsLoading(false)
+            setIsPasswordLoading(false)
         }
     }
+
+    useEffect(() => {
+        if(user) {
+            nameChangeReset({
+                currentFirstName: user.firstName ?? "",
+                currentLastName: user.lastName ?? "",
+                newFirstName: "",
+                newLastName: "",
+            });
+        }
+    }, [user, nameChangeReset]);
 
     useEffect(() => {
         const fetchStreak = async () => {
@@ -146,6 +206,99 @@ const ProfileScreen = () => {
                         <Text style={[Typography.body, {color: theme.auth.text}]}>Current prayed streak: </Text>
                         <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{streak}</Text>
                     </View>
+                </View>
+
+                <View style={{marginVertical: 15}}>
+                    <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Name Change</Text>
+                    <Divider />
+                    <Text style={[Typography.label, {color: theme.auth.text}]}>Current Firstname:</Text>
+                    <View style={{ position: 'relative' }}>
+                        <Controller
+                            control={nameChangeControl}
+                            name='currentFirstName'
+                            render={({ field: { onChange, value } }) => (
+                                <TextInput
+                                    style={[Layout.input, { backgroundColor: theme.auth.inputDisabled, color: theme.auth.disabledText, borderColor: theme.auth.disabledText }]}
+                                    placeholder='Current Firstname'
+                                    placeholderTextColor={theme.auth.disabledText}
+                                    value={value}
+                                    onChangeText={onChange}
+                                    accessibilityLabel="Current Firstname"
+                                    editable={false}
+                                />
+                            )}
+                        />
+                    </View>
+                    {nameChangeErrors.currentFirstName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.currentFirstName.message}</Text>}
+
+                    <Text style={[Typography.label, {color: theme.auth.text}]}>New Firstname:</Text>
+                    <View style={{ position: 'relative' }}>
+                        <Controller
+                            control={nameChangeControl}
+                            name='newFirstName'
+                            render={({ field: { onChange, value } }) => (
+                                <TextInput
+                                    style={Layout.input}
+                                    placeholder='New Firstname'
+                                    value={value}
+                                    onChangeText={onChange}
+                                    accessibilityLabel="New Firstname"
+                                    editable={!nameChangeIsSubmitting}
+                                />
+                            )}
+                        />
+                    </View>
+                    {nameChangeErrors.newFirstName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.newFirstName.message}</Text>}
+
+                    <Text style={[Typography.label, {color: theme.auth.text}]}>Current Lastname:</Text>
+                    <View style={{ position: 'relative' }}>
+                        <Controller
+                            control={nameChangeControl}
+                            name='currentLastName'
+                            render={({ field: { onChange, value } }) => (
+                                <TextInput
+                                    style={[Layout.input, { backgroundColor: theme.auth.inputDisabled, color: theme.auth.disabledText, borderColor: theme.auth.disabledText, }]}
+                                    placeholder='Current Lastname'
+                                    placeholderTextColor={theme.auth.disabledText}
+                                    value={value}
+                                    onChangeText={onChange}
+                                    accessibilityLabel="Current Lastname"
+                                    editable={false}
+                                />
+                            )}
+                        />
+                    </View>
+                    {nameChangeErrors.currentLastName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.currentLastName.message}</Text>}
+
+                    <Text style={[Typography.label, {color: theme.auth.text}]}>New Lastname:</Text>
+                    <View style={{ position: 'relative' }}>
+                        <Controller
+                            control={nameChangeControl}
+                            name='newLastName'
+                            render={({ field: { onChange, value } }) => (
+                                <TextInput
+                                    style={Layout.input}
+                                    placeholder='New Lastname'
+                                    value={value}
+                                    onChangeText={onChange}
+                                    accessibilityLabel="New Lastname"
+                                    editable={!nameChangeIsSubmitting}
+                                />
+                            )}
+                        />
+                    </View>
+                    {nameChangeErrors.newLastName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.newLastName.message}</Text>}
+
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.navbar, opacity: isNameLoading ? 0.7 : 1, marginTop: 30}]}
+                        disabled={isNameLoading}
+                        onPress={() => setIsConfirmNameVisible(true)}
+                    >
+                        {isNameLoading ? (
+                            <ActivityIndicator color={theme.auth.text} />
+                        ) : (
+                            <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Update Name</Text>
+                        )}
+                    </TouchableOpacity>
                 </View>
 
                 {!isOAuthUser && (
@@ -236,10 +389,11 @@ const ProfileScreen = () => {
                         </View>
                         {errors.confirmNewPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.confirmNewPassword.message}</Text>}
 
-                        <TouchableOpacity style={[Layout.button, {opacity: isLoading ? 0.7 : 1, marginTop: 30}]} 
+                        <TouchableOpacity style={[Layout.button, {opacity: isPasswordLoading ? 0.7 : 1, marginTop: 30}]} 
+                            disabled={isPasswordLoading}
                             onPress={() => setIsConfirmVisible(true)}
                         >
-                            {isLoading ? (
+                            {isPasswordLoading ? (
                                 <ActivityIndicator color={theme.auth.text} />
                             ) : (
                                 <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Update Password</Text>
@@ -261,32 +415,19 @@ const ProfileScreen = () => {
             </ScrollView>
             </TouchableWithoutFeedback>
 
-            <Modal
-                animationType="fade"
-                transparent
-                visible={isConfirmVisible}
-                onRequestClose={() => setIsConfirmVisible(false)}
-            >
-             <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
-                <View style={{alignItems: "center", padding: 20, width: "100%", backgroundColor: Colors.surface, borderRadius: 12, borderColor: "black", borderWidth: 1}}>
-                    <Text style={Typography.title}>Are you sure you want to update your password?</Text>
-                    <View style={{flexDirection: "row"}}>
-                        <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 40}]}
-                            onPress={handleSubmit(onSubmit)}
-                        >
-                            <Text style={[Layout.buttonText, {color: "black"}]}>Yes</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: Colors.error, width: "30%"}]}
-                            onPress={() => setIsConfirmVisible(false)}
-                        >
-                            <Text style={[Layout.buttonText, {color: "black"}]}>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
-        </Modal>
+        <PasswordChangeConfirmModal
+            visible={isConfirmVisible}
+            onClose={() => setIsConfirmVisible(false)}
+            onConfirm={handleSubmit(onSubmit)}
+            isLoading={isPasswordLoading}
+        />
+
+        <NameChangeConfirmModal
+            visible={isConfirmNameVisible}
+            onClose={() => setIsConfirmNameVisible(false)}
+            onConfirm={nameChangeSubmit(handleUpdateName)}
+            isLoading={isNameLoading}
+        />
         </SafeAreaView>
     );
 }
