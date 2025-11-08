@@ -1,4 +1,4 @@
-import { View, Text, Switch, ScrollView, TouchableOpacity } from "react-native"; 
+import { View, Text, Switch, ScrollView, TouchableOpacity, Alert, Platform } from "react-native"; 
 import { useAppTheme } from "../hooks/useAppTheme"; 
 import { useTheme } from "../context/ThemeContext"; 
 import { Typography } from "../styles/Typography"; 
@@ -7,11 +7,15 @@ import Divider from "../components/Divider";
 import { Layout } from "../styles/Layout"; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DeleteAccountConfirmModal from "../components/DeleteAccountConfirmModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { deleteUser } from "../services/UserService";
 import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-root-toast";
+import RNFS from "react-native-fs";
+import { downloadUserDataJson, downloadUserDataZip } from "../services/UserExportService";
+import { Buffer } from "buffer";
+import * as Sharing from "expo-sharing";
 
 const SettingsScreen = () => { 
     const theme = useAppTheme(); 
@@ -19,6 +23,59 @@ const SettingsScreen = () => {
     const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
     const {user, logout} = useAuth();
     const [isLoading, setIsLoading] = useState(false);
+
+    const handleExportData = async (type: "json" | "zip") => {
+        if(!user?.id) {
+            return;
+        }
+
+        try {
+            setIsLoading(true);
+
+            // Download data
+            const data = 
+                type === "zip"
+                    ? await downloadUserDataZip(user.id)
+                    : await downloadUserDataJson(user.id);
+            
+            const fileName = type === "zip" ? "user-data-export.zip" : "user-data-export.json";
+
+            const folderPath = Platform.OS === "android" 
+                ? RNFS.DownloadDirectoryPath 
+                : RNFS.DocumentDirectoryPath;
+
+            const path = `${folderPath}/${fileName}`;
+            
+            // Convert ArrayBuffer to Base64
+            const base64Data = Buffer.from(data).toString("base64");
+
+            // Write file
+            await RNFS.writeFile(path, base64Data, "base64");
+
+            // Check if file exists
+            const exists = await RNFS.exists(path);
+            console.log("File exists:", exists)
+
+            if(!exists) {
+                Alert.alert("Error", "Failed to save the file.");
+                return;
+            }
+
+            // Open file automatically
+            const canShare = await Sharing.isAvailableAsync();
+            if(canShare) {
+                const fileUri = Platform.OS === "android" ? `file://${path}` : path
+                await Sharing.shareAsync(fileUri);
+            } else {
+                Alert.alert("Download Complete", `File saved to: ${path}`);
+            }
+        } catch (error) {
+            console.error("Export failed", error);
+            Alert.alert("Error", "Failed to download user data.");
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     const handleDeleteAccount = async () => {
         if(!user?.id) {
@@ -54,11 +111,32 @@ const SettingsScreen = () => {
                 <View style={Layout.container}> 
                     <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>Settings</Text> 
                     <Divider /> 
+
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10}}> 
                         <Text style={[Typography.body, { color: theme.auth.text, marginRight: 10 }]}> Dark Mode </Text> 
                         <Switch value={isDark} onValueChange={toggleTheme} trackColor={{ false: '#767577', true: '#81b0ff' }} thumbColor={isDark ? "#59512e" : '#FAF3E0'} /> 
                     </View> 
-                    
+
+                    <Divider />
+                    <View style={{ marginVertical: 20 }}>
+                        <Text style={[Typography.label, { fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}> 
+                            Export Data
+                        </Text>
+                        <TouchableOpacity
+                            style={[Layout.button, {backgroundColor: '#4caf50', marginBottom: 10}]}
+                            onPress={() => handleExportData("json")}
+                        >
+                            <Text style={{ color: theme.auth.text }}>Export JSON</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={[Layout.button, { backgroundColor: '#2196f3' }]}
+                            onPress={() => handleExportData("zip")}
+                        >
+                            <Text style={{ color: theme.auth.text }}>Export ZIP</Text>
+                        </TouchableOpacity>
+                    </View>
+
                     <View style={{ marginTop: 10, borderTopWidth: 1, borderColor: 'red', paddingTop: 20 }}>
                         <Text style={[Typography.label, { color: 'red', fontWeight: 'bold', fontSize: 18 }]}>Danger Zone</Text>
                         <TouchableOpacity
