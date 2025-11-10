@@ -10,6 +10,7 @@ import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "../context/ThemeContext";
 
 type TermsOfServiceNavigationScreen = NativeStackNavigationProp<
   AuthStackParamList,
@@ -18,6 +19,7 @@ type TermsOfServiceNavigationScreen = NativeStackNavigationProp<
 
 const TermsOfServiceScreen = () => {
     const theme = useAppTheme();
+    const { isDark } = useTheme();
     const { user } = useAuth();
     const navigation = useNavigation<TermsOfServiceNavigationScreen>();
 
@@ -78,7 +80,7 @@ const TermsOfServiceScreen = () => {
                             <Text style={[Typography.body, { color: theme.auth.text }]}>
                                 Your personal data is handled in accordance with our{" "}
                             <Text
-                                style={{ textDecorationLine: "underline", color: theme.auth.text }}
+                                style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}
                                 onPress={() => navigation.navigate('Privacy Policy')}
                             >
                                 Privacy Policy
