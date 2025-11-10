@@ -182,6 +182,26 @@ const LandingScreen = () => {
         </Text>
       </TouchableOpacity>
     </View>
+    <Divider />
+    <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40 }}>
+      <TouchableOpacity onPress={() => navigation.navigate("Privacy Policy")}>
+        <Text style={{ color: theme.auth.smallText, textDecorationLine: "underline", fontSize: 12 }}>
+          Privacy Policy
+        </Text>
+      </TouchableOpacity>
+      <Text style={{ color: theme.auth.smallText }}>  •  </Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Terms of Service")}>
+        <Text style={{ color: theme.auth.smallText, textDecorationLine: "underline", fontSize: 12 }}>
+          Terms of Service
+        </Text>
+      </TouchableOpacity>
+      <Text style={{ color: theme.auth.smallText }}>  •  </Text>
+      <TouchableOpacity onPress={() => navigation.navigate("About")}>
+        <Text style={{ color: theme.auth.smallText, textDecorationLine: "underline", fontSize: 12 }}>
+          About
+        </Text>
+      </TouchableOpacity>
+    </View>
     
     <SaintDetailModal 
       visible={modalVisible}

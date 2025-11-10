@@ -165,6 +165,22 @@ const HomeScreen = () => {
           <Text style={[Typography.link, {color: theme.auth.text}]}>Go to Admin Panel</Text>
         </TouchableOpacity>
       )}
+
+      <Divider />
+
+      <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40}}>
+            <TouchableOpacity style={{ padding: 10 }} onPress={() => navigation.navigate("Privacy Policy")}>
+              <Text style={{ color: theme.auth.smallText, textDecorationLine: "underline", fontSize: 12}}>
+                Privacy Policy
+              </Text>
+            </TouchableOpacity>
+            <Text style={{ color: theme.auth.smallText, padding: 10 }}>  •  </Text>
+            <TouchableOpacity style={{ padding: 10 }} onPress={() => navigation.navigate("Terms of Service")}>
+              <Text style={{ color: theme.auth.smallText, textDecorationLine: "underline", fontSize: 12}}>
+                Terms of Service
+              </Text>
+            </TouchableOpacity>
+        </View>
       
       <SaintDetailModal 
         visible={modalVisible}

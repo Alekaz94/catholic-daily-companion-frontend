@@ -22,7 +22,7 @@ type LicenseWithPackage = LicenseEntry & { packageName: string };
 
 const licensesTyped = licenses as Record<string, LicenseEntry>;
 
-const LicencesScreen = () => {
+const LicensesScreen = () => {
     const theme = useAppTheme();
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
 
@@ -98,4 +98,4 @@ const LicencesScreen = () => {
     )
 }
 
-export default LicencesScreen;
+export default LicensesScreen;

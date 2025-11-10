@@ -27,7 +27,7 @@ const DrawerNavigatorWrapper = () => {
         { icon: 'home', label: 'Home' },
         { icon: 'person-circle', label: 'Profile' },
         { icon: 'settings', label: 'Settings' },
-        { icon: 'shield-checkmark', label: 'Privacy Policy' },
+        { icon: 'information-circle', label: 'About' },
         { icon: 'chatbubble-ellipses', label: 'Feedback' },
         { icon: 'book', label: "Licenses"}
     ] as const;

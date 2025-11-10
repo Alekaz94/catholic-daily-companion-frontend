@@ -17,6 +17,8 @@ export type AuthStackParamList = {
   CalendarModal: undefined;
   Settings: undefined;
   "Privacy Policy": undefined;
+  "Terms of Service": undefined;
+  About: undefined;
   Feedback: undefined;
   AdminAllUsersScreen: undefined;
   AdminFeedbackScreen: undefined;

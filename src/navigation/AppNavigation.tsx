@@ -18,13 +18,15 @@ import PrayerListScreen from '../screens/PrayerListScreen';
 import SaintCreateScreen from '../screens/SaintCreateScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import GoogleLogin from '../components/GoogleLogin';
-import CalendarModal from '../components/CalendarModal';
 import FeedbackScreen from '../screens/FeedbackScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AdminAllUsersScreen from '../screens/AdminAllUsersScreen';
 import AdminFeedbackScreen from '../screens/AdminFeedbackScreen';
-import LicencesScreen from '../screens/LicencesScreen';
+import LicencesScreen from '../screens/LicensesScreen';
+import TermsOfServiceScreen from '../screens/TermsOfServiceScreen';
+import AboutScreen from '../screens/AboutScreen';
+import CalendarModal from '../components/CalendarModal';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -55,6 +57,8 @@ const AppNavigator = () => {
           <Stack.Screen name="PrayerList" component={PrayerListScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="Privacy Policy" component={PrivacyPolicyScreen} />
+          <Stack.Screen name="Terms of Service" component={TermsOfServiceScreen} />
+          <Stack.Screen name="About" component={AboutScreen} />
           <Stack.Screen name="Feedback" component={FeedbackScreen} />
           <Stack.Screen name='Licenses' component={LicencesScreen} />
         </>
@@ -65,6 +69,9 @@ const AppNavigator = () => {
           <Stack.Screen name="Signup" component={SignUpScreen} />
           <Stack.Screen name="EmailAndPassword" component={EmailAndPasswordLoginScreen} />
           <Stack.Screen name="GoogleLogin" component={GoogleLogin} />
+          <Stack.Screen name="Privacy Policy" component={PrivacyPolicyScreen} />
+          <Stack.Screen name="Terms of Service" component={TermsOfServiceScreen} />
+          <Stack.Screen name="About" component={AboutScreen} />
         </>
       )}
     </Stack.Navigator>

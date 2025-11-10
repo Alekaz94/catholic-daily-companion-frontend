@@ -1,18 +1,34 @@
 import React from "react";
-import { ScrollView, View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { ScrollView, View, Text, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppTheme } from "../hooks/useAppTheme";
 import { Typography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import Navbar from "../components/Navbar";
+import { useAuth } from "../context/AuthContext";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import { AuthStackParamList } from "../navigation/types";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type PrivacyPolicyNavigationScreen = NativeStackNavigationProp<
+  AuthStackParamList,
+  'Privacy Policy'
+>;
 
 const PrivacyPolicyScreen = () => {
   const theme = useAppTheme();
+  const { user } = useAuth();
+  const navigation = useNavigation<PrivacyPolicyNavigationScreen>();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar }}>
       <View style={{ flex: 1 }}>
-        <Navbar />
+        {user 
+            ? <Navbar /> 
+            : <TouchableOpacity style={{padding: 10}} onPress={() => navigation.goBack()}>
+                <Ionicons name="arrow-back" size={28} color={theme.auth.text} />
+            </TouchableOpacity>}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <ScrollView keyboardShouldPersistTaps="handled" style={{ backgroundColor: theme.auth.background }}>
             <View style={Layout.container}>
@@ -26,6 +42,10 @@ const PrivacyPolicyScreen = () => {
 
                 <Text style={[Typography.body, { marginTop: 20, color: theme.auth.text }]}>
                     Thank you for using Catholic Daily Companion ("we", "our", or "us"). Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information.
+                </Text>
+
+                <Text style={[Typography.body, { color: theme.auth.text }]}>
+                    By using the app, you agree to the terms of this Privacy Policy.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>Information We Collect:</Text>
@@ -68,9 +88,41 @@ const PrivacyPolicyScreen = () => {
                     alexandros.kazalis@gmail.com
                 </Text>
 
+                <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>
+                    GDPR Data Protection Rights:
+                </Text>
+                <Text style={[Typography.body, { color: theme.auth.text }]}>
+                    If you are located in the European Union (EU), you have certain data protection rights under the General Data Protection Regulation (GDPR). These include the right to:
+                    {"\n"}• Access the personal data we hold about you
+                    {"\n"}• Request correction of inaccurate or incomplete data
+                    {"\n"}• Request deletion of your personal data
+                    {"\n"}• Request a copy of your personal data (data portability)
+                    {"\n"}• Object to or restrict the processing of your data
+                    {"\n\n"}
+                    You can exercise most of these rights directly in the app:
+                    {"\n"}• Update your profile or password from your account profile
+                    {"\n"}• Edit or delete your journal entries at any time
+                    {"\n"}• Export your data in JSON or ZIP format
+                    {"\n"}• Delete your account and all related data permanently
+                    {"\n\n"}
+                    For any additional requests regarding your data or privacy rights, please contact us at:
+                </Text>
+
+                <Text style={[Typography.body, { fontWeight: "500", marginTop: 10, color: theme.auth.text }]}>
+                    alexandros.kazalis@gmail.com
+                </Text>
+
+                <Text style={[Typography.body, { color: theme.auth.text, marginTop: 10 }]}>
+                    We will respond to your request in accordance with applicable data protection laws.
+                </Text>
+
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>Changes to This Policy:</Text>
                 <Text style={[Typography.body, { color: theme.auth.text }]}>
                     We may occasionally update this Privacy Policy. If changes are significant, we will notify you via the app or email.
+                </Text>
+
+                <Text style={[Typography.body, { marginTop: 30, color: theme.auth.smallText, fontStyle: "italic", fontSize: 12 }]}>
+                    This app complies with the General Data Protection Regulation (GDPR) and other applicable data protection laws.
                 </Text>
 
                 <Text style={[Typography.body, { marginTop: 30, color: theme.auth.smallText, fontStyle: "italic", fontSize: 12 }]}>
