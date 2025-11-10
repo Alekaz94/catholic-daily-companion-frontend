@@ -6,8 +6,6 @@ export type AuthStackParamList = {
   CreateJournalEntry: undefined;
   Saint: undefined;
   CreateSaint: undefined;
-//  Reading: undefined;
-//  PastReadings: undefined;
   Profile: undefined;
   Landing: undefined;
   EmailAndPassword: undefined;
@@ -22,4 +20,5 @@ export type AuthStackParamList = {
   Feedback: undefined;
   AdminAllUsersScreen: undefined;
   AdminFeedbackScreen: undefined;
+  Licenses: undefined;
 };

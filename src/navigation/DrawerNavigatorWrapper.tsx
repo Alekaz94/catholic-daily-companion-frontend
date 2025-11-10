@@ -27,8 +27,9 @@ const DrawerNavigatorWrapper = () => {
         { icon: 'home', label: 'Home' },
         { icon: 'person-circle', label: 'Profile' },
         { icon: 'settings', label: 'Settings' },
-        { icon: 'document-text', label: 'Privacy Policy' },
+        { icon: 'shield-checkmark', label: 'Privacy Policy' },
         { icon: 'chatbubble-ellipses', label: 'Feedback' },
+        { icon: 'book', label: "Licenses"}
     ] as const;
 
     const openDrawer = () => setIsOpen(true);
@@ -47,7 +48,7 @@ const DrawerNavigatorWrapper = () => {
         return (
             <View style={{flex: 1}}> 
                 <View style={{padding: 20, paddingTop: 50, alignItems: 'center', backgroundColor: theme.auth.background, borderBottomWidth: 1, borderBlockColor: theme.auth.text}}> 
-                    <Text style={{marginTop: 18, fontSize: 18}}> {user && user.firstName || "Welcome"} </Text> 
+                    <Text style={{marginTop: 18, fontSize: 18, color: theme.auth.text}}> {user && user.firstName || "Welcome"} </Text> 
                 </View> 
 
                 <View style={{ flex: 1, justifyContent: "space-between", paddingHorizontal: 20 }}>

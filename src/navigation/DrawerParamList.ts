@@ -4,4 +4,5 @@ export type DrawerParamList = {
     Settings: undefined;
     "Privacy Policy": undefined;
     Feedback: undefined;
+    Licenses: undefined;
 }

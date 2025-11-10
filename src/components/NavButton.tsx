@@ -32,7 +32,7 @@ const NavButton: React.FC<Props> = ({ title, screen, icon, style, textStyle, tes
             activeOpacity={0.7} 
             style={[
                 Layout.navbarButton, 
-                showActive && { backgroundColor: theme.auth.text, borderRadius: 16, borderWidth: 1, borderColor: theme.auth.text },
+                showActive && { backgroundColor: theme.auth.text, borderBottomWidth: 10, borderColor: theme.auth.text },
                 style,
             ]} 
             onPress={onPress ? onPress : () => screen && navigation.navigate(screen)}

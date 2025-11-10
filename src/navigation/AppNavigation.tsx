@@ -24,6 +24,7 @@ import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AdminAllUsersScreen from '../screens/AdminAllUsersScreen';
 import AdminFeedbackScreen from '../screens/AdminFeedbackScreen';
+import LicencesScreen from '../screens/LicencesScreen';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -55,6 +56,7 @@ const AppNavigator = () => {
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="Privacy Policy" component={PrivacyPolicyScreen} />
           <Stack.Screen name="Feedback" component={FeedbackScreen} />
+          <Stack.Screen name='Licenses' component={LicencesScreen} />
         </>
       ) : (
         <>
