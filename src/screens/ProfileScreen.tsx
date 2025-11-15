@@ -29,7 +29,7 @@ type ProfileNavigationProp = NativeStackNavigationProp<
 >
 
 const ProfileScreen = () => {
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
@@ -73,7 +73,17 @@ const ProfileScreen = () => {
                 lastName: data.newLastName?.trim() || undefined,
             };
 
-            await updateName(user?.id, payload);
+            const updatedUser = await updateName(user?.id, payload);
+
+            const newUser = {
+                ...user,
+                firstName: updatedUser.firstName,
+                lastName: updatedUser.lastName,
+            };
+
+            await SecureStore.setItemAsync("user", JSON.stringify(newUser))
+            setUser?.(newUser);
+
             Toast.show("Name changed successfully!", {
                 duration: Toast.durations.SHORT,
                 position: Toast.positions.BOTTOM

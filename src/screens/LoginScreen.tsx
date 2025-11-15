@@ -54,10 +54,10 @@ const LoginScreen = () => {
 
         <GoogleLogin />
 
-        <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("EmailAndPassword")}>
+        {/* <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", borderWidth: 1}]} onPress={() => navigation.navigate("EmailAndPassword")}>
           <Ionicons name="mail-outline" color={theme.auth.text} size={20} />
           <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Login with Email & Password</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>    
   );

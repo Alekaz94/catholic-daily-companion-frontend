@@ -20,6 +20,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   loading: boolean;
   firebaseLogin: (token: string | undefined) => Promise<void>;
+  setUser?: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -106,7 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, firebaseLogin, loading }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, firebaseLogin, loading, setUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -80,7 +80,7 @@ const HomeScreen = () => {
       }  
     >
       <Navbar />
-      <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginTop: 20, color: theme.auth.text}]}>Welcome back {user && user.firstName}</Text>
+      <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginTop: 20, color: theme.auth.text}]}>Welcome back {user && user.firstName} {user && user.lastName}</Text>
       <Divider />
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />

@@ -17,6 +17,7 @@ import { SignupInput, signUpSchema } from '../validation/signupValidation';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Toast from 'react-native-root-toast';
+import { auth } from '../../firebase';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -144,7 +145,7 @@ const SignUpScreen = () => {
             {errors.password && <Text style={{ color: 'red', marginTop: -10, marginBottom: 15 }}>{errors.password.message}</Text>}
 
             <View style={{flexDirection: "row"}}>
-            <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, borderRadius: 14, flexDirection: "row", justifyContent: "center", width: "40%", height: 50}]} onPress={handleSubmit(onSubmit)}>
+              <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, borderRadius: 14, flexDirection: "row", justifyContent: "center", width: "40%", height: 50}]} onPress={handleSubmit(onSubmit)}>
                 {isSubmitting ? (
                   <ActivityIndicator color={theme.auth.text} />
                 ) : (
@@ -163,6 +164,18 @@ const SignUpScreen = () => {
                   <Text style={{fontWeight: 'bold', color: theme.auth.text}}>Log in </Text>
                 </TouchableOpacity>
               </View>
+            </View>
+            
+            <View>
+              <Text style={{color: theme.auth.text}}>
+                By signing up, you are creating an account and accepting to our 
+                <Text onPress={() => navigation.navigate("Terms of Service")} style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}>
+                  Terms of Service
+                </Text> and 
+                <Text onPress={() => navigation.navigate("Privacy Policy")}style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}>
+                  Privacy Policy
+                </Text>
+              </Text>
             </View>
           </View>
         </TouchableWithoutFeedback>

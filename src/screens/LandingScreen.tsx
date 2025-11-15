@@ -171,15 +171,9 @@ const LandingScreen = () => {
           borderWidth: 1,
           borderColor: "#aaa"
         }}
-        onPress={() => navigation.navigate("Signup")}  
+        onPress={() => navigation.navigate("Login")}  
       >
         <Text style={{color: theme.auth.text, fontSize: 16}}>Get Started</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-        <Text style={{ color: theme.auth.text, fontSize: 14 }}>
-          Already have an account? <Text style={{fontWeight: 'bold'}}>Log in</Text>
-        </Text>
       </TouchableOpacity>
     </View>
     <Divider />
