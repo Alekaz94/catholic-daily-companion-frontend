@@ -36,11 +36,11 @@ const AboutScreen = () => {
                 style={{ backgroundColor: theme.auth.background }}
             >
                 <View style={[Layout.container, { alignItems: "center" }]}>
-                    <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ width: 200, height: 200, borderRadius: 20, marginTop: 20 }} />
+                    <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ width: 250, height: 250, borderRadius: 20}} />
                     <Text
                         style={[
                         Typography.title,
-                        { marginTop: 15, fontFamily: "Playfair-Italic", color: theme.auth.text },
+                        { marginTop: -50, fontFamily: "Playfair-Italic", color: theme.auth.text },
                         ]}
                     >
                         Catholic Daily Companion

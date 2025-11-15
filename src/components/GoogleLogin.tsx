@@ -48,7 +48,7 @@ const GoogleLogin = () => {
         
             await firebaseLogin(firebaseIdToken);
         
-            console.log("User signed in:", userInfo.user.email);
+            console.log("User signed in:", userInfo.user.id);
         } catch (error) {
             console.error("Google signin error:", error);
         } finally {
