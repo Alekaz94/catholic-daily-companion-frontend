@@ -15,13 +15,19 @@ export const getAuthToken = (): string | null => currentToken;
  * Checks in-memory first, then SecureStore.
  */
 export const getAuthHeader = async (): Promise<Record<string, string>> => {
-    let token = currentToken;
-
-    if(!token) {
-        token = await SecureStore.getItemAsync("token");
-        if(token) {
-            currentToken = token;
-        }
+    if(currentToken) {
+        return { Authorization: `Bearer ${currentToken}` };
     }
-    return token ? { Authorization: `Bearer ${token}` } : {};
+    
+    try {
+        const token = await SecureStore.getItemAsync("token");
+        if (token) {
+            currentToken = token;
+            return { Authorization: `Bearer ${token}` };
+        }
+    } catch (error) {
+        console.error("Failed to read token from SecureStore:", error);
+    }
+
+    return {};
 }

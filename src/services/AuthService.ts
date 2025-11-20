@@ -56,7 +56,7 @@ export const loadUserFromStorage = async () => {
 
   const decodedToken = jwtDecode<{ exp: number }>(token);
 
-  if (decodedToken.exp * 1000 < Date.now() + EXPIRY_BUFFER) {
+  if (decodedToken.exp * 1000 < Date.now() - EXPIRY_BUFFER) {
     const refreshed = await refreshAccessToken();
     if(!refreshed) {
       return null;
