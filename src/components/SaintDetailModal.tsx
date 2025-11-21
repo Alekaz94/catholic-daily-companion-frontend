@@ -56,6 +56,40 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                         <Divider />
                         <View style={{alignSelf: "center"}}>
                             {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain" defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}    
+                            {saint.imageAuthor ? (
+                                <Text style={{ 
+                                        color: theme.auth.smallText, 
+                                        fontSize: 12, 
+                                        textAlign: 'center' 
+                                    }}
+                                >
+                                    Author: {saint.imageAuthor}
+                                </Text>
+                            ) : null}
+
+                            {saint.imageSource ? (
+                                <Text
+                                    style={{
+                                        color: theme.auth.smallText,
+                                        fontSize: 12,
+                                        textAlign: 'center',
+                                        textDecorationLine: 'underline',
+                                    }}
+                                >
+                                    Source: {saint.imageSource}
+                                </Text>
+                            ) : null}
+
+                            {saint.imageLicence ? (
+                                <Text style={{ 
+                                        color: theme.auth.smallText, 
+                                        fontSize: 12, 
+                                        textAlign: 'center' 
+                                    }}
+                                >
+                                    Licence: {saint.imageLicence}
+                                </Text>
+                            ) : null}
                         </View> 
                         <View style={{
                             width: "100%", 

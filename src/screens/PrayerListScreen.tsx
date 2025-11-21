@@ -9,6 +9,7 @@ import PrayerDetailModal from "../components/PrayerDetailModal";
 import Navbar from "../components/Navbar";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
+import AdBanner from "../components/AdBanner";
 
 const PrayerListScreen = () => {
     const [selectedPrayer, setSelectedPrayer] = useState<Prayers | null>(null);
@@ -60,6 +61,9 @@ const PrayerListScreen = () => {
                         onClose={() => setModalVisible(false)} 
                     />
                 )}
+            </View>
+            <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                <AdBanner />
             </View>
         </SafeAreaView>
     );

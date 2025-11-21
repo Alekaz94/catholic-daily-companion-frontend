@@ -21,6 +21,7 @@ import defaultSaint from "../assets/images/default_saint.jpg";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { cacheSaints, getCachedSaints } from "../services/CacheService";
+import AdBanner from "../components/AdBanner";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -315,6 +316,9 @@ const SaintScreen = () => {
                     </View>
                 </View>
             </Modal>
+            <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                <AdBanner />
+            </View>
         </SafeAreaView>
     );
 }

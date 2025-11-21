@@ -21,6 +21,9 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
     const [biography, setBiography] = useState("");
     const [canonizationYear, setCanonizationYear] = useState<number>(0);
     const [imageUrl, setImageUrl] = useState<string | null>("");
+    const [imageAuthor, setImageAuthor] = useState<string | null>("");
+    const [imageSource, setImageSource] = useState<string | null>("");
+    const [imageLicence, setImageLicence] = useState<string | null>("");
     const theme = useAppTheme();
 
     useEffect(() => {
@@ -32,7 +35,10 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
             setPatronage(saint.patronage);
             setBiography(saint.biography);
             setCanonizationYear(saint.canonizationYear);
-            setImageUrl(saint.imageUrl)
+            setImageUrl(saint.imageUrl);
+            setImageAuthor(saint.imageAuthor);
+            setImageSource(saint.imageSource);
+            setImageLicence(saint.imageLicence);
         }
     }, [saint]);
 
@@ -46,6 +52,9 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
         const trimmedBiography = biography.trim();
         const trimmedPatronage = patronage.trim();
         const trimmedImageUrl = imageUrl?.trim();
+        const trimmedImageAuthor = imageAuthor?.trim();
+        const trimmedImageSource = imageSource?.trim();
+        const trimmedImageLicence = imageLicence?.trim();
         const updatedBirthYear = birthYear;
         const updatedDeathYear = deathYear;
         const updatedCanonizationYear = canonizationYear;
@@ -77,6 +86,18 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
             updatedFields.imageUrl = trimmedImageUrl;
         }
 
+        if(trimmedImageAuthor && trimmedImageAuthor !== saint.imageAuthor) {
+            updatedFields.imageAuthor = trimmedImageAuthor;
+        }
+
+        if(trimmedImageSource && trimmedImageSource !== saint.imageSource) {
+            updatedFields.imageSource = trimmedImageSource;
+        }
+
+        if(trimmedImageLicence && trimmedImageLicence !== saint.imageLicence) {
+            updatedFields.imageLicence = trimmedImageLicence;
+        }
+
         if(updatedBirthYear && updatedBirthYear !== saint.birthYear) {
             updatedFields.birthYear = updatedBirthYear;
         }
@@ -96,7 +117,7 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
 
         try {
             await onUpdate(saint.id, updatedFields);
-            alert("Update successfull!");
+            alert("Update successful!");
             onClose();
         } catch (error) {
             console.error("Failed to update saint, ", error);
@@ -162,6 +183,24 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
                     style={Layout.input}
                     value={imageUrl ?? ""}
                     onChangeText={(value) => setImageUrl(value)}
+                />
+                <TextInput 
+                    placeholder="Enter image author" 
+                    style={Layout.input} 
+                    value={imageAuthor ?? ""}
+                    onChangeText={setImageAuthor} 
+                />
+                <TextInput 
+                    placeholder="Enter image source" 
+                    style={Layout.input} 
+                    value={imageSource ?? ""} 
+                    onChangeText={setImageSource} 
+                />
+                <TextInput 
+                    placeholder="Enter image licence" 
+                    style={Layout.input} 
+                    value={imageLicence ?? ""} 
+                    onChangeText={setImageLicence} 
                 />
                 <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                     <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.saint.navbar, borderWidth: 1}]} onPress={onHandleSubmit}>

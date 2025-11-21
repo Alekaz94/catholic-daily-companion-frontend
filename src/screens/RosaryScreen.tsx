@@ -13,6 +13,8 @@ import * as SecureStore from 'expo-secure-store';
 import RosaryHistoryModal from "../components/RosaryHistoryModal";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
+import AdBanner from "../components/AdBanner";
+import { showRewardedAd } from "../services/ads/rewarded";
 
 const formatDate = (date: Date) => {
     const year = date.getUTCFullYear();
@@ -24,9 +26,9 @@ const formatDate = (date: Date) => {
 const RosaryScreen = () => {
     const { user } = useAuth();
     const theme = useAppTheme();
-    const mysteries = useMemo(() => getTodaysMysteries(), []);
-    const weekday = useMemo(() => getWeekdayName(new Date()), []);
-    const mysteryType = useMemo(() => getMysteryTypeForToday(), []);
+    const mysteries = getTodaysMysteries();
+    const weekday = getWeekdayName(new Date());
+    const mysteryType = getMysteryTypeForToday();
     const [historyModalVisible, setHistoryModalVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -44,8 +46,6 @@ const RosaryScreen = () => {
     const [completed, setCompleted] = useState(false);
     const [streak, setStreak] = useState(0);
     const [history, setHistory] = useState<Rosary[]>([]);
-
-    const allChecked = checkedSteps.every(step => step.every(checked => checked));
 
     useEffect(() => {
         if (!user?.id) {
@@ -140,6 +140,7 @@ const RosaryScreen = () => {
 
             const allTrue = rosarySequence.map(step => Array(step.checkboxes).fill(true));
             setCheckedSteps(allTrue);
+            await showRewardedAd();
         } catch (error) {
             console.error("Failed to complete rosary ", error);
         }
@@ -160,7 +161,7 @@ const RosaryScreen = () => {
             <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: theme.prayer.background}}>
                 <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Rosary</Text>
                 <Divider />
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 18, color: theme.prayer.text}]}>Today, {weekday}, we pray the {mysteryType}</Text>
+                <Text style={[Typography.body, {textAlign: "center", fontSize: 18, color: theme.prayer.text}]}>Today, {weekday}, we pray the {mysteryType}</Text>
                 <Divider />
                 {rosarySequence.map((step, stepIndex) => (
                     <View key={stepIndex} style={{marginBottom: 24}}>
@@ -213,6 +214,9 @@ const RosaryScreen = () => {
                 onClose={() => setHistoryModalVisible(false)}
                 history={history}
             />
+            <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                <AdBanner />
+            </View>
         </SafeAreaView>
     );
 }

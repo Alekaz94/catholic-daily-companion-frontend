@@ -1,27 +1,21 @@
 import 'dotenv/config';
-import { writeFileSync, mkdirSync, existsSync } from 'fs';
+import { writeFileSync, existsSync } from 'fs';
 import { Buffer } from 'buffer';
 import path from 'path';
 
 export default ({ config }) => {
   const androidAppDir = path.resolve(__dirname, 'android/app');
-  console.log('GOOGLE_SERVICES_JSON_BASE64:', !!process.env.GOOGLE_SERVICES_JSON_BASE64);
   
-  try {
-    if (process.env.GOOGLE_SERVICES_JSON_BASE64) {
-      if (!existsSync(androidAppDir)) {
-        console.warn(`[WARN] android/app does not exist yet, skipping writing google-services.json`);
-      } else {
-        const decoded = Buffer.from(process.env.GOOGLE_SERVICES_JSON_BASE64, 'base64').toString('utf8');
-        const outputPath = path.join(androidAppDir, 'google-services.json');
-        writeFileSync(outputPath, decoded, { encoding: 'utf8' });
-        console.log('✅ Wrote google-services.json from base64');
-      }
+  if(process.env.GOOGLE_SERVICES_JSON_BASE64) {
+    if(existsSync(androidAppDir)) {
+      const decoded = Buffer.from(process.env.GOOGLE_SERVICES_JSON_BASE64, 'base64').toString('utf8');
+      writeFileSync(path.join(androidAppDir, 'google-services.json'), decoded, 'utf8');
+      console.log("Google services is written.");
     } else {
-      console.warn('⚠️ GOOGLE_SERVICES_JSON_BASE64 env var is not set');
-    }
-  } catch (e) {
-    console.error('❌ Failed to write google-services.json:', e);
+      console.warn("android/app does not exist, skipping google-services.json");
+    } 
+  } else {
+    console.warn("GOOGLE_SERVICES_JSON_BASE64 not set");
   }
 
   return {
@@ -52,6 +46,9 @@ export default ({ config }) => {
         edgeToEdgeEnabled: true,
         package: "com.alexandros.catholicdailycompanion",
         googleServicesFile: './android/app/google-services.json',
+        config: {
+          googleMobileAdsAppId: process.env.GOOGLE_MOBILE_ADS_APP_ID,
+        }
       },
       web: {
         favicon: "./assets/favicon.png",
@@ -60,6 +57,7 @@ export default ({ config }) => {
         "expo-secure-store",
         "expo-font",
         '@react-native-google-signin/google-signin',
+        "react-native-google-mobile-ads"
       ],
       extra: {
         API_BASE_URL: process.env.API_BASE_URL,
@@ -78,7 +76,11 @@ export default ({ config }) => {
         FIREBASE_MEASURMENT_ID: process.env.FIREBASE_MEASURMENT_ID,
         eas: {
           projectId: "73e5ba86-8f70-4d0d-b33c-8bd4c8691ddc"
-        }
+        },
+        USE_TEST_ADS: process.env.USE_TEST_ADS === "true",
+        ADMOB_BANNER_ID: process.env.ADMOB_BANNER_ID,
+        ADMOB_REWARDED_ID: process.env.ADMOB_REWARDED_ID,
+        GOOGLE_MOBILE_ADS_APP_ID: process.env.GOOGLE_MOBILE_ADS_APP_ID
       },
     },
   };

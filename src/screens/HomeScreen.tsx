@@ -22,6 +22,7 @@ import Divider from '../components/Divider';
 import SectionTitle from './SectionTitle';
 import PrayerBanner from '../components/PrayerBanner';
 import { useAppTheme } from '../hooks/useAppTheme';
+import AdBanner from '../components/AdBanner';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -188,6 +189,9 @@ const HomeScreen = () => {
         onClose={() => setModalVisible(false)}
       />
     </ScrollView>
+    <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+        <AdBanner />
+      </View>
     </SafeAreaView>
   );
 };

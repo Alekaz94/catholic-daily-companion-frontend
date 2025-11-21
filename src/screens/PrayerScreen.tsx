@@ -11,6 +11,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
+import AdBanner from "../components/AdBanner";
 
 type PrayerNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -76,6 +77,7 @@ const PrayerScreen = () => {
                 </TouchableOpacity>
                 </View>
             </View>
+            <AdBanner />
         </SafeAreaView>
     );
 }
