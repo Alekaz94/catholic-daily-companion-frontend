@@ -1423,6 +1423,14 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@hookform/resolvers",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@hookform/resolvers/LICENSE"
   },
+  "@iabtcf/core@1.5.6": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/InteractiveAdvertisingBureau/iabtcf-es",
+    "publisher": "Chris Paterson",
+    "email": "tcf@chrispaterson.io",
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@iabtcf/core",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@iabtcf/core/LICENSE"
+  },
   "@isaacs/cliui@8.0.2": {
     "licenses": "ISC",
     "repository": "https://github.com/yargs/cliui",
@@ -1750,6 +1758,15 @@
     "url": "http://invertase.io",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/LICENSE"
+  },
+  "@react-native-firebase/auth@23.5.0": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/invertase/react-native-firebase/tree/main/packages/auth",
+    "publisher": "Invertase",
+    "email": "oss@invertase.io",
+    "url": "http://invertase.io",
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/auth",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/auth/LICENSE"
   },
   "@react-native-firebase/messaging@23.5.0": {
     "licenses": "Apache-2.0",
@@ -3305,6 +3322,15 @@
     "email": "doug@somethingdoug.com",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/depd",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/depd/LICENSE"
+  },
+  "dequal@2.0.3": {
+    "licenses": "MIT",
+    "repository": "https://github.com/lukeed/dequal",
+    "publisher": "Luke Edwards",
+    "email": "luke.edwards05@gmail.com",
+    "url": "https://lukeed.com",
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/dequal",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/dequal/license"
   },
   "destroy@1.2.0": {
     "licenses": "MIT",
@@ -5950,6 +5976,15 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-gesture-handler",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-gesture-handler/LICENSE"
   },
+  "react-native-google-mobile-ads@16.0.0": {
+    "licenses": "Apache-2.0",
+    "repository": "https://github.com/invertase/react-native-google-mobile-ads",
+    "publisher": "Invertase",
+    "email": "oss@invertase.io",
+    "url": "http://invertase.io",
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-google-mobile-ads",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-google-mobile-ads/LICENSE"
+  },
   "react-native-is-edge-to-edge@1.2.1": {
     "licenses": "MIT",
     "repository": "https://github.com/zoontek/react-native-edge-to-edge",
@@ -7054,6 +7089,15 @@
     "publisher": "Arnout Kazemier",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/url-parse",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/url-parse/LICENSE"
+  },
+  "use-deep-compare-effect@1.8.1": {
+    "licenses": "MIT",
+    "repository": "https://github.com/kentcdodds/use-deep-compare-effect",
+    "publisher": "Kent C. Dodds",
+    "email": "me@kentcdodds.com",
+    "url": "https://kentcdodds.com",
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/use-deep-compare-effect",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/use-deep-compare-effect/LICENSE"
   },
   "use-latest-callback@0.2.6": {
     "licenses": "MIT",
