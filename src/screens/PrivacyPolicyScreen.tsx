@@ -54,15 +54,15 @@ const PrivacyPolicyScreen = () => {
                     - Full name{"\n"}
                     - Email address{"\n"}
                     - Google account information (if signing in via Google){"\n"}
-                    - IP address (collected by our backend){"\n"}
+                    - IP address (collected automatically by our backend){"\n"}
                     - Journal entries you create{"\n"}
-                    - Rosary logs and prayer history{"\n"}
+                    - Rosary logs, history of prayed rosary, and prayed rosary streaks{"\n"}
                     - Audit logs for security and debugging
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>What We Do NOT Collect:</Text>
                 <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
-                    - We do NOT collect or store passwords for Google sign-ins{"\n"}
+                    - We do NOT collect or store your Google password.{"\n"}
                     - We do NOT receive sensitive Google data such as contacts or files
                 </Text>
 
@@ -77,14 +77,14 @@ const PrivacyPolicyScreen = () => {
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Ads & Analytics:</Text>
                 <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
-                    We use Google Mobile Ads. We do not share your personal data with advertisers. 
-                    Only anonymized usage data may be collected for ad performance.
+                    We use Google Mobile Ads. Only anonymized usage data may be collected for ad performance. 
+                    We do not share your personal data with advertisers. 
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Data Security:</Text>
                 <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
-                    We use HTTPS, secure token-based Google authentication, and industry-standard protections.
-                    Since we do not collect passwords, no password is ever stored by us.
+                    We use HTTPS, secure token-based authentication, and industry-standard measures.
+                    Since no password is ever stored by us, that sensitive data never enters our system.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Your Rights:</Text>
@@ -102,12 +102,12 @@ const PrivacyPolicyScreen = () => {
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>GDPR Rights:</Text>
                 <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
-                    EU users retain rights to access, delete, correct, and export their data. Most actions can be performed directly in the app.
+                    EU users retain rights to access, correct, delete or export their data. Most actions can be performed directly in the app.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Data Retention:</Text>
                 <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
-                    Your data is stored until you delete your account. Journal entries and rosary logs can be deleted at any time.
+                    Your data is stored until you delete your account. Journal entries can be deleted at any time.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>Children’s Privacy:</Text>
@@ -117,7 +117,7 @@ const PrivacyPolicyScreen = () => {
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>Changes to This Policy:</Text>
                 <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
-                    We may update this Privacy Policy. Significant changes will be communicated via the app or email.
+                    If the policy changes, we will notify users in the app or by email.
                 </Text>
 
                 <Text style={[Typography.body, { marginTop: 30, color: theme.auth.smallText, fontStyle: "italic", fontSize: 12, textAlign: "center"  }]}>

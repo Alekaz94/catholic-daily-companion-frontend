@@ -49,8 +49,8 @@ const TermsOfServiceScreen = () => {
                             1. Use of the App
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
-                            The App is provided for personal spiritual use. You agree not to misuse the App, reverse-engineer it, 
-                            disrupt service, or attempt unauthorized access.
+                            The App is intended for personal spiritual use.
+                            You agree not to misuse the service, attempt unauthorized access, or reverse-engineer any part of it.
                         </Text>
 
                         <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
@@ -65,7 +65,7 @@ const TermsOfServiceScreen = () => {
                             3. Data & Privacy
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
-                            Your data is handled according to our{" "}
+                            Your personal data is handled according to our{" "}
                         <Text
                             style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple", textAlign: "center" }}
                             onPress={() => navigation.navigate("Privacy Policy")}
@@ -79,8 +79,8 @@ const TermsOfServiceScreen = () => {
                             4. User Content
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
-                            Journal entries, rosary logs, and other content you create remain your property. 
-                            You may delete them at any time.
+                            Journal entries are your content.
+                            You may delete this data at any time.
                         </Text>
 
                         <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
@@ -94,7 +94,7 @@ const TermsOfServiceScreen = () => {
                             6. Limitation of Liability
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
-                            The App is provided “as is.” We do not guarantee uninterrupted service, and we are not
+                            The App is provided “as is.” We do not guarantee uninterrupted service and are not
                             responsible for damages resulting from use of the App.
                         </Text>
 
@@ -111,21 +111,6 @@ const TermsOfServiceScreen = () => {
                         ]}
                         >
                             alexandros.kazalis@gmail.com
-                        </Text>
-
-                        <Text
-                        style={[
-                            Typography.body,
-                            {
-                            marginTop: 30,
-                            color: theme.auth.smallText,
-                            fontStyle: "italic",
-                            fontSize: 12,
-                            textAlign: "center",
-                            },
-                        ]}
-                        >
-                            These Terms are governed by the laws of Sweden and the European Union.
                         </Text>
 
                         <Text style={[Typography.body, { marginTop: 30, color: theme.auth.smallText, fontStyle: "italic", fontSize: 12, textAlign: "center" }]}>
