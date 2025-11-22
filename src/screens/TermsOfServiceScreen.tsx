@@ -37,67 +37,95 @@ const TermsOfServiceScreen = () => {
                             Terms of Service
                         </Text>
 
-                        <Text style={[Typography.body, { marginTop: 20, color: theme.auth.text }]}>
+                        <Text style={[Typography.body, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
                             Last updated: November 21, 2025
                         </Text>
 
-                        <Text style={[Typography.body, { marginTop: 20, color: theme.auth.text }]}>
-                            Welcome to <Text style={{ fontWeight: "600" }}>Catholic Daily Companion</Text> ("the App"). By accessing or using the App, you agree to be bound by these Terms of Service ("Terms"). Please read them carefully before using our services.
+                        <Text style={[Typography.body, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                            By accessing or using Catholic Daily Companion ("the App"), you agree to these Terms of Service.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>1. Use of the App:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            The App is intended for personal, non-commercial use to assist users in their spiritual journey. You agree not to misuse, copy, distribute, or reverse-engineer any part of the App.
+                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                            1. Use of the App
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                            The App is provided for personal spiritual use. You agree not to misuse the App, reverse-engineer it, 
+                            disrupt service, or attempt unauthorized access.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>2. User Accounts:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            To use certain features, you must create an account. You are responsible for keeping your login credentials secure. The App uses Google sign-in for authentication. We are not responsible for unauthorized access due to your failure to maintain security.
+                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                            2. User Accounts
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                            The App uses Google Authentication. We do not collect or store your Google password.
+                            You are responsible for securing your device and login session.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>3. Data & Privacy:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            Your personal data is handled in accordance with our{" "}
-                            <Text
-                            style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}
-                            onPress={() => navigation.navigate('Privacy Policy')}
-                            >
+                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                            3. Data & Privacy
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                            Your data is handled according to our{" "}
+                        <Text
+                            style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple", textAlign: "center" }}
+                            onPress={() => navigation.navigate("Privacy Policy")}
+                        >
                             Privacy Policy
-                            </Text>
-                            . You can request deletion or export of your data at any time.
+                        </Text>
+                            .
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>4. Content:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            All texts, prayers, and resources provided within the App are for informational and devotional use. We do not guarantee the accuracy or completeness of external content or links.
+                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                            4. User Content
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                            Journal entries, rosary logs, and other content you create remain your property. 
+                            You may delete them at any time.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>5. Termination:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            We reserve the right to suspend or terminate accounts that violate these Terms or misuse the App in any way.
+                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                            5. Termination
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                            We may suspend or terminate accounts that violate these Terms or abuse the service.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>6. Limitation of Liability:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            Catholic Daily Companion and its developers are not liable for any damages arising from the use or inability to use the App.
+                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                            6. Limitation of Liability
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                            The App is provided “as is.” We do not guarantee uninterrupted service, and we are not
+                            responsible for damages resulting from use of the App.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>7. Ads and Analytics:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            The App uses Google Mobile Ads for monetization. Your personal data is not shared with advertisers. Only anonymized usage metrics may be collected for ad performance.
+                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                            7. Contact Us
                         </Text>
-
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>8. Governing Law:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            These Terms are applicable globally and comply with GDPR and other applicable data protection laws. By using the App, you agree to comply with all applicable laws in your jurisdiction.
+                        <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                            For questions about these Terms, contact:
                         </Text>
-
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>9. Contact Us:</Text>
-                        <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            For any questions regarding these Terms, please contact:
-                        </Text>
-                        <Text style={[Typography.body, { fontWeight: "500", marginTop: 10, color: theme.auth.text }]}>
+                        <Text
+                        style={[
+                            Typography.body,
+                            { fontWeight: "500", marginTop: 10, color: theme.auth.text, textAlign: "center"  },
+                        ]}
+                        >
                             alexandros.kazalis@gmail.com
+                        </Text>
+
+                        <Text
+                        style={[
+                            Typography.body,
+                            {
+                            marginTop: 30,
+                            color: theme.auth.smallText,
+                            fontStyle: "italic",
+                            fontSize: 12,
+                            textAlign: "center",
+                            },
+                        ]}
+                        >
+                            These Terms are governed by the laws of Sweden and the European Union.
                         </Text>
 
                         <Text style={[Typography.body, { marginTop: 30, color: theme.auth.smallText, fontStyle: "italic", fontSize: 12, textAlign: "center" }]}>
