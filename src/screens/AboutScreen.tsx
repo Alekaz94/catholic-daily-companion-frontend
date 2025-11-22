@@ -37,6 +37,7 @@ const AboutScreen = () => {
             >
                 <View style={[Layout.container, { alignItems: "center" }]}>
                     <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ width: 250, height: 250, borderRadius: 20}} />
+                    
                     <Text
                         style={[
                         Typography.title,
@@ -45,6 +46,7 @@ const AboutScreen = () => {
                     >
                         Catholic Daily Companion
                     </Text>
+
                     <Text
                         style={[
                         Typography.body,
@@ -56,25 +58,38 @@ const AboutScreen = () => {
 
                     <Text style={[Typography.body, { marginTop: 30, color: theme.auth.text, textAlign: "center" }]}>
                         Catholic Daily Companion helps you grow closer to God with daily inspiration,
-                        saint stories, journal prompts, and prayer tracking tools, all designed to
-                        strengthen your faith and peace of mind.
+                        saint stories, journal prompts, and prayer tracking tools—designed to strengthen
+                        your faith, peace, and spiritual consistency.
                     </Text>
 
-                    <Text style={[Typography.label, { marginTop: 30, color: theme.auth.text }]}>
-                        Developed by:
+                    <Text style={[Typography.label, { marginTop: 40, color: theme.auth.text }]}>
+                        About the Developer
                     </Text>
+
                     <Text
                         style={[
                         Typography.body,
-                        { marginTop: 5, fontWeight: "500", color: theme.auth.text },
+                        { marginTop: 10, color: theme.auth.text, textAlign: "center" },
                         ]}
                     >
-                        Alexandros Kazalis
+                        My name is <Text style={{ fontWeight: "600" }}>Alexandros Kazalis</Text>, a convert to Catholicism, and father of two.  
+                        This app was created as a small way to help fellow Catholics deepen their 
+                        relationship with Christ through daily prayer, reflection, and simplicity.  
+                        My hope is that it brings peace, encouragement, and a steady reminder of God’s presence.
+                    </Text>
+
+                    <Text
+                        style={[
+                        Typography.body,
+                        { marginTop: 20, fontWeight: "500", color: theme.auth.text },
+                        ]}
+                    >
+                        Contact
                     </Text>
                     <Text
                         style={[
                         Typography.body,
-                        { color: theme.auth.smallText, marginTop: 5 },
+                        { color: theme.auth.smallText, marginTop: 5, textAlign: "center" },
                         ]}
                     >
                         alexandros.kazalis@gmail.com
@@ -84,7 +99,7 @@ const AboutScreen = () => {
                         style={[
                         Typography.body,
                         {
-                            marginTop: 30,
+                            marginTop: 40,
                             color: theme.auth.smallText,
                             textAlign: "center",
                             fontStyle: "italic",
@@ -92,7 +107,7 @@ const AboutScreen = () => {
                         },
                         ]}
                     >
-                        Made with ❤️ and faith in Christ.
+                        Made with ❤️, prayer, and faith in Christ.
                     </Text>
                 </View>
             </ScrollView>
