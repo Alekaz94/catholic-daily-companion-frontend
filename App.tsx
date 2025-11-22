@@ -15,6 +15,8 @@ import DrawerNavigatorWrapper from './src/navigation/DrawerNavigatorWrapper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import axios from 'axios';
 import { User } from './src/models/User';
+import { NetworkProvider } from './src/context/NetworkContext';
+import OfflineBanner from './src/components/OfflineBanner';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -82,13 +84,16 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <RootSiblingParent>
         <AuthProvider>
-          <SafeAreaProvider>
-          <ThemeProvider>
-            <NavigationContainer ref={navigationRef}>
-              <DrawerNavigatorWrapper />
-            </NavigationContainer>
-          </ThemeProvider>
-          </SafeAreaProvider>
+          <NetworkProvider>
+            <SafeAreaProvider>
+              <ThemeProvider>
+                <OfflineBanner />
+                <NavigationContainer ref={navigationRef}>
+                  <DrawerNavigatorWrapper />
+                </NavigationContainer>
+              </ThemeProvider>
+            </SafeAreaProvider>
+          </NetworkProvider>
         </AuthProvider>
       </RootSiblingParent>
     </GestureHandlerRootView>

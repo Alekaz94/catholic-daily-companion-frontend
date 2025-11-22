@@ -15,6 +15,7 @@ interface LayoutStyles {
     image: ImageStyle;
     navbarButtonActive: ViewStyle;
     navbarButtonTextActive: TextStyle;
+    banner: ViewStyle;
     }
 
 export const Layout: LayoutStyles = {
@@ -120,5 +121,11 @@ export const Layout: LayoutStyles = {
         height: 200,
         borderRadius: 8,
         resizeMode: "contain"
-      },
+    },
+    banner: {
+        backgroundColor: "#b00020",
+        paddingVertical: 6,
+        paddingHorizontal: 10,
+        alignItems: "center",
+    },
   };
