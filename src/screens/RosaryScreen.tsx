@@ -140,7 +140,9 @@ const RosaryScreen = () => {
 
             const allTrue = rosarySequence.map(step => Array(step.checkboxes).fill(true));
             setCheckedSteps(allTrue);
-            await showRewardedAd();
+            if(user.role !== "ADMIN") {
+                await showRewardedAd();
+            }
         } catch (error) {
             console.error("Failed to complete rosary ", error);
         }

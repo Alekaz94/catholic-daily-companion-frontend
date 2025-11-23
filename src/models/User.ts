@@ -20,9 +20,3 @@ export interface UserPasswordChange {
   currentPassword: string;
   newPassword: string;
 }
-
-export interface User {
-  id: string;
-  email: string;
-  role: string;
-}
