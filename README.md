@@ -3,7 +3,6 @@ A mobile application built with React Native (Expo) to help users stay spiritual
 
 Features
 - Saint of the Day -- View feast day information and saint biographies
-- Daily Readings -- Mass readings of the day, including Psalm, Gospel and more
 - Journal Entries -- Create, update, and delete personal spiritual reflections
 - User Authentication -- Secure login and logout (JWT-based)
 - Themed UI -- Elegant gradients and color schemes based on liturgical context
@@ -40,7 +39,6 @@ Project Structure
 Future Enhancements
 - Profile updates
 - Journal search and filtering
-- Daily Prayers / Prayers section
 - Offline mode
 
 Troubleshooting
