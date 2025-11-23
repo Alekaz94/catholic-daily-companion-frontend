@@ -13,7 +13,7 @@ const AdBanner = () => {
     return (
         <BannerAd
             unitId={getBannerId()}
-            size={BannerAdSize.BANNER}
+            size={BannerAdSize.FULL_BANNER}
         />
     )
 }

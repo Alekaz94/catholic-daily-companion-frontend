@@ -75,7 +75,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar}}>
     <ScrollView 
-      style={{backgroundColor: theme.auth.background, padding: 10}}
+      style={{backgroundColor: theme.auth.background}}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }  
@@ -189,7 +189,7 @@ const HomeScreen = () => {
         onClose={() => setModalVisible(false)}
       />
     </ScrollView>
-    <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+    <View style={{ position: "absolute", bottom: 0, width: "100%"}}>
         <AdBanner />
       </View>
     </SafeAreaView>

@@ -58,17 +58,17 @@ const LoginScreen = () => {
           <Ionicons name="mail-outline" color={theme.auth.text} size={20} />
           <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Login with Email & Password</Text>
         </TouchableOpacity> */}
-      </View>
-      <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40}}>
-          <Text style={{ color: theme.auth.smallText }}>
-            By signing up and logging in with Google, you are creating an account and accepting to our 
-          <Text onPress={() => navigation.navigate("Terms of Service")} style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}>
-            Terms of Service
-          </Text> and 
-          <Text onPress={() => navigation.navigate("Privacy Policy")}style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}>
-            Privacy Policy
-          </Text>
-          </Text>
+        <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40}}>
+            <Text style={{ color: theme.auth.smallText }}>
+              By signing up and logging in with Google, you are creating an account and accepting to our{" "} 
+            <Text onPress={() => navigation.navigate("Terms of Service")} style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}>
+              Terms of Service
+            </Text>{" "}and{" "}
+            <Text onPress={() => navigation.navigate("Privacy Policy")}style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}>
+              Privacy Policy
+            </Text>
+            </Text>
+        </View>
       </View>
     </SafeAreaView>    
   );

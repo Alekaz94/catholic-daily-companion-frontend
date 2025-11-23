@@ -748,7 +748,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@egjs/hammerjs",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@egjs/hammerjs/LICENSE.md"
   },
-  "@expo/cli@54.0.14": {
+  "@expo/cli@54.0.16": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "Expo",
@@ -763,35 +763,17 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/code-signing-certificates",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/code-signing-certificates/LICENSE"
   },
-  "@expo/config-plugins@10.1.2": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/config-plugins",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/config-plugins/LICENSE"
-  },
   "@expo/config-plugins@54.0.2": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/config-plugins",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/config-plugins/LICENSE"
   },
-  "@expo/config-types@53.0.5": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/config-types",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/config-types/LICENSE"
-  },
   "@expo/config-types@54.0.8": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/config-types",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/config-types/LICENSE"
-  },
-  "@expo/config@11.0.13": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/config",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/config/LICENSE"
   },
   "@expo/config@12.0.10": {
     "licenses": "MIT",
@@ -812,36 +794,24 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/devtools",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/devtools/LICENSE"
   },
-  "@expo/env@1.0.7": {
+  "@expo/env@2.0.7": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/env",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/env/LICENSE"
   },
-  "@expo/env@2.0.7": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/env",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/env/LICENSE"
-  },
-  "@expo/fingerprint@0.15.2": {
+  "@expo/fingerprint@0.15.3": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/fingerprint",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/fingerprint/LICENSE"
   },
-  "@expo/image-utils@0.7.6": {
+  "@expo/image-utils@0.8.7": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/image-utils",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/image-utils/LICENSE"
-  },
-  "@expo/image-utils@0.8.7": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/image-utils",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/image-utils/LICENSE"
   },
   "@expo/json-file@10.0.7": {
     "licenses": "MIT",
@@ -849,19 +819,13 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/json-file",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/json-file/LICENSE"
   },
-  "@expo/json-file@9.1.5": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/json-file",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/json-file/LICENSE"
-  },
-  "@expo/mcp-tunnel@0.0.8": {
+  "@expo/mcp-tunnel@0.1.0": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo-mcp",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/mcp-tunnel"
   },
-  "@expo/metro-config@54.0.8": {
+  "@expo/metro-config@54.0.9": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/metro-config",
@@ -886,12 +850,6 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/package-manager",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/package-manager/LICENSE"
   },
-  "@expo/plist@0.3.5": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/plist",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/node_modules/@expo/plist/README.md"
-  },
   "@expo/plist@0.4.7": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
@@ -899,12 +857,6 @@
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/plist/README.md"
   },
   "@expo/prebuild-config@54.0.6": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/cli/node_modules/@expo/prebuild-config",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/cli/node_modules/@expo/prebuild-config/LICENSE"
-  },
-  "@expo/prebuild-config@9.0.12": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/prebuild-config",
@@ -937,19 +889,12 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/sudo-prompt",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/sudo-prompt/LICENSE"
   },
-  "@expo/vector-icons@13.0.0": {
+  "@expo/vector-icons@15.0.3": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/vector-icons",
     "publisher": "Brent Vatne",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/vector-icons",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/vector-icons/LICENSE"
-  },
-  "@expo/vector-icons@15.0.3": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/vector-icons",
-    "publisher": "Brent Vatne",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/vector-icons",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@expo/vector-icons/LICENSE"
   },
   "@expo/ws-tunnel@1.0.6": {
     "licenses": "MIT",
@@ -964,16 +909,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/xcpretty",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/xcpretty/README.md"
   },
-  "@firebase/ai@2.4.0": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/firebase/firebase-js-sdk",
-    "publisher": "Firebase",
-    "email": "firebase-support@google.com",
-    "url": "https://firebase.google.com/",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/ai",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/ai/README.md"
-  },
-  "@firebase/ai@2.5.0": {
+  "@firebase/ai@2.6.0": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/firebase/firebase-js-sdk",
     "publisher": "Firebase",
@@ -1045,16 +981,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/app-check",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/app-check/README.md"
   },
-  "@firebase/app-compat@0.5.4": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/firebase/firebase-js-sdk",
-    "publisher": "Firebase",
-    "email": "firebase-support@google.com",
-    "url": "https://firebase.google.com/",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/app-compat",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/app-compat/README.md"
-  },
-  "@firebase/app-compat@0.5.5": {
+  "@firebase/app-compat@0.5.6": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/firebase/firebase-js-sdk",
     "publisher": "Firebase",
@@ -1072,16 +999,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/app-types",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/app-types/README.md"
   },
-  "@firebase/app@0.14.4": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/firebase/firebase-js-sdk",
-    "publisher": "Firebase",
-    "email": "firebase-support@google.com",
-    "url": "https://firebase.google.com/",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/app",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/app/README.md"
-  },
-  "@firebase/app@0.14.5": {
+  "@firebase/app@0.14.6": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/firebase/firebase-js-sdk",
     "publisher": "Firebase",
@@ -1089,15 +1007,6 @@
     "url": "https://firebase.google.com/",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/app",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/app/README.md"
-  },
-  "@firebase/auth-compat@0.6.0": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/firebase/firebase-js-sdk",
-    "publisher": "Firebase",
-    "email": "firebase-support@google.com",
-    "url": "https://firebase.google.com/",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/auth-compat",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/auth-compat/README.md"
   },
   "@firebase/auth-compat@0.6.1": {
     "licenses": "Apache-2.0",
@@ -1126,23 +1035,14 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/auth-types",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/auth-types/README.md"
   },
-  "@firebase/auth@1.11.0": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/firebase/firebase-js-sdk",
-    "publisher": "Firebase",
-    "email": "firebase-support@google.com",
-    "url": "https://firebase.google.com/",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/auth",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/@firebase/auth/README.md"
-  },
   "@firebase/auth@1.11.1": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/firebase/firebase-js-sdk",
     "publisher": "Firebase",
     "email": "firebase-support@google.com",
     "url": "https://firebase.google.com/",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/auth",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/auth/README.md"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/firebase/node_modules/@firebase/auth",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/firebase/node_modules/@firebase/auth/README.md"
   },
   "@firebase/component@0.7.0": {
     "licenses": "Apache-2.0",
@@ -1153,7 +1053,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/component",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/component/README.md"
   },
-  "@firebase/data-connect@0.3.11": {
+  "@firebase/data-connect@0.3.12": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/firebase/firebase-js-sdk",
     "publisher": "Firebase",
@@ -1501,12 +1401,6 @@
   "@jest/expect-utils@29.7.0": {
     "licenses": "MIT",
     "repository": "https://github.com/jestjs/jest",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-snapshot/node_modules/@jest/expect-utils",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-snapshot/node_modules/@jest/expect-utils/LICENSE"
-  },
-  "@jest/expect-utils@30.2.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/jestjs/jest",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@jest/expect-utils",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@jest/expect-utils/LICENSE"
   },
@@ -1734,7 +1628,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@protobufjs/utf8",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@protobufjs/utf8/LICENSE"
   },
-  "@react-native-async-storage/async-storage@1.24.0": {
+  "@react-native-async-storage/async-storage@2.2.0": {
     "licenses": "MIT",
     "repository": "https://github.com/react-native-async-storage/async-storage",
     "publisher": "Krzysztof Borowy",
@@ -1750,41 +1644,6 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-community/netinfo",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-community/netinfo/LICENSE"
   },
-  "@react-native-community/push-notification-ios@1.11.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/react-native-community/push-notification-ios",
-    "publisher": "Rafael Lincoln",
-    "email": "rafaellincolnpereira@gmail.com",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-community/push-notification-ios",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-community/push-notification-ios/LICENSE"
-  },
-  "@react-native-firebase/app@23.5.0": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/invertase/react-native-firebase/tree/main/packages/app",
-    "publisher": "Invertase",
-    "email": "oss@invertase.io",
-    "url": "http://invertase.io",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/LICENSE"
-  },
-  "@react-native-firebase/auth@23.5.0": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/invertase/react-native-firebase/tree/main/packages/auth",
-    "publisher": "Invertase",
-    "email": "oss@invertase.io",
-    "url": "http://invertase.io",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/auth",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/auth/LICENSE"
-  },
-  "@react-native-firebase/messaging@23.5.0": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/invertase/react-native-firebase/tree/main/packages/messaging",
-    "publisher": "Invertase",
-    "email": "oss@invertase.io",
-    "url": "http://invertase.io",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/messaging",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/messaging/LICENSE"
-  },
   "@react-native-google-signin/google-signin@12.2.1": {
     "licenses": "MIT",
     "repository": "https://github.com/react-native-google-signin/google-signin",
@@ -1794,185 +1653,97 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-google-signin/google-signin",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-google-signin/google-signin/LICENSE"
   },
-  "@react-native/assets-registry@0.81.0": {
+  "@react-native/assets-registry@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/assets-registry",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/assets-registry/README.md"
   },
-  "@react-native/babel-plugin-codegen@0.79.6": {
+  "@react-native/babel-plugin-codegen@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/babel-plugin-codegen",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/babel-plugin-codegen/README.md"
   },
-  "@react-native/babel-plugin-codegen@0.81.5": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/babel-plugin-codegen",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/babel-plugin-codegen/README.md"
-  },
-  "@react-native/babel-plugin-codegen@0.82.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer/node_modules/@react-native/babel-plugin-codegen",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer/node_modules/@react-native/babel-plugin-codegen/README.md"
-  },
-  "@react-native/babel-preset@0.79.6": {
+  "@react-native/babel-preset@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/babel-preset",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/babel-preset/README.md"
   },
-  "@react-native/babel-preset@0.81.5": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/babel-preset",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/babel-preset/README.md"
-  },
-  "@react-native/babel-preset@0.82.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer/node_modules/@react-native/babel-preset",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer/node_modules/@react-native/babel-preset/README.md"
-  },
-  "@react-native/codegen@0.79.6": {
+  "@react-native/codegen@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/codegen",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/codegen/README.md"
   },
-  "@react-native/codegen@0.81.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/node_modules/@react-native/codegen",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/node_modules/@react-native/codegen/README.md"
-  },
-  "@react-native/codegen@0.81.5": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/codegen",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/codegen/README.md"
-  },
-  "@react-native/codegen@0.82.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer/node_modules/@react-native/codegen",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer/node_modules/@react-native/codegen/README.md"
-  },
-  "@react-native/community-cli-plugin@0.81.0": {
+  "@react-native/community-cli-plugin@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/community-cli-plugin",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/community-cli-plugin/README.md"
   },
-  "@react-native/debugger-frontend@0.81.0": {
+  "@react-native/debugger-frontend@0.81.5": {
     "licenses": "BSD-3-Clause",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/debugger-frontend",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/debugger-frontend/README.md"
   },
-  "@react-native/debugger-frontend@0.81.5": {
-    "licenses": "BSD-3-Clause",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/debugger-frontend",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/debugger-frontend/README.md"
-  },
-  "@react-native/dev-middleware@0.81.0": {
+  "@react-native/dev-middleware@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/dev-middleware",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/dev-middleware/README.md"
   },
-  "@react-native/dev-middleware@0.81.5": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/dev-middleware",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/dev-middleware/README.md"
-  },
-  "@react-native/gradle-plugin@0.81.0": {
+  "@react-native/gradle-plugin@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/gradle-plugin",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/gradle-plugin/README.md"
   },
-  "@react-native/js-polyfills@0.81.0": {
+  "@react-native/js-polyfills@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/js-polyfills",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/js-polyfills/README.md"
   },
-  "@react-native/js-polyfills@0.82.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-config/node_modules/@react-native/js-polyfills",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-config/node_modules/@react-native/js-polyfills/README.md"
-  },
-  "@react-native/metro-babel-transformer@0.82.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer"
-  },
-  "@react-native/metro-config@0.82.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-config",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-config/README.md"
-  },
-  "@react-native/normalize-colors@0.79.6": {
+  "@react-native/normalize-colors@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/normalize-colors",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/normalize-colors/README.md"
   },
-  "@react-native/normalize-colors@0.81.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/node_modules/@react-native/normalize-colors",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/node_modules/@react-native/normalize-colors/README.md"
-  },
-  "@react-native/normalize-colors@0.81.5": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/normalize-colors",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/normalize-colors/README.md"
-  },
-  "@react-native/virtualized-lists@0.72.8": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/react-native",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/virtualized-lists"
-  },
-  "@react-native/virtualized-lists@0.81.0": {
+  "@react-native/virtualized-lists@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/node_modules/@react-native/virtualized-lists",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/node_modules/@react-native/virtualized-lists/README.md"
   },
-  "@react-navigation/core@7.13.0": {
+  "@react-navigation/core@7.13.2": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/core",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/core/LICENSE"
   },
-  "@react-navigation/elements@2.8.1": {
+  "@react-navigation/elements@2.8.3": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/elements",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/elements/LICENSE"
   },
-  "@react-navigation/native-stack@7.6.2": {
+  "@react-navigation/native-stack@7.7.0": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/native-stack",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/native-stack/LICENSE"
   },
-  "@react-navigation/native@7.1.19": {
+  "@react-navigation/native@7.1.21": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/native",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/native/LICENSE"
   },
-  "@react-navigation/routers@7.5.1": {
+  "@react-navigation/routers@7.5.2": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/routers",
@@ -2109,7 +1880,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/istanbul-reports",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/istanbul-reports/LICENSE"
   },
-  "@types/jest@30.0.0": {
+  "@types/jest@29.5.14": {
     "licenses": "MIT",
     "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/jest",
@@ -2127,25 +1898,13 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/json-schema",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/json-schema/LICENSE"
   },
-  "@types/node@24.9.2": {
+  "@types/node@24.10.1": {
     "licenses": "MIT",
     "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/node",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/node/LICENSE"
   },
-  "@types/react-native-push-notification@8.1.4": {
-    "licenses": "MIT",
-    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/react-native-push-notification",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/react-native-push-notification/LICENSE"
-  },
-  "@types/react-native@0.72.8": {
-    "licenses": "MIT",
-    "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/react-native",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/react-native/LICENSE"
-  },
-  "@types/react@19.2.2": {
+  "@types/react@19.1.17": {
     "licenses": "MIT",
     "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/react",
@@ -2169,7 +1928,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/yargs-parser",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/yargs-parser/LICENSE"
   },
-  "@types/yargs@17.0.34": {
+  "@types/yargs@17.0.35": {
     "licenses": "MIT",
     "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@types/yargs",
@@ -2627,40 +2386,21 @@
   "babel-plugin-react-compiler@1.0.0": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/babel-plugin-react-compiler",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/babel-plugin-react-compiler/README.md"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-plugin-react-compiler",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-plugin-react-compiler/README.md"
   },
-  "babel-plugin-react-native-web@0.19.13": {
+  "babel-plugin-react-native-web@0.21.2": {
     "licenses": "MIT",
     "repository": "https://github.com/necolas/react-native-web",
     "publisher": "Nicolas Gallagher",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-plugin-react-native-web",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-plugin-react-native-web/LICENSE"
   },
-  "babel-plugin-react-native-web@0.21.2": {
-    "licenses": "MIT",
-    "repository": "https://github.com/necolas/react-native-web",
-    "publisher": "Nicolas Gallagher",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/babel-plugin-react-native-web",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/babel-plugin-react-native-web/LICENSE"
-  },
-  "babel-plugin-syntax-hermes-parser@0.25.1": {
+  "babel-plugin-syntax-hermes-parser@0.29.1": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/hermes",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-plugin-syntax-hermes-parser",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-plugin-syntax-hermes-parser/LICENSE"
-  },
-  "babel-plugin-syntax-hermes-parser@0.29.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/hermes",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/babel-plugin-syntax-hermes-parser",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/babel-plugin-syntax-hermes-parser/LICENSE"
-  },
-  "babel-plugin-syntax-hermes-parser@0.32.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/hermes",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer/node_modules/babel-plugin-syntax-hermes-parser",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/metro-babel-transformer/node_modules/babel-plugin-syntax-hermes-parser/LICENSE"
   },
   "babel-plugin-transform-flow-enums@0.0.2": {
     "licenses": "MIT",
@@ -2676,21 +2416,13 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-preset-current-node-syntax",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-preset-current-node-syntax/LICENSE"
   },
-  "babel-preset-expo@13.2.4": {
+  "babel-preset-expo@54.0.7": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "Expo",
     "email": "support@expo.dev",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-preset-expo",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/babel-preset-expo/README.md"
-  },
-  "babel-preset-expo@54.0.6": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "publisher": "Expo",
-    "email": "support@expo.dev",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/babel-preset-expo",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/babel-preset-expo/README.md"
   },
   "babel-preset-jest@29.6.3": {
     "licenses": "MIT",
@@ -2729,7 +2461,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/base64-js",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/base64-js/LICENSE"
   },
-  "baseline-browser-mapping@2.8.23": {
+  "baseline-browser-mapping@2.8.31": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/web-platform-dx/baseline-browser-mapping",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/baseline-browser-mapping",
@@ -2792,7 +2524,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/braces",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/braces/LICENSE"
   },
-  "browserslist@4.27.0": {
+  "browserslist@4.28.0": {
     "licenses": "MIT",
     "repository": "https://github.com/browserslist/browserslist",
     "publisher": "Andrey Sitnik",
@@ -2868,7 +2600,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-validate/node_modules/camelcase",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-validate/node_modules/camelcase/license"
   },
-  "caniuse-lite@1.0.30001752": {
+  "caniuse-lite@1.0.30001756": {
     "licenses": "CC-BY-4.0",
     "repository": "https://github.com/browserslist/caniuse-lite",
     "publisher": "Ben Briggs",
@@ -3162,7 +2894,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/convert-source-map",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/convert-source-map/LICENSE"
   },
-  "core-js-compat@3.46.0": {
+  "core-js-compat@3.47.0": {
     "licenses": "MIT",
     "repository": "https://github.com/zloirock/core-js",
     "publisher": "Denis Pushkarev",
@@ -3216,7 +2948,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/cssstyle",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/cssstyle/LICENSE"
   },
-  "csstype@3.1.3": {
+  "csstype@3.2.3": {
     "licenses": "MIT",
     "repository": "https://github.com/frenic/csstype",
     "publisher": "Fredrik Nicol",
@@ -3392,8 +3124,8 @@
     "licenses": "BSD-2-Clause",
     "repository": "https://github.com/motdotla/dotenv-expand",
     "publisher": "motdotla",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/dotenv-expand",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/dotenv-expand/LICENSE"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/env/node_modules/dotenv-expand",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/env/node_modules/dotenv-expand/LICENSE"
   },
   "dotenv-expand@12.0.3": {
     "licenses": "BSD-2-Clause",
@@ -3405,8 +3137,8 @@
   "dotenv@16.4.7": {
     "licenses": "BSD-2-Clause",
     "repository": "https://github.com/motdotla/dotenv",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/dotenv",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/dotenv/LICENSE"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/env/node_modules/dotenv",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/env/node_modules/dotenv/LICENSE"
   },
   "dotenv@16.6.1": {
     "licenses": "BSD-2-Clause",
@@ -3444,7 +3176,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/ee-first",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/ee-first/LICENSE"
   },
-  "electron-to-chromium@1.5.244": {
+  "electron-to-chromium@1.5.259": {
     "licenses": "ISC",
     "repository": "https://github.com/kilian/electron-to-chromium",
     "publisher": "Kilian Valkhof",
@@ -3699,16 +3431,10 @@
   "expect@29.7.0": {
     "licenses": "MIT",
     "repository": "https://github.com/jestjs/jest",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-snapshot/node_modules/expect",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-snapshot/node_modules/expect/LICENSE"
-  },
-  "expect@30.2.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/jestjs/jest",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expect",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expect/LICENSE"
   },
-  "expo-apple-authentication@7.2.4": {
+  "expo-apple-authentication@8.0.7": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
@@ -3722,40 +3448,33 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-auth-session/node_modules/expo-application",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-auth-session/node_modules/expo-application/README.md"
   },
-  "expo-asset@12.0.9": {
+  "expo-asset@12.0.10": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-asset",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-asset/README.md"
   },
-  "expo-auth-session@7.0.8": {
+  "expo-auth-session@7.0.9": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-auth-session",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-auth-session/README.md"
   },
-  "expo-checkbox@4.1.4": {
+  "expo-checkbox@5.0.7": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-checkbox",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-checkbox/README.md"
   },
-  "expo-constants@17.1.7": {
+  "expo-constants@18.0.10": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-constants/README.md"
-  },
-  "expo-constants@18.0.10": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "publisher": "650 Industries, Inc.",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-constants",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-constants/README.md"
   },
   "expo-crypto@15.0.7": {
     "licenses": "MIT",
@@ -3764,26 +3483,19 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-auth-session/node_modules/expo-crypto",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-auth-session/node_modules/expo-crypto/README.md"
   },
-  "expo-file-system@19.0.17": {
+  "expo-file-system@19.0.19": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-file-system",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-file-system/README.md"
-  },
-  "expo-font@13.3.2": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "publisher": "650 Industries, Inc.",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-font",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-font/README.md"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-file-system",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-file-system/README.md"
   },
   "expo-font@14.0.9": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-font",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-font/README.md"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-font",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-font/README.md"
   },
   "expo-keep-awake@15.0.7": {
     "licenses": "MIT",
@@ -3792,49 +3504,42 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-keep-awake",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-keep-awake/README.md"
   },
-  "expo-linear-gradient@14.1.5": {
+  "expo-linear-gradient@15.0.7": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-linear-gradient",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-linear-gradient/README.md"
   },
-  "expo-linking@8.0.8": {
+  "expo-linking@8.0.9": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-linking",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-linking/README.md"
   },
-  "expo-modules-autolinking@3.0.19": {
+  "expo-modules-autolinking@3.0.22": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-modules-autolinking",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-modules-autolinking/README.md"
   },
-  "expo-modules-core@3.0.12": {
+  "expo-modules-core@3.0.26": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-modules-core",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-modules-core/README.md"
   },
-  "expo-modules-core@3.0.23": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "publisher": "650 Industries, Inc.",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-modules-core",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/expo-modules-core/README.md"
-  },
-  "expo-secure-store@14.2.4": {
+  "expo-secure-store@15.0.7": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-secure-store",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-secure-store/README.md"
   },
-  "expo-server@1.0.3": {
+  "expo-server@1.0.4": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-server",
@@ -3847,35 +3552,28 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-sharing",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-sharing/README.md"
   },
-  "expo-splash-screen@0.30.10": {
+  "expo-splash-screen@31.0.11": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-splash-screen",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-splash-screen/README.md"
   },
-  "expo-status-bar@2.2.3": {
+  "expo-status-bar@3.0.8": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-status-bar",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-status-bar/README.md"
   },
-  "expo-web-browser@14.2.0": {
+  "expo-web-browser@15.0.9": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "650 Industries, Inc.",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-web-browser",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-web-browser/README.md"
   },
-  "expo-web-browser@15.0.8": {
-    "licenses": "MIT",
-    "repository": "https://github.com/expo/expo",
-    "publisher": "650 Industries, Inc.",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-auth-session/node_modules/expo-web-browser",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo-auth-session/node_modules/expo-web-browser/README.md"
-  },
-  "expo@54.0.21": {
+  "expo@54.0.25": {
     "licenses": "MIT",
     "repository": "https://github.com/expo/expo",
     "publisher": "Expo",
@@ -3975,16 +3673,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/xcpretty/node_modules/find-up",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/xcpretty/node_modules/find-up/license"
   },
-  "firebase@12.4.0": {
-    "licenses": "Apache-2.0",
-    "repository": "https://github.com/firebase/firebase-js-sdk",
-    "publisher": "Firebase",
-    "email": "firebase-support@google.com",
-    "url": "https://firebase.google.com/",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/firebase",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native-firebase/app/node_modules/firebase/README.md"
-  },
-  "firebase@12.5.0": {
+  "firebase@12.6.0": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/firebase/firebase-js-sdk",
     "publisher": "Firebase",
@@ -4026,7 +3715,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/foreground-child",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/foreground-child/LICENSE"
   },
-  "form-data@4.0.4": {
+  "form-data@4.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/form-data/form-data",
     "publisher": "Felix Geisendörfer",
@@ -4137,7 +3826,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/glob-to-regexp",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/glob-to-regexp/README.md"
   },
-  "glob@10.4.5": {
+  "glob@10.5.0": {
     "licenses": "ISC",
     "repository": "https://github.com/isaacs/node-glob",
     "publisher": "Isaac Z. Schlueter",
@@ -4222,17 +3911,11 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/hasown",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/hasown/LICENSE"
   },
-  "hermes-estree@0.25.1": {
+  "hermes-estree@0.29.1": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/hermes",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/hermes-estree",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/hermes-estree/LICENSE"
-  },
-  "hermes-estree@0.29.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/hermes",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/hermes-estree",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/hermes-estree/LICENSE"
   },
   "hermes-estree@0.32.0": {
     "licenses": "MIT",
@@ -4240,17 +3923,11 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/metro/node_modules/hermes-estree",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/metro/node_modules/hermes-estree/LICENSE"
   },
-  "hermes-parser@0.25.1": {
+  "hermes-parser@0.29.1": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/hermes",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/hermes-parser",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/hermes-parser/LICENSE"
-  },
-  "hermes-parser@0.29.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/facebook/hermes",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/hermes-parser",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/hermes-parser/LICENSE"
   },
   "hermes-parser@0.32.0": {
     "licenses": "MIT",
@@ -4633,8 +4310,8 @@
   "jest-diff@30.2.0": {
     "licenses": "MIT",
     "repository": "https://github.com/jestjs/jest",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expect/node_modules/jest-diff",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expect/node_modules/jest-diff/LICENSE"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@testing-library/react-native/node_modules/jest-diff",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@testing-library/react-native/node_modules/jest-diff/LICENSE"
   },
   "jest-docblock@29.7.0": {
     "licenses": "MIT",
@@ -4701,28 +4378,16 @@
   "jest-matcher-utils@30.2.0": {
     "licenses": "MIT",
     "repository": "https://github.com/jestjs/jest",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expect/node_modules/jest-matcher-utils",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expect/node_modules/jest-matcher-utils/LICENSE"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@testing-library/react-native/node_modules/jest-matcher-utils",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@testing-library/react-native/node_modules/jest-matcher-utils/LICENSE"
   },
   "jest-message-util@29.7.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/jestjs/jest",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@jest/fake-timers/node_modules/jest-message-util",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@jest/fake-timers/node_modules/jest-message-util/LICENSE"
-  },
-  "jest-message-util@30.2.0": {
     "licenses": "MIT",
     "repository": "https://github.com/jestjs/jest",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-message-util",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-message-util/LICENSE"
   },
   "jest-mock@29.7.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/jestjs/jest",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@jest/fake-timers/node_modules/jest-mock",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@jest/fake-timers/node_modules/jest-mock/LICENSE"
-  },
-  "jest-mock@30.2.0": {
     "licenses": "MIT",
     "repository": "https://github.com/jestjs/jest",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-mock",
@@ -4853,7 +4518,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/js-tokens",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/js-tokens/LICENSE"
   },
-  "js-yaml@3.14.1": {
+  "js-yaml@3.14.2": {
     "licenses": "MIT",
     "repository": "https://github.com/nodeca/js-yaml",
     "publisher": "Vladimir Zapparov",
@@ -4861,7 +4526,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/js-yaml",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/js-yaml/LICENSE"
   },
-  "js-yaml@4.1.0": {
+  "js-yaml@4.1.1": {
     "licenses": "MIT",
     "repository": "https://github.com/nodeca/js-yaml",
     "publisher": "Vladimir Zapparov",
@@ -5765,8 +5430,8 @@
     "repository": "https://github.com/jestjs/jest",
     "publisher": "James Kyle",
     "email": "me@thejameskyle.com",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-message-util/node_modules/pretty-format",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-message-util/node_modules/pretty-format/LICENSE"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@testing-library/react-native/node_modules/pretty-format",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@testing-library/react-native/node_modules/pretty-format/LICENSE"
   },
   "proc-log@4.2.0": {
     "licenses": "ISC",
@@ -5919,7 +5584,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-freeze",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-freeze/LICENSE"
   },
-  "react-hook-form@7.66.0": {
+  "react-hook-form@7.66.1": {
     "licenses": "MIT",
     "repository": "https://github.com/react-hook-form/react-hook-form",
     "publisher": "Beier",
@@ -5959,14 +5624,6 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-drawer-layout",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-drawer-layout/LICENSE"
   },
-  "react-native-edge-to-edge@1.6.0": {
-    "licenses": "MIT",
-    "repository": "https://github.com/zoontek/react-native-edge-to-edge",
-    "publisher": "Mathieu Acthernoene",
-    "email": "zoontek@gmail.com",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-edge-to-edge",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-edge-to-edge/LICENSE"
-  },
   "react-native-fs@2.20.0": {
     "licenses": "MIT",
     "repository": "https://github.com/itinance/react-native-fs",
@@ -5976,7 +5633,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-fs",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-fs/LICENSE"
   },
-  "react-native-gesture-handler@2.29.0": {
+  "react-native-gesture-handler@2.28.0": {
     "licenses": "MIT",
     "repository": "https://github.com/software-mansion/react-native-gesture-handler",
     "publisher": "Krzysztof Magiera",
@@ -6001,15 +5658,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-is-edge-to-edge",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-is-edge-to-edge/LICENSE"
   },
-  "react-native-push-notification@8.1.1": {
-    "licenses": "MIT",
-    "repository": "https://github.com/zo0r/react-native-push-notification",
-    "publisher": "zo0r",
-    "email": "http://zo0r.me",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-push-notification",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-push-notification/LICENSE"
-  },
-  "react-native-reanimated@4.1.3": {
+  "react-native-reanimated@4.1.5": {
     "licenses": "MIT",
     "repository": "https://github.com/software-mansion/react-native-reanimated",
     "publisher": "Krzysztof Magiera",
@@ -6045,7 +5694,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-safe-area-context",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-safe-area-context/LICENSE"
   },
-  "react-native-screens@4.18.0": {
+  "react-native-screens@4.16.0": {
     "licenses": "MIT",
     "repository": "https://github.com/software-mansion/react-native-screens",
     "publisher": "Krzysztof Magiera",
@@ -6077,19 +5726,25 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-vector-icons",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-vector-icons/LICENSE"
   },
-  "react-native-worklets@0.5.2": {
+  "react-native-worklets@0.5.1": {
     "licenses": "MIT",
     "repository": "https://github.com/software-mansion/react-native-reanimated",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-worklets",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native-worklets/LICENSE"
   },
-  "react-native@0.81.0": {
+  "react-native@0.81.5": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react-native",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/LICENSE"
   },
   "react-refresh@0.14.2": {
+    "licenses": "MIT",
+    "repository": "https://github.com/facebook/react",
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/babel-preset/node_modules/react-refresh",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/babel-preset/node_modules/react-refresh/LICENSE"
+  },
+  "react-refresh@0.18.0": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/react",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-refresh",
@@ -6319,14 +5974,14 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/safer-buffer",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/safer-buffer/LICENSE"
   },
-  "sax@1.4.1": {
-    "licenses": "ISC",
+  "sax@1.4.3": {
+    "licenses": "BlueOak-1.0.0",
     "repository": "https://github.com/isaacs/sax-js",
     "publisher": "Isaac Z. Schlueter",
     "email": "i@izs.me",
     "url": "http://blog.izs.me/",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/sax",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/sax/LICENSE"
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/sax/LICENSE.md"
   },
   "saxes@6.0.0": {
     "licenses": "ISC",
@@ -6685,8 +6340,8 @@
     "publisher": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
     "url": "sindresorhus.com",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/string-width",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/string-width/license"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/string-width-cjs",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/string-width-cjs/license"
   },
   "string-width@5.1.2": {
     "licenses": "MIT",
@@ -6876,7 +6531,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/terser-webpack-plugin",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/terser-webpack-plugin/LICENSE"
   },
-  "terser@5.44.0": {
+  "terser@5.44.1": {
     "licenses": "BSD-2-Clause",
     "repository": "https://github.com/terser/terser",
     "publisher": "Mihai Bazon",
@@ -7244,7 +6899,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/webpack-sources",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/webpack-sources/LICENSE"
   },
-  "webpack@5.102.1": {
+  "webpack@5.103.0": {
     "licenses": "MIT",
     "repository": "https://github.com/webpack/webpack",
     "publisher": "Tobias Koppers @sokra",
@@ -7332,8 +6987,8 @@
     "publisher": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
     "url": "https://sindresorhus.com",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/wrap-ansi",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/wrap-ansi/license"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/wrap-ansi-cjs",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/wrap-ansi-cjs/license"
   },
   "wrap-ansi@8.1.0": {
     "licenses": "MIT",
@@ -7373,8 +7028,8 @@
     "publisher": "Einar Otto Stangvik",
     "email": "einaros@gmail.com",
     "url": "http://2x.io",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/dev-middleware/node_modules/ws",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/expo/node_modules/@react-native/dev-middleware/node_modules/ws/LICENSE"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/dev-middleware/node_modules/ws",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-native/dev-middleware/node_modules/ws/LICENSE"
   },
   "ws@7.5.10": {
     "licenses": "MIT",
@@ -7522,12 +7177,12 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/yocto-queue",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/yocto-queue/license"
   },
-  "zod-to-json-schema@3.24.6": {
+  "zod-to-json-schema@3.25.0": {
     "licenses": "ISC",
     "repository": "https://github.com/StefanTerdell/zod-to-json-schema",
     "publisher": "Stefan Terdell",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/mcp-tunnel/node_modules/zod-to-json-schema",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/mcp-tunnel/node_modules/zod-to-json-schema/LICENSE"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/zod-to-json-schema",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/zod-to-json-schema/LICENSE"
   },
   "zod@3.25.76": {
     "licenses": "MIT",

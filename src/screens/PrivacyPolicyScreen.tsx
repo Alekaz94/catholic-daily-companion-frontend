@@ -40,17 +40,17 @@ const PrivacyPolicyScreen = () => {
                     Last updated: November 21, 2025
                 </Text>
 
-                <Text style={[Typography.body, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
+                <Text style={[Typography.body, { marginTop: 20, color: theme.auth.text}]}>
                     Thank you for using <Text style={{ fontWeight: "600" }}>Catholic Daily Companion</Text> ("we", "our", or "us"). 
                     Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your information.
                 </Text>
 
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
+                <Text style={[Typography.body, { color: theme.auth.text }]}>
                     By using the app, you agree to the terms of this Privacy Policy.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Information We Collect:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
                     - Full name{"\n"}
                     - Email address{"\n"}
                     - Google account information (if signing in via Google){"\n"}
@@ -61,7 +61,7 @@ const PrivacyPolicyScreen = () => {
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>What We Do NOT Collect:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
                     - We do NOT collect or store your Google password.{"\n"}
                     - We do NOT receive sensitive Google data such as contacts or files
                 </Text>
@@ -76,47 +76,39 @@ const PrivacyPolicyScreen = () => {
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Ads & Analytics:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
                     We use Google Mobile Ads. Only anonymized usage data may be collected for ad performance. 
                     We do not share your personal data with advertisers. 
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Data Security:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
                     We use HTTPS, secure token-based authentication, and industry-standard measures.
                     Since no password is ever stored by us, that sensitive data never enters our system.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Your Rights:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
-                    You may view, update, or delete your data by contacting:
-                </Text>
-                <Text
-                style={[
-                    Typography.body,
-                    { fontWeight: "500", marginTop: 10, color: theme.auth.text, textAlign: "center" },
-                ]}
-                >
-                    alexandros.kazalis@gmail.com
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
+                    You may view, update, or delete your data by contacting: alexandros.kazalis@gmail.com
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>GDPR Rights:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
                     EU users retain rights to access, correct, delete or export their data. Most actions can be performed directly in the app.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Data Retention:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
                     Your data is stored until you delete your account. Journal entries can be deleted at any time.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>Children’s Privacy:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
                     We do not knowingly collect data from children under 13. Parental supervision is recommended for young users.
                 </Text>
 
                 <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>Changes to This Policy:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center"  }]}>
+                <Text style={[Typography.body, { color: theme.auth.text }]}>
                     If the policy changes, we will notify users in the app or by email.
                 </Text>
 

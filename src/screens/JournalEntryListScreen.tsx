@@ -16,6 +16,7 @@ import { Colors } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
+import AdBanner from "../components/AdBanner";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -239,6 +240,7 @@ const JournalEntryListScreen = () => {
                     onUpdate={handleUpdate}
                 />
                 </View>
+                <AdBanner />
             </SafeAreaView>
 
             <Modal
