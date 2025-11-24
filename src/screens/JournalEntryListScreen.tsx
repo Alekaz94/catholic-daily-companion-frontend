@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry";
 import { deleteEntry, getAllEntries, updateEntry } from "../services/JournalEntryService";
 import { FlatList, TouchableOpacity, View, Text, Modal, ActivityIndicator } from "react-native";
@@ -17,6 +17,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import AdBanner from "../components/AdBanner";
+import { cacheJournalEntries, getCachedEntries } from "../services/CacheService";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -36,11 +37,16 @@ const JournalEntryListScreen = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation<JournalEntryListNavigationProp>();
     const theme = useAppTheme();
+    const isFirstLoad = useRef(true);
 
     const handleDelete = async (id: string) => {
         try {
             await deleteEntry(id);
-            setEntries(prev => prev.filter(entry => entry.id !== id));
+            setEntries(prev => {
+                const updated = prev.filter(entry => entry.id !== id);
+                cacheJournalEntries(updated);
+                return updated;
+            });
             setIsVisibleDelete(false);
             setEntryToDeleteId(null)
         } catch (error) {
@@ -62,6 +68,7 @@ const JournalEntryListScreen = () => {
             setIsLoading(true);
             const res = await getAllEntries(0, 10, "desc");
             setEntries(res.content);
+            await cacheJournalEntries(res.content);
             setPage(0);
             setHasMore(!res.last);
         } catch (error) {
@@ -72,8 +79,22 @@ const JournalEntryListScreen = () => {
     }
 
     useEffect(() => {
+        const loadCached = async () => {
+            const cached = await getCachedEntries();
+            if (cached && cached.length > 0) {
+                setEntries(cached);
+            }
+        };
+    
+        loadCached();
+    }, []);
+
+    useEffect(() => {
         const unsubscribe = navigation.addListener("focus", () => {
-            refreshEntries();
+            if (!isFirstLoad.current) {
+                refreshEntries();
+            }
+            isFirstLoad.current = false;
         });
         return unsubscribe;
     }, [navigation])
@@ -89,13 +110,19 @@ const JournalEntryListScreen = () => {
                 const res = await getAllEntries(page, 10, "desc");
                 if(page === 0) {
                     setEntries(res.content);
+                    await cacheJournalEntries(res.content);
                 } else {
-                    setEntries(prev => [
-                        ...prev,
-                        ...res.content.filter((entry: JournalEntry) => !prev.some(e => e.id === entry.id)),
-                    ]);
+                    setEntries(prev => {
+                        const merged = [
+                            ...prev,
+                            ...res.content.filter((entry: JournalEntry) => !prev.some(e => e.id === entry.id)),
+                        ];
+                        
+                        cacheJournalEntries(merged);
+                        return merged;
+                    });
                 }
-    
+
                 setHasMore(!res.last);
             } catch (error) {
                 console.error("Error loading journal entries ", error);

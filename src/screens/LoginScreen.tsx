@@ -58,7 +58,7 @@ const LoginScreen = () => {
           <Ionicons name="mail-outline" color={theme.auth.text} size={20} />
           <Text style={[Layout.buttonText, {marginLeft: 10, color: theme.auth.text}]}>Login with Email & Password</Text>
         </TouchableOpacity> */}
-        <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40}}>
+        <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40, marginTop: 10}}>
             <Text style={{ color: theme.auth.smallText }}>
               By signing up and logging in with Google, you are creating an account and accepting to our{" "} 
             <Text onPress={() => navigation.navigate("Terms of Service")} style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple" }}>

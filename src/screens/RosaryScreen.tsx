@@ -15,6 +15,7 @@ import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import AdBanner from "../components/AdBanner";
 import { showRewardedAd } from "../services/ads/rewarded";
+import { cacheDoneToday, cacheRosaries, cacheRosaryStreak, getCachedDoneToday, getCachedRosaries, getCachedStreak } from "../services/CacheService";
 
 const formatDate = (date: Date) => {
     const year = date.getUTCFullYear();
@@ -94,8 +95,13 @@ const RosaryScreen = () => {
                 const pastLogs = await getHistory(user.id);
 
                 setCompleted(done);
+                cacheDoneToday(done);
+
                 setStreak(currentStreak);
+                cacheRosaryStreak(currentStreak);
+
                 setHistory(pastLogs);
+                cacheRosaries(pastLogs);
 
                 if(done) {
                     const allTrue = rosarySequence.map(step => Array(step.checkboxes).fill(true));
@@ -140,6 +146,9 @@ const RosaryScreen = () => {
 
             const allTrue = rosarySequence.map(step => Array(step.checkboxes).fill(true));
             setCheckedSteps(allTrue);
+            cacheDoneToday(true);
+            cacheRosaryStreak(streak + 1);
+
             if(user.role !== "ADMIN") {
                 await showRewardedAd();
             }
@@ -147,6 +156,20 @@ const RosaryScreen = () => {
             console.error("Failed to complete rosary ", error);
         }
     };
+
+    useEffect(() => {
+        const loadCached = async () => {
+          const cachedHistory = await getCachedRosaries();
+          const cachedStreak = await getCachedStreak();
+          const cachedDone = await getCachedDoneToday();
+      
+          if (cachedHistory) setHistory(cachedHistory);
+          if (cachedStreak !== null) setStreak(cachedStreak);
+          if (cachedDone !== null) setCompleted(cachedDone);
+        };
+      
+        if (user?.id) loadCached();
+      }, [user]);
 
     if(isLoading) {
         return (
@@ -163,22 +186,22 @@ const RosaryScreen = () => {
             <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: theme.prayer.background}}>
                 <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Rosary</Text>
                 <Divider />
-                <Text style={[Typography.body, {textAlign: "center", fontSize: 18, color: theme.prayer.text}]}>Today, {weekday}, we pray the {mysteryType}</Text>
+                <Text style={[Typography.italic, {textAlign: "center", fontSize: 18, color: theme.prayer.text}]}>Today, {weekday}, we pray the {mysteryType}</Text>
                 <Divider />
                 {rosarySequence.map((step, stepIndex) => (
-                    <View key={stepIndex} style={{marginBottom: 24}}>
+                    <View key={stepIndex} style={{marginBottom: 10}}>
                         {step.title && (
                             <Text style={[Typography.title, { marginBottom: 12, fontSize: 20, color: theme.prayer.text}]}>
                                 {step.title}
                             </Text>
                         )}
-                        <Text style={[Typography.body, { marginBottom: 12, fontSize: 18, fontWeight: "600", color: theme.prayer.text }]}>
+                        <Text style={[Typography.italic, { marginBottom: 12, fontSize: 18, fontWeight: "600", color: theme.prayer.text }]}>
                             {step.prayerText}
                         </Text>
                         <View style={{ flexDirection: "row", flexWrap: "wrap", alignContent: "center", justifyContent: "center"}}>
                             {checkedSteps[stepIndex].map((checked, boxIndex) => (
                                 <CheckBox
-                                    style={{marginHorizontal: 5}}
+                                    style={{marginHorizontal: 7}}
                                     key={boxIndex}
                                     value={checked}
                                     onValueChange={() => !completed && toggleCheckbox(stepIndex, boxIndex)}

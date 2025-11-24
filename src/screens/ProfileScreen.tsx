@@ -22,6 +22,7 @@ import { PasswordChangeInput, passwordChangeSchema } from '../validation/profile
 import { NameChangeInput, nameChangeSchema } from '../validation/userNameChangeValidation';
 import NameChangeConfirmModal from '../components/NameChangeConfirmModal';
 import PasswordChangeConfirmModal from '../components/PasswordChangeConfirmModal';
+import { cacheHighestStreak, cacheRosaryStreak, getCachedHighestStreak, getCachedStreak } from '../services/CacheService';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -152,29 +153,22 @@ const ProfileScreen = () => {
     }, [user, nameChangeReset]);
 
     useEffect(() => {
-        const fetchStreak = async () => {
-            if(user) {
-                try {
-                    const currentStreak = await getStreak(user.id);
-                    setStreak(currentStreak);
-                    
-                    const storedHighest = await SecureStore.getItemAsync("streak");
-                    const highest = storedHighest ? parseInt(storedHighest) : 0;
-
-                    if(currentStreak > highest) {
-                        await SecureStore.setItemAsync("streak", currentStreak.toString());
-                        setHighestStreak(currentStreak);
-                    } else {
-                        setHighestStreak(highest);
-                    }
-                } catch (error) {
-                    console.error("Could not retrieve rosary streak for user", error);
-                }
+        const fetchAndCacheStreaks = async () => {
+            if (!user) return;
+            try {
+                const cachedHighest = await getCachedHighestStreak() || 0;
+                const currentStreak = await getStreak(user.id);
+                setStreak(currentStreak);
+                cacheRosaryStreak(currentStreak);
+                const highest = Math.max(currentStreak, cachedHighest);
+                setHighestStreak(highest);
+                cacheHighestStreak(highest);
+            } catch (error) {
+                console.error("Could not retrieve rosary streak", error);
             }
         }
-
-        fetchStreak();
-    }, [user])
+        fetchAndCacheStreaks();
+    }, [user]);
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.navbar}}>
@@ -184,44 +178,41 @@ const ProfileScreen = () => {
                 <View style={Layout.container}>
                 <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>My Profile</Text>
                 <Divider />
-                <View style={{marginVertical: 15}}>
-                    <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>User Info</Text>
-                    <Divider />
+                <View style={{ marginTop: 10}}>
+                    <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>User Info</Text>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.body, {color: theme.auth.text}]}>Name: </Text>
-                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Name: </Text>
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.body, {color: theme.auth.text}]}>Email: </Text>
-                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.email ?? 'Unknown'}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Email: </Text>
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{user?.email ?? 'Unknown'}</Text>
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}> 
-                        <Text style={[Typography.body, {color: theme.auth.text}]}>Account created: </Text> 
-                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.createdAt ?? 'Unknown'}</Text> 
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Account created: </Text> 
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{user?.createdAt ?? 'Unknown'}</Text> 
                     </View> 
                     <View style={{flexDirection: "row", marginVertical: 5}}> 
-                        <Text style={[Typography.body, {color: theme.auth.text}]}>Account updated: </Text> 
-                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{user?.updatedAt ?? 'Unknown'}</Text> 
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Account updated: </Text> 
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{user?.updatedAt ?? 'Unknown'}</Text> 
                     </View>
                 </View>
 
-                <View style={{marginVertical: 15}}>
-                    <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Rosary Info</Text>
-                    <Divider />
+                <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
+                    <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>Rosary Info</Text>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.body, {color: theme.auth.text}]}>Highest prayed rosary streak: </Text>
-                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{highestStreak}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Highest prayed rosary streak: </Text>
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{highestStreak}</Text>
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.body, {color: theme.auth.text}]}>Current prayed streak: </Text>
-                        <Text style={[Typography.body, {fontWeight: "500", color: theme.auth.text}]}>{streak}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Current prayed streak: </Text>
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{streak}</Text>
                     </View>
                 </View>
 
-                <View style={{marginVertical: 15}}>
-                    <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Name Change</Text>
-                    <Divider />
-                    <Text style={[Typography.label, {color: theme.auth.text}]}>Current Firstname:</Text>
+                <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
+                    <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>Name Change</Text>
+                    <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18, marginBottom: 5}]}>Current Firstname:</Text>
                     <View style={{ position: 'relative' }}>
                         <Controller
                             control={nameChangeControl}
@@ -241,7 +232,7 @@ const ProfileScreen = () => {
                     </View>
                     {nameChangeErrors.currentFirstName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.currentFirstName.message}</Text>}
 
-                    <Text style={[Typography.label, {color: theme.auth.text}]}>New Firstname:</Text>
+                    <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18, marginBottom: 5}]}>New Firstname:</Text>
                     <View style={{ position: 'relative' }}>
                         <Controller
                             control={nameChangeControl}
@@ -260,7 +251,7 @@ const ProfileScreen = () => {
                     </View>
                     {nameChangeErrors.newFirstName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.newFirstName.message}</Text>}
 
-                    <Text style={[Typography.label, {color: theme.auth.text}]}>Current Lastname:</Text>
+                    <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18, marginBottom: 5}]}>Current Lastname:</Text>
                     <View style={{ position: 'relative' }}>
                         <Controller
                             control={nameChangeControl}
@@ -280,7 +271,7 @@ const ProfileScreen = () => {
                     </View>
                     {nameChangeErrors.currentLastName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.currentLastName.message}</Text>}
 
-                    <Text style={[Typography.label, {color: theme.auth.text}]}>New Lastname:</Text>
+                    <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18, marginBottom: 5}]}>New Lastname:</Text>
                     <View style={{ position: 'relative' }}>
                         <Controller
                             control={nameChangeControl}
@@ -299,7 +290,7 @@ const ProfileScreen = () => {
                     </View>
                     {nameChangeErrors.newLastName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.newLastName.message}</Text>}
 
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.navbar, opacity: isNameLoading ? 0.7 : 1, marginTop: 30}]}
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.navbar, opacity: isNameLoading ? 0.7 : 1, marginTop: 20, marginBottom: 10}]}
                         disabled={isNameLoading}
                         onPress={() => setIsConfirmNameVisible(true)}
                     >
@@ -312,10 +303,9 @@ const ProfileScreen = () => {
                 </View>
 
                 {!isOAuthUser && (
-                    <View style={{marginVertical: 15}}>
-                        <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Password Change</Text>
-                        <Divider />
-                        <Text style={[Typography.label, {color: theme.auth.text}]}>Current Password:</Text>
+                    <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
+                        <Text style={[Typography.label, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Password Change</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 16, marginBottom: 5}]}>Current Password:</Text>
                         <View style={{ position: 'relative' }}>
                             <Controller
                                 control={control}
@@ -341,7 +331,7 @@ const ProfileScreen = () => {
                         </View>
                         {errors.currentPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.currentPassword.message}</Text>}
 
-                        <Text style={[Typography.label, {color: theme.auth.text}]}>New Password:</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 16, marginBottom: 5}]}>New Password:</Text>
                         <View style={{ position: 'relative'}}>
                             <Controller
                                 control={control}
@@ -370,7 +360,7 @@ const ProfileScreen = () => {
                         </View>
                         {errors.newPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.newPassword.message}</Text>}
                             
-                        <Text style={[Typography.label, {color: theme.auth.text}]}>Confirm New Password:</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 16, marginBottom: 5}]}>Confirm New Password:</Text>
                         <View style={{ position: 'relative' }}>
                             <Controller
                                 control={control}
@@ -399,7 +389,7 @@ const ProfileScreen = () => {
                         </View>
                         {errors.confirmNewPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.confirmNewPassword.message}</Text>}
 
-                        <TouchableOpacity style={[Layout.button, {opacity: isPasswordLoading ? 0.7 : 1, marginTop: 30}]} 
+                        <TouchableOpacity style={[Layout.button, {opacity: isPasswordLoading ? 0.7 : 1, marginTop: 20, marginBottom: 10}]} 
                             disabled={isPasswordLoading}
                             onPress={() => setIsConfirmVisible(true)}
                         >
@@ -413,10 +403,9 @@ const ProfileScreen = () => {
                 )}
 
                 {isOAuthUser && (
-                    <View style={{marginVertical: 15}}>
-                        <Text style={[Typography.italic, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Password Change</Text>
-                        <Divider />
-                        <Text style={[Typography.label, { color: theme.auth.smallText, fontSize: 18, textAlign: "center", marginVertical: 5}]}>
+                    <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
+                        <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>Password Change</Text>
+                        <Text style={[Typography.italic, { color: theme.auth.smallText, fontSize: 18,}]}>
                             Password changes are managed through your Google account.
                         </Text>
                     </View>

@@ -61,7 +61,7 @@ const FeedbackScreen = () => {
               </Text>
               <Divider />
 
-              <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>Category</Text>
+              <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginVertical: 20, color: theme.auth.text }]}>Category</Text>
               <View style={{ flexDirection: 'row', marginTop: 10 }}>
                 <TouchableOpacity onPress={() => setCategory('suggestion')} style={{ marginRight: 20 }}>
                   <Text style={{ 
@@ -95,7 +95,7 @@ const FeedbackScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text }]}>Message</Text>
+              <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginVertical: 20, color: theme.auth.text }]}>Message</Text>
               <TextInput
                 style={[Layout.input, { height: 150, textAlignVertical: 'top', color: theme.auth.text }]}
                 placeholder="Share your thoughts..."

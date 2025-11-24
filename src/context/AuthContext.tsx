@@ -10,7 +10,7 @@ import { NewUser, User } from '../models/User';
 import { setAuthToken } from '../services/AuthTokenManager';
 import * as SecureStore from 'expo-secure-store';
 import { reset } from '../navigation/RootNavigation';
-import { clearCachedSaints } from '../services/CacheService';
+import { clearCachedDoneToday, clearCachedHighestStreak, clearCachedJournalEntries, clearCachedRosaries, clearCachedSaints, clearCachedStreak } from '../services/CacheService';
 import Toast from 'react-native-root-toast';
 
 interface AuthContextType {
@@ -43,8 +43,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const logout = async () => {
-    await clearSession();
     await clearCachedSaints();
+    await clearCachedRosaries();
+    await clearCachedJournalEntries();
+    await clearCachedDoneToday();
+    await clearCachedStreak();
+    await clearCachedHighestStreak();
+    await clearSession();
     setUser(null);
     setAuthToken(null);
   };

@@ -16,6 +16,7 @@ import RNFS from "react-native-fs";
 import { downloadUserDataJson, downloadUserDataZip } from "../services/UserExportService";
 import { Buffer } from "buffer";
 import * as Sharing from "expo-sharing";
+import { clearAllCache } from "../services/CacheService";
 
 const SettingsScreen = () => { 
     const theme = useAppTheme(); 
@@ -112,13 +113,12 @@ const SettingsScreen = () => {
                     <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>Settings</Text> 
                     <Divider /> 
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10}}> 
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20}}> 
                         <Text style={[Typography.body, { color: theme.auth.text, marginRight: 10 }]}> Dark Mode </Text> 
                         <Switch value={isDark} onValueChange={toggleTheme} trackColor={{ false: '#767577', true: '#81b0ff' }} thumbColor={isDark ? "#59512e" : '#FAF3E0'} /> 
                     </View> 
 
-                    <Divider />
-                    <View style={{ marginVertical: 20 }}>
+                    <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
                         <Text style={[Typography.label, { fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}> 
                             Export Data
                         </Text>
@@ -137,7 +137,35 @@ const SettingsScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{ marginTop: 10, borderTopWidth: 1, borderColor: 'red', paddingTop: 20 }}>
+                    <View style={{ marginTop: 20, paddingTop: 10, borderTopWidth: 1, borderColor: theme.auth.text }}>
+                        <Text style={[Typography.label, { fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>
+                            Advanced / Troubleshooting
+                        </Text>
+
+                        <TouchableOpacity
+                            style={[Layout.button, { backgroundColor: '#ff9800', marginBottom: 10 }]}
+                            onPress={async () => {
+                            Alert.alert(
+                                "Clear Cache",
+                                "Are you sure you want to clear all cached data? This will reset streaks and local journal entries, but won’t delete your account.",
+                                [
+                                { text: "Cancel", style: "cancel" },
+                                { text: "Clear Cache", style: "destructive", onPress: async () => {
+                                    await clearAllCache();
+                                    Toast.show("Cache cleared successfully!", {
+                                    duration: Toast.durations.SHORT,
+                                    position: Toast.positions.BOTTOM,
+                                    });
+                                } }
+                                ]
+                            );
+                            }}
+                        >
+                            <Text style={{ color: 'white' }}>Clear Cache</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{ marginTop: 10, borderTopWidth: 1, borderColor: 'red', paddingTop: 10 }}>
                         <Text style={[Typography.label, { color: 'red', fontWeight: 'bold', fontSize: 18 }]}>Danger Zone</Text>
                         <TouchableOpacity
                             style={[Layout.button, { backgroundColor: '#ff4d4f', borderColor: 'darkred', borderWidth: 1, marginTop: 10 }]}
