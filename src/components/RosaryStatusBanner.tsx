@@ -62,21 +62,21 @@ const RosaryStatusBanner = () => {
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.85}>
             <View style={{
-                backgroundColor: completed ? "#D1FAE5" : "#FFF1F2",
+                backgroundColor: completed ? "#10B981" : "#FF4D4F",
                 borderRadius: 12,
                 padding: 16,
                 marginVertical: 12,
                 borderLeftWidth: 5,
-                borderLeftColor: completed ? "#10B981" : "#F43F5E"
+                borderLeftColor: completed ? "#A7F3D0" : "#FFB3B8"
                 }}
             >
-                <Text style={{ fontSize: 16, fontWeight: "600", color: completed ? "#065F46" : "#9F1239" }}>
+                <Text style={{ fontSize: 16, fontWeight: "600", color: completed ? theme.prayer.text : theme.prayer.text }}>
                     📿 Pray the Rosary
                 </Text>
-                <Text style={{ fontSize: 14, marginTop: 6 }}>
-                    Today is <Text style={{ fontWeight: "bold" }}>{weekday}</Text>, we pray the <Text style={{ fontStyle: "italic" }}>{mysteryType}</Text>.
+                <Text style={{ fontSize: 14, marginTop: 6, color: theme.prayer.text }}>
+                    Today is <Text style={{ fontWeight: "bold"}}>{weekday}</Text>, we pray the <Text style={{ fontStyle: "italic" }}>{mysteryType}</Text>.
                 </Text>
-                <Text style={{ fontSize: 14, marginTop: 6 }}>
+                <Text style={{ fontSize: 14, marginTop: 6, color: theme.prayer.text }}>
                     {completed
                         ?   `You have prayed the rosary today.  🙏 Streak: ${streak} ${streak === 1 ? "day" : "days"}`
                         :   "You haven't prayed the rosary today. Want to pray now?"

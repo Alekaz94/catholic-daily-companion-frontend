@@ -198,10 +198,10 @@ const JournalEntryListScreen = () => {
                                     disabled={isLoading}
                                 >
                                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Text style={[Typography.label, {color: theme.journal.text, fontWeight: "bold"}]}>{item.title}</Text>
-                                        <Text style={[Typography.label, {color: theme.journal.text}]}>{item.date}</Text>
+                                        <Text style={[Typography.body, {color: theme.journal.text, fontWeight: "bold", fontSize: 18}]}>{item.title}</Text>
+                                        <Text style={[Typography.body, {color: theme.journal.text, fontSize: 18}]}>{item.date}</Text>
                                     </View>
-                                    <Text style={[Typography.body, {color: theme.journal.text, fontSize: 18, marginBottom: 5}]} numberOfLines={2}>{item.content}</Text>
+                                    <Text style={[Typography.italic, {color: theme.journal.text, fontSize: 18, marginVertical: 10}]} numberOfLines={2}>{item.content}</Text>
                                 </TouchableOpacity>
                                 
                                 <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 5}}>

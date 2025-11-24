@@ -124,7 +124,7 @@ const HomeScreen = () => {
             backgroundColor: theme.saint.background 
           }}
         >
-          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>No feast day today.</Text>
+          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>Feast day info not available</Text>
         </View>
       ) : (
         <>

@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import Divider from "../components/Divider";
 
 type AboutNavigationScreen = NativeStackNavigationProp<
   AuthStackParamList,
@@ -61,11 +62,10 @@ const AboutScreen = () => {
                         saint stories, journal prompts, and prayer tracking tools—designed to strengthen
                         your faith, peace, and spiritual consistency.
                     </Text>
-
+                    <Divider />
                     <Text style={[Typography.label, { marginTop: 40, color: theme.auth.text }]}>
                         About the Developer
                     </Text>
-
                     <Text
                         style={[
                         Typography.body,
@@ -77,10 +77,10 @@ const AboutScreen = () => {
                         relationship with Christ through daily prayer, reflection, and simplicity.  
                         My hope is that it brings peace, encouragement, and a steady reminder of God’s presence.
                     </Text>
-
+                    <Divider />
                     <Text
                         style={[
-                        Typography.body,
+                        Typography.label,
                         { marginTop: 20, fontWeight: "500", color: theme.auth.text },
                         ]}
                     >

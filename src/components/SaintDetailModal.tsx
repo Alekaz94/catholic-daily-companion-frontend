@@ -52,7 +52,7 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
             <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: "center"}}>
                 <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>       
                     <View style={[Layout.container, {backgroundColor: theme.saint.detail, marginHorizontal: 20, borderRadius: 16, padding: 16, elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4,}]}>
-                        <Text style={[Typography.italic, { color: theme.saint.text, fontSize: 22, textAlign: "center" }]}>{saint.name}</Text>
+                        <Text style={[Typography.title, {color: theme.journal.text, fontWeight: "bold", textAlign: "center", marginTop: 10, fontSize: 22}]}>{saint.name}</Text>
                         <Divider />
                         <View style={{alignSelf: "center"}}>
                             {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain" defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}    
@@ -98,10 +98,10 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                             borderRadius: 10,
                             padding: 12,
                             backgroundColor: "#FFFFFF22", 
-                            marginTop: 12,
+                            marginVertical: 10,
                             }}
                         >                    
-                            <Text style={[Typography.italic, {color: theme.saint.text, fontSize: 18, textAlign: "center"}]}>Saint Facts</Text>
+                            <Text style={[Typography.body, {color: theme.saint.text, fontSize: 18, textAlign: "center"}]}>Saint Facts</Text>
                             <Divider />
                             {saint.birthYear && (
                                 <SaintFactRow label="Birth" value={`ca ${saint.birthYear}`} />
@@ -116,8 +116,7 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                             )}
                         </View>
                         <Divider />
-                        <Text style={[Typography.body, {lineHeight: 20, textAlign: "justify", color: theme.saint.text}]}>{saint.biography}</Text>
-                        <Divider />
+                        <Text style={[Typography.italic, {lineHeight: 20, textAlign: "justify", color: theme.saint.text, marginVertical: 10, fontSize: 18}]}>{saint.biography}</Text>
                         <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.saint.button}]}>
                             <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.saint.text}]}>Close</Text>
                         </TouchableOpacity> 
