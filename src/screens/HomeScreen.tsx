@@ -164,7 +164,7 @@ const HomeScreen = () => {
 
       {user?.role === "ADMIN" 
         && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10}]}>
-          <Text style={[Typography.label, {color: theme.auth.text}]}>Go to Admin Panel</Text>
+          <Text style={[Typography.label, {color: theme.auth.text, textAlign: "center"}]}>Go to Admin Panel</Text>
         </TouchableOpacity>
       )}
 

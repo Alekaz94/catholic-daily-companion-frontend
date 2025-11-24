@@ -108,7 +108,7 @@ const Navbar = () => {
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                 <TouchableOpacity
                   onPress={openDrawer}
-                  style={{ paddingHorizontal: 10, paddingVertical: 5}}
+                  style={{ paddingHorizontal: 8, paddingVertical: 5}}
                   accessibilityLabel="Open menu"
                   accessibilityRole="button"
                 >

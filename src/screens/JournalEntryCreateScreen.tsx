@@ -51,17 +51,17 @@ const JournalEntryCreateScreen = () => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
 
-                    <Text style={[Typography.title, {color: theme.journal.text, fontSize: 20}]}>Create Journal Entry</Text>
+                    <Text style={[Typography.title, {color: theme.journal.text, fontSize: 20, textAlign: "center"}]}>Create Journal Entry</Text>
                     <Divider />
                     <TextInput 
-                        style={Layout.input}
+                        style={[Layout.input, {color: theme.auth.text}]}
                         placeholder="Title" 
                         value={title} 
                         onChangeText={(value)  => setTitle(value)} 
                         editable={!isLoading}
                     /> 
                     <TextInput
-                        style={[Layout.input, {width: "100%", height: 200, textAlignVertical: "top"}]}
+                        style={[Layout.input, {color: theme.auth.text, width: "100%", height: 200, textAlignVertical: "top"}]}
                         placeholder="Journal content"
                         value={content}
                         onChangeText={(value) => setContent(value)}
@@ -70,22 +70,21 @@ const JournalEntryCreateScreen = () => {
                     />
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                         <TouchableOpacity 
-                            style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.journal.cardOne, borderWidth: 1, opacity: isLoading ? 0.7 : 1}]} 
-                            onPress={handleCreate} 
-                        >
-                            {isLoading ? (
-                                <ActivityIndicator color="black" />
-                            ) : (
-                                <Text style={[Layout.buttonText, {color: theme.journal.text}]}>Create</Text>
-                            )}
-                        </TouchableOpacity>
-                        
-                        <TouchableOpacity 
                             style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} 
                             onPress={() => {navigation.navigate("Journal")}} 
                             disabled={isLoading}
                         >
                             <Text style={[Layout.buttonText, {color: theme.journal.text}]}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.journal.cardOne, borderWidth: 1, opacity: isLoading ? 0.7 : 1}]} 
+                            onPress={handleCreate} 
+                        >
+                            {isLoading ? (
+                                <ActivityIndicator color={theme.auth.text} />
+                            ) : (
+                                <Text style={[Layout.buttonText, {color: theme.journal.text}]}>Create</Text>
+                            )}
                         </TouchableOpacity>
                     </View>
                 </View>

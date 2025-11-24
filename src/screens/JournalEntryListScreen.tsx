@@ -282,7 +282,7 @@ const JournalEntryListScreen = () => {
                         <Text style={[Typography.title, {color: theme.journal.text}]}>Are you sure you want to delete this entry?</Text>
                         <View style={{flexDirection: "row"}}>
                             <TouchableOpacity
-                                style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 20}]}
+                                style={[Layout.button, {backgroundColor: "red", width: "30%", marginRight: 20}]}
                                 onPress={() => {
                                     if (entryToDeleteId) {
                                     handleDelete(entryToDeleteId);
@@ -294,7 +294,7 @@ const JournalEntryListScreen = () => {
                                 <Text style={[Typography.body, { color: theme.journal.text }]}>Yes</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[Layout.button, {backgroundColor: Colors.error, width: "30%"}]}
+                                style={[Layout.button, {backgroundColor: theme.journal.cardOne, width: "30%"}]}
                                 onPress={() => setIsVisibleDelete(false)}
                             >
                                 <Text style={[Typography.body, {color: theme.journal.text}]}>Cancel</Text>

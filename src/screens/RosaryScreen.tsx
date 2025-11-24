@@ -184,7 +184,7 @@ const RosaryScreen = () => {
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
             <Navbar />
-            <ScrollView contentContainerStyle={{ padding: 20, flexGrow: 1, backgroundColor: theme.prayer.background}}>
+            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: theme.prayer.background}}>
                 <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", color: theme.prayer.text}]}>Rosary</Text>
                 <Divider />
                 <Text style={[Typography.italic, {textAlign: "center", color: theme.prayer.text}]}>Today, {weekday}, we pray the {mysteryType}</Text>

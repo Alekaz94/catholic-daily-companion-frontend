@@ -162,13 +162,13 @@ const SaintScreen = () => {
                 <Divider />
                 {user?.role === "ADMIN" && (
                     <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: theme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>
-                        <Text style={[Layout.buttonText, {color: theme.saint.text}]}>Create new Saint</Text>
+                        <Text style={[Typography.label, {color: theme.auth.text}]}>Create new Saint</Text>
                     </TouchableOpacity>
                 )}
                 <View style={[Layout.searchInputView, {marginTop: 10}]}>
                     <Ionicons name="search-outline" size={20} color="#888" style={{ marginRight: 8 }} />
                     <TextInput 
-                        style={Layout.searchInputTextInput} 
+                        style={[Layout.searchInputTextInput, {color: theme.auth.text}]} 
                         placeholder="Search saint by name..." 
                         value={searchQuery} 
                         onChangeText={(text) => {setSearchQuery(text)}}
