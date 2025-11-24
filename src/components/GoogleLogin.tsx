@@ -41,12 +41,19 @@ const GoogleLogin = () => {
             if (!idToken) {
                 throw new Error("No ID token from Google");
             }
-      
+
+            console.log("Google ID Token:", idToken);
+            console.log("Signing in with Firebase...");
+
             const googleCredential = GoogleAuthProvider.credential(idToken);
             const userCredential = await signInWithCredential(auth, googleCredential);
             const firebaseIdToken = await userCredential.user.getIdToken();
-        
-            await firebaseLogin(firebaseIdToken);
+            
+            try{
+                await firebaseLogin(firebaseIdToken);
+            } catch (error) {
+                console.error("Failed to login with Firebase", error);
+            }
         
             console.log("User signed in:", userInfo.user.id);
         } catch (error) {
