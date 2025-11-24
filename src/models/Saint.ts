@@ -22,9 +22,9 @@ export interface NewSaint {
     patronage: string;
     canonizationYear: number;
     imageUrl?: string | null;
+    imageSource?: string | null;
     imageAuthor?: string | null;
     imageLicence?: string | null;
-    imageSource?: string | null;
 }
 
 export interface UpdatedSaint {
@@ -36,7 +36,7 @@ export interface UpdatedSaint {
     patronage?: string;
     canonizationYear?: number;
     imageUrl?: string | null;
+    imageSource?: string | null;
     imageAuthor?: string | null;
     imageLicence?: string | null;
-    imageSource?: string | null;
 }

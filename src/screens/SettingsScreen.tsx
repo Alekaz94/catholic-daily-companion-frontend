@@ -1,7 +1,7 @@
 import { View, Text, Switch, ScrollView, TouchableOpacity, Alert, Platform } from "react-native"; 
 import { useAppTheme } from "../hooks/useAppTheme"; 
 import { useTheme } from "../context/ThemeContext"; 
-import { Typography } from "../styles/Typography"; 
+import { useTypography } from "../styles/Typography"; 
 import Navbar from "../components/Navbar"; 
 import Divider from "../components/Divider"; 
 import { Layout } from "../styles/Layout"; 
@@ -17,13 +17,21 @@ import { downloadUserDataJson, downloadUserDataZip } from "../services/UserExpor
 import { Buffer } from "buffer";
 import * as Sharing from "expo-sharing";
 import { clearAllCache } from "../services/CacheService";
+import { auth } from "../../firebase";
 
 const SettingsScreen = () => { 
     const theme = useAppTheme(); 
-    const { isDark, toggleTheme } = useTheme(); 
+    const { themeMode, setThemeMode, isDark, setFontSize, setFontStyle, fontSize, fontStyle } = useTheme();
     const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
     const {user, logout} = useAuth();
     const [isLoading, setIsLoading] = useState(false);
+    const Typography = useTypography();
+
+    const toggleDarkMode = () => {
+        const current = themeMode === "system" ? (isDark ? "dark" : "light") : themeMode;
+    
+        setThemeMode(current === "dark" ? "light" : "dark");
+    };
 
     const handleExportData = async (type: "json" | "zip") => {
         if(!user?.id) {
@@ -110,40 +118,96 @@ const SettingsScreen = () => {
             <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: theme.auth.background}}> 
                 <Navbar /> 
                 <View style={Layout.container}> 
-                    <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>Settings</Text> 
+                    <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", color: theme.auth.text}]}>Settings</Text> 
                     <Divider /> 
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20}}> 
-                        <Text style={[Typography.body, { color: theme.auth.text, marginRight: 10 }]}> Dark Mode </Text> 
-                        <Switch value={isDark} onValueChange={toggleTheme} trackColor={{ false: '#767577', true: '#81b0ff' }} thumbColor={isDark ? "#59512e" : '#FAF3E0'} /> 
-                    </View> 
+                    <View>
+                        <Text style={[Typography.label, { fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}> 
+                            Appearance
+                        </Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20}}> 
+                            <Text style={[Typography.body, { color: theme.auth.text, marginRight: 10,}]}>
+                                Dark Mode
+                            </Text>
+                            <Switch
+                                value={isDark}
+                                onValueChange={toggleDarkMode}
+                                trackColor={{ false: '#767577', true: '#81b0ff' }}
+                                thumbColor={isDark ? "#59512e" : '#FAF3E0'}
+                            />
+                        </View> 
+
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+                            <Text style={[Typography.body, { color: theme.auth.text, marginRight: 15}]}>Font Size</Text>
+                            <TouchableOpacity onPress={() => {
+                                const nextSize = fontSize === "small" ? "medium" : fontSize === "medium" ? "large" : "small";
+                                setFontSize(nextSize);
+                                }}
+                            >
+                                <Text style={{ color: theme.auth.text }}>{fontSize}</Text>
+                            </TouchableOpacity>
+                            <Text style={{ color: theme.auth.text, fontSize: 14, marginLeft: 10 }}>
+                                ← Tap to toggle font size
+                            </Text>
+                        </View>
+
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+                            <Text style={[Typography.body, { color: theme.auth.text, marginRight: 10 }]}>Font Style</Text>
+                            <TouchableOpacity onPress={() => setFontStyle(fontStyle === "serif" ? "sans" : "serif")}>
+                                <Text style={{ color: theme.auth.text }}>{fontStyle}</Text>
+                            </TouchableOpacity>
+                            <Text style={{ color: theme.auth.text, fontSize: 14, marginLeft: 10 }}>
+                                ← Tap to toggle style
+                            </Text>
+                        </View>
+
+                        <TouchableOpacity
+                            style={[Layout.button, { backgroundColor: theme.auth.navbar, marginBottom: 10, borderWidth: 1, borderColor: theme.auth.text }]}
+                            onPress={async () => {
+                            await SecureStore.deleteItemAsync("themeMode");
+                            await SecureStore.deleteItemAsync("fontSize");
+                            await SecureStore.deleteItemAsync("fontStyle");
+
+                            setThemeMode("system");
+                            setFontSize("medium");
+                            setFontStyle("serif");
+
+                            Toast.show("Appearance reset to default", {
+                                duration: Toast.durations.SHORT,
+                                position: Toast.positions.BOTTOM,
+                            });
+                            }}
+                        >
+                            <Text style={[Typography.label, { color: theme.auth.text }]}>Reset to Default</Text>
+                        </TouchableOpacity>
+                    </View>
 
                     <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
-                        <Text style={[Typography.label, { fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}> 
+                        <Text style={[Typography.label, { fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}> 
                             Export Data
                         </Text>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: '#4caf50', marginBottom: 10}]}
+                            style={[Layout.button, {backgroundColor: theme.auth.navbar, marginBottom: 10, borderWidth: 1, borderColor: theme.auth.text }]}
                             onPress={() => handleExportData("json")}
                         >
-                            <Text style={{ color: theme.auth.text }}>Export JSON</Text>
+                            <Text style={[Typography.label, {color: theme.auth.text}]}>Export JSON</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            style={[Layout.button, { backgroundColor: '#2196f3' }]}
+                            style={[Layout.button, { backgroundColor: theme.auth.navbar, borderWidth: 1, borderColor: theme.auth.text }]}
                             onPress={() => handleExportData("zip")}
                         >
-                            <Text style={{ color: theme.auth.text }}>Export ZIP</Text>
+                            <Text style={[Typography.label, {color: theme.auth.text}]}>Export ZIP</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={{ marginTop: 20, paddingTop: 10, borderTopWidth: 1, borderColor: theme.auth.text }}>
-                        <Text style={[Typography.label, { fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>
+                        <Text style={[Typography.label, { fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>
                             Advanced / Troubleshooting
                         </Text>
 
                         <TouchableOpacity
-                            style={[Layout.button, { backgroundColor: '#ff9800', marginBottom: 10 }]}
+                            style={[Layout.button, { backgroundColor: theme.auth.navbar, marginBottom: 10, borderWidth: 1, borderColor: theme.auth.text  }]}
                             onPress={async () => {
                             Alert.alert(
                                 "Clear Cache",
@@ -161,17 +225,17 @@ const SettingsScreen = () => {
                             );
                             }}
                         >
-                            <Text style={{ color: 'white' }}>Clear Cache</Text>
+                            <Text style={[Typography.label, {color: theme.auth.text}]}>Clear Cache</Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={{ marginTop: 10, borderTopWidth: 1, borderColor: 'red', paddingTop: 10 }}>
-                        <Text style={[Typography.label, { color: 'red', fontWeight: 'bold', fontSize: 18 }]}>Danger Zone</Text>
+                        <Text style={[Typography.label, { color: 'red', fontWeight: 'bold',}]}>Danger Zone</Text>
                         <TouchableOpacity
-                            style={[Layout.button, { backgroundColor: '#ff4d4f', borderColor: 'darkred', borderWidth: 1, marginTop: 10 }]}
+                            style={[Layout.button, { backgroundColor: '#ff4d4f', borderColor: theme.auth.text, borderWidth: 1, marginTop: 10 }]}
                             onPress={() => setIsDeleteConfirmVisible(true)}
                         >
-                            <Text style={{color: 'white'}}>Delete My Account</Text>
+                            <Text style={[Typography.label, {color: theme.auth.text}]}>Delete My Account</Text>
                         </TouchableOpacity>
                     </View>
                 </View> 

@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Layout } from "../styles/Layout";
 import { useState } from "react";
 import { Colors } from "../styles/colors";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import React from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { useAppTheme } from "../hooks/useAppTheme";
@@ -13,6 +13,7 @@ const LogoutButton = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     const handleLogout = async () => {
         try {

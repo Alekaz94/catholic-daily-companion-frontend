@@ -4,7 +4,7 @@ import { completeToday, getHistory, getStreak, isCompletedToday } from "../servi
 import { ActivityIndicator, Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Navbar from "../components/Navbar";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import CheckBox from "expo-checkbox"
 import { createMysteryDecade, fixedRosaryEnd, fixedRosaryStart, getMysteryTypeForToday, getTodaysMysteries, getWeekdayName, RosaryStep } from "../data/RosarySequence";
 import { Layout } from "../styles/Layout";
@@ -32,6 +32,7 @@ const RosaryScreen = () => {
     const mysteryType = getMysteryTypeForToday();
     const [historyModalVisible, setHistoryModalVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const Typography = useTypography();
 
     const rosarySequence: RosaryStep[] = [
         ...fixedRosaryStart,
@@ -183,19 +184,19 @@ const RosaryScreen = () => {
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
             <Navbar />
-            <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: theme.prayer.background}}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Rosary</Text>
+            <ScrollView contentContainerStyle={{ padding: 20, flexGrow: 1, backgroundColor: theme.prayer.background}}>
+                <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", color: theme.prayer.text}]}>Rosary</Text>
                 <Divider />
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 18, color: theme.prayer.text}]}>Today, {weekday}, we pray the {mysteryType}</Text>
+                <Text style={[Typography.italic, {textAlign: "center", color: theme.prayer.text}]}>Today, {weekday}, we pray the {mysteryType}</Text>
                 <Divider />
                 {rosarySequence.map((step, stepIndex) => (
                     <View key={stepIndex} style={{marginBottom: 10}}>
                         {step.title && (
-                            <Text style={[Typography.title, { marginBottom: 12, fontSize: 20, color: theme.prayer.text}]}>
+                            <Text style={[Typography.title, { marginBottom: 12, color: theme.prayer.text}]}>
                                 {step.title}
                             </Text>
                         )}
-                        <Text style={[Typography.italic, { marginBottom: 12, fontSize: 18, fontWeight: "600", color: theme.prayer.text }]}>
+                        <Text style={[Typography.italic, { marginBottom: 12, fontWeight: "600", color: theme.prayer.text }]}>
                             {step.prayerText}
                         </Text>
                         <View style={{ flexDirection: "row", flexWrap: "wrap", alignContent: "center", justifyContent: "center"}}>
@@ -214,22 +215,22 @@ const RosaryScreen = () => {
                 ))}
 
                 <TouchableOpacity style={[Layout.button, {backgroundColor: theme.prayer.button, marginTop: 20, marginBottom: 6}]} onPress={handleComplete} disabled={completed}>
-                    <Text style={[Layout.buttonText, {color: theme.prayer.text}]}>Mark as Completed</Text>
+                    <Text style={[Typography.label, {color: theme.prayer.text}]}>Mark as Completed</Text>
                 </TouchableOpacity>
 
                 <View style={{marginTop: 24, paddingTop: 16, borderTopWidth: 1, borderColor: "#ccc"}}>
-                    <Text style={[Typography.italic, { marginBottom: 10, alignSelf: "center", fontSize: 20, color: theme.prayer.text }]}>Progress</Text>
-                    <Text style={[Typography.body,{fontSize: 18, color: theme.prayer.text}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
-                    <Text style={[Typography.body, {fontSize: 18, color: theme.prayer.text, marginBottom: 10}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
+                    <Text style={[Typography.italic, { marginBottom: 10, alignSelf: "center", color: theme.prayer.text }]}>Progress</Text>
+                    <Text style={[Typography.body,{ color: theme.prayer.text}] }>Rosary completed today? {completed ? "Yes" : "No"}</Text>
+                    <Text style={[Typography.body, { color: theme.prayer.text, marginBottom: 10}] }>Current Streak: {streak} {streak === 1 ? "day" : "days"}</Text>
 
                     <Divider />
 
-                    <Text style={[Typography.italic, { marginTop: 4, alignSelf: "center", fontSize: 20, color: theme.prayer.text }]}>History</Text>
+                    <Text style={[Typography.italic, { marginTop: 4, alignSelf: "center", color: theme.prayer.text }]}>History</Text>
                     <TouchableOpacity
                       onPress={() => setHistoryModalVisible(true)}
                       style={[Layout.button, {backgroundColor: theme.prayer.button, marginBottom: 20}]}
                     >
-                        <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.prayer.text}]}>📜 View Rosary History</Text>
+                        <Text style={[Typography.label, {alignSelf: "center", color: theme.prayer.text}]}>📜 View Rosary History</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

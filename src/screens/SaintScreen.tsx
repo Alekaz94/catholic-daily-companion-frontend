@@ -6,7 +6,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, FlatList, TouchableOpacity, Text, Image, Dimensions, Modal, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from "react-native";
 import SaintDetailModal from "../components/SaintDetailModal";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
 import { TextInput } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
@@ -48,6 +48,7 @@ const SaintScreen = () => {
     const spacing = 16;
     const cardWidth = (screenWidth - 3 * spacing) / 2;
     const listRef = useRef<FlatList>(null);
+    const Typography = useTypography();
 
     const fetchSaints = async (reset = false) => {
         if(isLoading || !hasMore && !reset) {
@@ -157,7 +158,7 @@ const SaintScreen = () => {
             <Navbar />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.saint.text}]}>Saints of the Catholic Church</Text>
+                <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", color: theme.saint.text}]}>Saints of the Catholic Church</Text>
                 <Divider />
                 {user?.role === "ADMIN" && (
                     <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: theme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>

@@ -5,7 +5,7 @@ import { AuthStackParamList } from "../navigation/types";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { useAppTheme } from "../hooks/useAppTheme";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import Divider from "../components/Divider";
 import { Layout } from "../styles/Layout";
 
@@ -17,6 +17,7 @@ type AdminNavigationProp = NativeStackNavigationProp<
 const AdminPanelScreen = () => {
     const theme = useAppTheme();
     const navigation = useNavigation<AdminNavigationProp>();
+    const Typography = useTypography();
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.background}}>
@@ -24,7 +25,7 @@ const AdminPanelScreen = () => {
                 style={{backgroundColor: theme.auth.background}}
             >
                 <Navbar />
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginTop: 20, color: theme.auth.text}]}>Admin panel</Text>
+                <Text style={[Typography.title, {textAlign: "center", fontSize: 22, fontWeight: "600", marginTop: 20, color: theme.auth.text}]}>Admin panel</Text>
                 
                 <Divider />
                 <View style={Layout.container}>

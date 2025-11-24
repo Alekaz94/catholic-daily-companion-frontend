@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useAuth } from '../context/AuthContext';
 import { changePassword, updateName } from '../services/UserService';
 import { Layout } from '../styles/Layout';
-import { Typography } from '../styles/Typography';
+import { useTypography } from '../styles/Typography';
 import Navbar from '../components/Navbar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -42,6 +42,7 @@ const ProfileScreen = () => {
     const isOAuthUser = user?.email?.toLowerCase().endsWith("@gmail.com");
     const navigation = useNavigation<ProfileNavigationProp>();
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     const {
         handleSubmit: nameChangeSubmit,
@@ -176,43 +177,43 @@ const ProfileScreen = () => {
             <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: theme.auth.background}}>
                 <Navbar />
                 <View style={Layout.container}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>My Profile</Text>
+                <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", color: theme.auth.text}]}>My Profile</Text>
                 <Divider />
                 <View style={{ marginTop: 10}}>
-                    <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>User Info</Text>
+                    <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>User Info</Text>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Name: </Text>
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Name: </Text>
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Email: </Text>
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{user?.email ?? 'Unknown'}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Email: </Text>
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{user?.email ?? 'Unknown'}</Text>
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}> 
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Account created: </Text> 
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{user?.createdAt ?? 'Unknown'}</Text> 
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Account created: </Text> 
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{user?.createdAt ?? 'Unknown'}</Text> 
                     </View> 
                     <View style={{flexDirection: "row", marginVertical: 5}}> 
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Account updated: </Text> 
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{user?.updatedAt ?? 'Unknown'}</Text> 
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Account updated: </Text> 
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{user?.updatedAt ?? 'Unknown'}</Text> 
                     </View>
                 </View>
 
                 <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
-                    <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>Rosary Info</Text>
+                    <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>Rosary Info</Text>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Highest prayed rosary streak: </Text>
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{highestStreak}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Highest prayed rosary streak: </Text>
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{highestStreak}</Text>
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18}]}>Current prayed streak: </Text>
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text, fontSize: 18}]}>{streak}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Current prayed streak: </Text>
+                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{streak}</Text>
                     </View>
                 </View>
 
                 <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
-                    <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>Name Change</Text>
-                    <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18, marginBottom: 5}]}>Current Firstname:</Text>
+                    <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>Name Change</Text>
+                    <Text style={[Typography.italic, {color: theme.auth.text, marginBottom: 5}]}>Current Firstname:</Text>
                     <View style={{ position: 'relative' }}>
                         <Controller
                             control={nameChangeControl}
@@ -232,7 +233,7 @@ const ProfileScreen = () => {
                     </View>
                     {nameChangeErrors.currentFirstName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.currentFirstName.message}</Text>}
 
-                    <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18, marginBottom: 5}]}>New Firstname:</Text>
+                    <Text style={[Typography.italic, {color: theme.auth.text, marginBottom: 5}]}>New Firstname:</Text>
                     <View style={{ position: 'relative' }}>
                         <Controller
                             control={nameChangeControl}
@@ -251,7 +252,7 @@ const ProfileScreen = () => {
                     </View>
                     {nameChangeErrors.newFirstName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.newFirstName.message}</Text>}
 
-                    <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18, marginBottom: 5}]}>Current Lastname:</Text>
+                    <Text style={[Typography.italic, {color: theme.auth.text, marginBottom: 5}]}>Current Lastname:</Text>
                     <View style={{ position: 'relative' }}>
                         <Controller
                             control={nameChangeControl}
@@ -271,7 +272,7 @@ const ProfileScreen = () => {
                     </View>
                     {nameChangeErrors.currentLastName && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{nameChangeErrors.currentLastName.message}</Text>}
 
-                    <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 18, marginBottom: 5}]}>New Lastname:</Text>
+                    <Text style={[Typography.italic, {color: theme.auth.text, marginBottom: 5}]}>New Lastname:</Text>
                     <View style={{ position: 'relative' }}>
                         <Controller
                             control={nameChangeControl}
@@ -297,15 +298,15 @@ const ProfileScreen = () => {
                         {isNameLoading ? (
                             <ActivityIndicator color={theme.auth.text} />
                         ) : (
-                            <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Update Name</Text>
+                            <Text style={[Typography.label, {color: theme.auth.text}]}>Update Name</Text>
                         )}
                     </TouchableOpacity>
                 </View>
 
                 {!isOAuthUser && (
                     <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
-                        <Text style={[Typography.label, {textAlign: "center", fontSize: 20, color: theme.auth.text}]}>Password Change</Text>
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 16, marginBottom: 5}]}>Current Password:</Text>
+                        <Text style={[Typography.label, {textAlign: "center", color: theme.auth.text}]}>Password Change</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, marginBottom: 5}]}>Current Password:</Text>
                         <View style={{ position: 'relative' }}>
                             <Controller
                                 control={control}
@@ -331,7 +332,7 @@ const ProfileScreen = () => {
                         </View>
                         {errors.currentPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.currentPassword.message}</Text>}
 
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 16, marginBottom: 5}]}>New Password:</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, marginBottom: 5}]}>New Password:</Text>
                         <View style={{ position: 'relative'}}>
                             <Controller
                                 control={control}
@@ -360,7 +361,7 @@ const ProfileScreen = () => {
                         </View>
                         {errors.newPassword && <Text style={{color: "red", marginTop: -10, marginBottom: 15 }}>{errors.newPassword.message}</Text>}
                             
-                        <Text style={[Typography.italic, {color: theme.auth.text, fontSize: 16, marginBottom: 5}]}>Confirm New Password:</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text, marginBottom: 5}]}>Confirm New Password:</Text>
                         <View style={{ position: 'relative' }}>
                             <Controller
                                 control={control}
@@ -404,8 +405,8 @@ const ProfileScreen = () => {
 
                 {isOAuthUser && (
                     <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
-                        <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginBottom: 10, color: theme.auth.text }]}>Password Change</Text>
-                        <Text style={[Typography.italic, { color: theme.auth.smallText, fontSize: 18,}]}>
+                        <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>Password Change</Text>
+                        <Text style={[Typography.italic, { color: theme.auth.smallText}]}>
                             Password changes are managed through your Google account.
                         </Text>
                     </View>

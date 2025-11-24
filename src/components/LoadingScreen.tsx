@@ -1,7 +1,9 @@
 import { ActivityIndicator, Text, View } from "react-native"
-import { Typography } from "../styles/Typography"
+import { useTypography } from "../styles/Typography"
 
 const LoadingScreen = () => {
+    const Typography = useTypography();
+
     return (
         <View style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff"}}>
             <ActivityIndicator size={"large"} color="#6B46C1" />

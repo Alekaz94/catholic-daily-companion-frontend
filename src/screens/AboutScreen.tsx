@@ -2,13 +2,12 @@ import { ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppTheme } from "../hooks/useAppTheme";
 import Navbar from "../components/Navbar";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { useTheme } from "../context/ThemeContext";
 import cdc_transparent_black from "../assets/images/cdc_transparent_black.png"
 import cdc_transparent from "../assets/images/cdc_transparent.png"
 import { useAuth } from "../context/AuthContext";
-import NavbarLanding from "../components/NavbarLanding";
 import { Ionicons } from "@expo/vector-icons";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -25,6 +24,7 @@ const AboutScreen = () => {
     const {isDark} = useTheme();
     const { user } = useAuth();
     const navigation = useNavigation<AboutNavigationScreen>();
+    const Typography = useTypography();
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar }}>
@@ -36,40 +36,33 @@ const AboutScreen = () => {
                 keyboardShouldPersistTaps="handled"
                 style={{ backgroundColor: theme.auth.background }}
             >
-                <View style={[Layout.container, { alignItems: "center" }]}>
-                    <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ width: 250, height: 250, borderRadius: 20}} />
-                    
-                    <Text
-                        style={[
-                        Typography.title,
-                        { marginTop: -50, fontFamily: "Playfair-Italic", color: theme.auth.text },
-                        ]}
-                    >
-                        Catholic Daily Companion
-                    </Text>
-
+                <View style={[Layout.container, { alignItems: "center" }]}>      
+                    <Image source={isDark ? cdc_transparent : cdc_transparent_black} style={{ width: 250, height: 250, borderRadius: 20, marginTop: -70}} />
                     <Text
                         style={[
                         Typography.body,
-                        { marginTop: 10, color: theme.auth.smallText, textAlign: "center" },
+                        { marginTop: -70, marginBottom: 10, color: theme.auth.smallText, textAlign: "center" },
                         ]}
                     >
                         Version 1.0.0
                     </Text>
 
-                    <Text style={[Typography.body, { marginTop: 30, color: theme.auth.text, textAlign: "center" }]}>
-                        Catholic Daily Companion helps you grow closer to God with daily inspiration,
+                    <Text style={[Typography.title, { marginTop: 10, color: theme.auth.text }]}>
+                        About the App
+                    </Text>
+                    <Text style={[Typography.body, { marginTop: 10, color: theme.auth.text}]}>
+                        Catholic Daily Companion is designed to help you grow closer to God with daily inspiration,
                         saint stories, journal prompts, and prayer tracking tools—designed to strengthen
-                        your faith, peace, and spiritual consistency.
+                        your faith, peace and spiritual consistency.
                     </Text>
                     <Divider />
-                    <Text style={[Typography.label, { marginTop: 40, color: theme.auth.text }]}>
+                    <Text style={[Typography.title, { marginTop: 10, color: theme.auth.text }]}>
                         About the Developer
                     </Text>
                     <Text
                         style={[
                         Typography.body,
-                        { marginTop: 10, color: theme.auth.text, textAlign: "center" },
+                        { marginTop: 10, color: theme.auth.text},
                         ]}
                     >
                         My name is <Text style={{ fontWeight: "600" }}>Alexandros Kazalis</Text>, a convert to Catholicism, and father of two.  
@@ -80,16 +73,17 @@ const AboutScreen = () => {
                     <Divider />
                     <Text
                         style={[
-                        Typography.label,
-                        { marginTop: 20, fontWeight: "500", color: theme.auth.text },
+                        Typography.title,
+                        { marginTop: 10, color: theme.auth.text },
                         ]}
                     >
                         Contact
                     </Text>
+
                     <Text
                         style={[
                         Typography.body,
-                        { color: theme.auth.smallText, marginTop: 5, textAlign: "center" },
+                        { marginTop: 10, color: theme.auth.text},
                         ]}
                     >
                         alexandros.kazalis@gmail.com
@@ -99,15 +93,13 @@ const AboutScreen = () => {
                         style={[
                         Typography.body,
                         {
-                            marginTop: 40,
+                            marginTop: 20,
                             color: theme.auth.smallText,
                             textAlign: "center",
-                            fontStyle: "italic",
-                            fontSize: 12,
                         },
                         ]}
                     >
-                        Made with ❤️, prayer, and faith in Christ.
+                        Made with love, prayer, and faith in Christ.
                     </Text>
                 </View>
             </ScrollView>

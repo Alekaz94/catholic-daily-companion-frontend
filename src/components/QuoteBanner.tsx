@@ -15,13 +15,13 @@ const QuoteBanner = () => {
             borderLeftWidth: 5,
             borderLeftColor: theme.saint.navbar
         }}>
-            <Text style={{ fontSize: 16, fontWeight: "600", color: theme.saint.text }}>
+            <Text style={{ fontWeight: "600", color: theme.saint.text }}>
                 📖 {quote.type === "verse" ? "Verse of the Day" : "Quote of the Day"}
             </Text>
-            <Text style={{ fontSize: 14, marginTop: 6, fontStyle: "italic", color: theme.saint.text }}>
+            <Text style={{  marginTop: 6, fontStyle: "italic", color: theme.saint.text }}>
                 "{quote.content}"
             </Text>
-            <Text style={{ fontSize: 13, textAlign: "right", marginTop: 4, color: theme.saint.text }}>
+            <Text style={{  textAlign: "right", marginTop: 4, color: theme.saint.text }}>
                 {quote.reference || quote.author}
             </Text>
         </View>

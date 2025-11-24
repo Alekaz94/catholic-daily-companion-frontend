@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppTheme } from '../hooks/useAppTheme';
-import { Typography } from '../styles/Typography';
+import { useTypography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import Navbar from '../components/Navbar';
 import Divider from '../components/Divider';
@@ -25,6 +25,7 @@ const FeedbackScreen = () => {
   const [message, setMessage] = useState('');
   const [category, setCategory] = useState<'bug'|'suggestion'|'other'>('other');
   const [isLoading, setIsLoading] = useState(false);
+  const Typography = useTypography();
 
   const handleSend = async () => {
     if (message.trim().length < 5) {
@@ -56,12 +57,12 @@ const FeedbackScreen = () => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <ScrollView keyboardShouldPersistTaps="handled" style={{ backgroundColor: theme.auth.background }}>
             <View style={Layout.container}>
-              <Text style={[Typography.italic, { textAlign: 'center', fontSize: 22, fontWeight: '600', color: theme.auth.text }]}>
+              <Text style={[Typography.title, { textAlign: 'center', fontWeight: '600', color: theme.auth.text }]}>
                 Feedback
               </Text>
               <Divider />
 
-              <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginVertical: 20, color: theme.auth.text }]}>Category</Text>
+              <Text style={[Typography.label, {fontWeight: 'bold', marginVertical: 20, color: theme.auth.text }]}>Category</Text>
               <View style={{ flexDirection: 'row', marginTop: 10 }}>
                 <TouchableOpacity onPress={() => setCategory('suggestion')} style={{ marginRight: 20 }}>
                   <Text style={{ 
@@ -95,7 +96,7 @@ const FeedbackScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              <Text style={[Typography.label, {fontWeight: 'bold', fontSize: 18, marginVertical: 20, color: theme.auth.text }]}>Message</Text>
+              <Text style={[Typography.label, {fontWeight: 'bold', marginVertical: 20, color: theme.auth.text }]}>Message</Text>
               <TextInput
                 style={[Layout.input, { height: 150, textAlignVertical: 'top', color: theme.auth.text }]}
                 placeholder="Share your thoughts..."
@@ -122,7 +123,7 @@ const FeedbackScreen = () => {
                 {isLoading ? (
                   <ActivityIndicator color={theme.auth.text} />
                 ) : (
-                  <Text style={[Layout.buttonText, { color: theme.auth.text }]}>Send Feedback</Text>
+                  <Text style={[Typography.label, { color: theme.auth.text }]}>Send Feedback</Text>
                 )}
               </TouchableOpacity>
 

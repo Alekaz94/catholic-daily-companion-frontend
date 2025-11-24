@@ -1,5 +1,5 @@
 import { Modal, View, Text, TouchableOpacity } from "react-native";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import { Saint } from "../models/Saint";
 import { JournalEntry } from "../models/JournalEntry";
@@ -23,7 +23,8 @@ interface Props {
     const [journalModalVisible, setJournalModalVisible] = useState(false);
     const [selectedJournal, setSelectedJournal] = useState<JournalEntry | null>(null);
     const theme = useAppTheme();
-    
+    const Typography = useTypography();
+
     if(!date) {
         return null;
     }

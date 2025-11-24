@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import { useAppTheme } from "../hooks/useAppTheme";
 import Divider from "../components/Divider";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { useEffect, useState } from "react";
 import { Feedback } from "../models/Feedback";
 import { getAllFeedback, updateFeedback } from "../services/FeedbackService";
@@ -29,6 +29,7 @@ const AdminFeedbackScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation<AdminFeedbackNavigationProp>();
     const [showFixed, setShowFixed] = useState(false);
+    const Typography = useTypography();
 
     const handleUpdate = async () => {
         if(!selectedFeedback) {
@@ -82,7 +83,7 @@ const AdminFeedbackScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.background}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
-                <Text style={[Typography.italic, {fontSize: 22, marginBottom: 10, textAlign: "center", color: theme.auth.text}]}>All Feedback</Text>
+                <Text style={[Typography.title, {fontSize: 22, marginBottom: 10, textAlign: "center", color: theme.auth.text}]}>All Feedback</Text>
                 <Divider />
 
                 <View style={{ alignItems: "center", marginBottom: 10 }}>

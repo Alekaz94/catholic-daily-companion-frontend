@@ -91,9 +91,8 @@ export const Layout: LayoutStyles = {
         fontWeight: '600',
     },
     navbarButton: {
-        paddingVertical: 6,
+        paddingVertical: 4,
         paddingHorizontal: 8,
-        borderRadius: 12,
         alignItems: 'center' as const,
         justifyContent: "center",
         marginHorizontal: 4,

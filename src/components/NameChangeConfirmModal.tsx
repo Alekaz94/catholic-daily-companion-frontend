@@ -1,7 +1,7 @@
 import { Modal, View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 
 interface Props {
     visible: boolean;
@@ -12,6 +12,7 @@ interface Props {
 
 const NameChangeConfirmModal: React.FC<Props> = ({ visible, onClose, onConfirm, isLoading }) => {
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     return (
         <Modal

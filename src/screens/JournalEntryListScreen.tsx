@@ -8,7 +8,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import JournalEntryUpdateModal from "../components/JournalEntryUpdateModal";
 import { Ionicons } from '@expo/vector-icons';
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import Navbar from "../components/Navbar";
 import { LinearGradient } from "expo-linear-gradient";
@@ -35,6 +35,7 @@ const JournalEntryListScreen = () => {
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+    const Typography = useTypography();
     const navigation = useNavigation<JournalEntryListNavigationProp>();
     const theme = useAppTheme();
     const isFirstLoad = useRef(true);
@@ -139,7 +140,7 @@ const JournalEntryListScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: theme.journal.primary}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Daily reflections</Text>
+                <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", color: theme.prayer.text}]}>Daily reflections</Text>
                 <Divider />
                 <TouchableOpacity 
                     style={[
@@ -159,7 +160,7 @@ const JournalEntryListScreen = () => {
                     ) : (
                         <>
                             <Ionicons name="create-outline" size={20} color={theme.journal.text}/>
-                            <Text style={[Layout.buttonText, {color: theme.journal.text, marginLeft: 10}]}>Create Journal Entry</Text>
+                            <Text style={[Typography.label, {color: theme.journal.text, marginLeft: 10}]}>Create Journal Entry</Text>
                         </>
                     )}
                 </TouchableOpacity>
@@ -198,10 +199,10 @@ const JournalEntryListScreen = () => {
                                     disabled={isLoading}
                                 >
                                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Text style={[Typography.body, {color: theme.journal.text, fontWeight: "bold", fontSize: 18}]}>{item.title}</Text>
-                                        <Text style={[Typography.body, {color: theme.journal.text, fontSize: 18}]}>{item.date}</Text>
+                                        <Text style={[Typography.body, {color: theme.journal.text, fontWeight: "bold"}]}>{item.title}</Text>
+                                        <Text style={[Typography.body, {color: theme.journal.text}]}>{item.date}</Text>
                                     </View>
-                                    <Text style={[Typography.italic, {color: theme.journal.text, fontSize: 18, marginVertical: 10}]} numberOfLines={2}>{item.content}</Text>
+                                    <Text style={[Typography.italic, {color: theme.journal.text, marginVertical: 10}]} numberOfLines={2}>{item.content}</Text>
                                 </TouchableOpacity>
                                 
                                 <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 5}}>

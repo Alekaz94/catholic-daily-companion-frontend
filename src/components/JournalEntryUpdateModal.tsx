@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry"
 import { Modal, TextInput, View, Text, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import React from "react";
 import Divider from "./Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
@@ -19,6 +19,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     useEffect(() => {
         if(entry) {
@@ -76,7 +77,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
         <Modal visible={visible} animationType="slide">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
-                <Text style={[Typography.italic, {color: theme.journal.text, fontSize: 20, textAlign: "center"}]}>Edit Journalentry</Text>
+                <Text style={[Typography.title, {color: theme.journal.text, fontSize: 20, textAlign: "center"}]}>Edit Journalentry</Text>
                 <Divider />
                 <TextInput 
                         editable={!isLoading}

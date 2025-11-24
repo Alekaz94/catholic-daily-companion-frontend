@@ -7,7 +7,7 @@ import { NewSaint } from "../models/Saint";
 import { createSaint } from "../services/SaintService";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { useAppTheme } from "../hooks/useAppTheme";
 
 type SaintCreateNavigationProp = NativeStackNavigationProp<
@@ -26,6 +26,7 @@ const CreateSaintScreen = () => {
     const [canonizationYear, setCanonizationYear] = useState<string>("");
     const [imageUrl, setImageUrl] = useState<string | null>("");
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     const handleCreate = async () => {
         if(!name.trim() || !birthYear.trim() || !deathYear.trim() || !feastDay?.trim() || !patronage.trim() || !biography.trim()) {

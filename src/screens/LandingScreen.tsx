@@ -7,7 +7,7 @@ import { Saint } from '../models/Saint';
 import { getSaintOfTheDay } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
 import NavbarLanding from '../components/NavbarLanding';
-import { Typography } from '../styles/Typography';
+import { useTypography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -32,6 +32,7 @@ const LandingScreen = () => {
   const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
   const [loadingSaint, setLoadingSaint] = useState(false);
   const theme = useAppTheme();
+  const Typography = useTypography();
 
   const formatSaintNames = (saints: Saint[]) => {
     if (saints.length === 1) {
@@ -66,8 +67,8 @@ const LandingScreen = () => {
       style={{backgroundColor: theme.auth.background}}
     >
       <NavbarLanding />
-      <Text style={[Typography.title, {textAlign: "center", marginTop: 20, fontFamily: "Playfair-Italic", color: theme.auth.text}]}>Welcome to Catholic Daily Companion</Text>
-      <Text style={[Typography.title, {textAlign: "center", fontFamily: "Playfair-Italic", color: theme.auth.text}]}>Start your spiritual journey today</Text>
+      <Text style={[Typography.title, {textAlign: "center", marginTop: 20, color: theme.auth.text}]}>Welcome to Catholic Daily Companion</Text>
+      <Text style={[Typography.title, {textAlign: "center", color: theme.auth.text}]}>Start your spiritual journey today</Text>
       <Divider />
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
@@ -99,7 +100,7 @@ const LandingScreen = () => {
             backgroundColor: theme.saint.background 
           }}
         >
-          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>Feast day info not available</Text>
+          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>Feast day info not available for today</Text>
         </View>
       ) : (
             <>
@@ -173,7 +174,7 @@ const LandingScreen = () => {
         }}
         onPress={() => navigation.navigate("Login")}  
       >
-        <Text style={{color: theme.auth.text, fontSize: 16}}>Get Started</Text>
+        <Text style={[Typography.label, {color: theme.auth.text}]}>Get Started</Text>
       </TouchableOpacity>
     </View>
     <Divider />

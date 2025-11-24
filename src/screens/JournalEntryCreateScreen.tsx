@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Alert, View, TextInput, Text, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { createEntry } from "../services/JournalEntryService";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,6 +24,7 @@ const JournalEntryCreateScreen = () => {
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     const handleCreate = async () => {
         if (!title.trim() || !content.trim()) {
@@ -50,7 +51,7 @@ const JournalEntryCreateScreen = () => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
 
-                    <Text style={[Typography.italic, {color: theme.journal.text, fontSize: 20}]}>Create Journal Entry</Text>
+                    <Text style={[Typography.title, {color: theme.journal.text, fontSize: 20}]}>Create Journal Entry</Text>
                     <Divider />
                     <TextInput 
                         style={Layout.input}

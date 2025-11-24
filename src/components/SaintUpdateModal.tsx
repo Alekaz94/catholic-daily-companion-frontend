@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Saint, UpdatedSaint } from "../models/Saint";
 import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { useAppTheme } from '../hooks/useAppTheme';
 
 interface Props {
@@ -25,6 +25,7 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
     const [imageSource, setImageSource] = useState<string | null>("");
     const [imageLicence, setImageLicence] = useState<string | null>("");
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     useEffect(() => {
         if(saint) {

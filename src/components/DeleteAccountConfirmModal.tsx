@@ -1,7 +1,7 @@
 import { ActivityIndicator, Modal, Text, TouchableOpacity, View } from "react-native";
 import { Layout } from "../styles/Layout";
 import { useAppTheme } from "../hooks/useAppTheme";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { Colors } from "../styles/colors";
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
 
 const DeleteAccountConfirmModal: React.FC<Props> = ({visible, onClose, onConfirm, isLoading}) => {
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     return (
         <Modal

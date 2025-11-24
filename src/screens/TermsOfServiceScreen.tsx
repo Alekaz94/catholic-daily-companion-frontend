@@ -3,9 +3,8 @@ import { useAppTheme } from "../hooks/useAppTheme"
 import { Keyboard, ScrollView, TouchableWithoutFeedback, View, Text, TouchableOpacity } from "react-native";
 import Navbar from "../components/Navbar";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { useAuth } from "../context/AuthContext";
-import NavbarLanding from "../components/NavbarLanding";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
@@ -22,6 +21,7 @@ const TermsOfServiceScreen = () => {
     const { isDark } = useTheme();
     const { user } = useAuth();
     const navigation = useNavigation<TermsOfServiceNavigationScreen>();
+    const Typography = useTypography();
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar}}>
@@ -33,7 +33,7 @@ const TermsOfServiceScreen = () => {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <ScrollView keyboardShouldPersistTaps="handled" style={{backgroundColor: theme.auth.background}} contentContainerStyle={{ paddingBottom: 40 }}>
                         <View style={[Layout.container, {alignItems: "center"}]}>
-                        <Text style={[Typography.italic, { fontSize: 22, textAlign: "center", fontWeight: "600", color: theme.auth.text }]}>
+                        <Text style={[Typography.title, { fontSize: 22, textAlign: "center", fontWeight: "600", color: theme.auth.text }]}>
                             Terms of Service
                         </Text>
 
@@ -45,7 +45,7 @@ const TermsOfServiceScreen = () => {
                             By accessing or using Catholic Daily Companion ("the App"), you agree to these Terms of Service.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
                             1. Use of the App
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
@@ -53,7 +53,7 @@ const TermsOfServiceScreen = () => {
                             You agree not to misuse the service, attempt unauthorized access, or reverse-engineer any part of it.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
                             2. User Accounts
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
@@ -61,7 +61,7 @@ const TermsOfServiceScreen = () => {
                             You are responsible for securing your device and login session.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
                             3. Data & Privacy
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text }]}>
@@ -75,7 +75,7 @@ const TermsOfServiceScreen = () => {
                             .
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
                             4. User Content
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
@@ -83,14 +83,14 @@ const TermsOfServiceScreen = () => {
                             You may delete this data at any time.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
                             5. Termination
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
                             We may suspend or terminate accounts that violate these Terms or abuse the service.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
                             6. Limitation of Liability
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
@@ -98,7 +98,7 @@ const TermsOfServiceScreen = () => {
                             responsible for damages resulting from use of the App.
                         </Text>
 
-                        <Text style={[Typography.label, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
                             7. Contact Us
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>

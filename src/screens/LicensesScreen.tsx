@@ -1,9 +1,9 @@
-import { FlatList, Linking, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Linking, Text, TouchableOpacity, View } from "react-native";
 import licenses from "../../licenses.json";
 import { Layout } from "../styles/Layout";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppTheme } from "../hooks/useAppTheme";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 import Divider from "../components/Divider";
@@ -25,6 +25,7 @@ const licensesTyped = licenses as Record<string, LicenseEntry>;
 const LicensesScreen = () => {
     const theme = useAppTheme();
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+    const Typography = useTypography();
 
     const groupedLicenses: Record<string, LicenseWithPackage[]> = {};
 
@@ -45,7 +46,7 @@ const LicensesScreen = () => {
             <Text style={{ color: theme.auth.text }}>License: {item.licenses}</Text>
             {item.repository && (
                 <TouchableOpacity onPress={() => item.repository && Linking.openURL(item.repository)}>
-                    <Text style={[Typography.link, { color: theme.auth.text }]}>Repository: {item.repository}</Text>
+                    <Text style={[Typography.label, { color: theme.auth.text }]}>Repository: {item.repository}</Text>
                 </TouchableOpacity>
             )}
             {item.publisher && <Text style={{ color: theme.auth.text }}>Publisher: {item.publisher}</Text>}
@@ -58,7 +59,7 @@ const LicensesScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.navbar}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
-                <Text style={[Typography.italic, {paddingTop: 10, textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.auth.text}]}>Licenses</Text> 
+                <Text style={[Typography.title, {paddingTop: 10, textAlign: "center", fontWeight: "600", color: theme.auth.text}]}>Licenses</Text> 
                 <Divider />
                 <FlatList
                     contentContainerStyle={{paddingBottom: 20, backgroundColor: theme.auth.background}}

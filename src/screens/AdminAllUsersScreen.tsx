@@ -3,7 +3,7 @@ import { useAppTheme } from "../hooks/useAppTheme"
 import Navbar from "../components/Navbar";
 import { Layout } from "../styles/Layout";
 import { Colors } from "../styles/colors";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { View, Text, FlatList, TouchableOpacity, Modal } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from "react-native-gesture-handler";
@@ -33,6 +33,7 @@ const AdminAllUsersScreen = () => {
     const size = 10;
     const listRef = useRef<FlatList>(null);
     const navigation = useNavigation<AdminAllUsersNavigationProp>();
+    const Typography = useTypography();
 
     const handleDelete = async (id: string) => {
         try {
@@ -103,7 +104,7 @@ const AdminAllUsersScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.background}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
-                <Text style={[Typography.italic, {fontSize: 22, marginBottom: 10, color: theme.auth.text}]}>All Registered Users</Text>
+                <Text style={[Typography.title, {fontSize: 22, marginBottom: 10, color: theme.auth.text}]}>All Registered Users</Text>
                 <Divider />
                 <TextInput
                     placeholder="Search by email..."
@@ -113,7 +114,7 @@ const AdminAllUsersScreen = () => {
                     style={Layout.input}
                 />
                 <TouchableOpacity style={{ marginBottom: 10, marginTop: -5 }} onPress={clearSearch}>
-                    <Text style={[Typography.link, {color: theme.auth.text}]}>Clear search</Text>
+                    <Text style={[Typography.label, {color: theme.auth.text}]}>Clear search</Text>
                 </TouchableOpacity>
                 {loading ? <Text style={{color: theme.auth.text}}>Loading...</Text> : (
                     <FlatList 

@@ -1,53 +1,46 @@
 import { TextStyle } from "react-native";
 import { Colors } from "./colors";
+import { useTheme } from "../context/ThemeContext";
 
-interface TypographyStyles {
-    title: TextStyle;
-    label: TextStyle;
-    body: TextStyle;
-    small: TextStyle;
-    link: TextStyle;
-    italic: TextStyle;
-    bold: TextStyle;
-}
+export const useTypography = () => {
+  const { fontSize, fontStyle, resolvedTheme } = useTheme();
 
-export const Typography: TypographyStyles = {
+  const baseSize = fontSize === "small" ? 14 : fontSize === "large" ? 20 : 16;
+
+  const family =
+    fontStyle === "serif"
+      ? {
+        regular: "Playfair-Regular",
+        bold: "Playfair-Bold",
+        italic: "Playfair-Italic",
+      }
+      : {
+        regular: "Inter-Regular",
+        bold: "Inter-Bold",
+        italic: "Inter-Italic",
+      };
+
+  return {
     title: {
-      fontFamily: "Playfair-ExtraBold",
-      fontSize: 24,
-      color: 'black',
-      marginBottom: 16,
-    },
-    label: {
-      fontFamily: "Playfair-Italic",
-      fontSize: 20,
-      color: "black",
-      marginBottom: 4,
-    },
+      fontFamily: family.bold,
+      fontSize: baseSize + 8,
+      color: resolvedTheme === "dark" ? "white" : "black",
+    } as TextStyle,
     body: {
-      fontFamily: "Playfair-Regular",
-      fontSize: 16,
-      color: 'black',
-    },
-    small: {
-      fontFamily: "Playfair-Regular",
-      fontSize: 12,
-      color: 'black',
-    },
-    link: {
-      fontFamily: "Playfair-Regular",
-      color: Colors.primary,
-      textDecorationLine: 'underline',
-      fontSize: 16,
-    },
+      fontFamily: family.regular,
+      fontSize: baseSize,
+      color: resolvedTheme === "dark" ? "white" : "black",
+    } as TextStyle,
     italic: {
-      fontFamily: "Playfair-Italic",
-      fontSize: 14,
-      color: "black",
-    },
-    bold: {
-      fontFamily: "Playfair-Bold",
-      fontSize: 14,
-      color: "black",
-    }
+      fontFamily: family.italic,
+      fontSize: baseSize,
+      fontStyle: "italic",
+      color: resolvedTheme === "dark" ? "white" : "black",
+    } as TextStyle,
+    label: {
+      fontFamily: family.bold,
+      fontSize: baseSize + 2,
+      color: resolvedTheme === "dark" ? "white" : "black"
+    } as TextStyle
+  }
   };

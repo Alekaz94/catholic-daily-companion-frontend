@@ -2,7 +2,7 @@ import { Modal, View, Text, TouchableOpacity, ActivityIndicator } from "react-na
 import { Feedback } from "../models/Feedback";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import Divider from "./Divider";
 import { formatSubmittedAt } from "../utils/dateUtils";
 import { Ionicons } from '@expo/vector-icons';
@@ -20,6 +20,7 @@ const AdminFeedbackModal: React.FC<Props> = ({ visible, feedback, onClose, handl
     const theme = useAppTheme();
     const {isDark} = useTheme();
     const [updating, setUpdating] = useState(false);
+    const Typography = useTypography();
 
     if(!feedback) {
         return null;
@@ -45,7 +46,7 @@ const AdminFeedbackModal: React.FC<Props> = ({ visible, feedback, onClose, handl
         <Modal visible={visible} animationType="slide" transparent={true}>
             <View style={{ flex: 1, justifyContent: "center", backgroundColor: "rgba(0,0,0,0.5)" }}>
                 <View style={[Layout.container, {backgroundColor: theme.auth.background, margin: 20, borderRadius: 10}]}>
-                    <Text style={[Typography.italic, {color: theme.journal.text, fontSize: 22, textAlign: "center"}]}>Feedback</Text>
+                    <Text style={[Typography.title, {color: theme.journal.text, fontSize: 22, textAlign: "center"}]}>Feedback</Text>
 
                     <Divider />
 

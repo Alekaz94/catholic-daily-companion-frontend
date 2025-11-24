@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { Saint } from "../models/Saint";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from "../utils/imageUtils";
@@ -42,6 +42,7 @@ function formatFeastDay(feastDayString: string | null) {
 
 const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     if(!saint) {
         return null;
@@ -52,15 +53,15 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
             <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: "center"}}>
                 <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>       
                     <View style={[Layout.container, {backgroundColor: theme.saint.detail, marginHorizontal: 20, borderRadius: 16, padding: 16, elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4,}]}>
-                        <Text style={[Typography.title, {color: theme.journal.text, fontWeight: "bold", textAlign: "center", marginTop: 10, fontSize: 22}]}>{saint.name}</Text>
+                        <Text style={[Typography.title, {color: theme.journal.text, textAlign: "center"}]}>{saint.name}</Text>
                         <Divider />
-                        <View style={{alignSelf: "center"}}>
-                            {saint.imageUrl ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="contain" defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}    
+                        <View>
+                            {saint.imageUrl ? <Image style={[Layout.image, {alignSelf: "center", width: "100%"}]} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="stretch" defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}    
                             {saint.imageAuthor ? (
                                 <Text style={{ 
                                         color: theme.auth.smallText, 
-                                        fontSize: 12, 
-                                        textAlign: 'center' 
+                                        fontSize: 12,
+                                        marginTop: 5 
                                     }}
                                 >
                                     Author: {saint.imageAuthor}
@@ -72,8 +73,6 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                                     style={{
                                         color: theme.auth.smallText,
                                         fontSize: 12,
-                                        textAlign: 'center',
-                                        textDecorationLine: 'underline',
                                     }}
                                 >
                                     Source: {saint.imageSource}
@@ -84,7 +83,6 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                                 <Text style={{ 
                                         color: theme.auth.smallText, 
                                         fontSize: 12, 
-                                        textAlign: 'center' 
                                     }}
                                 >
                                     Licence: {saint.imageLicence}
@@ -101,7 +99,7 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                             marginVertical: 10,
                             }}
                         >                    
-                            <Text style={[Typography.body, {color: theme.saint.text, fontSize: 18, textAlign: "center"}]}>Saint Facts</Text>
+                            <Text style={[Typography.body, {color: theme.saint.text, textAlign: "center"}]}>Saint Facts</Text>
                             <Divider />
                             {saint.birthYear && (
                                 <SaintFactRow label="Birth" value={`ca ${saint.birthYear}`} />
@@ -116,9 +114,9 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                             )}
                         </View>
                         <Divider />
-                        <Text style={[Typography.italic, {lineHeight: 20, textAlign: "justify", color: theme.saint.text, marginVertical: 10, fontSize: 18}]}>{saint.biography}</Text>
+                        <Text style={[Typography.italic, {lineHeight: 20, textAlign: "justify", color: theme.saint.text, marginVertical: 10}]}>{saint.biography}</Text>
                         <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.saint.button}]}>
-                            <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.saint.text}]}>Close</Text>
+                            <Text style={[Typography.label, {alignSelf: "center", color: theme.saint.text}]}>Close</Text>
                         </TouchableOpacity> 
                     </View>
                 </ScrollView>

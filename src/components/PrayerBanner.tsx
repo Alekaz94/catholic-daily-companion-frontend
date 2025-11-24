@@ -22,13 +22,13 @@ const PrayerBanner = () => {
                 borderLeftWidth: 5,
                 borderLeftColor: theme.prayer.navbar
             }}>
-                <Text style={{ fontSize: 16, fontWeight: "600", color: theme.prayer.text }}>
+                <Text style={{ fontWeight: "600", color: theme.prayer.text }}>
                     🙏 Prayer is Good for the Soul
                 </Text>
-                <Text style={{ fontSize: 14, marginTop: 6, fontStyle: "italic", color: theme.prayer.text }}>
+                <Text style={{ marginTop: 6, fontStyle: "italic", color: theme.prayer.text }}>
                     Have you prayed today? Or just need some inspiration or somewhere to start?
                 </Text>
-                <Text style={{ fontSize: 13, marginTop: 8, color: theme.prayer.text, textAlign: "right" }}>
+                <Text style={{marginTop: 8, color: theme.prayer.text, textAlign: "right" }}>
                     Tap to begin praying →
                 </Text>
             </View>

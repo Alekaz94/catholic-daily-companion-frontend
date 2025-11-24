@@ -1,7 +1,7 @@
 import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Rosary } from "../models/Rosary";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { useAppTheme } from "../hooks/useAppTheme";
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 
 const RosaryHistoryModal: React.FC<Props> = ({visible, onClose, history}) => {
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     return (
         <Modal
@@ -36,7 +37,7 @@ const RosaryHistoryModal: React.FC<Props> = ({visible, onClose, history}) => {
                             <Text style={[Typography.body, {textAlign: "center", color: theme.prayer.text}]}>No rosary history available.</Text>
                         ) : (
                             history.map((entry) => (
-                                <Text key={entry.id} style={[Typography.body, {fontSize: 16, marginBottom: 4, color: theme.prayer.text, textAlign: "center"}]}>
+                                <Text key={entry.id} style={[Typography.body, { marginBottom: 4, color: theme.prayer.text, textAlign: "center"}]}>
                                     {entry.date} - {entry.completed ? "✅" : "❌"}
                                 </Text>
                             ))
@@ -44,7 +45,7 @@ const RosaryHistoryModal: React.FC<Props> = ({visible, onClose, history}) => {
                     </ScrollView>
 
                     <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.prayer.cardOne}]}>
-                        <Text style={[Layout.buttonText, {alignSelf: "center", color: theme.prayer.text}]}>Close</Text>
+                        <Text style={[Typography.label, {alignSelf: "center", color: theme.prayer.text}]}>Close</Text>
                     </TouchableOpacity>
                 </View>
             </View>

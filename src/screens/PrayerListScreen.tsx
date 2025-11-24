@@ -1,7 +1,7 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { useState } from "react";
 import { prayers, Prayers } from "../data/PrayerList";
 import { LinearGradient } from "expo-linear-gradient";
@@ -15,6 +15,7 @@ const PrayerListScreen = () => {
     const [selectedPrayer, setSelectedPrayer] = useState<Prayers | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     const openModal = (prayer: Prayers) => {
         setSelectedPrayer(prayer);
@@ -25,7 +26,7 @@ const PrayerListScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.prayer.background}]}>
-                <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", color: theme.prayer.text}]}>Common Prayers</Text>
+                <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", color: theme.prayer.text}]}>Common Prayers</Text>
                 <Divider />
                 <FlatList 
                     data={prayers} 
@@ -48,7 +49,7 @@ const PrayerListScreen = () => {
                                     elevation: 3, 
                                 }]}
                             >
-                                    <Text style={[Typography.body, {color: theme.prayer.text, fontSize: 16, fontWeight: "bold"}]}>{item.title}</Text>
+                                    <Text style={[Typography.body, {color: theme.prayer.text, fontWeight: "bold"}]}>{item.title}</Text>
                             </LinearGradient>
                         </TouchableOpacity>
                     )}

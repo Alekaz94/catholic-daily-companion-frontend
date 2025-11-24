@@ -6,7 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { Layout } from "../styles/Layout";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Divider from "../components/Divider";
@@ -21,6 +21,7 @@ type PrayerNavigationProp = NativeStackNavigationProp<
 const PrayerScreen = () => {
     const navigation = useNavigation<PrayerNavigationProp>();
     const theme = useAppTheme();
+    const Typography = useTypography();
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
@@ -47,7 +48,7 @@ const PrayerScreen = () => {
                         }]}
                     >
                         <MaterialCommunityIcons name="cross-outline" size={50} color={theme.prayer.text} />
-                        <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: theme.prayer.text}]}>Pray the rosary</Text>
+                        <Text style={[Typography.body, { marginTop: 10, alignSelf: "center", color: theme.prayer.text}]}>Pray the rosary</Text>
                     </LinearGradient>
                 </TouchableOpacity>
                 <Divider />
@@ -72,7 +73,7 @@ const PrayerScreen = () => {
                         }]}
                     >
                         <FontAwesome6 name="hands-praying" size={50} color={theme.prayer.text} />
-                        <Text style={[Typography.body, {fontSize: 20, marginTop: 10, alignSelf: "center", color: theme.prayer.text}]}>List of prayers</Text>
+                        <Text style={[Typography.body, { marginTop: 10, alignSelf: "center", color: theme.prayer.text}]}>List of prayers</Text>
                     </LinearGradient>
                 </TouchableOpacity>
                 </View>

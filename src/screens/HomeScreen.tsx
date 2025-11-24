@@ -7,7 +7,7 @@ import { Saint } from '../models/Saint';
 import { getSaintOfTheDay } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
 import Navbar from '../components/Navbar';
-import { Typography } from '../styles/Typography';
+import { useTypography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -38,6 +38,7 @@ const HomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { user } = useAuth();
   const theme = useAppTheme();
+  const Typography = useTypography();
 
   const formatSaintNames = (saints: Saint[]) => {
     if (saints.length === 1) {
@@ -81,7 +82,7 @@ const HomeScreen = () => {
       }  
     >
       <Navbar />
-      <Text style={[Typography.italic, {textAlign: "center", fontSize: 22, fontWeight: "600", marginTop: 20, color: theme.auth.text}]}>Welcome back {user && user.firstName} {user && user.lastName}</Text>
+      <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", marginTop: 20, color: theme.auth.text}]}>Welcome back {user && user.firstName} {user && user.lastName}</Text>
       <Divider />
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
@@ -124,7 +125,7 @@ const HomeScreen = () => {
             backgroundColor: theme.saint.background 
           }}
         >
-          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>Feast day info not available</Text>
+          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>Feast day info not available for today</Text>
         </View>
       ) : (
         <>
@@ -163,7 +164,7 @@ const HomeScreen = () => {
 
       {user?.role === "ADMIN" 
         && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10}]}>
-          <Text style={[Typography.link, {color: theme.auth.text}]}>Go to Admin Panel</Text>
+          <Text style={[Typography.label, {color: theme.auth.text}]}>Go to Admin Panel</Text>
         </TouchableOpacity>
       )}
 

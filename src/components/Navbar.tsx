@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { Layout } from "../styles/Layout";
 import CalendarModal from "./CalendarModal";
-import { Typography } from "../styles/Typography";
+import { useTypography } from "../styles/Typography";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { useTheme } from "../context/ThemeContext";
 import { useDrawer } from "../context/DrawerContext";
@@ -28,6 +28,7 @@ type NavbarProps = {
 const Navbar = () => {
   const theme = useAppTheme();
   const {isDark} = useTheme();
+  const Typography = useTypography();
 
   const screenStyles: Record<string, { backgroundColor: string; buttons: NavbarButtonConfig[]}> = {
       Home: {
@@ -101,38 +102,38 @@ const Navbar = () => {
           testID="navbar-container"
           style={[Layout.navbarContainer, {backgroundColor: config.backgroundColor, flexDirection: "column"}]}
          >
-            <Text style={[Typography.italic, {marginBottom: -10, fontSize: 18, color: theme.auth.text}]}>Catholic Daily Companion</Text>
+            <Text style={[Typography.label, {marginBottom: -10, color: theme.auth.text}]}>Catholic Daily Companion</Text>
             
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 12}}>
               <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-              <TouchableOpacity
-                onPress={openDrawer}
-                style={{ paddingHorizontal: 10, paddingVertical: 5}}
-                accessibilityLabel="Open menu"
-                accessibilityRole="button"
-              >
-                <Ionicons name={isDark ? "menu-outline" : "menu"} size={28} color={theme.auth.text} />
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={openDrawer}
+                  style={{ paddingHorizontal: 10, paddingVertical: 5}}
+                  accessibilityLabel="Open menu"
+                  accessibilityRole="button"
+                >
+                  <Ionicons name={isDark ? "menu-outline" : "menu"} size={28} color={theme.auth.text} />
+                </TouchableOpacity>
 
-              {config.buttons.map((btn) => (
-                  <NavButton 
-                      key={btn.screen}
-                      style={{ backgroundColor: config.backgroundColor }}
-                      title={btn.title}
-                      screen={btn.screen}
-                      icon={btn.icon}
-                      activeScreens={btn.activeScreens}
-                      textStyle={{ fontSize: 12 }}
-                  />
-              ))}
-                
-              <NavButton
-                title="Calendar"
-                icon= {isDark ? "calendar-outline" : "calendar"}
-                isActive={modalVisible}
-                style={{ backgroundColor: config.backgroundColor }}
-                onPress={() => setModalVisible(true)}
-              />
+                {config.buttons.map((btn) => (
+                    <NavButton 
+                        key={btn.screen}
+                        style={{ backgroundColor: config.backgroundColor }}
+                        title={btn.title}
+                        screen={btn.screen}
+                        icon={btn.icon}
+                        activeScreens={btn.activeScreens}
+                        textStyle={{ fontSize: 12 }}
+                    />
+                ))}
+                  
+                <NavButton
+                  title="Calendar"
+                  icon= {isDark ? "calendar-outline" : "calendar"}
+                  isActive={modalVisible}
+                  style={{ backgroundColor: config.backgroundColor }}
+                  onPress={() => setModalVisible(true)}
+                />
               </View>
             </View>
 
