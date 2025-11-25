@@ -2,6 +2,7 @@ import { Modal, View, Text, TouchableOpacity, ActivityIndicator } from "react-na
 import { useAppTheme } from "../hooks/useAppTheme";
 import { Layout } from "../styles/Layout";
 import { useTypography } from "../styles/Typography";
+import { Colors } from "../styles/colors";
 
 interface Props {
     visible: boolean;
@@ -24,9 +25,15 @@ const NameChangeConfirmModal: React.FC<Props> = ({ visible, onClose, onConfirm, 
             <View style={[Layout.container, {justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.5)'}]}>
                 <View style={{backgroundColor: theme.auth.background, padding: 20, borderRadius: 10, borderWidth: 1, borderColor: theme.auth.text }}>
                     <Text style={[Typography.title, {textAlign: "center", color: theme.auth.text}]}>Are you sure you want to update your name?</Text>
-                    <View style={{flexDirection: "row", justifyContent: "center"}}>
+                    <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "30%", marginRight: 40}]}
+                            style={[Layout.button, {backgroundColor: Colors.surface, width: "30%"}]}
+                            onPress={onClose}
+                        >
+                            <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "30%"}]}
                             onPress={onConfirm}
                         >
                             {isLoading ? (
@@ -34,12 +41,6 @@ const NameChangeConfirmModal: React.FC<Props> = ({ visible, onClose, onConfirm, 
                             ) : (
                                 <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Update</Text>
                             )}
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "30%"}]}
-                            onPress={onClose}
-                        >
-                            <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
