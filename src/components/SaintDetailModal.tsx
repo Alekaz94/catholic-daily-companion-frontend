@@ -56,7 +56,7 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                         <Text style={[Typography.title, {color: theme.journal.text, textAlign: "center"}]}>{saint.name}</Text>
                         <Divider />
                         <View>
-                            {saint.imageUrl ? <Image style={[Layout.image, {alignSelf: "center", width: "100%"}]} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="stretch" defaultSource={defaultSaint}/> : <ActivityIndicator size="large" color={theme.auth.text} />}    
+                            {saint.imageUrl ? <Image style={[Layout.image, {alignSelf: "center", width: "100%"}]} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="stretch" defaultSource={defaultSaint}/> : <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center"}]}>Image not available</Text>} 
                             {saint.imageAuthor ? (
                                 <Text style={{ 
                                         color: theme.auth.smallText, 

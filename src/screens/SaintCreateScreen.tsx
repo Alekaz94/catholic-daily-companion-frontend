@@ -89,14 +89,14 @@ const CreateSaintScreen = () => {
                     onChangeText={(value) => setDeathYear((value))}
                 />
                 <TextInput
-                    placeholder="Enter feast day"
+                    placeholder="Enter feast day (--MM-dd)"
                     placeholderTextColor={"black"}
                     style={Layout.input}
                     value={feastDay ?? ""}
                     onChangeText={(value) => setFeastDay(value)}
                 />
                 <TextInput
-                    placeholder="Enter biography"
+                    placeholder="Enter biography (min 10 characters)"
                     placeholderTextColor={"black"}
                     style={Layout.input}
                     value={biography}

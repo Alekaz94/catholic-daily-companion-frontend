@@ -215,7 +215,7 @@ const SaintScreen = () => {
                                             defaultSource={defaultSaint}
                                         /> 
                                     ) : (
-                                        <ActivityIndicator size="large" color={theme.auth.text} />
+                                        <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center"}]}>Image not available</Text>
                                     )}
                                     <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center", marginTop: 8, width: cardWidth - 10}]} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
                                 </TouchableOpacity>
