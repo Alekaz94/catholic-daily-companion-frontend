@@ -66,7 +66,7 @@ const AboutScreen = () => {
                         ]}
                     >
                         My name is <Text style={{ fontWeight: "600" }}>Alexandros Kazalis</Text>, a convert to Catholicism, and father of two.  
-                        This app was created as a small way to help fellow Catholics deepen their 
+                        This app was created by me as a small way to try and help fellow Catholics deepen their 
                         relationship with Christ through daily prayer, reflection, and simplicity.  
                         My hope is that it brings peace, encouragement, and a steady reminder of God’s presence.
                     </Text>
@@ -99,7 +99,7 @@ const AboutScreen = () => {
                         },
                         ]}
                     >
-                        Made with love, prayer, and faith in Christ.
+                        Made with love and faith in Christ.
                     </Text>
                 </View>
             </ScrollView>
