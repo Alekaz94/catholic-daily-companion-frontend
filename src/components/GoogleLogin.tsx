@@ -42,7 +42,6 @@ const GoogleLogin = () => {
                 throw new Error("No ID token from Google");
             }
 
-            console.log("Google ID Token:", idToken);
             console.log("Signing in with Firebase...");
 
             const googleCredential = GoogleAuthProvider.credential(idToken);
