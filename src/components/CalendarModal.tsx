@@ -42,7 +42,6 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
         if(!user) {
             return;
         }
-        console.log("Inside day press")
         const date = day.dateString;
         const feastCode = formatFeastDayToFeastCode(date);
 
