@@ -22,6 +22,7 @@ import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { cacheSaints, getCachedSaints } from "../services/CacheService";
 import AdBanner from "../components/AdBanner";
+import { useTheme } from "../context/ThemeContext";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -120,7 +121,6 @@ const SaintScreen = () => {
         setSearchQuery("");
         setIsSearching(false);
         setPage(0);
-        fetchSaints(true);
     };
 
     const handleDelete = async (id: string) => {
@@ -168,11 +168,12 @@ const SaintScreen = () => {
                 <View style={[Layout.searchInputView, {marginTop: 10}]}>
                     <Ionicons name="search-outline" size={20} color="#888" style={{ marginRight: 8 }} />
                     <TextInput 
-                        style={[Layout.searchInputTextInput, {color: theme.auth.text}]} 
+                        style={Layout.searchInputTextInput} 
                         placeholder="Search saint by name..." 
                         value={searchQuery} 
                         onChangeText={(text) => {setSearchQuery(text)}}
                         returnKeyType="search"
+                        placeholderTextColor={"black"}
                     />
                     {searchQuery !== "" && (
                         <TouchableOpacity onPress={clearSearch}>

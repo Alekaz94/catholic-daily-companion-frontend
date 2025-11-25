@@ -42,13 +42,13 @@ interface Props {
                             {saints.map((saint) => (
                                 <TouchableOpacity
                                     key={saint.id}
-                                    style={[Layout.card, { backgroundColor: theme.saint.button, marginBottom: 6, borderRadius: 14}]}
+                                    style={[Layout.card, { backgroundColor: theme.saint.background, marginBottom: 6, borderRadius: 14}]}
                                     onPress={() => {
                                         setSaintModalVisible(true);
                                         setSelectedSaint(saint)
                                     }}
                                 >
-                                    <Text style={[Typography.body, {textAlign: "center", color: theme.saint.text }]}>
+                                    <Text style={[Typography.body, {borderRadius: 14, textAlign: "center", color: theme.saint.text }]}>
                                         Feast of {saint.name}
                                     </Text>
                                 </TouchableOpacity>

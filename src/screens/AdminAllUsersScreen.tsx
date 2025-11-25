@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { User } from "../models/User";
 import { deleteUser, getAllUsers, searchUser } from "../services/UserService";
 import Divider from "../components/Divider";
+import { useTheme } from "../context/ThemeContext";
 
 type AdminAllUsersNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -34,6 +35,7 @@ const AdminAllUsersScreen = () => {
     const listRef = useRef<FlatList>(null);
     const navigation = useNavigation<AdminAllUsersNavigationProp>();
     const Typography = useTypography();
+    const { isDark } = useTheme();
 
     const handleDelete = async (id: string) => {
         try {
@@ -106,16 +108,22 @@ const AdminAllUsersScreen = () => {
             <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
                 <Text style={[Typography.title, {fontSize: 22, marginBottom: 10, color: theme.auth.text}]}>All Registered Users</Text>
                 <Divider />
-                <TextInput
-                    placeholder="Search by email..."
-                    value={searchQuery}
-                    onChangeText={value => setSearchQuery(value)}
-                    onSubmitEditing={handleSearch}
-                    style={Layout.input}
-                />
-                <TouchableOpacity style={{ marginBottom: 10, marginTop: -5 }} onPress={clearSearch}>
-                    <Text style={[Typography.label, {color: theme.auth.text}]}>Clear search</Text>
-                </TouchableOpacity>
+                <View style={[Layout.searchInputView, {marginTop: 10}]}>
+                    <Ionicons name="search-outline" size={20} color="#888" style={{ marginRight: 8 }} />
+                    <TextInput
+                        placeholder="Search by email..."
+                        value={searchQuery}
+                        onChangeText={value => setSearchQuery(value)}
+                        onSubmitEditing={handleSearch}
+                        style={Layout.searchInputTextInput} 
+                        placeholderTextColor={isDark ? "black" : "white"}
+                    />
+                    {searchQuery !== "" && (
+                        <TouchableOpacity onPress={clearSearch}>
+                            <Ionicons name="close-circle" size={20} color="#888" />
+                        </TouchableOpacity>
+                    )}
+                </View>
                 {loading ? <Text style={{color: theme.auth.text}}>Loading...</Text> : (
                     <FlatList 
                         data={users}

@@ -32,6 +32,13 @@ const DeleteAccountConfirmModal: React.FC<Props> = ({visible, onClose, onConfirm
                     </Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                         <TouchableOpacity
+                            style={[Layout.button, { backgroundColor: Colors.surface, width: 100 }]}
+                            onPress={onClose}
+                        >
+                            <Text style={[Layout.buttonText, { color: 'black' }]}>Cancel</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
                             style={[Layout.button, { backgroundColor: Colors.error, width: 100}]}
                             onPress={onConfirm}
                         >
@@ -40,13 +47,6 @@ const DeleteAccountConfirmModal: React.FC<Props> = ({visible, onClose, onConfirm
                             ) : (
                                 <Text style={Layout.buttonText}>Delete</Text>
                             )}
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={[Layout.button, { backgroundColor: Colors.surface, width: 100 }]}
-                            onPress={onClose}
-                        >
-                            <Text style={[Layout.buttonText, { color: 'black' }]}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
