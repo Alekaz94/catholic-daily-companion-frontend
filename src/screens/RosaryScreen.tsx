@@ -202,7 +202,7 @@ const RosaryScreen = () => {
                         <View style={{ flexDirection: "row", flexWrap: "wrap", alignContent: "center", justifyContent: "center"}}>
                             {checkedSteps[stepIndex].map((checked, boxIndex) => (
                                 <CheckBox
-                                    style={{marginHorizontal: 7}}
+                                    style={{marginHorizontal: 5}}
                                     key={boxIndex}
                                     value={checked}
                                     onValueChange={() => !completed && toggleCheckbox(stepIndex, boxIndex)}
