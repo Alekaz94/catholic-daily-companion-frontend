@@ -214,7 +214,7 @@ const SaintScreen = () => {
                                             defaultSource={defaultSaint}
                                         /> 
                                     ) : (
-                                        <Image style={[Layout.image, {width: cardWidth}]} source={defaultSaint}/> 
+                                        <ActivityIndicator size="large" color={theme.auth.text} />
                                     )}
                                     <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center", marginTop: 8, width: cardWidth - 10}]} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
                                 </TouchableOpacity>

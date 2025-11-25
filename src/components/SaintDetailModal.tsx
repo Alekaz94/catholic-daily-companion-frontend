@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { Modal, View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
 import { Saint } from "../models/Saint";
 import { useTypography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
@@ -56,7 +56,7 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
                         <Text style={[Typography.title, {color: theme.journal.text, textAlign: "center"}]}>{saint.name}</Text>
                         <Divider />
                         <View>
-                            {saint.imageUrl ? <Image style={[Layout.image, {alignSelf: "center", width: "100%"}]} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="stretch" defaultSource={defaultSaint}/> : <Image style={Layout.image} source={defaultSaint} resizeMode="contain"/>}    
+                            {saint.imageUrl ? <Image style={[Layout.image, {alignSelf: "center", width: "100%"}]} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="stretch" defaultSource={defaultSaint}/> : <ActivityIndicator size="large" color={theme.auth.text} />}    
                             {saint.imageAuthor ? (
                                 <Text style={{ 
                                         color: theme.auth.smallText, 
