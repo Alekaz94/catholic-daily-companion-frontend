@@ -162,7 +162,7 @@ const SaintScreen = () => {
                 <Divider />
                 {user?.role === "ADMIN" && (
                     <TouchableOpacity style={[Layout.button, {marginBottom: 10, backgroundColor: theme.saint.navbar}]} onPress={() => navigation.navigate("CreateSaint")}>
-                        <Text style={[Typography.label, {color: theme.auth.text}]}>Create new Saint</Text>
+                        <Text style={[Typography.label, {color: "black"}]}>Create new Saint</Text>
                     </TouchableOpacity>
                 )}
                 <View style={[Layout.searchInputView, {marginTop: 10}]}>
