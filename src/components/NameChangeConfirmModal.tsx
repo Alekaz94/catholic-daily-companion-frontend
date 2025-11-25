@@ -27,13 +27,13 @@ const NameChangeConfirmModal: React.FC<Props> = ({ visible, onClose, onConfirm, 
                     <Text style={[Typography.title, {textAlign: "center", color: theme.auth.text}]}>Are you sure you want to update your name?</Text>
                     <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: Colors.surface, width: "30%"}]}
+                            style={[Layout.button, {backgroundColor: "gray", width: "40%"}]}
                             onPress={onClose}
                         >
                             <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "30%"}]}
+                            style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "40%"}]}
                             onPress={onConfirm}
                         >
                             {isLoading ? (

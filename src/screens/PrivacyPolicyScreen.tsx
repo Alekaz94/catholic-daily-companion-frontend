@@ -76,6 +76,27 @@ const PrivacyPolicyScreen = () => {
                     - To comply with legal obligations
                 </Text>
 
+                <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
+                    Third-Party Services We Use
+                </Text>
+
+                <Text style={[Typography.body, { color: theme.auth.text }]}>
+                    <Text style={{ fontWeight: "600" }}>Google Authentication (OAuth2)</Text>{"\n"}
+                    Used for secure sign-in. We only receive your name and email. No password is ever shared with us.{"\n\n"}
+
+                    <Text style={{ fontWeight: "600" }}>Google Mobile Ads (AdMob)</Text>{"\n"}
+                    Displays ads. Only anonymized usage and device data may be collected for ad performance.{"\n\n"}
+
+                    <Text style={{ fontWeight: "600" }}>Railway Hosting</Text>{"\n"}
+                    Our backend and database are securely hosted on Railway. Your journal entries, rosary logs, and account records are stored there.{"\n\n"}
+
+                    <Text style={{ fontWeight: "600" }}>PostgreSQL Database</Text>{"\n"}
+                    Used for storing journal entries, rosary data, account info, logs, and other content you create.{"\n\n"}
+
+                    <Text style={{ fontWeight: "600" }}>Expo / React Native Services</Text>{"\n"}
+                    Expo may collect anonymized diagnostics (e.g., app crashes or device type) to improve app performance.
+                </Text>
+
                 <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>Ads & Analytics:</Text>
                 <Text style={[Typography.body, { color: theme.auth.text}]}>
                     We use Google Mobile Ads. Only anonymized usage data may be collected for ad performance. 

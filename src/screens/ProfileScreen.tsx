@@ -407,7 +407,7 @@ const ProfileScreen = () => {
                     <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
                         <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>Password Change</Text>
                         <Text style={[Typography.italic, { color: theme.auth.smallText}]}>
-                            Password changes are managed through your Google account.
+                            Password changes cannot be managed through the app for Google-sign-in accounts because we don’t store your password.                        
                         </Text>
                     </View>
                 )}

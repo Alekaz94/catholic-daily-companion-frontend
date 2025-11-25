@@ -25,6 +25,9 @@ const CreateSaintScreen = () => {
     const [biography, setBiography] = useState("");
     const [canonizationYear, setCanonizationYear] = useState<string>("");
     const [imageUrl, setImageUrl] = useState<string | null>("");
+    const [imageSource, setImageSource] = useState<string | null>("");
+    const [imageAuthor, setImageAuthor] = useState<string | null>("");
+    const [imageLicence, setImageLicence] = useState<string | null>("");
     const theme = useAppTheme();
     const Typography = useTypography();
 
@@ -64,12 +67,14 @@ const CreateSaintScreen = () => {
                 <Text style={[Typography.title, {color: theme.saint.text}]}>Create Saint</Text>
                 <TextInput
                     placeholder="Enter name"
+                    placeholderTextColor={"black"}
                     style={Layout.input}
                     value={name}
                     onChangeText={(value) => setName(value)}
                 />
                 <TextInput
                     placeholder="Enter birth year"
+                    placeholderTextColor={"black"}
                     style={Layout.input}
                     keyboardType="numeric"
                     value={birthYear.toString()}
@@ -77,6 +82,7 @@ const CreateSaintScreen = () => {
                 />
                 <TextInput
                     placeholder="Enter death year"
+                    placeholderTextColor={"black"}
                     style={Layout.input}
                     keyboardType="numeric"
                     value={deathYear.toString()}
@@ -84,24 +90,28 @@ const CreateSaintScreen = () => {
                 />
                 <TextInput
                     placeholder="Enter feast day"
+                    placeholderTextColor={"black"}
                     style={Layout.input}
                     value={feastDay ?? ""}
                     onChangeText={(value) => setFeastDay(value)}
                 />
                 <TextInput
                     placeholder="Enter biography"
+                    placeholderTextColor={"black"}
                     style={Layout.input}
                     value={biography}
                     onChangeText={(value) => setBiography(value)}
                 />
                 <TextInput
                     placeholder="Enter patronage"
+                    placeholderTextColor={"black"}
                     style={Layout.input}
                     value={patronage}
                     onChangeText={(value) => setPatronage(value)}
                 />
                 <TextInput
                     placeholder="Enter canonization year"
+                    placeholderTextColor={"black"}
                     style={Layout.input}
                     keyboardType="numeric"
                     value={canonizationYear.toString()}
@@ -109,20 +119,41 @@ const CreateSaintScreen = () => {
                 />
                 <TextInput
                     placeholder="Enter image url"
+                    placeholderTextColor={"black"}
                     style={Layout.input}
                     value={imageUrl ?? ""}
                     onChangeText={(value) => setImageUrl(value)}
                 />
+                <TextInput
+                    placeholder="Enter image source"
+                    placeholderTextColor={"black"}
+                    style={Layout.input}
+                    value={imageSource ?? ""}
+                    onChangeText={(value) => setImageSource(value)}
+                />
+                <TextInput
+                    placeholder="Enter image author"
+                    placeholderTextColor={"black"}
+                    style={Layout.input}
+                    value={imageAuthor ?? ""}
+                    onChangeText={(value) => setImageAuthor(value)}
+                />
+                <TextInput
+                    placeholder="Enter image licence"
+                    placeholderTextColor={"black"}
+                    style={Layout.input}
+                    value={imageLicence ?? ""}
+                    onChangeText={(value) => setImageLicence(value)}
+                />
 
                 <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.saint.navbar, borderWidth: 1}]} onPress={handleCreate} >
-                    <Text style={[Layout.buttonText, {color: theme.saint.text}]}>Create</Text>
-                </TouchableOpacity>
-            
-                <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} onPress={() => {navigation.navigate("Saint")}} >
-                    <Text style={[Layout.buttonText,{color: theme.saint.text}]}>Cancel</Text>
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={() => {navigation.navigate("Saint")}} >
+                        <Text style={[Layout.buttonText,{color: theme.saint.text}]}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.auth.navbar}]} onPress={handleCreate} >
+                        <Text style={[Layout.buttonText, {color: "black"}]}>Create</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </SafeAreaView>
     );

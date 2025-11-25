@@ -98,8 +98,29 @@ const TermsOfServiceScreen = () => {
                             responsible for damages resulting from use of the App.
                         </Text>
 
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
+                            7. Third-Party Services
+                        </Text>
+
+                        <Text style={[Typography.body, { color: theme.auth.text }]}>
+                            <Text style={{ fontWeight: "600" }}>Google Authentication:</Text>{" "}
+                            Used for secure login. No passwords are shared with us.{"\n\n"}
+
+                            <Text style={{ fontWeight: "600" }}>Google Mobile Ads (AdMob):</Text>{" "}
+                            Provides ads. Only anonymized usage analytics may be gathered.{"\n\n"}
+
+                            <Text style={{ fontWeight: "600" }}>Railway Hosting:</Text>{" "}
+                            Our backend and PostgreSQL database run on Railway’s cloud infrastructure.{"\n\n"}
+
+                            <Text style={{ fontWeight: "600" }}>PostgreSQL Database:</Text>{" "}
+                            Stores account data, journal entries, rosary logs, and other user-generated content.{"\n\n"}
+
+                            <Text style={{ fontWeight: "600" }}>Expo Services:</Text>{" "}
+                            May collect anonymized crash or performance metadata to improve platform reliability.
+                        </Text>
+
                         <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
-                            7. Contact Us
+                            8. Contact Us
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
                             For questions about these Terms, contact:
