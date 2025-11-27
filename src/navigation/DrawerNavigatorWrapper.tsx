@@ -148,7 +148,7 @@ const DrawerNavigatorWrapper = () => {
                             <TouchableOpacity
                                 onPress={() => setShowLogoutModal(false)}
                                 style={{
-                                  backgroundColor: theme.auth.primary,
+                                  backgroundColor: "lightgray",
                                   paddingVertical: 10,
                                   paddingHorizontal: 20,
                                   borderRadius: 8,

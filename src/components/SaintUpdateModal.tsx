@@ -139,76 +139,87 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
                     style={Layout.input}
                     value={name}
                     onChangeText={(value) => setName(value)}
+                    placeholderTextColor={"black"}
                 />
                 <TextInput
                     placeholder="Enter birth year"
                     style={Layout.input}
                     keyboardType="numeric"
-                    value={birthYear.toString()}
+                    value={birthYear ? String(birthYear) : ""}
                     onChangeText={(value) => setBirthYear(parseInt(value) || 0)}
+                    placeholderTextColor={"black"}
                 />
                 <TextInput
                     placeholder="Enter death year"
                     style={Layout.input}
                     keyboardType="numeric"
-                    value={deathYear.toString()}
+                    value={deathYear ? String(deathYear) : ""}
                     onChangeText={(value) => setDeathYear(parseInt(value) || 0)}
+                    placeholderTextColor={"black"}
                 />
                 <TextInput
                     placeholder="Enter feast day"
                     style={Layout.input}
                     value={feastDay ?? ""}
                     onChangeText={(value) => setFeastDay(value)}
+                    placeholderTextColor={"black"}
                 />
                 <TextInput
                     placeholder="Enter biography"
                     style={Layout.input}
                     value={biography}
                     onChangeText={(value) => setBiography(value)}
+                    placeholderTextColor={"black"}
                 />
                 <TextInput
                     placeholder="Enter patronage"
                     style={Layout.input}
                     value={patronage}
                     onChangeText={(value) => setPatronage(value)}
+                    placeholderTextColor={"black"}
                 />
                 <TextInput
                     placeholder="Enter canonization year"
                     style={Layout.input}
                     keyboardType="numeric"
-                    value={canonizationYear.toString()}
+                    value={canonizationYear ? String(canonizationYear) : ""}
                     onChangeText={(value) => setCanonizationYear(parseInt(value) || 0)}
+                    placeholderTextColor={"black"}
                 />
                 <TextInput
                     placeholder="Enter image url"
                     style={Layout.input}
                     value={imageUrl ?? ""}
                     onChangeText={(value) => setImageUrl(value)}
-                />
-                <TextInput 
-                    placeholder="Enter image author" 
-                    style={Layout.input} 
-                    value={imageAuthor ?? ""}
-                    onChangeText={setImageAuthor} 
+                    placeholderTextColor={"black"}
                 />
                 <TextInput 
                     placeholder="Enter image source" 
                     style={Layout.input} 
                     value={imageSource ?? ""} 
-                    onChangeText={setImageSource} 
+                    onChangeText={(value) => setImageSource(value)} 
+                    placeholderTextColor={"black"}
+                />
+                <TextInput 
+                    placeholder="Enter image author" 
+                    style={Layout.input} 
+                    value={imageAuthor ?? ""}
+                    onChangeText={(value) => setImageAuthor(value)}
+                    placeholderTextColor={"black"} 
                 />
                 <TextInput 
                     placeholder="Enter image licence" 
                     style={Layout.input} 
                     value={imageLicence ?? ""} 
-                    onChangeText={setImageLicence} 
+                    onChangeText={(value) => setImageLicence(value)}
+                    placeholderTextColor={"black"}
                 />
-                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.saint.navbar, borderWidth: 1}]} onPress={onHandleSubmit}>
-                        <Text style={[Layout.buttonText, {color: "black"}]}>Save changes</Text>
+                <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: "lightgray", width: "40%", alignSelf: "center"}]} onPress={onClose}> 
+                        <Text style={[Typography.label, {color: theme.auth.text, textAlign: "center"}]}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} onPress={onClose}> 
-                        <Text style={[Layout.buttonText, {color: "white"}]}>Cancel</Text>
+                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.auth.background}]} onPress={onHandleSubmit}>
+                        <Text style={[Typography.label, {color: theme.auth.text, textAlign: "center"}]}>Save changes</Text>
                     </TouchableOpacity>
                 </View>
             </View>

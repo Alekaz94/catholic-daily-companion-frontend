@@ -73,7 +73,7 @@ const JournalEntryCreateScreen = () => {
                     />
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                         <TouchableOpacity 
-                            style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} 
+                            style={[Layout.button, {backgroundColor: "lightgray", width: "40%", alignSelf: "center", borderWidth: 1}]} 
                             onPress={() => {navigation.navigate("Journal")}} 
                             disabled={isLoading}
                         >
