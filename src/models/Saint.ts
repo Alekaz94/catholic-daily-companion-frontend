@@ -15,12 +15,12 @@ export interface Saint {
 
 export interface NewSaint {
     name: string;
-    birthYear: number;
-    deathYear: number;
+    birthYear?: number;
+    deathYear?: number;
     feastDay: string | null;
     biography: string;
     patronage: string;
-    canonizationYear: number;
+    canonizationYear?: number;
     imageUrl?: string | null;
     imageSource?: string | null;
     imageAuthor?: string | null;

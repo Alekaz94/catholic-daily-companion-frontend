@@ -60,11 +60,6 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
         const updatedDeathYear = deathYear;
         const updatedCanonizationYear = canonizationYear;
 
-        if(!trimmedName && !trimmedFeastDay && !trimmedBiography && !trimmedPatronage && !trimmedImageUrl) {
-            alert("Name, feastday, biography, patronage and image are empty. No changes saved.");
-            return;
-        }
-
         const updatedFields: UpdatedSaint = {};
 
         if(trimmedName && trimmedName !== saint.name) {
@@ -76,7 +71,32 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
         }
     
         if(trimmedFeastDay && trimmedFeastDay !== saint.feastDay) {
-            updatedFields.feastDay = trimmedFeastDay;
+            const match = trimmedFeastDay.match(/^--?(\d{1,2})-(\d{1,2})$/);
+
+            if(!match) {
+                alert("Feast day must be in format --MM-dd");
+                return;
+            }
+
+            const month = parseInt(match[1], 10);
+            const day = parseInt(match[2], 10);
+            
+            if(month < 1 || month > 12) {
+                alert("Month must be between 1 and 12");
+                return;
+            }
+
+            const daysInMonth = new Date(2024, month, 0).getDate();
+
+            if(day < 1 || day > daysInMonth) {
+                alert(`Day must be between 1 and ${daysInMonth} for month ${month}`);
+                return;
+            }
+
+            const paddedMonth = month.toString().padStart(2, "0");
+            const paddedDay = day.toString().padStart(2, "0");
+            
+            updatedFields.feastDay = `--${paddedMonth}-${paddedDay}`;
         }
 
         if(trimmedPatronage && trimmedPatronage !== saint.patronage) {
@@ -135,7 +155,7 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
             <View style={[Layout.container, {backgroundColor: theme.saint.background}]}>
                 <Text style={[Typography.title, {color: theme.saint.text}]}>Edit Saint</Text>
                 <TextInput
-                    placeholder="Enter name"
+                    placeholder="Enter name (Required)"
                     style={Layout.input}
                     value={name}
                     onChangeText={(value) => setName(value)}
@@ -158,21 +178,21 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
                     placeholderTextColor={"black"}
                 />
                 <TextInput
-                    placeholder="Enter feast day"
+                    placeholder="Enter feast day (Required | --MM-dd)"
                     style={Layout.input}
                     value={feastDay ?? ""}
                     onChangeText={(value) => setFeastDay(value)}
                     placeholderTextColor={"black"}
                 />
                 <TextInput
-                    placeholder="Enter biography"
+                    placeholder="Enter biography (Required | min 10 characters)"
                     style={Layout.input}
                     value={biography}
                     onChangeText={(value) => setBiography(value)}
                     placeholderTextColor={"black"}
                 />
                 <TextInput
-                    placeholder="Enter patronage"
+                    placeholder="Enter patronage (Required)"
                     style={Layout.input}
                     value={patronage}
                     onChangeText={(value) => setPatronage(value)}

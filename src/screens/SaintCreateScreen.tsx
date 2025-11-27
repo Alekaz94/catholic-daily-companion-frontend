@@ -32,11 +32,39 @@ const CreateSaintScreen = () => {
     const Typography = useTypography();
 
     const handleCreate = async () => {
-        if(!name.trim() || !birthYear.trim() || !deathYear.trim() || !feastDay?.trim() || !patronage.trim() || !biography.trim()) {
+        if(!name.trim() || !feastDay?.trim() || !patronage.trim() || !biography.trim()) {
             Alert.alert("Error, all fields are required");
             return;
         }
 
+        const trimmedFeast = feastDay.trim();
+        const match = trimmedFeast.match(/^--?(\d{1,2})-(\d{1,2})$/);
+
+        if(!match) {
+            alert("Invalid feast day! Feast day must be in format --MM-dd");
+            return;
+        }
+
+        const month = parseInt(match[1], 10);
+        const day = parseInt(match[2], 10);
+        
+        if(month < 1 || month > 12) {
+            alert("Invalid Feast Day! Month must be between 1 and 12");
+            return;
+        }
+
+        const daysInMonth = new Date(2024, month, 0).getDate();
+
+        if(day < 1 || day > daysInMonth) {
+            alert(`Invalid Feast Day! Day must be between 1 and ${daysInMonth} for month ${month}`);
+            return;
+        }
+
+        const paddedMonth = month.toString().padStart(2, "0");
+        const paddedDay = day.toString().padStart(2, "0");
+
+        const normalizedFeastDay = `--${paddedMonth}-${paddedDay}`;
+            
         try {
             const parsedBirthYear = parseInt(birthYear);
             const parsedDeathYear = parseInt(deathYear);
@@ -46,17 +74,24 @@ const CreateSaintScreen = () => {
                 name: name.trim(), 
                 birthYear: parsedBirthYear, 
                 deathYear: parsedDeathYear, 
-                feastDay: feastDay?.trim() ?? "", 
+                feastDay: normalizedFeastDay, 
                 patronage: patronage.trim(),
                 biography: biography.trim(), 
                 canonizationYear: parsedCanonizationYear,
-                imageUrl: imageUrl && imageUrl?.trim() !== "" ? imageUrl.trim() : null
+                imageUrl: imageUrl && imageUrl?.trim() !== "" ? imageUrl.trim() : null,
+                imageSource: imageSource && imageSource?.trim() !== "" ? imageSource.trim() : null,
+                imageAuthor: imageAuthor && imageAuthor?.trim() !== "" ? imageAuthor.trim() : null,
+                imageLicence: imageLicence && imageLicence?.trim() !== "" ? imageLicence.trim() : null,
             }
 
             await createSaint(newSaint);
             Alert.alert("Success, Saint created.");
             navigation.goBack();
         } catch (error: any) {
+            if (error.loggedOut) {
+                console.log("User logged out, skipping creation.");
+                return;
+            }
             Alert.alert("Error, Failed to create Saint!");
         }
     }
@@ -66,7 +101,7 @@ const CreateSaintScreen = () => {
             <View style={[Layout.container, {backgroundColor: theme.saint.background}]}>
                 <Text style={[Typography.title, {color: theme.saint.text}]}>Create Saint</Text>
                 <TextInput
-                    placeholder="Enter name"
+                    placeholder="Enter name (Required)"
                     placeholderTextColor={"black"}
                     style={Layout.input}
                     value={name}
@@ -89,21 +124,21 @@ const CreateSaintScreen = () => {
                     onChangeText={(value) => setDeathYear((value))}
                 />
                 <TextInput
-                    placeholder="Enter feast day (--MM-dd)"
+                    placeholder="Enter feast day (Required | --MM-dd)"
                     placeholderTextColor={"black"}
                     style={Layout.input}
                     value={feastDay ?? ""}
                     onChangeText={(value) => setFeastDay(value)}
                 />
                 <TextInput
-                    placeholder="Enter biography (min 10 characters)"
+                    placeholder="Enter biography (Required | min 10 characters)"
                     placeholderTextColor={"black"}
                     style={Layout.input}
                     value={biography}
                     onChangeText={(value) => setBiography(value)}
                 />
                 <TextInput
-                    placeholder="Enter patronage"
+                    placeholder="Enter patronage (Required)"
                     placeholderTextColor={"black"}
                     style={Layout.input}
                     value={patronage}
@@ -147,10 +182,10 @@ const CreateSaintScreen = () => {
                 />
 
                 <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={() => {navigation.navigate("Saint")}} >
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: "lightgray", width: "40%", alignSelf: "center"}]} onPress={() => {navigation.navigate("Saint")}} >
                         <Text style={[Layout.buttonText,{color: theme.saint.text}]}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.auth.navbar}]} onPress={handleCreate} >
+                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.auth.background}]} onPress={handleCreate} >
                         <Text style={[Layout.buttonText, {color: "black"}]}>Create</Text>
                     </TouchableOpacity>
                 </View>

@@ -100,7 +100,7 @@ const FeedbackScreen = () => {
               <TextInput
                 style={[Layout.input, { height: 150, textAlignVertical: 'top', color: theme.auth.text }]}
                 placeholder="Share your thoughts..."
-                placeholderTextColor="#888"
+                placeholderTextColor="black"
                 multiline
                 value={message}
                 onChangeText={setMessage}
@@ -115,7 +115,7 @@ const FeedbackScreen = () => {
                     marginTop: 30,
                     alignItems: 'center',
                     borderWidth: 1,
-                    borderColor: "#ccc"
+                    borderColor: "#ccc",
                   }
                 ]}
                 disabled={isLoading || message.trim().length < 5}
@@ -123,7 +123,7 @@ const FeedbackScreen = () => {
                 {isLoading ? (
                   <ActivityIndicator color={theme.auth.text} />
                 ) : (
-                  <Text style={[Typography.label, { color: theme.auth.text }]}>Send Feedback</Text>
+                  <Text style={[Typography.label, { color: "black" }]}>Send Feedback</Text>
                 )}
               </TouchableOpacity>
 
