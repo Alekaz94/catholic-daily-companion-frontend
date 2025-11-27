@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { useTheme } from "../context/ThemeContext";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type JournalEntryCreateNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -21,12 +22,17 @@ type JournalEntryCreateNavigationProp = NativeStackNavigationProp<
 
 const JournalEntryCreateScreen = () => {
     const navigation = useNavigation<JournalEntryCreateNavigationProp>();
+    const user = useRequireAuth();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const theme = useAppTheme();
     const Typography = useTypography();
 
+    if(!user) {
+        return null;
+    }
+    
     const handleCreate = async () => {
         if (!title.trim() || !content.trim()) {
             Alert.alert('Error', 'Both title and content are required.');

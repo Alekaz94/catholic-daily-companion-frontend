@@ -1731,7 +1731,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/elements",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/elements/LICENSE"
   },
-  "@react-navigation/native-stack@7.7.0": {
+  "@react-navigation/native-stack@7.8.0": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/native-stack",
@@ -2600,7 +2600,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-validate/node_modules/camelcase",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/jest-validate/node_modules/camelcase/license"
   },
-  "caniuse-lite@1.0.30001756": {
+  "caniuse-lite@1.0.30001757": {
     "licenses": "CC-BY-4.0",
     "repository": "https://github.com/browserslist/caniuse-lite",
     "publisher": "Ben Briggs",
@@ -7192,7 +7192,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/mcp-tunnel/node_modules/zod",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@expo/mcp-tunnel/node_modules/zod/LICENSE"
   },
-  "zod@4.1.12": {
+  "zod@4.1.13": {
     "licenses": "MIT",
     "repository": "https://github.com/colinhacks/zod",
     "publisher": "Colin McDonnell",

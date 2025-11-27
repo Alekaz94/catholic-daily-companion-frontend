@@ -7,6 +7,7 @@ import { useState } from "react";
 import SaintDetailModal from "./SaintDetailModal";
 import EntryDetailModal from "./EntryDetailModal";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 interface Props {
     visible: boolean;
@@ -23,9 +24,10 @@ interface Props {
     const [journalModalVisible, setJournalModalVisible] = useState(false);
     const [selectedJournal, setSelectedJournal] = useState<JournalEntry | null>(null);
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const Typography = useTypography();
 
-    if(!date) {
+    if(!date || !user) {
         return null;
     }
 

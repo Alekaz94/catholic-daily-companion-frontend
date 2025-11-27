@@ -12,6 +12,7 @@ import * as SecureStore from 'expo-secure-store';
 import { reset } from '../navigation/RootNavigation';
 import { clearCachedDoneToday, clearCachedHighestStreak, clearCachedJournalEntries, clearCachedRosaries, clearCachedSaints, clearCachedStreak } from '../services/CacheService';
 import Toast from 'react-native-root-toast';
+import { setupInterceptors } from '../services/api';
 
 interface AuthContextType {
   user: User | null;
@@ -31,6 +32,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [initialized, setInitialized] = useState(false);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   const login = async (email: string, password: string) => {
     const result = await loginService(email, password);
@@ -51,8 +53,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     await clearCachedHighestStreak();
     await clearSession();
     setUser(null);
-    setAuthToken(null);
   };
+
+  useEffect(() => {
+    setupInterceptors(logout);
+  }, []);
 
   const bootstrapUser = async () => {
     setLoading(true);

@@ -3,6 +3,7 @@ import { Rosary } from "../models/Rosary";
 import { Layout } from "../styles/Layout";
 import { useTypography } from "../styles/Typography";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type Props = {
     visible: boolean;
@@ -12,8 +13,13 @@ type Props = {
 
 const RosaryHistoryModal: React.FC<Props> = ({visible, onClose, history}) => {
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const Typography = useTypography();
 
+    if(!user) {
+        return null;
+    }
+    
     return (
         <Modal
             animationType="slide"

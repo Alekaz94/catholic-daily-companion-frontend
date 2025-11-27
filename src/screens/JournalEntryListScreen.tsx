@@ -18,6 +18,7 @@ import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import AdBanner from "../components/AdBanner";
 import { cacheJournalEntries, getCachedEntries } from "../services/CacheService";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type JournalEntryListNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -38,8 +39,13 @@ const JournalEntryListScreen = () => {
     const Typography = useTypography();
     const navigation = useNavigation<JournalEntryListNavigationProp>();
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const isFirstLoad = useRef(true);
 
+    if(!user) {
+        return null;
+    }
+    
     const handleDelete = async (id: string) => {
         try {
             await deleteEntry(id);
@@ -68,6 +74,10 @@ const JournalEntryListScreen = () => {
         try {
             setIsLoading(true);
             const res = await getAllEntries(0, 10, "desc");
+            if (!res || !res.content) {
+                setEntries([]);
+                return;
+            }
             setEntries(res.content);
             await cacheJournalEntries(res.content);
             setPage(0);
@@ -80,6 +90,8 @@ const JournalEntryListScreen = () => {
     }
 
     useEffect(() => {
+        if (!user) return;
+
         const loadCached = async () => {
             const cached = await getCachedEntries();
             if (cached && cached.length > 0) {
@@ -88,7 +100,7 @@ const JournalEntryListScreen = () => {
         };
     
         loadCached();
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener("focus", () => {
@@ -98,7 +110,7 @@ const JournalEntryListScreen = () => {
             isFirstLoad.current = false;
         });
         return unsubscribe;
-    }, [navigation])
+    }, [navigation, user])
 
     useEffect(() => {
         const load = async () => {
@@ -109,6 +121,12 @@ const JournalEntryListScreen = () => {
     
             try {
                 const res = await getAllEntries(page, 10, "desc");
+
+                if (!res || !res.content) {
+                    setHasMore(false);
+                    return;
+                }
+
                 if(page === 0) {
                     setEntries(res.content);
                     await cacheJournalEntries(res.content);
@@ -133,7 +151,7 @@ const JournalEntryListScreen = () => {
         };
 
         load();
-    }, [page]);
+    }, [page, user]);
 
     return (
         <>

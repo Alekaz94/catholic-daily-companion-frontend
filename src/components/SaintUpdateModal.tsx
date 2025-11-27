@@ -4,6 +4,7 @@ import { Modal, View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Layout } from "../styles/Layout";
 import { useTypography } from "../styles/Typography";
 import { useAppTheme } from '../hooks/useAppTheme';
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 interface Props {
     visible: boolean;
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
+    const user = useRequireAuth();
     const [name, setName] = useState("");
     const [birthYear, setBirthYear] = useState<number>(0);
     const [deathYear, setDeathYear] = useState<number>(0)
@@ -41,7 +43,7 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
             setImageSource(saint.imageSource);
             setImageLicence(saint.imageLicence);
         }
-    }, [saint]);
+    }, [saint, user]);
 
     const onHandleSubmit = async () => {
         if(!saint) {

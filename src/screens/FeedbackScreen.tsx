@@ -16,16 +16,20 @@ import { useTypography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import Navbar from '../components/Navbar';
 import Divider from '../components/Divider';
-import { useAuth } from '../context/AuthContext';
 import { sendFeedback } from '../services/FeedbackService';
+import { useRequireAuth } from '../hooks/useRequireAuth';
 
 const FeedbackScreen = () => {
   const theme = useAppTheme();
-  const { user } = useAuth();
+  const user = useRequireAuth();
   const [message, setMessage] = useState('');
   const [category, setCategory] = useState<'bug'|'suggestion'|'other'>('other');
   const [isLoading, setIsLoading] = useState(false);
   const Typography = useTypography();
+
+  if(!user) {
+    return null;
+  }
 
   const handleSend = async () => {
     if (message.trim().length < 5) {

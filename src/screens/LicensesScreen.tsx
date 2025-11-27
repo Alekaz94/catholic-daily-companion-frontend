@@ -7,6 +7,7 @@ import { useTypography } from "../styles/Typography";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 import Divider from "../components/Divider";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type LicenseEntry = {
     licenses: string;
@@ -24,9 +25,14 @@ const licensesTyped = licenses as Record<string, LicenseEntry>;
 
 const LicensesScreen = () => {
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
     const Typography = useTypography();
 
+    if(!user) {
+        return null;
+    }
+    
     const groupedLicenses: Record<string, LicenseWithPackage[]> = {};
 
     Object.entries(licensesTyped).forEach(([packageName, info])  => {

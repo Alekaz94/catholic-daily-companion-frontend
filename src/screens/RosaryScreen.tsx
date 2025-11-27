@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from "react";
 import { completeToday, getHistory, getStreak, isCompletedToday } from "../services/RosaryService";
 import { ActivityIndicator, Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,6 +15,7 @@ import { useAppTheme } from "../hooks/useAppTheme";
 import AdBanner from "../components/AdBanner";
 import { showRewardedAd } from "../services/ads/rewarded";
 import { cacheDoneToday, cacheRosaries, cacheRosaryStreak, getCachedDoneToday, getCachedRosaries, getCachedStreak } from "../services/CacheService";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 const formatDate = (date: Date) => {
     const year = date.getUTCFullYear();
@@ -25,8 +25,13 @@ const formatDate = (date: Date) => {
 };
 
 const RosaryScreen = () => {
-    const { user } = useAuth();
+    const user = useRequireAuth();
     const theme = useAppTheme();
+
+    if(!user) {
+        return null;
+    }
+
     const mysteries = getTodaysMysteries();
     const weekday = getWeekdayName(new Date());
     const mysteryType = getMysteryTypeForToday();
@@ -90,19 +95,21 @@ const RosaryScreen = () => {
         }
 
         const fetchData = async () => {
+            if(!user?.id) return;
+
             try {
                 const done = await isCompletedToday(user.id);
                 const currentStreak = await getStreak(user.id);
                 const pastLogs = await getHistory(user.id);
 
-                setCompleted(done);
-                cacheDoneToday(done);
+                setCompleted(done ?? false);
+                cacheDoneToday(done ?? false);
 
-                setStreak(currentStreak);
-                cacheRosaryStreak(currentStreak);
+                setStreak(currentStreak ?? 0);
+                cacheRosaryStreak(currentStreak ?? 0);
 
-                setHistory(pastLogs);
-                cacheRosaries(pastLogs);
+                setHistory(Array.isArray(pastLogs) ? pastLogs : []);
+                cacheRosaries(Array.isArray(pastLogs) ? pastLogs : []);
 
                 if(done) {
                     const allTrue = rosarySequence.map(step => Array(step.checkboxes).fill(true));
@@ -174,9 +181,12 @@ const RosaryScreen = () => {
 
     if(isLoading) {
         return (
-            <SafeAreaView>
-                <ActivityIndicator size="large" color="#1E3A8A" />
-                <Text style={[Typography.label, { marginTop: 10, color: theme.prayer.text }]}>Loading Rosary...</Text>
+            <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
+                <Navbar />
+                <View style={[Layout.container]}>
+                    <ActivityIndicator size="large" color="#1E3A8A" />
+                    <Text style={[Typography.label, { marginTop: 10, color: theme.prayer.text, textAlign: "center" }]}>Loading Rosary...</Text>
+                </View>
             </SafeAreaView>
         )
     }

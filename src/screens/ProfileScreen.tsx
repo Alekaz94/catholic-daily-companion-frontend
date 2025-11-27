@@ -44,6 +44,10 @@ const ProfileScreen = () => {
     const theme = useAppTheme();
     const Typography = useTypography();
 
+    if(!user) {
+        return null;
+    }
+    
     const {
         handleSubmit: nameChangeSubmit,
         control: nameChangeControl,

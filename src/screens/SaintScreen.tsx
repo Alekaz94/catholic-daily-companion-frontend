@@ -13,7 +13,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Colors } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from '@expo/vector-icons';
-import { useAuth } from "../context/AuthContext";
 import SaintUpdateModal from "../components/SaintUpdateModal";
 import { useNavigation } from "@react-navigation/native";
 import { buildImageUri } from "../utils/imageUtils";
@@ -22,7 +21,7 @@ import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { cacheSaints, getCachedSaints } from "../services/CacheService";
 import AdBanner from "../components/AdBanner";
-import { useTheme } from "../context/ThemeContext";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type SaintNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -30,8 +29,13 @@ type SaintNavigationProp = NativeStackNavigationProp<
 >
 
 const SaintScreen = () => {
-    const { user } = useAuth();
+    const user = useRequireAuth();
     const theme = useAppTheme();
+
+    if(!user) {
+        return null;
+    }
+
     const [saints, setSaints] = useState<Saint[]>([]);
     const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -63,6 +67,12 @@ const SaintScreen = () => {
             const res = isSearching 
                 ? await searchSaints(searchQuery, currentPage, 5)
                 : await getAllSaints(currentPage, 5);
+
+            if (!res || !res.content) {
+                console.warn("No saints returned (likely expired session)");
+                setHasMore(false);
+                return;
+            }
 
             const newData = res.content || [];
 
@@ -97,13 +107,13 @@ const SaintScreen = () => {
             }
         };
         loadCachedData();
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         if (page > 0) {
             fetchSaints()
         };
-    }, [page]);
+    }, [page, user]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -115,7 +125,7 @@ const SaintScreen = () => {
         }, 400);
 
         return () => clearTimeout(timeout);
-    }, [searchQuery]);
+    }, [searchQuery, user]);
 
     const clearSearch = () => {
         setSearchQuery("");
@@ -143,6 +153,9 @@ const SaintScreen = () => {
             const res = isSearching
                 ? await searchSaints(searchQuery, page, 5)
                 : await getAllSaints(page, 5);
+            
+            if (!res || !res.content) return;
+
             setSaints(res.content);
             await cacheSaints(res.content);
         } catch (error) {
@@ -206,7 +219,7 @@ const SaintScreen = () => {
                                     setSelectedSaint(item);
                                     setModalVisible(true);
                                     }}
-                                    style={{ alignItems: "center" }}
+                                    style={{ alignItems: "center", justifyContent: "center" }}
                                 >
                                     {item.imageUrl ? (
                                         <Image 
@@ -215,7 +228,7 @@ const SaintScreen = () => {
                                             defaultSource={defaultSaint}
                                         /> 
                                     ) : (
-                                        <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center"}]}>Image not available</Text>
+                                        <Text style={[Typography.label, Layout.image, {color: theme.saint.text, padding: 20, textAlign: "center", width: cardWidth}]}>Image not available for {item.name}</Text>
                                     )}
                                     <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center", marginTop: 8, width: cardWidth - 10}]} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
                                 </TouchableOpacity>

@@ -8,6 +8,7 @@ import { useAppTheme } from "../hooks/useAppTheme";
 import { useTypography } from "../styles/Typography";
 import Divider from "../components/Divider";
 import { Layout } from "../styles/Layout";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type AdminNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -16,9 +17,14 @@ type AdminNavigationProp = NativeStackNavigationProp<
 
 const AdminPanelScreen = () => {
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const navigation = useNavigation<AdminNavigationProp>();
     const Typography = useTypography();
 
+    if(!user) {
+        return null;
+    }
+    
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.background}}>
             <ScrollView 

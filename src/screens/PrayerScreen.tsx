@@ -12,6 +12,7 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import AdBanner from "../components/AdBanner";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type PrayerNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -21,8 +22,13 @@ type PrayerNavigationProp = NativeStackNavigationProp<
 const PrayerScreen = () => {
     const navigation = useNavigation<PrayerNavigationProp>();
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const Typography = useTypography();
 
+    if(!user) {
+        return null;
+    }
+    
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.prayer.primary}}>
             <Navbar />

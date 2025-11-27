@@ -10,13 +10,19 @@ import Navbar from "../components/Navbar";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
 import AdBanner from "../components/AdBanner";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 const PrayerListScreen = () => {
     const [selectedPrayer, setSelectedPrayer] = useState<Prayers | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const Typography = useTypography();
 
+    if(!user) {
+        return null;
+    }
+    
     const openModal = (prayer: Prayers) => {
         setSelectedPrayer(prayer);
         setModalVisible(true);

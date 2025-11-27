@@ -15,6 +15,7 @@ import { User } from "../models/User";
 import { deleteUser, getAllUsers, searchUser } from "../services/UserService";
 import Divider from "../components/Divider";
 import { useTheme } from "../context/ThemeContext";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type AdminAllUsersNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -23,6 +24,7 @@ type AdminAllUsersNavigationProp = NativeStackNavigationProp<
 
 const AdminAllUsersScreen = () => {
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(false);
     const [isVisibleDelete, setIsVisibleDelete] = useState(false);
@@ -37,6 +39,10 @@ const AdminAllUsersScreen = () => {
     const Typography = useTypography();
     const { isDark } = useTheme();
 
+    if(!user) {
+        return null;
+    }
+    
     const handleDelete = async (id: string) => {
         try {
             await deleteUser(id);
@@ -94,13 +100,13 @@ const AdminAllUsersScreen = () => {
 
     useEffect(() => {
         fetchUsers();
-      }, [page, isSearching]);
+      }, [page, isSearching, user]);
 
       useEffect(() => {
         if (searchQuery.trim() === "") {
           clearSearch();
         }
-      }, [searchQuery]);
+      }, [searchQuery, user]);
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.background}}>

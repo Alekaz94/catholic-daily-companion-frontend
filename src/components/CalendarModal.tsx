@@ -10,6 +10,7 @@ import { Saint } from "../models/Saint";
 import { JournalEntry } from "../models/JournalEntry";
 import DateDetailModal from "./DateDetailModal";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 interface MarkedDates {
     [key: string]: { dots: { key: string; color: string }[] };
@@ -28,8 +29,13 @@ const formatFeastDayToFeastCode = (date: string): string => {
 };
 
 const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
-    const { user } = useAuth();
+    const user = useRequireAuth();
     const theme = useAppTheme();
+    
+    if(!user) {
+        return null;
+    }
+
     const [markedDates, setMarkedDates] = useState<MarkedDates>({});
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [selectedSaints, setSelectedSaints] = useState<Saint[] | null>(null);
@@ -101,17 +107,25 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
               }
               marks[date].dots.push({ key, color });
             };
-    
-            rosaryDates.forEach((d: string) => addDot(d, "rosary", "blue"));
-            journalDates.forEach((d: string, index: number) => {
-                addDot(d, `journal-${index}`, "purple");
-              });
+            
+            if (Array.isArray(rosaryDates)) {
+                rosaryDates.forEach((d: string) => addDot(d, "rosary", "blue"));
+            }
+
+            if (Array.isArray(journalDates)) {
+                journalDates.forEach((d: string, index: number) =>
+                  addDot(d, `journal-${index}`, "purple")
+                );
+            }
+            
             if (feastDayMap && typeof feastDayMap === "object") {
                 Object.entries(feastDayMap).forEach(([feastCode, saintNames]) => {
                     const fullDate = `${currentYear}-${feastCode}`;
-                    saintNames.forEach((_, index) => {
-                        addDot(fullDate, `saint-${feastCode}-${index}`, "gold");
-                    })
+                    if (Array.isArray(saintNames)) {
+                        saintNames.forEach((_, index) => {
+                          addDot(fullDate, `saint-${feastCode}-${index}`, "gold");
+                        });
+                    }
                 });
             } else {
                 console.warn("Saints data is not an object", feastDayMap);

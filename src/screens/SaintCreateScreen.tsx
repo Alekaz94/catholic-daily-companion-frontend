@@ -9,6 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Layout } from "../styles/Layout";
 import { useTypography } from "../styles/Typography";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type SaintCreateNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
@@ -17,6 +18,12 @@ type SaintCreateNavigationProp = NativeStackNavigationProp<
 
 const CreateSaintScreen = () => {
     const navigation = useNavigation<SaintCreateNavigationProp>();
+    const user = useRequireAuth();
+
+    if(!user) {
+        return null;
+    }
+    
     const [name, setName] = useState("");
     const [birthYear, setBirthYear] = useState<string>("");
     const [deathYear, setDeathYear] = useState<string>("")
@@ -82,6 +89,13 @@ const CreateSaintScreen = () => {
                 imageSource: imageSource && imageSource?.trim() !== "" ? imageSource.trim() : null,
                 imageAuthor: imageAuthor && imageAuthor?.trim() !== "" ? imageAuthor.trim() : null,
                 imageLicence: imageLicence && imageLicence?.trim() !== "" ? imageLicence.trim() : null,
+            }
+
+            const res = await createSaint(newSaint);
+
+            if (!res) {
+                console.warn("CreateSaint returned null (likely session expired)");
+                return;
             }
 
             await createSaint(newSaint);

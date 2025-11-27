@@ -11,7 +11,6 @@ import { useTypography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useAuth } from '../context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
@@ -23,6 +22,7 @@ import SectionTitle from './SectionTitle';
 import PrayerBanner from '../components/PrayerBanner';
 import { useAppTheme } from '../hooks/useAppTheme';
 import AdBanner from '../components/AdBanner';
+import { useRequireAuth } from '../hooks/useRequireAuth';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -36,9 +36,13 @@ const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSaint, setLoadingSaint] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const { user } = useAuth();
+  const user = useRequireAuth();
   const theme = useAppTheme();
   const Typography = useTypography();
+
+  if(!user) {
+    return null;
+  }
 
   const formatSaintNames = (saints: Saint[]) => {
     if (saints.length === 1) {
@@ -71,7 +75,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     fetchSaintOfTheDay();
-  }, [])
+  }, [user])
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar}}>

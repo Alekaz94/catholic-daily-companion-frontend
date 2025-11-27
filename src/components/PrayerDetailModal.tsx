@@ -3,6 +3,7 @@ import { Layout } from "../styles/Layout";
 import { useTypography } from "../styles/Typography";
 import Divider from "./Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 interface Props {
     visible: boolean;
@@ -13,7 +14,12 @@ interface Props {
 
 const PrayerDetailModal = ({ visible, title, text, onClose }: Props) => {
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const Typography = useTypography();
+
+    if(!user) {
+        return null;
+    }
 
     if(!title && !text) {
         return null;

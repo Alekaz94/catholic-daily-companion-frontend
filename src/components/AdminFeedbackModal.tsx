@@ -8,6 +8,7 @@ import { formatSubmittedAt } from "../utils/dateUtils";
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from "../context/ThemeContext";
 import { useState } from "react";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 interface Props {
     visible: boolean;
@@ -18,11 +19,12 @@ interface Props {
 
 const AdminFeedbackModal: React.FC<Props> = ({ visible, feedback, onClose, handleUpdate }) => {
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const {isDark} = useTheme();
     const [updating, setUpdating] = useState(false);
     const Typography = useTypography();
 
-    if(!feedback) {
+    if(!feedback || !user) {
         return null;
     }
 

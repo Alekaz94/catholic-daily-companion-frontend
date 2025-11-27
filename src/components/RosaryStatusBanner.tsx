@@ -1,16 +1,16 @@
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { AuthStackParamList } from "../navigation/types"
-import { useAuth } from "../context/AuthContext";
 import { useEffect, useMemo, useState } from "react";
 import { getStreak, isCompletedToday } from "../services/RosaryService";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { getMysteryTypeForToday, getWeekdayName } from "../data/RosarySequence";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 const RosaryStatusBanner = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
-    const { user } = useAuth();
+    const user = useRequireAuth();
     const [completed, setCompleted] = useState<boolean | null>(null);
     const [streak, setStreak] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +18,10 @@ const RosaryStatusBanner = () => {
     const weekday = useMemo(() => getWeekdayName(new Date()), []);
     const mysteryType = useMemo(() => getMysteryTypeForToday(), []);
 
+    if(!user) {
+        return null;
+    }
+    
     useEffect(() => {
         const fetchData = async () => {
             if(!user?.id) {

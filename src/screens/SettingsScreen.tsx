@@ -17,13 +17,19 @@ import { downloadUserDataJson, downloadUserDataZip } from "../services/UserExpor
 import { Buffer } from "buffer";
 import * as Sharing from "expo-sharing";
 import { clearAllCache } from "../services/CacheService";
-import { auth } from "../../firebase";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 const SettingsScreen = () => { 
-    const theme = useAppTheme(); 
+    const user = useRequireAuth();
+    const theme = useAppTheme();
+    
+    if(!user) {
+        return null;
+    }
+    
     const { themeMode, setThemeMode, isDark, setFontSize, setFontStyle, fontSize, fontStyle } = useTheme();
     const [isDeleteConfirmVisible, setIsDeleteConfirmVisible] = useState(false);
-    const {user, logout} = useAuth();
+    const {logout} = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const Typography = useTypography();
 

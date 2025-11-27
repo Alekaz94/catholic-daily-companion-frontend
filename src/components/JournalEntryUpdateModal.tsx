@@ -6,6 +6,7 @@ import { useTypography } from "../styles/Typography";
 import React from "react";
 import Divider from "./Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 interface Props {
     visible: boolean,
@@ -19,6 +20,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const Typography = useTypography();
 
     useEffect(() => {
@@ -26,7 +28,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
             setTitle(entry.title)
             setContent(entry.content)
         }
-    }, [entry])
+    }, [entry, user])
 
     const onHandleSubmit = async () => {
         if(!entry) {
@@ -95,7 +97,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
                     /> 
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                         <TouchableOpacity disabled={isLoading} style={[Layout.button, {backgroundColor: "lightgray", width: "40%", alignSelf: "center", opacity: isLoading ? 0.7 : 1}]} onPress={onClose} >
-                            <Text style={[Layout.buttonText, {color: theme.journal.text}]}>Cancel</Text>
+                            <Text style={[Layout.buttonText, {color: "black"}]}>Cancel</Text>
                         </TouchableOpacity>
                         
                         <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.journal.cardOne, borderWidth: 1, borderColor: "#ccc", opacity: isLoading ? 0.7 : 1}]} onPress={onHandleSubmit} >

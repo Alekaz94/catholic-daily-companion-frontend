@@ -5,6 +5,7 @@ import { useTypography } from '../styles/Typography';
 import { Layout } from '../styles/Layout';
 import Divider from './Divider';
 import { useAppTheme } from '../hooks/useAppTheme';
+import { useRequireAuth } from '../hooks/useRequireAuth';
 
 interface Props {
     visible: boolean;
@@ -14,9 +15,10 @@ interface Props {
 
 const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose}) => {
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const Typography = useTypography();
 
-    if(!entry) {
+    if(!entry || !user) {
         return null;
     }
 

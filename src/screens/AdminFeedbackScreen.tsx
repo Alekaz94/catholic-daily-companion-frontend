@@ -15,6 +15,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
 import { formatSubmittedAt } from "../utils/dateUtils";
+import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type AdminFeedbackNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -23,6 +24,7 @@ type AdminFeedbackNavigationProp = NativeStackNavigationProp<
 
 const AdminFeedbackScreen = () => {
     const theme = useAppTheme();
+    const user = useRequireAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [feedback, setFeedback] = useState<Feedback[]>([]);
     const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
@@ -31,6 +33,10 @@ const AdminFeedbackScreen = () => {
     const [showFixed, setShowFixed] = useState(false);
     const Typography = useTypography();
 
+    if(!user) {
+        return null;
+    }
+    
     const handleUpdate = async () => {
         if(!selectedFeedback) {
             return;
@@ -75,7 +81,7 @@ const AdminFeedbackScreen = () => {
         }
 
         fetchFeedback();
-    }, [])
+    }, [user])
     
     const filteredFeedback = feedback.filter(fb => fb.isFixed === showFixed);
 
