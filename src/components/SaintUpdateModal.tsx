@@ -155,7 +155,7 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
     return (
         <Modal visible={visible} animationType="slide">
             <View style={[Layout.container, {backgroundColor: theme.saint.background}]}>
-                <Text style={[Typography.title, {color: theme.saint.text}]}>Edit Saint</Text>
+                <Text style={[Typography.title, {color: theme.saint.text, textAlign: "center", marginBottom: 15, marginTop: 30}]}>Edit Saint</Text>
                 <TextInput
                     placeholder="Enter name (Required)"
                     style={Layout.input}
@@ -236,12 +236,12 @@ const SaintUpdateModal = ({ visible, saint, onClose, onUpdate}: Props) => {
                     onChangeText={(value) => setImageLicence(value)}
                     placeholderTextColor={"black"}
                 />
-                <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: "lightgray", width: "40%", alignSelf: "center"}]} onPress={onClose}> 
-                        <Text style={[Typography.label, {color: theme.auth.text, textAlign: "center"}]}>Cancel</Text>
+                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={onClose}> 
+                        <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center"}]}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.auth.background}]} onPress={onHandleSubmit}>
-                        <Text style={[Typography.label, {color: theme.auth.text, textAlign: "center"}]}>Save changes</Text>
+                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.saint.navbar}]} onPress={onHandleSubmit}>
+                        <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center"}]}>Save changes</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -95,15 +95,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser(user);
   };
 
+  const firebaseLoginInProgress = React.useRef(false);
+
   const firebaseLogin = async (idToken: string | undefined) => {
-    const result = await firebaseLoginService(idToken);
-    if(!result) {
-      throw new Error("Firebase login failed");
+    if (firebaseLoginInProgress.current) {
+      console.log("Skipping duplicate firebaseLogin call");
+      return;
     }
 
-    const { user, token } = result;
-    setAuthToken(token);
-    setUser(user);
+    firebaseLoginInProgress.current = true;
+
+    try {
+      const result = await firebaseLoginService(idToken);
+      if(!result) {
+        throw new Error("Firebase login failed");
+      }
+
+      const { user, token } = result;
+      setAuthToken(token);
+      setUser(user);
+    } finally {
+
+    }setTimeout(() => {
+      firebaseLoginInProgress.current = false;      
+    }, 1500)
   }
 
   useEffect(() => {

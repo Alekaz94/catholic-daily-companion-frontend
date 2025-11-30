@@ -113,7 +113,7 @@ const CreateSaintScreen = () => {
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.saint.background}}>
             <View style={[Layout.container, {backgroundColor: theme.saint.background}]}>
-                <Text style={[Typography.title, {color: theme.saint.text}]}>Create Saint</Text>
+                <Text style={[Typography.title, {color: theme.saint.text, textAlign: "center", marginVertical: 15}]}>Create Saint</Text>
                 <TextInput
                     placeholder="Enter name (Required)"
                     placeholderTextColor={"black"}
@@ -196,11 +196,11 @@ const CreateSaintScreen = () => {
                 />
 
                 <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                    <TouchableOpacity style={[Layout.button, {backgroundColor: "lightgray", width: "40%", alignSelf: "center"}]} onPress={() => {navigation.navigate("Saint")}} >
+                    <TouchableOpacity style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center"}]} onPress={() => {navigation.navigate("Saint")}} >
                         <Text style={[Layout.buttonText,{color: theme.saint.text}]}>Cancel</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.auth.background}]} onPress={handleCreate} >
-                        <Text style={[Layout.buttonText, {color: "black"}]}>Create</Text>
+                    <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.saint.navbar}]} onPress={handleCreate} >
+                        <Text style={[Layout.buttonText, {color: theme.saint.text}]}>Create</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -129,10 +129,11 @@ const DrawerNavigatorWrapper = () => {
                             backgroundColor: theme.auth.background,
                             borderRadius: 10,
                             padding: 20,
-                            alignItems: 'center',
                         }}
                     >
-                        <Ionicons name="alert-circle-outline" size={48} color={theme.auth.text} />
+                        <View style={{alignItems: 'center'}}>
+                            <Ionicons name="alert-circle-outline" size={48} color={theme.auth.text} />
+                        </View>
                         <Text
                             style={{
                             fontSize: 18,
@@ -144,17 +145,15 @@ const DrawerNavigatorWrapper = () => {
                         >
                             Are you sure you want to logout?
                         </Text>
-                        <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                        <View style={{ flexDirection: 'row', marginTop: 15, justifyContent: "space-between" }}>
                             <TouchableOpacity
                                 onPress={() => setShowLogoutModal(false)}
                                 style={{
-                                  backgroundColor: "lightgray",
+                                  backgroundColor: "gray",
                                   paddingVertical: 10,
                                   paddingHorizontal: 20,
                                   borderRadius: 8,
                                   marginHorizontal: 15,
-                                  borderWidth: 1,
-                                  borderColor: theme.auth.text
                                 }}
                             >
                                 <Text style={{ color: theme.auth.text, fontWeight: '600' }}>Cancel</Text>
@@ -172,11 +171,9 @@ const DrawerNavigatorWrapper = () => {
                                     paddingHorizontal: 20,
                                     borderRadius: 8,
                                     marginHorizontal: 15,
-                                    borderWidth: 1,
-                                    borderColor: theme.auth.text
                                 }}
                             >
-                                <Text style={{ color: 'white', fontWeight: '600' }}>Logout</Text>
+                                <Text style={{ color: theme.auth.text, fontWeight: '600' }}>Logout</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

@@ -27,7 +27,7 @@ const NameChangeConfirmModal: React.FC<Props> = ({ visible, onClose, onConfirm, 
                     <Text style={[Typography.title, {textAlign: "center", color: theme.auth.text}]}>Are you sure you want to update your name?</Text>
                     <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
                         <TouchableOpacity
-                            style={[Layout.button, {backgroundColor: "lightgray", width: "40%"}]}
+                            style={[Layout.button, {backgroundColor: "gray", width: "40%"}]}
                             onPress={onClose}
                         >
                             <Text style={[Layout.buttonText, {color: theme.auth.text}]}>Cancel</Text>

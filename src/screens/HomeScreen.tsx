@@ -142,10 +142,10 @@ const HomeScreen = () => {
           {saints.map((saint: Saint) => (
             <View key={saint.id} style={[Layout.container, {backgroundColor: theme.auth.background, marginBottom: 16}]}>
               <LinearGradient 
-                  colors={[theme.saint.cardOne, theme.saint.cardTwo]}
+                  colors={[theme.saint.detail, theme.saint.detail]}
                   start={{x: 0, y: 0.5}}
                   end={{x: 1, y: 0.5}}
-                  style={[Layout.card, {borderRadius: 12}]}
+                  style={[Layout.card, {borderRadius: 12, borderWidth: 1, borderColor: theme.saint.text}]}
               >
                 <TouchableOpacity 
                   onPress={() => {

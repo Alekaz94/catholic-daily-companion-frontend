@@ -102,7 +102,7 @@ const FeedbackScreen = () => {
 
               <Text style={[Typography.label, {fontWeight: 'bold', marginVertical: 20, color: theme.auth.text }]}>Message</Text>
               <TextInput
-                style={[Layout.input, { height: 150, textAlignVertical: 'top', color: theme.auth.text }]}
+                style={[Layout.input, { height: 150, textAlignVertical: 'top', color: "black" }]}
                 placeholder="Share your thoughts..."
                 placeholderTextColor="black"
                 multiline
@@ -127,7 +127,7 @@ const FeedbackScreen = () => {
                 {isLoading ? (
                   <ActivityIndicator color={theme.auth.text} />
                 ) : (
-                  <Text style={[Typography.label, { color: "black" }]}>Send Feedback</Text>
+                  <Text style={[Typography.label, { color: theme.auth.text }]}>Send Feedback</Text>
                 )}
               </TouchableOpacity>
 

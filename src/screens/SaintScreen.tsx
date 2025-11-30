@@ -210,10 +210,10 @@ const SaintScreen = () => {
                         renderItem={({item}) => (
                             <View style={{width: cardWidth}}>
                             <LinearGradient 
-                                    colors={[theme.saint.cardOne, theme.saint.cardTwo]}
+                                    colors={[theme.saint.detail, theme.saint.detail]}
                                     start={{x: 0, y: 0.5}}
                                     end={{x: 1, y: 0.5}}
-                                    style={Layout.card}
+                                    style={[Layout.card, {borderWidth: 1, borderColor: theme.saint.text}]}
                                 >
                                 <TouchableOpacity onPress={() => {
                                     setSelectedSaint(item);
@@ -223,7 +223,7 @@ const SaintScreen = () => {
                                 >
                                     {item.imageUrl ? (
                                         <Image 
-                                            style={[Layout.image, {width: cardWidth}]} 
+                                            style={[Layout.image, {width: (cardWidth - 5)}]} 
                                             source={{  uri: buildImageUri(item.imageUrl)  }}
                                             defaultSource={defaultSaint}
                                         /> 
