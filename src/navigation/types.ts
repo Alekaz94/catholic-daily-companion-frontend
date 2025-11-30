@@ -22,5 +22,6 @@ export type AuthStackParamList = {
   Feedback: undefined;
   AdminAllUsersScreen: undefined;
   AdminFeedbackScreen: undefined;
+  AdminUserOverview: { userId: string };
   Licenses: undefined;
 };

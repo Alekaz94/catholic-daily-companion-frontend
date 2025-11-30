@@ -12,10 +12,11 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import { User } from "../models/User";
-import { deleteUser, getAllUsers, searchUser } from "../services/UserService";
+import { getAllUsers, searchUser } from "../services/UserService";
 import Divider from "../components/Divider";
 import { useTheme } from "../context/ThemeContext";
 import { useRequireAuth } from "../hooks/useRequireAuth";
+import { AdminUserOverviewDto } from "../models/AdminOverView";
 
 type AdminAllUsersNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -27,8 +28,6 @@ const AdminAllUsersScreen = () => {
     const user = useRequireAuth();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(false);
-    const [isVisibleDelete, setIsVisibleDelete] = useState(false);
-    const [userToDeleteId, setUserToDeleteId] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
@@ -43,17 +42,6 @@ const AdminAllUsersScreen = () => {
         return null;
     }
     
-    const handleDelete = async (id: string) => {
-        try {
-            await deleteUser(id);
-            setUsers(prev => prev.filter(user => user.id !== id))
-            setIsVisibleDelete(false);
-            setUserToDeleteId(null)
-        } catch (error) {
-            console.error("Failed to delete user ", error);
-        }
-    }
-
     const fetchUsers = async () => {
         if(loading || !hasMore) {
             return;
@@ -136,18 +124,14 @@ const AdminAllUsersScreen = () => {
                         ref={listRef}
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (
-                            <View style={[Layout.button, { marginBottom: 10, borderColor: theme.auth.text, backgroundColor: theme.auth.primary, borderWidth: 1 }]}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate("AdminUserOverview", { userId: item.id });
+                                }}
+                                style={[Layout.button, { marginBottom: 10, borderColor: theme.auth.text, backgroundColor: theme.auth.primary}]}>
                                 <Text style={[Typography.label, {color: theme.auth.text}]}>{item.email}</Text>
                                 <Text style={[Typography.body, {color: theme.auth.text}]}>Role: {item.role}</Text>
-                                <View style={{flexDirection: "row", marginTop: 10}}>
-                                    <TouchableOpacity onPress={() => {
-                                        setIsVisibleDelete(true);
-                                        setUserToDeleteId(item.id);
-                                    }}>
-                                        <Ionicons name="trash-outline" size={20} color="red" />
-                                    </TouchableOpacity>  
-                                </View>
-                            </View>
+                            </TouchableOpacity>
                         )}
                         onEndReached={() => {
                             setPage(prev => prev + 1)
@@ -161,37 +145,6 @@ const AdminAllUsersScreen = () => {
                     />
                 )}
             </View>
-
-            <Modal
-                animationType="fade"
-                transparent
-                visible={isVisibleDelete}
-                onRequestClose={() => setIsVisibleDelete(false)}
-            >
-                 <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
-                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: theme.auth.background, borderRadius: 12, borderColor: theme.auth.text, borderWidth: 1}}>
-                        <Text style={[Typography.body, {color: theme.auth.text}]}>Are you sure you want to delete {users.find(user => user.id === userToDeleteId)?.email}?</Text>
-                        <View style={{flexDirection: "row"}}>
-                            <TouchableOpacity
-                                style={[Layout.button, {backgroundColor: Colors.success, width: "30%", marginRight: 20}]}
-                                onPress={() => {
-                                    if (userToDeleteId) {
-                                    handleDelete(userToDeleteId);
-                                  }}    
-                                }
-                            >
-                                <Text style={[Typography.body, {color: theme.auth.text}]}>Yes</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[Layout.button, {backgroundColor: "gray", width: "30%"}]}
-                                onPress={() => setIsVisibleDelete(false)}
-                            >
-                                <Text style={[Typography.body, {color: theme.auth.text}]}>Cancel</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
         </SafeAreaView>
     )
 }

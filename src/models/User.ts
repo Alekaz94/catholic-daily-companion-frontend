@@ -20,3 +20,13 @@ export interface UserPasswordChange {
   currentPassword: string;
   newPassword: string;
 }
+
+export interface UserDto {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+}
