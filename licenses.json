@@ -1041,8 +1041,8 @@
     "publisher": "Firebase",
     "email": "firebase-support@google.com",
     "url": "https://firebase.google.com/",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/firebase/node_modules/@firebase/auth",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/firebase/node_modules/@firebase/auth/README.md"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/auth",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@firebase/auth/README.md"
   },
   "@firebase/component@0.7.0": {
     "licenses": "Apache-2.0",
@@ -1628,7 +1628,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@protobufjs/utf8",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@protobufjs/utf8/LICENSE"
   },
-  "@react-native-async-storage/async-storage@2.2.0": {
+  "@react-native-async-storage/async-storage@1.24.0": {
     "licenses": "MIT",
     "repository": "https://github.com/react-native-async-storage/async-storage",
     "publisher": "Krzysztof Borowy",
@@ -1719,25 +1719,25 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/node_modules/@react-native/virtualized-lists",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-native/node_modules/@react-native/virtualized-lists/README.md"
   },
-  "@react-navigation/core@7.13.2": {
+  "@react-navigation/core@7.13.3": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/core",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/core/LICENSE"
   },
-  "@react-navigation/elements@2.8.3": {
+  "@react-navigation/elements@2.8.4": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/elements",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/elements/LICENSE"
   },
-  "@react-navigation/native-stack@7.8.0": {
+  "@react-navigation/native-stack@7.8.2": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/native-stack",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/native-stack/LICENSE"
   },
-  "@react-navigation/native@7.1.21": {
+  "@react-navigation/native@7.1.22": {
     "licenses": "MIT",
     "repository": "https://github.com/react-navigation/react-navigation",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/@react-navigation/native",
@@ -2461,7 +2461,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/base64-js",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/base64-js/LICENSE"
   },
-  "baseline-browser-mapping@2.8.31": {
+  "baseline-browser-mapping@2.8.32": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/web-platform-dx/baseline-browser-mapping",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/baseline-browser-mapping",
@@ -3176,7 +3176,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/ee-first",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/ee-first/LICENSE"
   },
-  "electron-to-chromium@1.5.259": {
+  "electron-to-chromium@1.5.262": {
     "licenses": "ISC",
     "repository": "https://github.com/kilian/electron-to-chromium",
     "publisher": "Kilian Valkhof",
@@ -3748,12 +3748,6 @@
     "url": "http://blog.izs.me/",
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/fs.realpath",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/fs.realpath/LICENSE"
-  },
-  "fsevents@2.3.3": {
-    "licenses": "MIT",
-    "repository": "https://github.com/fsevents/fsevents",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/fsevents",
-    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/fsevents/LICENSE"
   },
   "function-bind@1.1.2": {
     "licenses": "MIT",
@@ -5051,7 +5045,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/nested-error-stacks",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/nested-error-stacks/LICENSE"
   },
-  "node-forge@1.3.1": {
+  "node-forge@1.3.2": {
     "licenses": "(BSD-3-Clause OR GPL-2.0)",
     "repository": "https://github.com/digitalbazaar/forge",
     "publisher": "Digital Bazaar, Inc.",
@@ -5584,7 +5578,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-freeze",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/react-freeze/LICENSE"
   },
-  "react-hook-form@7.66.1": {
+  "react-hook-form@7.67.0": {
     "licenses": "MIT",
     "repository": "https://github.com/react-hook-form/react-hook-form",
     "publisher": "Beier",
@@ -7132,7 +7126,7 @@
     "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/tar/node_modules/yallist",
     "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/tar/node_modules/yallist/LICENSE.md"
   },
-  "yaml@2.8.1": {
+  "yaml@2.8.2": {
     "licenses": "ISC",
     "repository": "https://github.com/eemeli/yaml",
     "publisher": "Eemeli Aro",
