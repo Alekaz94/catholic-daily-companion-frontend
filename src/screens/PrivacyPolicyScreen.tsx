@@ -68,7 +68,7 @@ const PrivacyPolicyScreen = () => {
                 </Text>
 
                 <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>How We Use Your Information:</Text>
-                <Text style={[Typography.body, { color: theme.auth.text, textAlign: "center" }]}>
+                <Text style={[Typography.body, { color: theme.auth.text}]}>
                     - To authenticate you securely through Google{"\n"}
                     - To display your journal entries and rosary history{"\n"}
                     - To maintain your rosary streaks{"\n"}
