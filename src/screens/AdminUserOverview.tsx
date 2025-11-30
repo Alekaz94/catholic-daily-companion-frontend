@@ -24,6 +24,20 @@ type AdminUserOverviewNavigationProp = NativeStackNavigationProp<
 
 type UserOverviewRoute = RouteProp<AuthStackParamList, "AdminUserOverview">;
 
+const formatDateTime = (dateString: string) => {
+    const date = new Date(dateString);
+    const pad = (n: number) => n.toString().padStart(2, "0");
+  
+    return (
+      date.getFullYear() +
+      "-" + pad(date.getMonth() + 1) +
+      "-" + pad(date.getDate()) +
+      " " + pad(date.getHours()) +
+      ":" + pad(date.getMinutes()) +
+      ":" + pad(date.getSeconds())
+    );
+  };
+
 const AdminUserOverview = () => {
     const { params } = useRoute<UserOverviewRoute>();
     const { userId } = params;
@@ -112,11 +126,20 @@ const AdminUserOverview = () => {
                     </Text>
                     <Text style={[Typography.body, { color: theme.auth.text }]}>Journal Entries: {overview.journalCount}</Text>
                     <Text style={[Typography.body, { color: theme.auth.text }]}>Rosaries Prayed: {overview.rosaryCount}</Text>
+                    <Text style={[Typography.body, { color: theme.auth.text }]}>Feedback submitted: {overview.feedbackCount}</Text>
                 </View>
 
                 <CollapsibleSection title="Rosary Dates" color={theme.auth.text} >
                     {overview.rosaryDates.map((date, index) => (
                         <Text style={[Typography.body, { color: theme.auth.text }]} key={index}>{date}</Text>
+                    ))}
+                </CollapsibleSection>
+
+                <CollapsibleSection title="Feedback Submitted" color={theme.auth.text} >
+                    {overview.feedbacks.map((feedback, index) => (
+                        <Text style={[Typography.body, { color: theme.auth.text }]} key={index}>
+                            {formatDateTime(feedback.submittedAt ?? "")}: {feedback.category}, {feedback.message} by {feedback.email}
+                        </Text>
                     ))}
                 </CollapsibleSection>
 
