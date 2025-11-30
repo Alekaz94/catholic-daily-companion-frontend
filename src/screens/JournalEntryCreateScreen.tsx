@@ -12,7 +12,6 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
-import { useTheme } from "../context/ThemeContext";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 
 type JournalEntryCreateNavigationProp = NativeStackNavigationProp<
@@ -53,7 +52,7 @@ const JournalEntryCreateScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: theme.journal.cardOne}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: theme.journal.primary}}>
             <Navbar />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
@@ -79,7 +78,7 @@ const JournalEntryCreateScreen = () => {
                     />
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                         <TouchableOpacity 
-                            style={[Layout.button, {backgroundColor: "lightgray", width: "40%", alignSelf: "center", borderWidth: 1}]} 
+                            style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", borderWidth: 1}]} 
                             onPress={() => {navigation.navigate("Journal")}} 
                             disabled={isLoading}
                         >

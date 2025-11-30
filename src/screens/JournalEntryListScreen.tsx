@@ -12,7 +12,6 @@ import { useTypography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
 import Navbar from "../components/Navbar";
 import { LinearGradient } from "expo-linear-gradient";
-import { Colors } from "../styles/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Divider from "../components/Divider";
 import { useAppTheme } from "../hooks/useAppTheme";
@@ -203,9 +202,9 @@ const JournalEntryListScreen = () => {
                                 style={[Layout.card, {
                                     borderRadius: 12,
                                     borderColor: theme.journal.background,
-                                    padding: 16,
                                     marginVertical: 8,
                                     shadowRadius: 6,
+                                    padding: 12,
                                     elevation: 3, 
                                 }]}
                                 >
@@ -220,30 +219,8 @@ const JournalEntryListScreen = () => {
                                         <Text style={[Typography.body, {color: theme.journal.text, fontWeight: "bold"}]}>{item.title}</Text>
                                         <Text style={[Typography.body, {color: theme.journal.text}]}>{item.date}</Text>
                                     </View>
-                                    <Text style={[Typography.italic, {color: theme.journal.text, marginVertical: 10}]} numberOfLines={2}>{item.content}</Text>
+                                    <Text style={[Typography.italic, {color: theme.journal.text, marginTop: 10}]} numberOfLines={2}>{item.content}</Text>
                                 </TouchableOpacity>
-                                
-                                <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 5}}>
-                                    <TouchableOpacity 
-                                        onPress={() => {
-                                            setEntryToEdit(item);
-                                            setEditModalVisible(true);
-                                        }}
-                                        disabled={isLoading} 
-                                    >
-                                        <Ionicons name="pencil-outline" size={20} color={theme.journal.text}/>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity 
-                                        onPress={() => {
-                                            setIsVisibleDelete(true);
-                                            setEntryToDeleteId(item.id);
-                                        }} 
-                                        disabled={isLoading} 
-                                    >
-                                        <Ionicons name="trash-outline" size={20} color="red" />
-                                    </TouchableOpacity>  
-                                </View>
                             </LinearGradient>
                         )}
                         onEndReached={() => {
@@ -274,6 +251,16 @@ const JournalEntryListScreen = () => {
                         setModalVisible(false)
                         setSelectedEntry(null)
                     }}
+                    onEdit={(entry) => {
+                        setEntryToEdit(entry);
+                        setEditModalVisible(true);
+                        setModalVisible(false);
+                    }}
+                    onRequestDelete={(entry) => {
+                        setEntryToDeleteId(entry.id);
+                        setIsVisibleDelete(true);
+                        setModalVisible(false); 
+                    }}
                 />
 
                 <JournalEntryUpdateModal 
@@ -296,11 +283,17 @@ const JournalEntryListScreen = () => {
                 onRequestClose={() => setIsVisibleDelete(false)}
             >
                  <View style={[Layout.container, {width: "100%", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,0.4)'}]}>
-                    <View style={{alignItems: "center", padding: 20, width: "80%", backgroundColor: theme.journal.background, borderRadius: 12, borderColor: theme.journal.text, borderWidth: 1}}>
-                        <Text style={[Typography.title, {color: theme.journal.text}]}>Are you sure you want to delete this entry?</Text>
-                        <View style={{flexDirection: "row"}}>
+                    <View style={{padding: 20, width: "80%", backgroundColor: theme.journal.background, borderRadius: 12, borderColor: theme.journal.text, borderWidth: 1}}>
+                        <Text style={[Typography.title, {color: theme.journal.text, textAlign: "center"}]}>Are you sure you want to delete this entry?</Text>
+                        <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: 10}}>
                             <TouchableOpacity
-                                style={[Layout.button, {backgroundColor: "red", width: "30%", marginRight: 20}]}
+                                style={[Layout.button, {backgroundColor: "gray", width: "40%"}]}
+                                onPress={() => setIsVisibleDelete(false)}
+                            >
+                                <Text style={[Typography.body, {color: theme.journal.text}]}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[Layout.button, {backgroundColor: "red", width: "40%"}]}
                                 onPress={() => {
                                     if (entryToDeleteId) {
                                     handleDelete(entryToDeleteId);
@@ -310,12 +303,6 @@ const JournalEntryListScreen = () => {
                                 }
                             >
                                 <Text style={[Typography.body, { color: theme.journal.text }]}>Yes</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={[Layout.button, {backgroundColor: theme.journal.cardOne, width: "30%"}]}
-                                onPress={() => setIsVisibleDelete(false)}
-                            >
-                                <Text style={[Typography.body, {color: theme.journal.text}]}>Cancel</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

@@ -96,8 +96,8 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
                         onChangeText={(value) => setContent(value)}
                     /> 
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                        <TouchableOpacity disabled={isLoading} style={[Layout.button, {backgroundColor: "lightgray", width: "40%", alignSelf: "center", opacity: isLoading ? 0.7 : 1}]} onPress={onClose} >
-                            <Text style={[Layout.buttonText, {color: "black"}]}>Cancel</Text>
+                        <TouchableOpacity disabled={isLoading} style={[Layout.button, {backgroundColor: "gray", width: "40%", alignSelf: "center", opacity: isLoading ? 0.7 : 1}]} onPress={onClose} >
+                            <Text style={[Layout.buttonText, {color: theme.journal.text}]}>Cancel</Text>
                         </TouchableOpacity>
                         
                         <TouchableOpacity style={[Layout.button, {width: "40%", alignSelf: "center", backgroundColor: theme.journal.cardOne, borderWidth: 1, borderColor: "#ccc", opacity: isLoading ? 0.7 : 1}]} onPress={onHandleSubmit} >
