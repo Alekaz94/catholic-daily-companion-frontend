@@ -116,7 +116,7 @@ const LandingScreen = () => {
                       colors={[theme.saint.detail, theme.saint.detail]}
                       start={{x: 0, y: 0.5}}
                       end={{x: 1, y: 0.5}}
-                      style={[Layout.card, {borderRadius: 12, borderWidth: 1, borderColor: theme.saint.text}]}
+                      style={[Layout.card, {borderRadius: 12}]}
                   >
                     <TouchableOpacity 
                       onPress={() => {
@@ -126,7 +126,7 @@ const LandingScreen = () => {
                       style={{alignItems: "center"}}
                     >
                       {saint.imageUrl 
-                        ? <Image style={Layout.image} source={{ uri: buildImageUri(saint.imageUrl) }} defaultSource={defaultSaint}/> 
+                        ? <Image style={Layout.image} resizeMode='stretch' source={{ uri: buildImageUri(saint.imageUrl) }} defaultSource={defaultSaint}/> 
                         : <Image style={Layout.image} source={defaultSaint}/> 
                       }
                       <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]}>{saint.name}</Text>

@@ -213,7 +213,7 @@ const SaintScreen = () => {
                                     colors={[theme.saint.detail, theme.saint.detail]}
                                     start={{x: 0, y: 0.5}}
                                     end={{x: 1, y: 0.5}}
-                                    style={[Layout.card, {borderWidth: 1, borderColor: theme.saint.text}]}
+                                    style={[Layout.card]}
                                 >
                                 <TouchableOpacity onPress={() => {
                                     setSelectedSaint(item);
@@ -239,9 +239,8 @@ const SaintScreen = () => {
                                             setSaintToEdit(item);
                                             setEditSaintModalVisible(true);
                                         }}
-                                        style={{alignSelf: "flex-start"}}
                                         >
-                                            <Ionicons name="pencil-outline" size={20} />
+                                            <Ionicons color={theme.saint.text} name="pencil-outline" size={20} />
                                         </TouchableOpacity>
 
                                         <TouchableOpacity onPress={() => {

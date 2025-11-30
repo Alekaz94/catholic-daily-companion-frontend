@@ -75,7 +75,7 @@ export const Colors = {
       text: '#F1F1F1',
       bannerText: "#000000",
       button: '#121212', 
-      detail: '#121212'
+      detail: '#242424'
     },
     prayer: {
       background: '#121212',
