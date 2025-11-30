@@ -52,9 +52,7 @@ const GoogleLogin = () => {
                 await firebaseLogin(firebaseIdToken);
             } catch (error) {
                 console.error("Failed to login with Firebase", error);
-            }
-        
-            console.log("User signed in:", userInfo.user.id);
+            }        
         } catch (error) {
             console.error("Google signin error:", error);
         } finally {
