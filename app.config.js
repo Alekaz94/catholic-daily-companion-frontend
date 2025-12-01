@@ -57,6 +57,14 @@ export default ({ config }) => {
       edgeToEdgeEnabled: true,
       package: "com.alexandros.catholicdailycompanion",
       googleServicesFile: "./android/app/google-services.json",
+      permissions: [
+        "INTERNET",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "VIBRATE",
+        "SYSTEM_ALERT_WINDOW",
+        "com.google.android.gms.permission.AD_ID"
+      ]
     },
 
     web: {
