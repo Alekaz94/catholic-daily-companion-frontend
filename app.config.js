@@ -29,7 +29,7 @@ export default ({ config }) => {
   return {
     ...config,
 
-    name: "catholic-daily-companion",
+    name: "Catholic Daily Companion",
     slug: "catholic-daily-companion",
     scheme: "catholic-daily-companion",
     version: "1.0.0",
