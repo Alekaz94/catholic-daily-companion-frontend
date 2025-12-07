@@ -32,7 +32,7 @@ export default ({ config }) => {
     name: "Catholic Daily Companion",
     slug: "catholic-daily-companion",
     scheme: "catholic-daily-companion",
-    version: "1.0.0",
+    version: "1.0.1-closed-test",
     orientation: "portrait",
     platforms: ["ios", "android"],
     icon: "./assets/images/cdc_main_logo.png",
@@ -51,6 +51,7 @@ export default ({ config }) => {
     },
     
     android: {
+      versionCode: 3,
       adaptiveIcon: {
         backgroundColor: "#ffffff",
       },
@@ -90,6 +91,7 @@ export default ({ config }) => {
       GOOGLE_ANDROID_GRADLE_SIGNIN_CLIENT_ID:
         process.env.GOOGLE_ANDROID_GRADLE_SIGNIN_CLIENT_ID,
       GOOGLE_WEB_CLIENT_ID: process.env.GOOGLE_WEB_CLIENT_ID,
+      GOOGLE_ANDROID_GOOGLE_PLAY_CLIENT_ID: process.env.GOOGLE_ANDROID_GOOGLE_PLAY_CLIENT_ID,
 
       GOOGLE_SERVICES_JSON_BASE64: process.env.GOOGLE_SERVICES_JSON_BASE64,
 
