@@ -13,6 +13,13 @@ export interface Saint {
     imageSource: string | null;
 }
 
+export interface SaintListDto {
+    id: string;
+    name: string;
+    feastDay: string | null;
+    imageUrl: string | null;
+}
+
 export interface NewSaint {
     name: string;
     birthYear?: number;

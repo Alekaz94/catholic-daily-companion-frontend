@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { JournalEntry, UpdateJournalEntry } from "../models/JournalEntry";
-import { deleteEntry, getAllEntries, updateEntry } from "../services/JournalEntryService";
+import { JournalEntry, JournalEntryLite, UpdateJournalEntry } from "../models/JournalEntry";
+import { deleteEntry, getAllEntries, getSpecificEntry, updateEntry } from "../services/JournalEntryService";
 import { FlatList, TouchableOpacity, View, Text, Modal, ActivityIndicator } from "react-native";
 import EntryDetailModal from "../components/EntryDetailModal";
 import { AuthStackParamList } from "../navigation/types";
@@ -25,7 +25,7 @@ type JournalEntryListNavigationProp = NativeStackNavigationProp<
 >
 
 const JournalEntryListScreen = () => {
-    const [entries, setEntries] = useState<JournalEntry[]>([]);
+    const [entries, setEntries] = useState<JournalEntryLite[]>([]);
     const [selectedEntry, setSelectedEntry] = useState<JournalEntry | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const [editModalVisible, setEditModalVisible] = useState(false);
@@ -187,41 +187,58 @@ const JournalEntryListScreen = () => {
                     </View> 
                 ) : ( entries.length === 0 ? (
                         <View>
-                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 10, color: theme.journal.smallText}]}>You have not made a journal entry.</Text>
+                            <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 10, color: theme.journal.smallText}]}>You have not created a journal entry.</Text>
                             <Text style={[Typography.label, {textAlign: 'center', fontSize: 16, marginTop: 5, color: theme.journal.smallText}]}>Create your first entry by clicking the button 'Create Journal Entry' above.</Text>
                         </View>
                     ): (
                         <FlatList 
                         data={entries} 
+                        initialNumToRender={5}
+                        maxToRenderPerBatch={5}
+                        windowSize={5}
+                        removeClippedSubviews={true}
+                        updateCellsBatchingPeriod={50}
                         keyExtractor={item => item.id}
                         renderItem={({item}) => (
-                            <LinearGradient
-                                colors={[theme.journal.cardOne, theme.journal.cardTwo]}
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 1, y: 1 }}
-                                style={[Layout.card, {
-                                    borderRadius: 12,
-                                    borderColor: theme.journal.background,
-                                    marginVertical: 8,
-                                    shadowRadius: 6,
-                                    padding: 12,
-                                    elevation: 3, 
-                                }]}
-                                >
-                                <TouchableOpacity 
-                                    onPress={() => {
-                                        setSelectedEntry(item);
-                                        setModalVisible(true);
-                                    }}
-                                    disabled={isLoading}
-                                >
-                                    <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                        <Text style={[Typography.body, {color: theme.journal.text, fontWeight: "bold"}]}>{item.title}</Text>
-                                        <Text style={[Typography.body, {color: theme.journal.text}]}>{item.date}</Text>
-                                    </View>
-                                    <Text style={[Typography.italic, {color: theme.journal.text, marginTop: 10}]} numberOfLines={2}>{item.content}</Text>
-                                </TouchableOpacity>
-                            </LinearGradient>
+                            <TouchableOpacity 
+                                onPress={async () => {
+                                    if (isLoading) {
+                                        return;
+                                    }
+
+                                    setSelectedEntry(null);
+                                    setModalVisible(true);
+                                    setIsLoading(true);
+                                    try {
+                                        const fullEntry = await getSpecificEntry(item.id);
+                                        setSelectedEntry(fullEntry);
+                                    } catch (error) {
+                                        console.error("Failed to load Journal Entry:", error)
+                                    } finally {
+                                        setIsLoading(false);
+                                    }
+                                }}
+                                disabled={isLoading}
+                            >
+                                    <LinearGradient
+                                        colors={[theme.journal.cardOne, theme.journal.cardTwo]}
+                                        start={{ x: 0, y: 0 }}
+                                        end={{ x: 1, y: 1 }}
+                                        style={[Layout.card, {
+                                            borderRadius: 12,
+                                            borderColor: theme.journal.background,
+                                            marginVertical: 8,
+                                            shadowRadius: 6,
+                                            padding: 12,
+                                            elevation: 3, 
+                                        }]}
+                                    >
+                                        <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                                            <Text style={[Typography.body, {color: theme.journal.text, fontWeight: "bold"}]}>{item.title}</Text>
+                                            <Text style={[Typography.body, {color: theme.journal.text}]}>{item.createdAt}</Text>
+                                        </View>
+                                    </LinearGradient>
+                            </TouchableOpacity>
                         )}
                         onEndReached={() => {
                             if(!isLoading && hasMore) {

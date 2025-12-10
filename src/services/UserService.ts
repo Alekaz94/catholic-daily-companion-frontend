@@ -19,6 +19,11 @@ export const updateName = async (id: string, names: { firstName?: string, lastNa
     }
 }
 
+export const getUserDashboard = async () => {
+    const result = await API.get(`${endpoint}/dashboard`);
+    return result.data;
+}
+
 export const getAllUsers = async (page: number, size: number): Promise<any> => {
     const result = await API.get(`${endpoint}?page=${page}&size=${size}`);
     return result.data;

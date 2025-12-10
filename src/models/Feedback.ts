@@ -16,3 +16,12 @@ export interface FeedbackRequest {
 export interface FeedbackUpdate {
     isFixed: boolean;
 }
+
+export interface PageResponse<T> {
+    content: T[];
+    pageNumber: number;
+    pageSize: number;
+    totalElements: number;
+    totalPages: number;
+    last: boolean;
+}

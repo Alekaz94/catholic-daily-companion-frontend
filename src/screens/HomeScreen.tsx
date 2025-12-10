@@ -3,8 +3,8 @@ import { Text, View, TouchableOpacity, Image, RefreshControl, ActivityIndicator 
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Saint } from '../models/Saint';
-import { getSaintOfTheDay } from '../services/SaintService';
+import { Saint, SaintListDto } from '../models/Saint';
+import { getSaintOfTheDay, getSpecificSaint } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
 import Navbar from '../components/Navbar';
 import { useTypography } from '../styles/Typography';
@@ -12,7 +12,6 @@ import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
 import QuoteBanner from '../components/QuoteBanner';
 import JournalPromptBanner from '../components/JournalPromptBanner';
@@ -31,7 +30,7 @@ type HomeNavigationProp = NativeStackNavigationProp<
 
 const HomeScreen = () => {
   const navigation = useNavigation<HomeNavigationProp>();
-  const [saints, setSaints] = useState<Saint[] | null>(null);
+  const [saints, setSaints] = useState<SaintListDto[] | null>(null);
   const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSaint, setLoadingSaint] = useState(false);
@@ -44,7 +43,7 @@ const HomeScreen = () => {
     return null;
   }
 
-  const formatSaintNames = (saints: Saint[]) => {
+  const formatSaintNames = (saints: SaintListDto[]) => {
     if (saints.length === 1) {
       return saints[0].name;
     } else if (saints.length === 2) {
@@ -64,12 +63,12 @@ const HomeScreen = () => {
 
   const fetchSaintOfTheDay = async () => {
     setLoadingSaint(true)
-    const todaysSaint = await getSaintOfTheDay();
-    if(!todaysSaint) {
+    const todaysSaints = await getSaintOfTheDay();
+    if(!todaysSaints) {
       setLoadingSaint(false);
       return;
     }
-    setSaints(todaysSaint);
+    setSaints(todaysSaints);
     setLoadingSaint(false);
   }
 
@@ -139,7 +138,7 @@ const HomeScreen = () => {
             </Text>
           )}
       
-          {saints.map((saint: Saint) => (
+          {saints.map((saint: SaintListDto) => (
             <View key={saint.id} style={[Layout.container, {backgroundColor: theme.auth.background, marginBottom: 16}]}>
               <LinearGradient 
                   colors={[theme.saint.detail, theme.saint.detail]}
@@ -148,15 +147,16 @@ const HomeScreen = () => {
                   style={[Layout.card, {borderRadius: 12}]}
               >
                 <TouchableOpacity 
-                  onPress={() => {
+                  onPress={async () => {
+                    const fullSaint = await getSpecificSaint(saint.id);
+                    setSelectedSaint(fullSaint);
                     setModalVisible(true);
-                    setSelectedSaint(saint)
                   }}
                   style={{alignItems: "center"}}
                 >
                   {saint.imageUrl 
-                    ? <Image style={[Layout.image, {}]} resizeMode="stretch" source={{ uri: buildImageUri(saint.imageUrl) }} defaultSource={defaultSaint}/> 
-                    : <Image style={Layout.image} source={defaultSaint}/> 
+                    ? <Image style={[Layout.image, {}]} resizeMode="stretch" source={saint.imageUrl ? { uri: buildImageUri(saint.imageUrl) } : require("../assets/images/default_saint.jpg")}/> 
+                    : <Text style={[Typography.label, Layout.image, {color: theme.saint.text, padding: 20, textAlign: "center"}]}>Image not available for {saint.name}</Text>
                   }
                   <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]}>{saint.name}</Text>
                 </TouchableOpacity> 

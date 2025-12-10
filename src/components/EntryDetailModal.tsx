@@ -12,8 +12,8 @@ interface Props {
     visible: boolean;
     entry: JournalEntry | null;
     onClose: () => void;
-    onEdit: (entry: JournalEntry) => void;
-    onRequestDelete: (entry: JournalEntry) => void;
+    onEdit?: (entry: JournalEntry) => void;
+    onRequestDelete?: (entry: JournalEntry) => void;
 }
 
 const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose, onEdit, onRequestDelete}) => {
@@ -40,28 +40,32 @@ const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose, onEdit, onR
                 <Divider />
 
                 <Text style={[Typography.italic, {marginTop: 20, marginBottom: 20, color: theme.journal.text}]}>{entry.content}</Text>
-            
-                <View style={{ marginTop: 20, gap: 8}}>
-                    <TouchableOpacity 
-                        style={[Layout.button, { flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: theme.journal.primary }]}
-                        onPress={() => onEdit(entry)}
-                    >
-                        <Ionicons name="create-outline" size={20} color={theme.journal.text} />
-                        <Text style={[Typography.label, {textAlign: "center", color: theme.journal.text, marginLeft: 10}]}>
-                            Edit Entry
-                        </Text>
-                    </TouchableOpacity>
+                <Divider />
 
-                    <TouchableOpacity 
-                        style={[Layout.button, { flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: "red" }]}
-                        onPress={() => onRequestDelete(entry)}
+                <View style={{ marginTop: 20, gap: 8, flexDirection: "row", justifyContent: "space-evenly"}}>
+                    {onEdit && (
+                        <TouchableOpacity 
+                            style={[Layout.button, {width: "40%", flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: theme.journal.primary }]}
+                            onPress={() => onEdit(entry)}
                         >
-                        <Ionicons name="trash-outline" size={20} color={theme.journal.text} />
-                        <Text style={[Typography.label, {textAlign: "center", color: theme.journal.text, marginLeft: 10}]}>
-                            Delete Entry
-                        </Text>
-                    </TouchableOpacity>
-                    <Divider />
+                            <Ionicons name="create-outline" size={20} color={theme.journal.text} />
+                            <Text style={[Typography.label, {textAlign: "center", color: theme.journal.text, marginLeft: 10}]}>
+                                Edit
+                            </Text>
+                        </TouchableOpacity>
+                    )}
+                    
+                    {onRequestDelete && (
+                        <TouchableOpacity 
+                            style={[Layout.button, {width: "40%", flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: "red" }]}
+                            onPress={() => onRequestDelete(entry)}
+                            >
+                            <Ionicons name="trash-outline" size={20} color={theme.journal.text} />
+                            <Text style={[Typography.label, {textAlign: "center", color: theme.journal.text, marginLeft: 10}]}>
+                                Delete
+                            </Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
                     <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.journal.button, marginTop: 30}]}>
                         <Text style={[Typography.label, {textAlign: "center", color: theme.journal.text}]}>Close</Text>

@@ -4,7 +4,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from '../context/AuthContext';
-import { changePassword, updateName } from '../services/UserService';
+import { changePassword, getUserDashboard, updateName } from '../services/UserService';
 import { Layout } from '../styles/Layout';
 import { useTypography } from '../styles/Typography';
 import Navbar from '../components/Navbar';
@@ -15,7 +15,6 @@ import { ActivityIndicator } from 'react-native';
 import Divider from '../components/Divider';
 import { useAppTheme } from '../hooks/useAppTheme';
 import * as SecureStore from 'expo-secure-store';
-import { getStreak } from '../services/RosaryService';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PasswordChangeInput, passwordChangeSchema } from '../validation/profileValidation';
@@ -23,22 +22,41 @@ import { NameChangeInput, nameChangeSchema } from '../validation/userNameChangeV
 import NameChangeConfirmModal from '../components/NameChangeConfirmModal';
 import PasswordChangeConfirmModal from '../components/PasswordChangeConfirmModal';
 import { cacheHighestStreak, cacheRosaryStreak, getCachedHighestStreak, getCachedStreak } from '../services/CacheService';
+import { UserDashboard } from '../models/UserDashboard';
 
 type ProfileNavigationProp = NativeStackNavigationProp<
     AuthStackParamList,
     "Profile"
 >
 
+const formatDateTime = (dateString: string) => {
+    const date = new Date(dateString);
+    const pad = (n: number) => n.toString().padStart(2, "0");
+  
+    return (
+      date.getFullYear() +
+      "-" + pad(date.getMonth() + 1) +
+      "-" + pad(date.getDate()) +
+      " " + pad(date.getHours()) +
+      ":" + pad(date.getMinutes()) +
+      ":" + pad(date.getSeconds())
+    );
+};
+
 const ProfileScreen = () => {
     const { user, setUser } = useAuth();
+    const [dashboard, setDashboard] = useState<UserDashboard | null>(null);
+    const [loadingDashboard, setLoadingDashboard] = useState(true);
+    const [currentStreak, setCurrentStreak] = useState(0);
+    const [highestStreak, setHighestStreak] = useState(0);
+    
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
     const [isPasswordLoading, setIsPasswordLoading] = useState(false);
     const [isNameLoading, setIsNameLoading] = useState(false);    const [isConfirmVisible, setIsConfirmVisible] = useState(false);
     const [isConfirmNameVisible, setIsConfirmNameVisible] = useState(false);
-    const [streak, setStreak] = useState<number>(0);
-    const [highestStreak, setHighestStreak] = useState<number>(0);
+
     const isOAuthUser = user?.email?.toLowerCase().endsWith("@gmail.com");
     const navigation = useNavigation<ProfileNavigationProp>();
     const theme = useAppTheme();
@@ -147,6 +165,25 @@ const ProfileScreen = () => {
     }
 
     useEffect(() => {
+        const loadDashboard = async () => {
+            try {
+                const data = await getUserDashboard();
+                setDashboard(data);
+                setCurrentStreak(data.currentStreak);
+                setHighestStreak(data.highestStreak);
+
+                await cacheRosaryStreak(data.currentStreak);
+                await cacheHighestStreak(data.highestStreak);
+            } catch (error) {
+                console.error("Failed to load dashboard", error);
+            } finally {
+                setLoadingDashboard(false);
+            }
+        };
+        loadDashboard();
+    }, [user])
+
+    useEffect(() => {
         if(user) {
             nameChangeReset({
                 currentFirstName: user.firstName ?? "",
@@ -156,24 +193,6 @@ const ProfileScreen = () => {
             });
         }
     }, [user, nameChangeReset]);
-
-    useEffect(() => {
-        const fetchAndCacheStreaks = async () => {
-            if (!user) return;
-            try {
-                const cachedHighest = await getCachedHighestStreak() || 0;
-                const currentStreak = await getStreak(user.id);
-                setStreak(currentStreak);
-                cacheRosaryStreak(currentStreak);
-                const highest = Math.max(currentStreak, cachedHighest);
-                setHighestStreak(highest);
-                cacheHighestStreak(highest);
-            } catch (error) {
-                console.error("Could not retrieve rosary streak", error);
-            }
-        }
-        fetchAndCacheStreaks();
-    }, [user]);
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.navbar}}>
@@ -186,34 +205,91 @@ const ProfileScreen = () => {
                 <View style={{ marginTop: 10}}>
                     <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>User Info</Text>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Name: </Text>
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>
+                            Name: <Text style={[Typography.italic, {color: theme.auth.text}]}>{`${user?.firstName ?? ''} ${user?.lastName ?? ''}`}</Text> 
+                        </Text>
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Email: </Text>
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{user?.email ?? 'Unknown'}</Text>
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>
+                            Email: <Text style={[Typography.italic, {color: theme.auth.text}]}>{user?.email ?? 'Unknown'}</Text>
+                        </Text>
                     </View>
                     <View style={{flexDirection: "row", marginVertical: 5}}> 
-                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Account created: </Text> 
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{user?.createdAt ?? 'Unknown'}</Text> 
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>
+                            Account created: <Text style={[Typography.italic, {color: theme.auth.text}]}>{user?.createdAt ?? 'Unknown'}</Text> 
+                        </Text> 
                     </View> 
                     <View style={{flexDirection: "row", marginVertical: 5}}> 
-                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Account updated: </Text> 
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{user?.updatedAt ?? 'Unknown'}</Text> 
+                        <Text style={[Typography.italic, {color: theme.auth.text}]}>
+                            Account updated: <Text style={[Typography.italic, {color: theme.auth.text}]}>{user?.updatedAt ?? 'Unknown'}</Text>
+                        </Text> 
                     </View>
                 </View>
 
                 <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
-                    <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>Rosary Info</Text>
-                    <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Highest prayed rosary streak: </Text>
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{highestStreak}</Text>
-                    </View>
-                    <View style={{flexDirection: "row", marginVertical: 5}}>
-                        <Text style={[Typography.italic, {color: theme.auth.text}]}>Current prayed streak: </Text>
-                        <Text style={[Typography.italic, {fontWeight: "500", color: theme.auth.text}]}>{streak}</Text>
-                    </View>
+                    <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>Dashboard</Text>
+                    {loadingDashboard ? (
+                        <ActivityIndicator color={theme.auth.text} />
+                    ) : dashboard ? (
+                        <>
+                            <Text style={[Typography.italic, { color: theme.auth.text, marginVertical: 5 }]}>
+                                Rosaries Prayed: <Text style={[Typography.italic, {color: theme.auth.text}]}>{dashboard.rosaryLogCount}</Text>
+                            </Text>
+                    
+                            <Text style={[Typography.italic, { color: theme.auth.text, marginVertical: 5 }]}>
+                                Current Streak: <Text style={[Typography.italic, {color: theme.auth.text}]}>{dashboard.currentStreak}</Text>
+                            </Text>
+
+                            <Text style={[Typography.italic, { color: theme.auth.text, marginVertical: 5 }]}>
+                                Highest Streak: <Text style={[Typography.italic, {color: theme.auth.text}]}>{dashboard.highestStreak}</Text>
+                            </Text>
+
+                            <Text style={[Typography.italic, { color: theme.auth.text, marginVertical: 5 }]}>
+                                Journal Entries: <Text style={[Typography.italic, {color: theme.auth.text}]}>{dashboard.journalEntryCount}</Text>
+                            </Text>
+
+                            <Text style={[Typography.italic, { color: theme.auth.text, marginVertical: 5 }]}>
+                                Feedback Submitted: <Text style={[Typography.italic, {color: theme.auth.text}]}>{dashboard.feedbackCount}</Text>
+                            </Text>
+                        </>
+                    ) : (
+                        <Text style={{ color: theme.auth.text }}>Unable to load dashboard.</Text>
+                    )}
                 </View>
+
+                {!loadingDashboard && dashboard?.recentFeedbacks?.content && dashboard.recentFeedbacks.content.length > 0 ? (
+                    <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
+                        <Text style={[Typography.label, { fontWeight: "bold", marginBottom: 10, color: theme.auth.text }]}>
+                            Recent Feedback Submitted
+                        </Text>
+
+                        {dashboard.recentFeedbacks.content.map((fb) => (
+                            <View 
+                                key={fb.id} 
+                                style={{
+                                    backgroundColor: theme.auth.background,
+                                    padding: 12,
+                                    borderRadius: 8,
+                                    marginBottom: 10,
+                                    shadowColor: theme.auth.text,
+                                    shadowRadius: 2
+                                }}
+                            >
+                                <Text style={[Typography.italic, { color: theme.auth.text, marginBottom: 5 }]}>
+                                    {fb.submittedAt ? formatDateTime(fb.submittedAt) : 'Unknown date'}
+                                </Text>
+
+                                <Text style={[Typography.italic, { color: theme.auth.text }]}>
+                                    {fb.message}
+                                </Text>
+                            </View>
+                        ))}
+                    </View>
+                )   :   (
+                    <Text style={[Typography.italic, { color: theme.auth.smallText, marginTop: 10 }]}>
+                        No recent feedback submitted yet.
+                    </Text>
+                )}
 
                 <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
                     <Text style={[Typography.label, {fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}>Name Change</Text>

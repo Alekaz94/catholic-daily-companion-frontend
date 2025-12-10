@@ -1,5 +1,5 @@
 import API from "./api"
-import { JournalEntry, NewJournalEntry, UpdateJournalEntry } from "../models/JournalEntry"
+import { JournalEntry, JournalEntryLite, NewJournalEntry, UpdateJournalEntry } from "../models/JournalEntry"
 
 const endpoint = "/api/v1/journal-entry"
 
@@ -32,7 +32,7 @@ export const  getJournalDates = async (): Promise<string[]> => {
     return result.data;
 }
 
-export const getJournalEntriesByDate = async (date: string): Promise<JournalEntry[] | null> => {
-    const res = await API.get<JournalEntry[]>(`${endpoint}/dates/${date}`);
+export const getJournalEntriesByDate = async (date: string): Promise<JournalEntryLite[] | null> => {
+    const res = await API.get<JournalEntryLite[]>(`${endpoint}/dates/${date}`);
     return res.data;
 };

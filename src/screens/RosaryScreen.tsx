@@ -147,7 +147,7 @@ const RosaryScreen = () => {
         }
 
         try {
-            await completeToday(user.id);
+            const newLog = await completeToday(user.id);
             Alert.alert("Rosary marked as completed!");
             setCompleted(true);
             setStreak(prev => prev + 1);
@@ -156,6 +156,9 @@ const RosaryScreen = () => {
             setCheckedSteps(allTrue);
             cacheDoneToday(true);
             cacheRosaryStreak(streak + 1);
+
+            setHistory(prev => [newLog, ...prev]);
+            cacheRosaries([newLog, ...history]);
 
             if(user.role !== "ADMIN") {
                 await showRewardedAd();
@@ -249,6 +252,7 @@ const RosaryScreen = () => {
                 visible={historyModalVisible}
                 onClose={() => setHistoryModalVisible(false)}
                 history={history}
+                pageSize={10}
             />
             <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
                 <AdBanner />

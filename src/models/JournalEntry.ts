@@ -6,6 +6,12 @@ export interface JournalEntry {
     content: string;
 }
 
+export interface JournalEntryLite {
+    id: string;
+    createdAt: string;
+    title: string;
+}
+
 export interface NewJournalEntry {
     title: string;
     content: string;

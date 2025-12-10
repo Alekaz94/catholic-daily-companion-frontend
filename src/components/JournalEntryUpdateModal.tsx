@@ -92,6 +92,7 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
                         editable={!isLoading}
                         placeholder="Write your journal entry..."
                         style={[Layout.input, {height: 200, textAlignVertical: "top"}]}
+                        multiline={true}
                         value={content}
                         onChangeText={(value) => setContent(value)}
                     /> 

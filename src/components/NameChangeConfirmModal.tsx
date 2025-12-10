@@ -2,7 +2,6 @@ import { Modal, View, Text, TouchableOpacity, ActivityIndicator } from "react-na
 import { useAppTheme } from "../hooks/useAppTheme";
 import { Layout } from "../styles/Layout";
 import { useTypography } from "../styles/Typography";
-import { Colors } from "../styles/colors";
 
 interface Props {
     visible: boolean;

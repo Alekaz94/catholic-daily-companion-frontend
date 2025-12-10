@@ -1,4 +1,4 @@
-import { NewSaint, Saint, UpdatedSaint } from "../models/Saint";
+import { NewSaint, Saint, SaintListDto, UpdatedSaint } from "../models/Saint";
 import { Page } from "../models/Page";
 import API from "./api";
 
@@ -19,8 +19,13 @@ export const getSpecificSaint = async (id: string): Promise<Saint> => {
     return res.data;
 }
 
-export const getSaintOfTheDay = async (): Promise<Saint[]> => {
+export const getSaintOfTheDay = async (): Promise<SaintListDto[]> => {
     const res = await API.get<Saint[]>(`${endpoint}/today`);
+    return res.data;
+}
+
+export const getPublicSaintOfTheDay = async (): Promise<Saint[]> => {
+    const res = await API.get<Saint[]>(`${endpoint}/today/public`);
     return res.data;
 }
 

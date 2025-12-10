@@ -42,95 +42,92 @@ const TermsOfServiceScreen = () => {
                         </Text>
 
                         <Text style={[Typography.body, { marginTop: 20, color: theme.auth.text}]}>
-                            By accessing or using Catholic Daily Companion ("the App"), you agree to these Terms of Service.
+                            By accessing or using Catholic Daily Companion ("the App"), you agree to these Terms of Service. The App is intended for users 18 years and older.
                         </Text>
 
-                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
                             1. Use of the App
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
-                            The App is intended for personal spiritual use.
-                            You agree not to misuse the service, attempt unauthorized access, or reverse-engineer any part of it.
+                            The App is intended for personal spiritual use. You agree not to misuse the service, attempt unauthorized access, or reverse-engineer any part of it.
                         </Text>
 
-                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
                             2. User Accounts
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
-                            The App uses Google Authentication. We do not collect or store your Google password.
-                            You are responsible for securing your device and login session.
+                            The App uses Google Authentication. We do not collect or store your Google password. You are responsible for securing your device and login session.
                         </Text>
 
-                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
                             3. Data & Privacy
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text }]}>
                             Your personal data is handled according to our{" "}
-                        <Text
-                            style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple"}}
-                            onPress={() => navigation.navigate("Privacy Policy")}
-                        >
-                            Privacy Policy
-                        </Text>
-                            .
+                            <Text
+                                style={{ textDecorationLine: "underline", color: isDark ? "cyan" : "purple"}}
+                                onPress={() => navigation.navigate("Privacy Policy")}
+                            >
+                                Privacy Policy
+                            </Text>
+                            . This includes your full name, email, journal entries, rosary logs, streaks, IP address, and audit logs. Users can export their data directly from the app or request deletion via email.
                         </Text>
 
-                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
                             4. User Content
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
-                            Journal entries are your content.
-                            You may delete this data at any time.
+                            Journal entries are your content. You may delete your journal entries at any time. 
+                            Rosary logs, history, and streaks are part of your account data and cannot be deleted individually, but will be removed if you delete your account.
                         </Text>
 
-                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
                             5. Termination
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
                             We may suspend or terminate accounts that violate these Terms or abuse the service.
                         </Text>
 
-                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
                             6. Limitation of Liability
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
-                            The App is provided “as is.” We do not guarantee uninterrupted service and are not
-                            responsible for damages resulting from use of the App.
+                            The App is provided “as is.” We do not guarantee uninterrupted service and are not responsible for damages resulting from use of the App.
                         </Text>
 
                         <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
-                            7. Third-Party Services
+                            7. Ads & Analytics
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text}]}>
+                            We use Google Mobile Ads (AdMob). Only anonymized usage data is collected for ad performance. Personal data is never shared with advertisers.
+                        </Text>
+
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
+                            8. Third-Party Services
                         </Text>
 
                         <Text style={[Typography.body, { color: theme.auth.text }]}>
-                            <Text style={{ fontWeight: "600" }}>Google Authentication:</Text>{" "}
-                            Used for secure login. No passwords are shared with us.{"\n\n"}
-
-                            <Text style={{ fontWeight: "600" }}>Google Mobile Ads (AdMob):</Text>{" "}
-                            Provides ads. Only anonymized usage analytics may be gathered.{"\n\n"}
-
-                            <Text style={{ fontWeight: "600" }}>Railway Hosting:</Text>{" "}
-                            Our backend and PostgreSQL database run on Railway’s cloud infrastructure.{"\n\n"}
-
-                            <Text style={{ fontWeight: "600" }}>PostgreSQL Database:</Text>{" "}
-                            Stores account data, journal entries, rosary logs, and other user-generated content.{"\n\n"}
-
-                            <Text style={{ fontWeight: "600" }}>Expo Services:</Text>{" "}
-                            May collect anonymized crash or performance metadata to improve platform reliability.
+                            <Text style={{ fontWeight: "600" }}>Google Authentication:</Text> Secure login; no passwords are shared.{"\n\n"}
+                            <Text style={{ fontWeight: "600" }}>Google Mobile Ads (AdMob):</Text> Anonymized analytics only.{"\n\n"}
+                            <Text style={{ fontWeight: "600" }}>Railway Hosting:</Text> Backend and database hosted securely.{"\n\n"}
+                            <Text style={{ fontWeight: "600" }}>PostgreSQL Database:</Text> Stores journal entries, rosary logs, streaks, and account data.{"\n\n"}
+                            <Text style={{ fontWeight: "600" }}>Expo Services:</Text> Anonymized crash and performance metadata collection.
                         </Text>
 
-                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center"  }]}>
-                            8. Contact Us
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
+                            9. User Rights & GDPR
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text}]}>
+                            Users can update, export, or delete their data directly from the app using the export or deletion features. Requests for deletion via email will be addressed promptly, typically within 30 days. EU users retain all rights under GDPR and other applicable privacy laws.
+                        </Text>
+
+                        <Text style={[Typography.title, { marginTop: 20, color: theme.auth.text, textAlign: "center" }]}>
+                            10. Contact Us
                         </Text>
                         <Text style={[Typography.body, { color: theme.auth.text}]}>
                             For questions about these Terms, contact:
                         </Text>
-                        <Text
-                        style={[
-                            Typography.body,
-                            { fontWeight: "500", color: theme.auth.text},
-                        ]}
-                        >
+                        <Text style={[Typography.body, { fontWeight: "500", color: theme.auth.text}]}>
                             alexandros.kazalis@gmail.com
                         </Text>
 

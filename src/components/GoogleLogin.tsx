@@ -5,7 +5,7 @@ import { signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import Constants from 'expo-constants';
 import { Layout } from "../styles/Layout";
 import { Ionicons } from '@expo/vector-icons';
-import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from "../navigation/types";
 import { useAuth } from "../context/AuthContext";
@@ -19,6 +19,7 @@ type GoogleLoginNavigation = NativeStackNavigationProp<
 const GoogleLogin = () => {
     const { firebaseLogin } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
+    const [loginInProgress, setLoginInProgress] = useState(false);
     const theme = useAppTheme();
 
     useEffect(() => {
@@ -34,8 +35,7 @@ const GoogleLogin = () => {
             setIsLoading(true);
             await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
         
-            const userInfo: User | null = await GoogleSignin.signIn();
-
+            await GoogleSignin.signIn();
             const { idToken } = await GoogleSignin.getTokens();
                 
             if (!idToken) {
@@ -57,11 +57,16 @@ const GoogleLogin = () => {
             console.error("Google signin error:", error);
         } finally {
             setIsLoading(false);
+            setLoginInProgress(false);
         }
       };    
 
     return (
-        <TouchableOpacity style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", opacity: isLoading ? 0.7 : 1 }]} onPress={handleGoogleLogin}>
+        <TouchableOpacity 
+            style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", opacity: isLoading ? 0.7 : 1 }]} 
+            onPress={handleGoogleLogin}
+            disabled={isLoading || loginInProgress}
+        >
             {isLoading ? (
                 <ActivityIndicator color={theme.auth.text} />
             ) : (

@@ -3,7 +3,6 @@ import { Modal, View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicat
 import { Saint } from "../models/Saint";
 import { useTypography } from "../styles/Typography";
 import { Layout } from "../styles/Layout";
-import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from "../utils/imageUtils";
 import SaintFactRow from "./SaintFactRow";
 import Divider from "./Divider";
@@ -51,75 +50,79 @@ const SaintDetailModal: React.FC<Props> = ({visible, saint, onClose}) => {
     return (
         <Modal visible={visible} animationType='slide' transparent>
             <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: "center"}}>
-                <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>       
-                    <View style={[Layout.container, {backgroundColor: theme.saint.detail, marginHorizontal: 20, borderRadius: 16, padding: 16, elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4,}]}>
-                        <Text style={[Typography.title, {color: theme.journal.text, textAlign: "center"}]}>{saint.name}</Text>
-                        <Divider />
-                        <View>
-                            {saint.imageUrl ? <Image style={[Layout.image, {alignSelf: "center", width: "100%"}]} source={{ uri: buildImageUri(saint.imageUrl) }} resizeMode="stretch" defaultSource={defaultSaint}/> : <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center"}]}>Image not available</Text>} 
-                            {saint.imageAuthor ? (
-                                <Text style={{ 
-                                        color: theme.auth.smallText, 
-                                        fontSize: 12,
-                                        marginTop: 5 
-                                    }}
-                                >
-                                    Author: {saint.imageAuthor}
-                                </Text>
-                            ) : null}
-
-                            {saint.imageSource ? (
-                                <Text
-                                    style={{
-                                        color: theme.auth.smallText,
-                                        fontSize: 12,
-                                    }}
-                                >
-                                    Source: {saint.imageSource}
-                                </Text>
-                            ) : null}
-
-                            {saint.imageLicence ? (
-                                <Text style={{ 
-                                        color: theme.auth.smallText, 
-                                        fontSize: 12, 
-                                    }}
-                                >
-                                    Licence: {saint.imageLicence}
-                                </Text>
-                            ) : null}
-                        </View> 
-                        <View style={{
-                            width: "100%", 
-                            borderWidth: 1,
-                            borderColor: "#ccc",
-                            borderRadius: 10,
-                            padding: 12,
-                            backgroundColor: "#FFFFFF22", 
-                            marginVertical: 10,
-                            }}
-                        >                    
-                            <Text style={[Typography.body, {color: theme.saint.text, textAlign: "center"}]}>Saint Facts</Text>
+                {!saint ? (
+                    <ActivityIndicator size="large" color={theme.saint.text} />
+                ) : (
+                    <ScrollView contentContainerStyle={{ paddingVertical: 20 }}>       
+                        <View style={[Layout.container, {backgroundColor: theme.saint.detail, marginHorizontal: 20, borderRadius: 16, padding: 16, elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4,}]}>
+                            <Text style={[Typography.title, {color: theme.journal.text, textAlign: "center"}]}>{saint.name}</Text>
                             <Divider />
-                            {saint.birthYear && (
-                                <SaintFactRow label="Birth" value={`ca ${saint.birthYear}`} />
-                            )}
-                            {saint.deathYear && (
-                                <SaintFactRow label="Death:" value={`ca ${saint.deathYear}`} />
-                            )}
-                            <SaintFactRow label="Feast day:" value={formatFeastDay(saint.feastDay)} />
-                            <SaintFactRow label="Patron of:" value={saint.patronage || "N/A"} multiline />
-                            {saint.canonizationYear && (
-                                <SaintFactRow label="Canonized:" value={saint.canonizationYear.toString()} />
-                            )}
+                            <View>
+                                {saint.imageUrl ? <Image style={[Layout.image, {alignSelf: "center", width: "100%"}]} source={saint.imageUrl ? { uri: buildImageUri(saint.imageUrl) } : require("../assets/images/default_saint.jpg")} resizeMode="stretch" /> : <Text style={[Typography.label, {color: theme.saint.text, textAlign: "center"}]}>Image not available</Text>} 
+                                {saint.imageAuthor ? (
+                                    <Text style={{ 
+                                            color: theme.auth.smallText, 
+                                            fontSize: 12,
+                                            marginTop: 5 
+                                        }}
+                                    >
+                                        Author: {saint.imageAuthor}
+                                    </Text>
+                                ) : null}
+
+                                {saint.imageSource ? (
+                                    <Text
+                                        style={{
+                                            color: theme.auth.smallText,
+                                            fontSize: 12,
+                                        }}
+                                    >
+                                        Source: {saint.imageSource}
+                                    </Text>
+                                ) : null}
+
+                                {saint.imageLicence ? (
+                                    <Text style={{ 
+                                            color: theme.auth.smallText, 
+                                            fontSize: 12, 
+                                        }}
+                                    >
+                                        Licence: {saint.imageLicence}
+                                    </Text>
+                                ) : null}
+                            </View> 
+                            <View style={{
+                                width: "100%", 
+                                borderWidth: 1,
+                                borderColor: "#ccc",
+                                borderRadius: 10,
+                                padding: 12,
+                                backgroundColor: "#FFFFFF22", 
+                                marginVertical: 10,
+                                }}
+                            >                    
+                                <Text style={[Typography.body, {color: theme.saint.text, textAlign: "center"}]}>Saint Facts</Text>
+                                <Divider />
+                                {saint.birthYear && (
+                                    <SaintFactRow label="Birth" value={`ca ${saint.birthYear}`} />
+                                )}
+                                {saint.deathYear && (
+                                    <SaintFactRow label="Death:" value={`ca ${saint.deathYear}`} />
+                                )}
+                                <SaintFactRow label="Feast day:" value={formatFeastDay(saint.feastDay)} />
+                                <SaintFactRow label="Patron of:" value={saint.patronage || "N/A"} multiline />
+                                {saint.canonizationYear && (
+                                    <SaintFactRow label="Canonized:" value={saint.canonizationYear.toString()} />
+                                )}
+                            </View>
+                            <Divider />
+                            <Text style={[Typography.italic, {lineHeight: 20, textAlign: "justify", color: theme.saint.text, marginVertical: 10}]}>{saint.biography}</Text>
+                            <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.saint.button}]}>
+                                <Text style={[Typography.label, {alignSelf: "center", color: theme.saint.text}]}>Close</Text>
+                            </TouchableOpacity> 
                         </View>
-                        <Divider />
-                        <Text style={[Typography.italic, {lineHeight: 20, textAlign: "justify", color: theme.saint.text, marginVertical: 10}]}>{saint.biography}</Text>
-                        <TouchableOpacity onPress={onClose} style={[Layout.button, {width: "50%", alignSelf: "center", backgroundColor: theme.saint.button}]}>
-                            <Text style={[Typography.label, {alignSelf: "center", color: theme.saint.text}]}>Close</Text>
-                        </TouchableOpacity> 
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                )}
             </View> 
         </Modal>
     );

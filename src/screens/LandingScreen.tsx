@@ -4,7 +4,7 @@ import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Saint } from '../models/Saint';
-import { getSaintOfTheDay } from '../services/SaintService';
+import { getPublicSaintOfTheDay, getSaintOfTheDay } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
 import NavbarLanding from '../components/NavbarLanding';
 import { useTypography } from '../styles/Typography';
@@ -48,7 +48,7 @@ const LandingScreen = () => {
 
   const fetchSaintOfTheDay = async () => {
     setLoadingSaint(true)
-    const todaysSaint = await getSaintOfTheDay();
+    const todaysSaint = await getPublicSaintOfTheDay();
     if(!todaysSaint) {
       setLoadingSaint(false);
       return;
@@ -126,8 +126,8 @@ const LandingScreen = () => {
                       style={{alignItems: "center"}}
                     >
                       {saint.imageUrl 
-                        ? <Image style={Layout.image} resizeMode='stretch' source={{ uri: buildImageUri(saint.imageUrl) }} defaultSource={defaultSaint}/> 
-                        : <Image style={Layout.image} source={defaultSaint}/> 
+                        ? <Image style={Layout.image} resizeMode='stretch' source={saint.imageUrl ? { uri: buildImageUri(saint.imageUrl) } : require("../assets/images/default_saint.jpg")}/> 
+                        : <Text style={[Typography.label, Layout.image, {color: theme.saint.text, padding: 20, textAlign: "center"}]}>Image not available for {saint.name}</Text>
                       }
                       <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]}>{saint.name}</Text>
                     </TouchableOpacity> 

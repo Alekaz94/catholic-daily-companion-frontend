@@ -1,8 +1,8 @@
-import { Saint } from "../models/Saint";
+import { SaintListDto } from "../models/Saint";
 import { Rosary } from "../models/Rosary";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from "expo-secure-store";
-import { JournalEntry } from "../models/JournalEntry";
+import { JournalEntryLite } from "../models/JournalEntry";
 
 const SAINT_CACHE_KEY = "cached_saints";
 const ROSARY_CACHE_KEY = "rosary_history";
@@ -20,7 +20,7 @@ export const clearAllCache = async () => {
     await clearCachedHighestStreak();
 }
 
-export const cacheSaints = async (saints: Saint[]) => {
+export const cacheSaints = async (saints: SaintListDto[]) => {
     try {
         await AsyncStorage.setItem(SAINT_CACHE_KEY, JSON.stringify(saints));
     } catch (error) {
@@ -28,7 +28,7 @@ export const cacheSaints = async (saints: Saint[]) => {
     }
 };
 
-export const getCachedSaints = async (): Promise<Saint[] | null> => {
+export const getCachedSaints = async (): Promise<SaintListDto[] | null> => {
     try {
         const data = await AsyncStorage.getItem(SAINT_CACHE_KEY);
         return data ? JSON.parse(data) : null;
@@ -150,7 +150,7 @@ export const clearCachedDoneToday = async () => {
     }
 }
 
-export const cacheJournalEntries = async (entries: JournalEntry[]) => {
+export const cacheJournalEntries = async (entries: JournalEntryLite[]) => {
     try {
         await SecureStore.setItemAsync(JOURNAL_CACHE_KEY, JSON.stringify(entries));
     } catch (error) {
@@ -158,7 +158,7 @@ export const cacheJournalEntries = async (entries: JournalEntry[]) => {
     }
 }
 
-export const getCachedEntries = async (): Promise<JournalEntry[] | null> => {
+export const getCachedEntries = async (): Promise<JournalEntryLite[] | null> => {
     try {
         const data = await SecureStore.getItemAsync(JOURNAL_CACHE_KEY);
         return data ? JSON.parse(data) : null;

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Saint, UpdatedSaint } from "../models/Saint";
-import { deleteSaint, getAllSaints, searchSaints, updateSaint } from "../services/SaintService";
+import { Saint, SaintListDto, UpdatedSaint } from "../models/Saint";
+import { deleteSaint, getAllSaints, getSpecificSaint, searchSaints, updateSaint } from "../services/SaintService";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, FlatList, TouchableOpacity, Text, Image, Dimensions, Modal, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from "react-native";
@@ -36,7 +36,7 @@ const SaintScreen = () => {
         return null;
     }
 
-    const [saints, setSaints] = useState<Saint[]>([]);
+    const [saints, setSaints] = useState<SaintListDto[]>([]);
     const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
     const [page, setPage] = useState(0);
@@ -205,6 +205,11 @@ const SaintScreen = () => {
                         data={saints}
                         keyExtractor={item => item.id}
                         numColumns={2}
+                        initialNumToRender={5}
+                        maxToRenderPerBatch={5}
+                        windowSize={5}
+                        removeClippedSubviews={true}
+                        updateCellsBatchingPeriod={50}
                         columnWrapperStyle={{justifyContent: "space-between", marginBottom: spacing}}
                         contentContainerStyle={{ paddingBottom: 20}}
                         renderItem={({item}) => (
@@ -215,17 +220,22 @@ const SaintScreen = () => {
                                     end={{x: 1, y: 0.5}}
                                     style={[Layout.card]}
                                 >
-                                <TouchableOpacity onPress={() => {
-                                    setSelectedSaint(item);
+                                <TouchableOpacity onPress={async () => {
+                                    setSelectedSaint(null);
                                     setModalVisible(true);
+                                    try {
+                                        const fullSaint = await getSpecificSaint(item.id);
+                                        setSelectedSaint(fullSaint);
+                                    } catch (error) {
+                                        console.error("Failed to load saint details", error);
+                                    }
                                     }}
                                     style={{ alignItems: "center", justifyContent: "center" }}
                                 >
                                     {item.imageUrl ? (
                                         <Image 
                                             style={[Layout.image, {width: (cardWidth - 5)}]} 
-                                            source={{  uri: buildImageUri(item.imageUrl)  }}
-                                            defaultSource={defaultSaint}
+                                            source={item.imageUrl ? { uri: buildImageUri(item.imageUrl) } : require("../assets/images/default_saint.jpg")}
                                         /> 
                                     ) : (
                                         <Text style={[Typography.label, Layout.image, {color: theme.saint.text, padding: 20, textAlign: "center", width: cardWidth}]}>Image not available for {item.name}</Text>

@@ -4,10 +4,9 @@ import { Layout } from "../styles/Layout";
 import { ActivityIndicator, Modal, Pressable, TouchableOpacity, View, Text } from "react-native";
 import { getRosaryHistoryDates, isRosaryCompletedOn } from "../services/RosaryService";
 import { getJournalDates, getJournalEntriesByDate } from "../services/JournalEntryService";
-import { useAuth } from "../context/AuthContext";
 import { getFeastDayToSaintMap, getSaintByFeastDay } from "../services/SaintService";
-import { Saint } from "../models/Saint";
-import { JournalEntry } from "../models/JournalEntry";
+import { Saint, SaintListDto } from "../models/Saint";
+import { JournalEntry, JournalEntryLite } from "../models/JournalEntry";
 import DateDetailModal from "./DateDetailModal";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { useRequireAuth } from "../hooks/useRequireAuth";
@@ -38,8 +37,8 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
 
     const [markedDates, setMarkedDates] = useState<MarkedDates>({});
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
-    const [selectedSaints, setSelectedSaints] = useState<Saint[] | null>(null);
-    const [selectedJournals, setSelectedJournals] = useState<JournalEntry[] | null>(null);
+    const [selectedSaints, setSelectedSaints] = useState<SaintListDto[] | null>(null);
+    const [selectedJournals, setSelectedJournals] = useState<JournalEntryLite[] | null>(null);
     const [saidRosary, setSaidRosary] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);

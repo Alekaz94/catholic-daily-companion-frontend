@@ -8,10 +8,10 @@ export const sendFeedback = async (feedback: FeedbackRequest): Promise<Feedback>
     return res.data;
 };
 
-export const getAllFeedback = async (): Promise<Feedback[]> => {
-    const res = await API.get(endpoint);
-    return res.data;
-}
+export const getAllFeedback = async (page = 0, size = 10, sort = "desc") => {
+    const response = await API.get(`${endpoint}?page=${page}&size=${size}&sort=${sort}`);
+    return response.data;
+};
 
 export const getSpecificFeedback = async (id: string): Promise<Feedback> => {
     const res = await API.get(`${endpoint}/${id}`);

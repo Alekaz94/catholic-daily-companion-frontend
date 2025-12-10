@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { AdminUserOverviewDto } from "../models/AdminOverView"
 import { useAppTheme } from "../hooks/useAppTheme";
-import { getUserOverview } from "../services/AdminService";
+import { getUserOverviewPaged } from "../services/AdminService";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,6 +16,7 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../navigation/types";
 import CollapsibleSection from "../components/CollapsibleSection";
+import { Ionicons } from "@expo/vector-icons";
 
 type AdminUserOverviewNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -54,6 +55,28 @@ const AdminUserOverview = () => {
         return null;
     }
 
+    const fetchFeedbackPage = async (page: number) => {
+        if (!overview) {
+            return;
+        }
+
+        try {
+            const data = await getUserOverviewPaged(userId, page, 10);
+        
+            setOverview(prev => {
+                if (!prev) {
+                    return prev;
+                }
+                return {
+                    ...prev,
+                    feedbacks: data.feedbacks,
+                };
+            });
+        } catch (error) {
+            console.error("Failed to fetch feedback page", error);
+        }
+    };
+
     const handleDeleteAccount = async () => {
         try {
             setIsLoading(true)
@@ -80,7 +103,7 @@ const AdminUserOverview = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getUserOverview(userId);
+                const data = await getUserOverviewPaged(userId, 0, 10);
                 setOverview(data);
             } catch(error) {
                 console.error(error);
@@ -106,6 +129,11 @@ const AdminUserOverview = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.navbar}}>
             <Navbar />
             <ScrollView contentContainerStyle={{ padding: 16, flexGrow: 1, backgroundColor: theme.auth.background}}>
+                <View style={{ position: "absolute", top: 20, left: 2, marginLeft: 10}}>
+                    <TouchableOpacity onPress={() => navigation.navigate("AdminAllUsersScreen")}>
+                        <Ionicons name="arrow-back" size={28} color={theme.auth.text} />
+                    </TouchableOpacity>
+                </View>
                 <Text style={[Typography.title, {textAlign: "center", fontWeight: "600", color: theme.auth.text}]}>User Overview</Text>
 
                 <Divider />
@@ -124,36 +152,44 @@ const AdminUserOverview = () => {
                     <Text style={[Typography.label, { fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}> 
                         Stats
                     </Text>
-                    <Text style={[Typography.body, { color: theme.auth.text }]}>Journal Entries: {overview.journalCount}</Text>
-                    <Text style={[Typography.body, { color: theme.auth.text }]}>Rosaries Prayed: {overview.rosaryCount}</Text>
                     <Text style={[Typography.body, { color: theme.auth.text }]}>Feedback submitted: {overview.feedbackCount}</Text>
                 </View>
 
-                <CollapsibleSection title="Rosary Dates" color={theme.auth.text} >
-                    {overview.rosaryDates.map((date, index) => (
-                        <Text style={[Typography.body, { color: theme.auth.text }]} key={index}>{date}</Text>
-                    ))}
-                </CollapsibleSection>
+                {overview.feedbacks.content.length > 0 ? (
+                    <CollapsibleSection title="Feedback Submitted" color={theme.auth.text} >
+                        {overview.feedbacks.content.map((feedback, index) => (
+                            <Text style={[Typography.body, { color: theme.auth.text, marginTop: 10 }]} key={index}>
+                                {formatDateTime(feedback.submittedAt ?? "")}: {feedback.category}, {feedback.message}
+                            </Text>
+                        ))}
 
-                <CollapsibleSection title="Feedback Submitted" color={theme.auth.text} >
-                    {overview.feedbacks.map((feedback, index) => (
-                        <Text style={[Typography.body, { color: theme.auth.text }]} key={index}>
-                            {formatDateTime(feedback.submittedAt ?? "")}: {feedback.category}, {feedback.message} by {feedback.email}
-                        </Text>
-                    ))}
-                </CollapsibleSection>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10 }}>
+                            <TouchableOpacity
+                                disabled={overview.feedbacks.pageNumber === 0}
+                                onPress={() => fetchFeedbackPage(overview.feedbacks.pageNumber - 1)}
+                            >
+                                <Text style={{ color: theme.auth.text }}>Previous</Text>
+                            </TouchableOpacity>
 
-                <CollapsibleSection title="Audit Logs" color={theme.auth.text} >
-                    {overview.auditLogs.map((log, index) => (
-                        <Text style={[Typography.body, { color: theme.auth.text, marginBottom: 10 }]} key={index}>
-                            {log.createdAt}: {log.action} on {log.entityType} ({log.metadata})
-                        </Text>
-                    ))}
-                </CollapsibleSection>
+                            <TouchableOpacity
+                                disabled={overview.feedbacks.last}
+                                onPress={() => fetchFeedbackPage(overview.feedbacks.pageNumber + 1)}
+                            >
+                                <Text style={{ color: theme.auth.text }}>Next</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </CollapsibleSection>
+                ) : (
+                    <>
+                        <Divider />
+                        <Text style={[Typography.body, { color: theme.auth.text }]}>No feedback submitted</Text>
+                    </>
+                )}
 
                 <View style={{ marginTop: 10, borderTopWidth: 1, borderColor: 'red', paddingTop: 10 }}>
                     <Text style={[Typography.label, { color: 'red', fontWeight: 'bold',}]}>Danger Zone</Text>
                     <TouchableOpacity
+                        disabled={isLoading}
                         style={[Layout.button, { backgroundColor: '#ff4d4f', borderColor: theme.auth.text, borderWidth: 1, marginTop: 10 }]}
                         onPress={() => setIsDeleteVisible(true)}
                     >

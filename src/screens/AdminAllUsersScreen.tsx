@@ -2,21 +2,19 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { useAppTheme } from "../hooks/useAppTheme"
 import Navbar from "../components/Navbar";
 import { Layout } from "../styles/Layout";
-import { Colors } from "../styles/colors";
 import { useTypography } from "../styles/Typography";
-import { View, Text, FlatList, TouchableOpacity, Modal } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { TextInput } from "react-native-gesture-handler";
 import { AuthStackParamList } from "../navigation/types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
-import { User } from "../models/User";
-import { getAllUsers, searchUser } from "../services/UserService";
 import Divider from "../components/Divider";
 import { useTheme } from "../context/ThemeContext";
 import { useRequireAuth } from "../hooks/useRequireAuth";
-import { AdminUserOverviewDto } from "../models/AdminOverView";
+import { AdminUserList } from "../models/AdminOverView";
+import { getAdminUsers } from "../services/AdminService";
 
 type AdminAllUsersNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -26,7 +24,7 @@ type AdminAllUsersNavigationProp = NativeStackNavigationProp<
 const AdminAllUsersScreen = () => {
     const theme = useAppTheme();
     const user = useRequireAuth();
-    const [users, setUsers] = useState<User[]>([]);
+    const [users, setUsers] = useState<AdminUserList[]>([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [page, setPage] = useState(0);
@@ -47,14 +45,13 @@ const AdminAllUsersScreen = () => {
             return;
         }
         setLoading(true);
+
         try {
-            const result = isSearching
-                ? await searchUser(searchQuery, page, size)
-                : await getAllUsers(page, size);
+            const result = await getAdminUsers(page, size, "email", "asc", searchQuery);
 
             setUsers(prev => [
                 ...prev,
-                ...result.content.filter((u: User) => !prev.some(p => p.id === u.id))
+                ...result.content.filter((u) => !prev.some(p => p.id === u.id))
             ]);
 
             setHasMore(!result.last);
@@ -100,7 +97,12 @@ const AdminAllUsersScreen = () => {
         <SafeAreaView style={{flex: 1, backgroundColor: theme.auth.background}}>
             <Navbar />
             <View style={[Layout.container, {backgroundColor: theme.auth.background}]}>
-                <Text style={[Typography.title, {fontSize: 22, marginBottom: 10, color: theme.auth.text}]}>All Registered Users</Text>
+                <View style={{ position: "absolute", top: 20, left: 2, marginLeft: 15}}>
+                    <TouchableOpacity onPress={() => navigation.navigate("AdminPanel")}>
+                        <Ionicons name="arrow-back" size={28} color={theme.auth.text} />
+                    </TouchableOpacity>
+                </View>
+                <Text style={[Typography.title, {fontSize: 22, marginBottom: 10, color: theme.auth.text, textAlign: "center"}]}>All Registered Users</Text>
                 <Divider />
                 <View style={[Layout.searchInputView, {marginTop: 10}]}>
                     <Ionicons name="search-outline" size={20} color="#888" style={{ marginRight: 8 }} />
