@@ -32,7 +32,7 @@ export default ({ config }) => {
     name: "Catholic Daily Companion",
     slug: "catholic-daily-companion",
     scheme: "catholic-daily-companion",
-    version: "1.0.2-closed-test",
+    version: "1.0.3",
     orientation: "portrait",
     platforms: ["ios", "android"],
     icon: "./assets/images/cdc_main_logo.png",
@@ -51,7 +51,7 @@ export default ({ config }) => {
     },
     
     android: {
-      versionCode: 4,
+      versionCode: 5,
       adaptiveIcon: {
         backgroundColor: "#ffffff",
       },
