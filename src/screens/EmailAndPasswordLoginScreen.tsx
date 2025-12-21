@@ -78,10 +78,11 @@ const EmailAndPasswordLoginScreen = () => {
               render={({ field: { onChange, value } }) => (
                 <TextInput
                   placeholder="Email"
+                  placeholderTextColor={"black"}
                   value={value}
                   onChangeText={onChange}
                   autoCapitalize="none"
-                  style={[Layout.input, {width: "90%", marginLeft: 5}]}
+                  style={[Layout.input, {width: "90%", marginLeft: 5, color: "black"}]}
                   editable={!isSubmitting}
                 />
             )}
@@ -97,10 +98,11 @@ const EmailAndPasswordLoginScreen = () => {
               render={({ field: { onChange, value } }) => (
                 <TextInput
                   placeholder="Password"
+                  placeholderTextColor={"black"}
                   value={value}
                   onChangeText={onChange}
                   secureTextEntry={!showPassword}
-                  style={[Layout.input, {width: "90%", marginLeft: 5}]}
+                  style={[Layout.input, {width: "90%", marginLeft: 5, color: "black"}]}
                   editable={!isSubmitting}
                 />
               )}

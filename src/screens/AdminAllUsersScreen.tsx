@@ -55,7 +55,8 @@ const AdminAllUsersScreen = () => {
             ]);
 
             setHasMore(!result.last);
-        } catch (error) {
+        } catch (error: any) {
+            if(error?.response?.status === 403)
             console.error("Failed to load users ", error);
         } finally {
             setLoading(false);

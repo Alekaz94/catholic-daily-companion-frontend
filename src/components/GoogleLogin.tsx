@@ -19,24 +19,28 @@ type GoogleLoginNavigation = NativeStackNavigationProp<
 const GoogleLogin = () => {
     const { firebaseLogin } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
-    const [loginInProgress, setLoginInProgress] = useState(false);
     const theme = useAppTheme();
 
     useEffect(() => {
         GoogleSignin.configure({
           webClientId: Constants.expoConfig?.extra?.GOOGLE_WEB_CLIENT_ID,
-          offlineAccess: true,
           forceCodeForRefreshToken: true,
         });
     }, []);
 
       const handleGoogleLogin = async () => {
+        if(isLoading) {
+            return;
+        }
+        setIsLoading(true);
+
         try {
-            setIsLoading(true);
+            await GoogleSignin.signOut();
+
             await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
         
-            await GoogleSignin.signIn();
-            const { idToken } = await GoogleSignin.getTokens();
+            const userInfo = await GoogleSignin.signIn();
+            const idToken = userInfo.idToken;
                 
             if (!idToken) {
                 throw new Error("No ID token from Google");
@@ -48,16 +52,11 @@ const GoogleLogin = () => {
             const userCredential = await signInWithCredential(auth, googleCredential);
             const firebaseIdToken = await userCredential.user.getIdToken();
             
-            try{
-                await firebaseLogin(firebaseIdToken);
-            } catch (error) {
-                console.error("Failed to login with Firebase", error);
-            }        
+            await firebaseLogin(firebaseIdToken);
         } catch (error) {
             console.error("Google signin error:", error);
         } finally {
             setIsLoading(false);
-            setLoginInProgress(false);
         }
       };    
 
@@ -65,7 +64,7 @@ const GoogleLogin = () => {
         <TouchableOpacity 
             style={[Layout.button, {backgroundColor: theme.auth.primary, flexDirection: "row", justifyContent: "center", opacity: isLoading ? 0.7 : 1 }]} 
             onPress={handleGoogleLogin}
-            disabled={isLoading || loginInProgress}
+            disabled={isLoading}
         >
             {isLoading ? (
                 <ActivityIndicator color={theme.auth.text} />

@@ -1,11 +1,10 @@
-import axios, { AxiosInstance, AxiosError, AxiosHeaders, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig } from 'axios';
 import Constants from 'expo-constants';
 import { refreshAccessToken } from './TokenService';
 import * as SecureStore from 'expo-secure-store';
 import { getAuthHeader, setAuthToken } from "./AuthTokenManager";
 import { applyOfflineInterceptor } from '../api/axiosOfflineGuard';
 import Toast from 'react-native-root-toast';
-import { clearSession } from './SessionService';
 
 interface AxiosRequestConfigWithRetry extends AxiosRequestConfig {
   _retry?: boolean;
@@ -36,6 +35,22 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
+const safeLogout = async (logout: () => Promise<void>) => {
+  if (logoutToastShown) {
+    return;
+  }
+
+  logoutToastShown = true;
+  await logout();
+
+  Toast.show("Session expired. Please log in again.", {
+    duration: Toast.durations.LONG,
+    position: Toast.positions.TOP,
+  });
+
+  logoutToastShown = false;
+};
+
 API.interceptors.request.use(async (config) => {
   if (!config.headers) {
     config.headers = new AxiosHeaders();
@@ -56,26 +71,19 @@ export const setupInterceptors = (logout: () => Promise<void>) => {
     async (error: AxiosError & { isOffline?: boolean }) => {
       const originalRequest = error.config as AxiosRequestConfigWithRetry;
 
-      if (error.isOffline) return Promise.reject(error);
-
-      if (error.response?.status === 401 || error.response?.status === 403) {
-        if (!logoutToastShown) {
-          logoutToastShown = true;
-          Toast.show(
-            (error.response?.data as any)?.message || "Session expired. Please log in again.",
-            { duration: Toast.durations.LONG, position: Toast.positions.TOP }
-          );
-          await logout();
-          logoutToastShown = false;
-        }
-
-        return Promise.resolve({ data: null });
+      if (error.isOffline) {
+        return Promise.reject(error);
       }
 
-      if (error.response?.status === 401 && !originalRequest._retry) {
-        if (isRefreshing) {
+      if(originalRequest.url?.includes("/auth/refresh-token")) {
+        await safeLogout(logout);
+        return Promise.reject(error);
+      }
+
+      if(error.response?.status === 401 && !originalRequest._retry) {
+        if(isRefreshing) {
           return new Promise((resolve, reject) => {
-            failedQueue.push({ resolve, reject, config: originalRequest });
+            failedQueue.push({resolve, reject, config: originalRequest});
           });
         }
 
@@ -85,24 +93,40 @@ export const setupInterceptors = (logout: () => Promise<void>) => {
         try {
           const refreshed = await refreshAccessToken(refreshAPI);
 
-          if (refreshed) {
-            const token = await SecureStore.getItemAsync("token");
-            setAuthToken(token);
-            processQueue(null, token);
-
-            if (!originalRequest.headers) originalRequest.headers = new AxiosHeaders();
-            (originalRequest.headers as AxiosHeaders).set("Authorization", `Bearer ${token}`);
-            return API(originalRequest);
-          } else {
-            processQueue(error, null);
-            return Promise.resolve({ data: null });
+          if(!refreshed) {
+            throw new Error("Refresh failed.")
           }
-        } catch (err) {
-          processQueue(err, null);
-          return Promise.resolve({ data: null });
+
+          const token = await SecureStore.getItemAsync("token");
+          setAuthToken(token);
+          processQueue(null, token);
+
+          if(!originalRequest.headers) {
+            originalRequest.headers = new AxiosHeaders();
+          }
+
+          (originalRequest.headers as AxiosHeaders).set(
+            "Authorization",
+            `Bearer ${token}`
+          );
+
+          return API(originalRequest);
+        } catch (error) {
+          processQueue(error, null);
+          await safeLogout(logout);
+          return Promise.reject(error);
         } finally {
           isRefreshing = false;
         }
+      }
+
+      if (error.response?.status === 403) {
+        await logout();
+        Toast.show("Session expired. Please log in again.", {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.TOP,
+        });
+        return Promise.reject(error);
       }
 
       return Promise.reject(error);

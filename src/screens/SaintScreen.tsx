@@ -90,7 +90,8 @@ const SaintScreen = () => {
             if(!isSearching && currentPage === 0) {
                 await cacheSaints(newData);
             }
-        } catch (error) {
+        } catch (error: any) {
+            if(error?.response?.status === 403) return
             console.error("Error loading saints:", error);
         } finally {
             setIsLoading(false);
@@ -139,7 +140,8 @@ const SaintScreen = () => {
             const updated = saints.filter(s => s.id !== id);
             setSaints(updated);
             await cacheSaints(updated);
-        } catch (error) {
+        } catch (error: any) {
+            if(error?.response?.status === 403) return
             console.log("Failed to delete saint ", error)
         } finally {
             setIsVisibleDelete(false);
@@ -158,7 +160,8 @@ const SaintScreen = () => {
 
             setSaints(res.content);
             await cacheSaints(res.content);
-        } catch (error) {
+        } catch (error: any) {
+            if(error?.response?.status === 403) return
             console.error("Failed to update saint ", error);
         } finally {
             setEditSaintModalVisible(false);

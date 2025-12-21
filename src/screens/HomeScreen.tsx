@@ -22,6 +22,7 @@ import PrayerBanner from '../components/PrayerBanner';
 import { useAppTheme } from '../hooks/useAppTheme';
 import AdBanner from '../components/AdBanner';
 import { useRequireAuth } from '../hooks/useRequireAuth';
+import { cacheSaint, cacheSaintOfTheDay, getCachedSaint, getCachedSaintOfTheDay } from '../services/CacheService';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -57,19 +58,33 @@ const HomeScreen = () => {
   
   const onRefresh = async () => {
     setRefreshing(true);
-    await fetchSaintOfTheDay();
+    await fetchSaintOfTheDay(true);
     setRefreshing(false);
   }
 
-  const fetchSaintOfTheDay = async () => {
-    setLoadingSaint(true)
-    const todaysSaints = await getSaintOfTheDay();
-    if(!todaysSaints) {
-      setLoadingSaint(false);
-      return;
+  const fetchSaintOfTheDay = async (forceRefresh = false) => {
+    if (!forceRefresh) {
+      const cached = await getCachedSaintOfTheDay();
+      if (cached && cached.length > 0) {
+        setSaints(cached);
+      }
     }
-    setSaints(todaysSaints);
-    setLoadingSaint(false);
+
+    setLoadingSaint(true)
+    try {
+      const todaysSaints = await getSaintOfTheDay();
+      if(!todaysSaints) {
+        setLoadingSaint(false);
+        return;
+      }
+      setSaints(todaysSaints);
+      await cacheSaintOfTheDay(todaysSaints);
+    } catch (error: any) {
+      if(error?.response?.status === 403) return
+      console.error("Failed to fetch saint of the day", error);
+    } finally {
+      setLoadingSaint(false);
+    }
   }
 
   useEffect(() => {
@@ -148,9 +163,19 @@ const HomeScreen = () => {
               >
                 <TouchableOpacity 
                   onPress={async () => {
-                    const fullSaint = await getSpecificSaint(saint.id);
-                    setSelectedSaint(fullSaint);
                     setModalVisible(true);
+                    const cached = await getCachedSaint(saint.id);
+                    if (cached) {
+                      setSelectedSaint(cached);
+                    }
+
+                    try {
+                      const fullSaint = await getSpecificSaint(saint.id);
+                      setSelectedSaint(fullSaint);
+                      await cacheSaint(fullSaint);
+                    } catch (error) {
+                      console.error("Failed to load saint details", error);
+                    }
                   }}
                   style={{alignItems: "center"}}
                 >

@@ -17,8 +17,10 @@ export const storeSession = async (user: User, token: string, refreshToken: stri
       console.warn("Warning: Storing an already expired token!");
     }
   
-    await SecureStore.setItemAsync("token", token);
-    await SecureStore.setItemAsync("refreshToken", refreshToken);
-    await SecureStore.setItemAsync("user", JSON.stringify(user));
+    await Promise.all([
+      SecureStore.setItemAsync("token", token),
+      SecureStore.setItemAsync("refreshToken", refreshToken),
+      SecureStore.setItemAsync("user", JSON.stringify(user))
+    ]);
     setAuthToken(token);
 }

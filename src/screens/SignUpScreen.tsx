@@ -17,7 +17,6 @@ import { SignupInput, signUpSchema } from '../validation/signupValidation';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Toast from 'react-native-root-toast';
-import { auth } from '../../firebase';
 
 type SignupNavigationProp = NativeStackNavigationProp<
   AuthStackParamList,
@@ -79,9 +78,10 @@ const SignUpScreen = () => {
               render={({ field: { onChange, value } }) => (
                 <TextInput
                   placeholder="Firstname"
+                  placeholderTextColor={"black"}
                   value={value}
                   onChangeText={onChange}
-                  style={Layout.input}
+                  style={[Layout.input, {color: "black"}]}
                   editable={!isSubmitting}
                 />
               )}
@@ -94,9 +94,10 @@ const SignUpScreen = () => {
               render={({ field: { onChange, value } }) => (
                 <TextInput
                   placeholder="Lastname"
+                  placeholderTextColor={"black"}
                   value={value}
                   onChangeText={onChange}
-                  style={Layout.input}
+                  style={[Layout.input, {color: "black"}]}
                   editable={!isSubmitting}
                 />
               )}
@@ -109,11 +110,12 @@ const SignUpScreen = () => {
               render={({ field: { onChange, value } }) => (
                 <TextInput
                   placeholder="Email"
+                  placeholderTextColor={"black"}
                   value={value}
                   onChangeText={onChange}
                   keyboardType="email-address"
                   autoCapitalize="none"
-                  style={Layout.input}
+                  style={[Layout.input, {color: "black"}]}
                   editable={!isSubmitting}
                 />
               )}
@@ -127,10 +129,11 @@ const SignUpScreen = () => {
                 <View>
                   <TextInput
                     placeholder="Password"
+                    placeholderTextColor={"black"}
                     value={value}
                     onChangeText={onChange}
                     secureTextEntry={!showPassword}
-                    style={Layout.input}
+                    style={[Layout.input, {color: "black"}]}
                     editable={!isSubmitting}
                   />
                   <TouchableOpacity

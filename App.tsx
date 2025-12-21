@@ -17,8 +17,14 @@ import axios from 'axios';
 import { User } from './src/models/User';
 import { NetworkProvider } from './src/context/NetworkContext';
 import OfflineBanner from './src/components/OfflineBanner';
+import { checkAppVersion } from "./src/services/AppService";
+import ForceUpdateModal from "./src/components/ForceUpdateModal";
+import SoftUpdateModal from "./src/components/SoftUpdateModal"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 SplashScreen.preventAutoHideAsync();
+
+const SOFT_UPDATE_DISMISSED_VERSION_KEY = "soft_update_dismissed";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,12 +36,24 @@ export default function App() {
 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [forceUpdateUrl, setForceUpdateUrl] = useState<string | null>(null);
+  const [showSoftUpdate, setShowSoftUpdate] = useState(false);
+  const [softUpdateVersion, setSoftUpdateVersion] = useState<string | null>(null);
+  const [softUpdateStoreUrl, setSoftUpdateStoreUrl] = useState<string | null>(null);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded && !loading) {
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded, loading]);
+
+  const handleSoftUpdateDismiss = async () => {
+    if (softUpdateVersion) {
+      await AsyncStorage.setItem(SOFT_UPDATE_DISMISSED_VERSION_KEY, softUpdateVersion);
+    }
+    setShowSoftUpdate(false);
+    setSoftUpdateStoreUrl(null);
+  };
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -45,27 +63,12 @@ export default function App() {
           setUser(storedUser);
         }
 
-        onAuthStateChanged(auth, async (firebaseUser) => {
-          if (firebaseUser) {
-            try {
-              const idToken = await firebaseUser.getIdToken();
-              await firebaseLogin(idToken);
-              
-              const updatedUser = await loadUserFromStorage();
-              if (updatedUser) {
-                setUser(updatedUser);
-              }
-            } catch (error) {
-              if (axios.isAxiosError(error)) {
-                console.error("Firebase login error:", error.response?.data || error.message);
-              } else {
-                console.error("Unknown error during Firebase login:", error);
-              }
-            }
-          } else {
+        onAuthStateChanged(auth, (firebaseUser) => {
+          if (!firebaseUser) {
             setUser(null);
           }
         });
+        
       } catch (error) {
         console.error('Initialization error:', error);
       } finally {
@@ -76,12 +79,48 @@ export default function App() {
     initializeApp();
   }, []);
 
+  useEffect(() => {
+    const runVersionCheck = async () => {
+      if (!loading && fontsLoaded) {
+        const result = await checkAppVersion();
+  
+        if (result.type === "force-update") {
+          setForceUpdateUrl(result.storeUrl);
+        }
+
+        if (result.type === "soft-update") {
+          const dismissedVersion = await AsyncStorage.getItem(SOFT_UPDATE_DISMISSED_VERSION_KEY);
+
+          if (dismissedVersion !== result.latestVersion) {
+            setSoftUpdateVersion(result.latestVersion);
+            setSoftUpdateStoreUrl(result.storeUrl);
+            setShowSoftUpdate(true);
+          }
+        }
+      }
+    };
+  
+    runVersionCheck();
+  }, [loading, fontsLoaded]);
+
   if(!fontsLoaded || loading) {
     return <ActivityIndicator size="large" style={{ flex: 1 }} />;
   }
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <ForceUpdateModal
+        visible={!!forceUpdateUrl}
+        storeUrl={forceUpdateUrl ?? ""}
+      />
+
+      <SoftUpdateModal
+        visible={showSoftUpdate}
+        latestVersion={softUpdateVersion ?? ""}
+        storeUrl={softUpdateStoreUrl ?? ""}
+        onDismiss={handleSoftUpdateDismiss}
+      />
+
       <RootSiblingParent>
         <AuthProvider>
           <NetworkProvider>

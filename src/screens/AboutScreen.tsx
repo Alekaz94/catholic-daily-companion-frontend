@@ -16,7 +16,7 @@ import Divider from "../components/Divider";
 
 type AboutNavigationScreen = NativeStackNavigationProp<
   AuthStackParamList,
-  'Terms of Service'
+  'About'
 >;
 
 const AboutScreen = () => {

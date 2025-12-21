@@ -42,11 +42,11 @@ export const Layout: LayoutStyles = {
     card: {
       borderRadius: 8,
       padding: 10,
-      shadowColor: '#000',
+      shadowColor: Colors.muted,
       shadowOpacity: 0.1,
       shadowOffset: { width: 0, height: 2 },
       shadowRadius: 4,
-      elevation: 2,
+      elevation: 1,
       marginBottom: 10,
     },
     input: {

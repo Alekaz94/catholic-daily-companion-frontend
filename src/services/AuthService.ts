@@ -37,7 +37,11 @@ export const signup = async (userToCreate: NewUser): Promise<{user: User; token:
 };
 
 export const firebaseLogin = async (idToken: string | undefined): Promise<{ user: User; token: string }> => {
-  const response = await API.post<LoginResponse>("/api/v1/firebase-auth/firebase-login", { idToken })
+  if (!idToken) {
+    throw new Error("Firebase ID token missing");
+  }
+
+  const response = await API.post<LoginResponse>("/api/v1/firebase-auth/firebase-login", { idToken });
   const { user, token, refreshToken } = response.data;
 
   await storeSession(user, token, refreshToken);
@@ -56,20 +60,20 @@ export const loadUserFromStorage = async () => {
 
   const decodedToken = jwtDecode<{ exp: number }>(token);
 
-  if (decodedToken.exp * 1000 < Date.now() - EXPIRY_BUFFER) {
-    const refreshed = await refreshAccessToken();
-    if(!refreshed) {
-      return null;
-    }
-
-    const newToken = await SecureStore.getItemAsync("token");
-    const updatedUser = await SecureStore.getItemAsync("user");
-
-    if (!newToken || !updatedUser) {
+  if (decodedToken.exp * 1000 < Date.now() + EXPIRY_BUFFER) {
+    const newToken = await refreshAccessToken();
+    if(!newToken) {
       return null;
     }
 
     setAuthToken(newToken);
+
+    const updatedUser = await SecureStore.getItemAsync("user");
+
+    if (!updatedUser) {
+      return null;
+    }
+
     return JSON.parse(updatedUser);
   }
 

@@ -35,7 +35,8 @@ const RosaryStatusBanner = () => {
                 ]);
                 setCompleted(done);
                 setStreak(streakCount);
-            } catch (error) {
+            } catch (error: any) {
+                if(error?.response?.status === 403) return
                 console.error("Failed to load rosary data:", error)
             } finally {
                 setIsLoading(false);

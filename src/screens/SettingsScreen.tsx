@@ -7,7 +7,7 @@ import Divider from "../components/Divider";
 import { Layout } from "../styles/Layout"; 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DeleteAccountConfirmModal from "../components/DeleteAccountConfirmModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { deleteUser } from "../services/UserService";
 import * as SecureStore from "expo-secure-store";
@@ -18,11 +18,13 @@ import { Buffer } from "buffer";
 import * as Sharing from "expo-sharing";
 import { clearAllCache } from "../services/CacheService";
 import { useRequireAuth } from "../hooks/useRequireAuth";
+import * as Application from 'expo-application';
 
 const SettingsScreen = () => { 
     const user = useRequireAuth();
     const theme = useAppTheme();
-    
+    const [version, setVersion] = useState<string | null>(null);
+
     if(!user) {
         return null;
     }
@@ -32,6 +34,10 @@ const SettingsScreen = () => {
     const {logout} = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const Typography = useTypography();
+
+    useEffect(() => {
+        setVersion(Application.nativeApplicationVersion)
+    }, [user])
 
     const toggleDarkMode = () => {
         const current = themeMode === "system" ? (isDark ? "dark" : "light") : themeMode;
@@ -128,6 +134,15 @@ const SettingsScreen = () => {
                     <Divider /> 
 
                     <View>
+                        <Text style={[Typography.label, { fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}> 
+                            App info
+                        </Text>
+                        <Text style={[Typography.body, { color: theme.auth.text}]}>
+                            Version: {version}
+                        </Text>
+                    </View>
+
+                    <View style={{ marginTop: 20, borderTopWidth: 1, borderColor: theme.auth.text, paddingTop: 10 }}>
                         <Text style={[Typography.label, { fontWeight: 'bold', marginBottom: 10, color: theme.auth.text }]}> 
                             Appearance
                         </Text>

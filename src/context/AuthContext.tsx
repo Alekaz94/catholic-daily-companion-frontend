@@ -10,9 +10,9 @@ import { NewUser, User } from '../models/User';
 import { setAuthToken } from '../services/AuthTokenManager';
 import * as SecureStore from 'expo-secure-store';
 import { reset } from '../navigation/RootNavigation';
-import { clearCachedDoneToday, clearCachedHighestStreak, clearCachedJournalEntries, clearCachedRosaries, clearCachedSaints, clearCachedStreak } from '../services/CacheService';
+import { clearAllCachedSaintDetails, clearCachedDoneToday, clearCachedHighestStreak, clearCachedJournalEntries, clearCachedRosaries, clearCachedSaintOfTheDay, clearCachedSaints, clearCachedStreak } from '../services/CacheService';
 import Toast from 'react-native-root-toast';
-import { setupInterceptors } from '../services/api';
+import API, { setupInterceptors } from '../services/api';
 
 interface AuthContextType {
   user: User | null;
@@ -32,7 +32,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [initialized, setInitialized] = useState(false);
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   const login = async (email: string, password: string) => {
     const result = await loginService(email, password);
@@ -46,17 +45,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     await clearCachedSaints();
+    await clearAllCachedSaintDetails();
     await clearCachedRosaries();
     await clearCachedJournalEntries();
     await clearCachedDoneToday();
     await clearCachedStreak();
     await clearCachedHighestStreak();
+    await clearCachedSaintOfTheDay();
     await clearSession();
     setUser(null);
   };
 
   useEffect(() => {
-    setupInterceptors(logout);
+    const init = async () => {
+      setLoading(true);
+      try {
+        const storedUser = await loadUserFromStorage();
+        if(storedUser) {
+          setUser(storedUser);
+          const token = await SecureStore.getItemAsync("token");
+          API.defaults.headers.common.Authorization = `Bearer ${token}`;
+          if(token) {
+            setAuthToken(token);
+          }
+        }
+      } finally {
+        setupInterceptors(logout);
+        setInitialized(true);
+        setLoading(false);
+      }
+    }
+
+    init();
   }, []);
 
   const bootstrapUser = async () => {
@@ -98,6 +118,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const firebaseLoginInProgress = React.useRef(false);
 
   const firebaseLogin = async (idToken: string | undefined) => {
+    if (!idToken) {
+      throw new Error("Missing Firebase ID token");
+    }
+
     if (firebaseLoginInProgress.current) {
       console.log("Skipping duplicate firebaseLogin call");
       return;
@@ -114,11 +138,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const { user, token } = result;
       setAuthToken(token);
       setUser(user);
+    } catch (error) {
+      console.error("Firebase login error", error);
+      Toast.show("Google sign-in failed. Please try again.", {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.TOP,
+      });
+      throw error;
     } finally {
-
-    }setTimeout(() => {
       firebaseLoginInProgress.current = false;      
-    }, 1500)
+    }
   }
 
   useEffect(() => {
@@ -126,10 +155,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       reset("Landing");
     }
   }, [user, initialized]);
-
-  useEffect(() => {
-    bootstrapUser().finally(() => setInitialized(true));
-  }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, signup, logout, firebaseLogin, loading, setUser }}>

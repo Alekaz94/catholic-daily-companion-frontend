@@ -131,7 +131,8 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
             }
 
             setMarkedDates(marks);
-          } catch (error) {
+          } catch (error: any) {
+            if(error?.response?.status === 403) return
             console.error("Error loading calendar data:", error);
           } finally {
             setIsLoading(false);
