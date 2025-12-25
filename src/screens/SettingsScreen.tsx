@@ -21,7 +21,7 @@ import { useRequireAuth } from "../hooks/useRequireAuth";
 import * as Application from 'expo-application';
 
 const SettingsScreen = () => { 
-    const user = useRequireAuth();
+    const {user} = useRequireAuth();
     const theme = useAppTheme();
     const [version, setVersion] = useState<string | null>(null);
 

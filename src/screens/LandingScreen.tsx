@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, View, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { AuthStackParamList } from '../navigation/types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Saint } from '../models/Saint';
-import { getPublicSaintOfTheDay, getSaintOfTheDay } from '../services/SaintService';
 import SaintDetailModal from '../components/SaintDetailModal';
 import NavbarLanding from '../components/NavbarLanding';
 import { useTypography } from '../styles/Typography';
@@ -12,7 +11,6 @@ import { Layout } from '../styles/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import defaultSaint from "../assets/images/default_saint.jpg";
 import { buildImageUri } from '../utils/imageUtils';
 import QuoteBanner from '../components/QuoteBanner';
 import Divider from '../components/Divider';
@@ -27,39 +25,8 @@ type LandingNavigationProp = NativeStackNavigationProp<
 
 const LandingScreen = () => {
   const navigation = useNavigation<LandingNavigationProp>();
-  const [saints, setSaints] = useState<Saint[] | null>(null);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedSaint, setSelectedSaint] = useState<Saint | null>(null);
-  const [loadingSaint, setLoadingSaint] = useState(false);
   const theme = useAppTheme();
   const Typography = useTypography();
-
-  const formatSaintNames = (saints: Saint[]) => {
-    if (saints.length === 1) {
-      return saints[0].name;
-    } else if (saints.length === 2) {
-      return saints.map(s => s.name).join(" and ");
-    } else {
-      const lastSaint = saints[saints.length - 1].name;
-      const otherSaints = saints.slice(0, saints.length - 1).map(s => s.name).join(", ");
-      return `${otherSaints}, and ${lastSaint}`;
-    }
-  }
-
-  const fetchSaintOfTheDay = async () => {
-    setLoadingSaint(true)
-    const todaysSaint = await getPublicSaintOfTheDay();
-    if(!todaysSaint) {
-      setLoadingSaint(false);
-      return;
-    }
-    setSaints(todaysSaint);
-    setLoadingSaint(false);
-  }
-
-  useEffect(() => {
-    fetchSaintOfTheDay();
-  }, [])
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar}}>
@@ -72,70 +39,6 @@ const LandingScreen = () => {
       <Divider />
       <SectionTitle>🕊️ Daily Inspiration</SectionTitle>
       <QuoteBanner />
-      <Divider />
-      {loadingSaint ? (
-        <View style={[Layout.container, {
-          padding: 16,
-          marginVertical: 12,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: theme.saint.background,
-          borderRadius: 12,
-          marginHorizontal: 16,
-          }]}
-        >
-          <ActivityIndicator size="small" color={theme.saint.text} />
-          <Text style={[Typography.label, { marginTop: 8, textAlign: "center", fontSize: 14, color: theme.saint.text }]}>
-            Loading saint of the day...
-          </Text>
-        </View>
-        ) : !saints || saints.length === 0 ? (
-        <View style={{
-            borderRadius: 12,
-            padding: 16,
-            marginVertical: 12,
-            marginHorizontal:16,
-            borderWidth: 1,
-            borderColor: "#ddd",
-            backgroundColor: theme.saint.background 
-          }}
-        >
-          <Text style={[Typography.label, {textAlign: "center", color: theme.saint.text}]}>Feast day info not available for today</Text>
-        </View>
-      ) : (
-            <>
-              {!loadingSaint && saints && saints.length > 0 && (
-                <Text style={[Typography.label, {marginVertical: 10, padding: 5, textAlign: "center", color: theme.saint.text}]}>
-                  Today is the feast day of {formatSaintNames(saints)}
-                </Text>
-              )}
-          
-              {saints.map((saint: Saint) => (
-                <View key={saint.id} style={[Layout.container, {backgroundColor: theme.auth.background, marginBottom: 16}]}>
-                  <LinearGradient 
-                      colors={[theme.saint.detail, theme.saint.detail]}
-                      start={{x: 0, y: 0.5}}
-                      end={{x: 1, y: 0.5}}
-                      style={[Layout.card, {borderRadius: 12}]}
-                  >
-                    <TouchableOpacity 
-                      onPress={() => {
-                        setModalVisible(true);
-                        setSelectedSaint(saint)
-                      }}
-                      style={{alignItems: "center"}}
-                    >
-                      {saint.imageUrl 
-                        ? <Image style={Layout.image} resizeMode='stretch' source={saint.imageUrl ? { uri: buildImageUri(saint.imageUrl) } : require("../assets/images/default_saint.jpg")}/> 
-                        : <Text style={[Typography.label, Layout.image, {color: theme.saint.text, padding: 20, textAlign: "center"}]}>Image not available for {saint.name}</Text>
-                      }
-                      <Text style={[Typography.label, { marginTop: 10, color: theme.saint.text }]}>{saint.name}</Text>
-                    </TouchableOpacity> 
-                  </LinearGradient>
-                </View>
-              ))}
-            </>
-      )}
     
     <Divider />
     <View style={{ 
@@ -198,11 +101,6 @@ const LandingScreen = () => {
       </TouchableOpacity>
     </View>
     
-    <SaintDetailModal 
-      visible={modalVisible}
-      saint={selectedSaint}
-      onClose={() => setModalVisible(false)}
-    />
     </ScrollView>
     </SafeAreaView>
   );

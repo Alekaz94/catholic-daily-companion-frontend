@@ -1,11 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import React, { useCallback, useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
 import { ActivityIndicator } from 'react-native';
 import { AuthProvider } from './src/context/AuthContext';
-import { firebaseLogin, loadUserFromStorage } from './src/services/AuthService';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { navigationRef } from './src/navigation/RootNavigation';
 import { useFonts } from 'expo-font';
@@ -13,8 +10,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from './src/context/ThemeContext';
 import DrawerNavigatorWrapper from './src/navigation/DrawerNavigatorWrapper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import axios from 'axios';
-import { User } from './src/models/User';
 import { NetworkProvider } from './src/context/NetworkContext';
 import OfflineBanner from './src/components/OfflineBanner';
 import { checkAppVersion } from "./src/services/AppService";
@@ -34,18 +29,16 @@ export default function App() {
     "Playfair-Italic": require("./src/assets/fonts/Playfair_144pt-Italic.ttf"),
   })
 
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const [forceUpdateUrl, setForceUpdateUrl] = useState<string | null>(null);
   const [showSoftUpdate, setShowSoftUpdate] = useState(false);
   const [softUpdateVersion, setSoftUpdateVersion] = useState<string | null>(null);
   const [softUpdateStoreUrl, setSoftUpdateStoreUrl] = useState<string | null>(null);
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded && !loading) {
+    if (fontsLoaded) {
       await SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, loading]);
+  }, [fontsLoaded]);
 
   const handleSoftUpdateDismiss = async () => {
     if (softUpdateVersion) {
@@ -56,32 +49,8 @@ export default function App() {
   };
 
   useEffect(() => {
-    const initializeApp = async () => {
-      try {
-        const storedUser = await loadUserFromStorage();
-        if (storedUser) {
-          setUser(storedUser);
-        }
-
-        onAuthStateChanged(auth, (firebaseUser) => {
-          if (!firebaseUser) {
-            setUser(null);
-          }
-        });
-        
-      } catch (error) {
-        console.error('Initialization error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    initializeApp();
-  }, []);
-
-  useEffect(() => {
     const runVersionCheck = async () => {
-      if (!loading && fontsLoaded) {
+      if (fontsLoaded) {
         const result = await checkAppVersion();
   
         if (result.type === "force-update") {
@@ -101,9 +70,9 @@ export default function App() {
     };
   
     runVersionCheck();
-  }, [loading, fontsLoaded]);
+  }, [fontsLoaded]);
 
-  if(!fontsLoaded || loading) {
+  if (!fontsLoaded) {
     return <ActivityIndicator size="large" style={{ flex: 1 }} />;
   }
 

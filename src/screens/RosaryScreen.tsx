@@ -25,7 +25,7 @@ const formatDate = (date: Date) => {
 };
 
 const RosaryScreen = () => {
-    const user = useRequireAuth();
+    const {user} = useRequireAuth();
     const theme = useAppTheme();
 
     if(!user) {
@@ -115,7 +115,8 @@ const RosaryScreen = () => {
                     const allTrue = rosarySequence.map(step => Array(step.checkboxes).fill(true));
                     setCheckedSteps(allTrue);
                 }
-            } catch (error) {
+            } catch (error: any) {
+                if(error?.response?.status === 403) return
                 console.error("Failed to load rosary data ", error);
             } finally {
                 setIsLoading(false);

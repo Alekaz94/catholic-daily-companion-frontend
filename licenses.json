@@ -4541,7 +4541,8 @@
   "metro-config@0.83.3": {
     "licenses": "MIT",
     "repository": "https://github.com/facebook/metro",
-    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/metro-config"
+    "path": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/metro-config",
+    "licenseFile": "/Users/alexandroskazalis/Desktop/catholic-daily-companion-frontend/node_modules/metro-config/README.md"
   },
   "metro-core@0.83.3": {
     "licenses": "MIT",

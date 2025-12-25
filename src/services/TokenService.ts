@@ -1,35 +1,25 @@
-import axios, { AxiosInstance } from 'axios';
+import { refreshAPI } from './HttpClients';
 import { getRefreshToken, setAccessToken, setRefreshToken } from './TokenStorage';
 
+const endpoint = "/api/v1/auth/"
 
-let isRefreshing = false;
-let refreshPromise: Promise<string | null> | null = null;
+export const refreshAccessToken = async (): Promise<string | null> => {
+  const refreshToken = await getRefreshToken();
+  if (!refreshToken) return null;
 
-export const refreshAccessToken = async (instance?: AxiosInstance): Promise<string | null> => {
-  if (isRefreshing && refreshPromise) return refreshPromise; // reuse ongoing refresh
+  const response = await refreshAPI.post(
+    "/api/v1/auth/refresh-token",
+    { refreshToken }
+  );
 
-  isRefreshing = true;
-  const axiosInstance = instance || axios;
+  const { token, refreshToken: newRefreshToken } = response.data ?? {};
 
-  refreshPromise = (async () => {
-    try {
-      const refreshToken = await getRefreshToken();
-      if (!refreshToken) return null;
+  if (!token || !newRefreshToken) {
+    return null;
+  }
 
-      const { data } = await axiosInstance.post("/api/v1/auth/refresh-token", { refreshToken });
+  await setAccessToken(token);
+  await setRefreshToken(newRefreshToken);
 
-      await setAccessToken(data.accessToken);
-      await setRefreshToken(data.refreshToken);
-
-      return data.accessToken;
-    } catch (err) {
-      console.warn("Failed to refresh token:", err);
-      return null;
-    } finally {
-      isRefreshing = false;
-      refreshPromise = null;
-    }
-  })();
-
-  return refreshPromise;
+  return token;
 };

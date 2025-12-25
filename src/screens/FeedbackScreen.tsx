@@ -21,7 +21,7 @@ import { useRequireAuth } from '../hooks/useRequireAuth';
 
 const FeedbackScreen = () => {
   const theme = useAppTheme();
-  const user = useRequireAuth();
+  const {user} = useRequireAuth();
   const [message, setMessage] = useState('');
   const [category, setCategory] = useState<'bug'|'suggestion'|'other'>('other');
   const [isLoading, setIsLoading] = useState(false);

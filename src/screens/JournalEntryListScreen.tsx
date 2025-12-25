@@ -142,7 +142,8 @@ const JournalEntryListScreen = () => {
                 }
 
                 setHasMore(!res.last);
-            } catch (error) {
+            } catch (error: any) {
+                if(error?.response?.status === 403) return
                 console.error("Error loading journal entries ", error);
             } finally {
                 setIsLoading(false);

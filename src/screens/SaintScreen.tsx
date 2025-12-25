@@ -29,7 +29,7 @@ type SaintNavigationProp = NativeStackNavigationProp<
 >
 
 const SaintScreen = () => {
-    const user = useRequireAuth();
+    const {user} = useRequireAuth();
     const theme = useAppTheme();
 
     if(!user) {

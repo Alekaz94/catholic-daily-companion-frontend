@@ -10,7 +10,7 @@ import { useRequireAuth } from "../hooks/useRequireAuth";
 
 const RosaryStatusBanner = () => {
     const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
-    const user = useRequireAuth();
+    const {user} = useRequireAuth();
     const [completed, setCompleted] = useState<boolean | null>(null);
     const [streak, setStreak] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);

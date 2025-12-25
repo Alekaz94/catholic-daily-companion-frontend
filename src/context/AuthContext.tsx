@@ -4,6 +4,7 @@ import {
   signup as signUpService,
   loadUserFromStorage,
   firebaseLogin as firebaseLoginService,
+  logout as logoutRequest
 } from '../services/AuthService';
 import { clearSession } from "../services/SessionService";
 import { NewUser, User } from '../models/User';
@@ -13,11 +14,13 @@ import { reset } from '../navigation/RootNavigation';
 import { clearAllCachedSaintDetails, clearCachedDoneToday, clearCachedHighestStreak, clearCachedJournalEntries, clearCachedRosaries, clearCachedSaintOfTheDay, clearCachedSaints, clearCachedStreak } from '../services/CacheService';
 import Toast from 'react-native-root-toast';
 import API, { setupInterceptors } from '../services/api';
+import { setAccessToken, setRefreshToken } from '../services/TokenStorage';
+import { refreshAccessToken } from '../services/TokenService';
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (user: NewUser) => Promise<void>;
+  login?: (email: string, password: string) => Promise<void>;
+  signup?: (user: NewUser) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
   firebaseLogin: (token: string | undefined) => Promise<void>;
@@ -44,65 +47,54 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const logout = async () => {
-    await clearCachedSaints();
-    await clearAllCachedSaintDetails();
-    await clearCachedRosaries();
-    await clearCachedJournalEntries();
-    await clearCachedDoneToday();
-    await clearCachedStreak();
-    await clearCachedHighestStreak();
-    await clearCachedSaintOfTheDay();
-    await clearSession();
-    setUser(null);
+    try {
+      const refreshToken = await SecureStore.getItemAsync("refreshToken");
+      if (refreshToken) {
+        await logoutRequest(refreshToken);
+      }
+    } catch (e) {
+      console.warn("Logout request failed (safe to ignore)", e);
+    } finally {
+      await clearCachedSaints();
+      await clearAllCachedSaintDetails();
+      await clearCachedRosaries();
+      await clearCachedJournalEntries();
+      await clearCachedDoneToday();
+      await clearCachedStreak();
+      await clearCachedHighestStreak();
+      await clearCachedSaintOfTheDay();
+  
+      await clearSession();
+      await setAccessToken(null);
+      await setRefreshToken(null);
+      setUser(null);
+    }
   };
 
   useEffect(() => {
-    const init = async () => {
+    const initAuth = async () => {
       setLoading(true);
       try {
         const storedUser = await loadUserFromStorage();
-        if(storedUser) {
+        if (storedUser) {
           setUser(storedUser);
-          const token = await SecureStore.getItemAsync("token");
-          API.defaults.headers.common.Authorization = `Bearer ${token}`;
-          if(token) {
-            setAuthToken(token);
+  
+          const accessToken = await SecureStore.getItemAsync("token");
+          if (accessToken) {
+            setAuthToken(accessToken);
           }
         }
+      } catch (err) {
+        console.error("Failed to bootstrap user:", err);
       } finally {
         setupInterceptors(logout);
         setInitialized(true);
         setLoading(false);
       }
-    }
-
-    init();
+    };
+  
+    initAuth();
   }, []);
-
-  const bootstrapUser = async () => {
-    setLoading(true);
-    try {
-      const storedUser = await loadUserFromStorage();
-
-      if(storedUser) {
-        setUser(storedUser);
-        const token = await SecureStore.getItemAsync('token');
-        if(token) {
-          setAuthToken(token);
-        }
-      } else {
-        const existingRefreshToken = await SecureStore.getItemAsync("refreshToken");
-        if(existingRefreshToken) {
-          Toast.show("Session expired! Please log in again.", {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.TOP,
-          });
-        }
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const signup = async (userToCreate: NewUser) => {
     const result = await signUpService(userToCreate);
@@ -135,8 +127,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error("Firebase login failed");
       }
 
-      const { user, token } = result;
+      const { user, token, refreshToken } = result;
       setAuthToken(token);
+      await setAccessToken(token);
+      await setRefreshToken(refreshToken);
       setUser(user);
     } catch (error) {
       console.error("Firebase login error", error);
@@ -157,7 +151,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [user, initialized]);
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, firebaseLogin, loading, setUser }}>
+    <AuthContext.Provider value={{ user, logout, firebaseLogin, loading, setUser }}>
       {children}
     </AuthContext.Provider>
   );

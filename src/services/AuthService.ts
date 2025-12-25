@@ -1,10 +1,8 @@
-import { jwtDecode } from 'jwt-decode';
 import { NewUser, User } from "../models/User";
 import * as SecureStore from 'expo-secure-store';
-import API from './api';
+import { API } from './HttpClients';
 import { setAuthToken } from './AuthTokenManager';
 import { LoginResponse } from '../models/Login';
-import { refreshAccessToken } from './TokenService';
 import { storeSession } from './SessionService';
 
 export const login = async (
@@ -36,7 +34,7 @@ export const signup = async (userToCreate: NewUser): Promise<{user: User; token:
   return { user, token };
 };
 
-export const firebaseLogin = async (idToken: string | undefined): Promise<{ user: User; token: string }> => {
+export const firebaseLogin = async (idToken: string | undefined): Promise<{ user: User; token: string, refreshToken: string }> => {
   if (!idToken) {
     throw new Error("Firebase ID token missing");
   }
@@ -46,37 +44,24 @@ export const firebaseLogin = async (idToken: string | undefined): Promise<{ user
 
   await storeSession(user, token, refreshToken);
 
-  return { user, token };
+  return { user, token, refreshToken };
+}
+
+export const logout = async (refreshToken: string) => {
+  if(!refreshToken) {
+    return
+  }
+
+  await API.post("/api/v1/auth/logout", { refreshToken});
 }
 
 export const loadUserFromStorage = async () => {
-  const EXPIRY_BUFFER = 60 * 1000;
-  const token = await SecureStore.getItemAsync('token');
   const userString = await SecureStore.getItemAsync('user');
+  const accessToken = await SecureStore.getItemAsync('token');
 
-  if (!token || !userString) {
-    return null;
-  }
+  if (!userString) return null;
 
-  const decodedToken = jwtDecode<{ exp: number }>(token);
+  if (accessToken) setAuthToken(accessToken);
 
-  if (decodedToken.exp * 1000 < Date.now() + EXPIRY_BUFFER) {
-    const newToken = await refreshAccessToken();
-    if(!newToken) {
-      return null;
-    }
-
-    setAuthToken(newToken);
-
-    const updatedUser = await SecureStore.getItemAsync("user");
-
-    if (!updatedUser) {
-      return null;
-    }
-
-    return JSON.parse(updatedUser);
-  }
-
-  setAuthToken(token);
   return JSON.parse(userString);
 };

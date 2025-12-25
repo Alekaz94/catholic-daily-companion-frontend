@@ -28,7 +28,7 @@ const formatFeastDayToFeastCode = (date: string): string => {
 };
 
 const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
-    const user = useRequireAuth();
+    const {user} = useRequireAuth();
     const theme = useAppTheme();
     
     if(!user) {
@@ -89,7 +89,7 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
           try {
             setIsLoading(true);
     
-            const [rosaryDates, journalDates, feastDayMap] = await Promise.all([
+            const [rosaryDates, journalDates, feastDayMap] = await Promise.allSettled([
               getRosaryHistoryDates(user.id),
               getJournalDates(),
               getFeastDayToSaintMap(),

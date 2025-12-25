@@ -36,7 +36,7 @@ const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingSaint, setLoadingSaint] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const user = useRequireAuth();
+  const { user, loading } = useRequireAuth();
   const theme = useAppTheme();
   const Typography = useTypography();
 
@@ -90,6 +90,10 @@ const HomeScreen = () => {
   useEffect(() => {
     fetchSaintOfTheDay();
   }, [user])
+
+  if (loading) {
+    return <ActivityIndicator size="large" />;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.auth.navbar}}>
@@ -179,7 +183,7 @@ const HomeScreen = () => {
                   }}
                   style={{alignItems: "center"}}
                 >
-                  {saint.imageUrl 
+                  {saint?.imageUrl 
                     ? <Image style={[Layout.image, {}]} resizeMode="stretch" source={saint.imageUrl ? { uri: buildImageUri(saint.imageUrl) } : require("../assets/images/default_saint.jpg")}/> 
                     : <Text style={[Typography.label, Layout.image, {color: theme.saint.text, padding: 20, textAlign: "center"}]}>Image not available for {saint.name}</Text>
                   }
@@ -191,7 +195,7 @@ const HomeScreen = () => {
         </>
       )}
 
-      {user?.role === "ADMIN" 
+      {user.role === "ADMIN" 
         && (<TouchableOpacity onPress={() => navigation.navigate("AdminPanel")} style={[Layout.button, {backgroundColor: theme.auth.navbar, width: "50%", justifyContent: "center", alignSelf: "center", marginVertical: 10}]}>
           <Text style={[Typography.label, {color: theme.auth.text, textAlign: "center"}]}>Go to Admin Panel</Text>
         </TouchableOpacity>
