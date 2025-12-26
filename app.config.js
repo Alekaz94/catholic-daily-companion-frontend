@@ -51,7 +51,7 @@ export default ({ config }) => {
     },
     
     android: {
-      versionCode: 5,
+      versionCode: 6,
       adaptiveIcon: {
         backgroundColor: "#ffffff",
       },
