@@ -222,10 +222,10 @@ const HomeScreen = () => {
         saint={selectedSaint}
         onClose={() => setModalVisible(false)}
       />
-    </ScrollView>
-    <View style={{ position: "absolute", bottom: 0, width: "100%"}}>
+      <View style={{ position: "absolute", bottom: 0, width: "100%"}}>
         <AdBanner />
       </View>
+    </ScrollView>
     </SafeAreaView>
   );
 };

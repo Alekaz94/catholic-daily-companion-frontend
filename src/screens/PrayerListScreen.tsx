@@ -60,6 +60,10 @@ const PrayerListScreen = () => {
                         </TouchableOpacity>
                     )}
                 />
+
+                <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                    <AdBanner />
+                </View>
                 {selectedPrayer && (
                     <PrayerDetailModal 
                         visible={modalVisible}
@@ -68,9 +72,6 @@ const PrayerListScreen = () => {
                         onClose={() => setModalVisible(false)} 
                     />
                 )}
-            </View>
-            <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
-                <AdBanner />
             </View>
         </SafeAreaView>
     );

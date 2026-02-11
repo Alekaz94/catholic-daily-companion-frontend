@@ -306,6 +306,9 @@ const SaintScreen = () => {
                     onUpdate={handleUpdate}
                 />
             </View>
+            <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                <AdBanner />
+            </View>
             </TouchableWithoutFeedback>
 
             <Modal
@@ -343,9 +346,6 @@ const SaintScreen = () => {
                     </View>
                 </View>
             </Modal>
-            <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
-                <AdBanner />
-            </View>
         </SafeAreaView>
     );
 }

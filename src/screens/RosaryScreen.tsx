@@ -247,6 +247,9 @@ const RosaryScreen = () => {
                         <Text style={[Typography.label, {alignSelf: "center", color: theme.prayer.text}]}>📜 View Rosary History</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                    <AdBanner />
+                </View>
             </ScrollView>
 
             <RosaryHistoryModal 
@@ -255,9 +258,6 @@ const RosaryScreen = () => {
                 history={history}
                 pageSize={10}
             />
-            <View style={{ position: "absolute", bottom: 0, width: "100%" }}>
-                <AdBanner />
-            </View>
         </SafeAreaView>
     );
 }
