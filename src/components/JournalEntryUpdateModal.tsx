@@ -24,11 +24,11 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
     const Typography = useTypography();
 
     useEffect(() => {
-        if(entry) {
-            setTitle(entry.title)
-            setContent(entry.content)
+        if(visible && entry) {
+            setTitle(entry.title ?? "")
+            setContent(entry.content ?? "")
         }
-    }, [entry, user])
+    }, [visible, entry?.id])
 
     const onHandleSubmit = async () => {
         if(!entry) {
@@ -39,19 +39,16 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
             setIsLoading(true);
             const trimmedTitle = title.trim();
             const trimmedContent = content.trim();
-        
-            if(!trimmedTitle && !trimmedContent) {
-                alert("Both title and content are empty. No changes saved.");
-                return;
-            }
+            const originalTitle = entry.title ?? "";
+            const originalContent = entry.content ?? "";
 
             const updatedFields: UpdateJournalEntry = {};
         
-            if(trimmedTitle && trimmedTitle !== entry.title) {
+            if (trimmedTitle !== originalTitle) {
                 updatedFields.title = trimmedTitle;
             }
-        
-            if(trimmedContent && trimmedContent !== entry.content) {
+    
+            if (trimmedContent !== originalContent) {
                 updatedFields.content = trimmedContent;
             }
         
@@ -79,19 +76,19 @@ const JournalEntryUpdateModal: React.FC<Props> = ({visible, entry, onClose, onUp
         <Modal visible={visible} animationType="slide">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={[Layout.container, {backgroundColor: theme.journal.background}]}>
-                <Text style={[Typography.title, {color: theme.journal.text, fontSize: 20, textAlign: "center"}]}>Edit Journalentry</Text>
-                <Divider />
-                <TextInput 
+                    <Text style={[Typography.title, {color: theme.journal.text, fontSize: 20, textAlign: "center"}]}>Edit Journalentry</Text>
+                    <Divider />
+                    <TextInput 
                         editable={!isLoading}
                         placeholder="Enter title..."
-                        style={[Layout.input, {marginTop: 10}]}
+                        style={[Layout.input, {marginTop: 10, color: "black"}]}
                         value={title}
                         onChangeText={(value) => setTitle(value)}
                     />
                     <TextInput 
                         editable={!isLoading}
                         placeholder="Write your journal entry..."
-                        style={[Layout.input, {height: 200, textAlignVertical: "top"}]}
+                        style={[Layout.input, {height: 200, textAlignVertical: "top", color: "black"}]}
                         multiline={true}
                         value={content}
                         onChangeText={(value) => setContent(value)}

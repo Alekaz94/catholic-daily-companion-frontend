@@ -18,10 +18,9 @@ interface Props {
 
 const EntryDetailModal: React.FC<Props> = ({visible, entry, onClose, onEdit, onRequestDelete}) => {
     const theme = useAppTheme();
-    const user = useRequireAuth();
     const Typography = useTypography();
 
-    if(!entry || !user) {
+    if(!entry) {
         return null;
     }
 
