@@ -89,7 +89,7 @@ const CalendarModal: React.FC<Props> = ({visible, onClose}) => {
           try {
             setIsLoading(true);
     
-            const [rosaryDates, journalDates, feastDayMap] = await Promise.allSettled([
+            const [rosaryDates, journalDates, feastDayMap] = await Promise.all([
               getRosaryHistoryDates(user.id),
               getJournalDates(),
               getFeastDayToSaintMap(),
