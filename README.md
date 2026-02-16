@@ -18,7 +18,8 @@ Techonologies Used
 Getting Started
 1. Clone the repository from https://github.com/Alekaz94/catholic-daily-companion-frontend.git
 2. Install dependencies -- npm install or yarn install
-3. Start the development server -- npm start or expo start (Make sure you have the Expo Go app installed on your device to preview)
+3. Uncomment the code from LoginScreen to be able to signup with email and password. (Google login and signup wont work.)
+4. Start the development server -- npm start or expo start (Make sure you have the Expo Go app installed on your device to preview)
 
 Enviromental Variables
 Create a .env file in the root of the directory with the following: API_BASE_URL=http://<your-backend-ip>:8080
