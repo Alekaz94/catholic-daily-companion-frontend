@@ -24,30 +24,10 @@ Enviromental Variables
 Create a .env file in the root of the directory with the following: API_BASE_URL=http://<your-backend-ip>:8080
 (Important! Make sure your mobile app and backend server are running on the same network, especially on physical devices)
 
-Project Structure
-.
-├── assets/                  # Images and static assets
-├── components/              # Shared UI components (modals, buttons, etc.)
-├── navigation/              # Navigation stack and routing
-├── screens/                 # Main app screens (Journal, Home, Reading, etc.)
-├── services/                # API service calls (Axios)
-├── styles/                  # Layout, Typography, Colors
-├── models/                  # TypeScript interfaces/models
-|-- context/                 # Authentication and global state context
-└── App.tsx                  # Root component
-
 Future Enhancements
 - Profile updates
 - Journal search and filtering
 - Offline mode
-
-Troubleshooting
-Images not loading?
-- If your images don't load, verify image URLs or fallback to a default image
-Backend unreachable?
-- Ensure your backend is reachable (same Wi-Fi if testing on device)
-UI testing?
-- Use Android emulator or iOS simulator for UI testing
 
 Licence
 This project is licensed under MIT. See LICENSE for full terms.
